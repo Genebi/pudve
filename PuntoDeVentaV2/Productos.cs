@@ -795,7 +795,7 @@ namespace PuntoDeVentaV2
 
         private void cbOrden_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            CargarDatos(); 
         }
 
         // Metodo creado para manejo de mostrar ventana
@@ -2833,80 +2833,80 @@ namespace PuntoDeVentaV2
 
         private void cbOrden_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            filtro = Convert.ToString(cbOrden.SelectedItem);
-            //tipoOrden = filtro;
+            //filtro = Convert.ToString(cbOrden.SelectedItem);
+            ////tipoOrden = filtro;
 
-            Properties.Settings.Default.FiltroOrdenar = filtro;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
+            //Properties.Settings.Default.FiltroOrdenar = filtro;
+            //Properties.Settings.Default.Save();
+            //Properties.Settings.Default.Reload();
 
-            if (Properties.Settings.Default.FiltroOrdenar == "A - Z")
-            {
-                if (panelShowDGVProductosView.Visible == true)
-                {
-                    DGVProductos.Sort(DGVProductos.Columns["Column1"], ListSortDirection.Ascending);
-                }
-                else if (panelShowPhotoView.Visible == true)
-                {
-                    fotos.DefaultView.Sort = "Nombre ASC";
-                    fotos = fotos.DefaultView.ToTable();
-                    photoShow();
-                }
-            }
-            else if (Properties.Settings.Default.FiltroOrdenar == "Z - A")
-            {
-                if (panelShowDGVProductosView.Visible == true)
-                {
-                    DGVProductos.Sort(DGVProductos.Columns["Column1"], ListSortDirection.Descending);
-                }
-                else if (panelShowPhotoView.Visible == true)
-                {
-                    fotos.DefaultView.Sort = "Nombre DESC";
-                    fotos = fotos.DefaultView.ToTable();
-                    photoShow();
-                }
-            }
-            else if (Properties.Settings.Default.FiltroOrdenar == "Mayor precio")
-            {
-                if (panelShowDGVProductosView.Visible == true)
-                {
-                    DGVProductos.Sort(DGVProductos.Columns["Column3"], ListSortDirection.Descending);
-                }
-                else if (panelShowPhotoView.Visible == true)
-                {
-                    fotos.DefaultView.Sort = "Precio DESC";
-                    fotos = fotos.DefaultView.ToTable();
-                    photoShow();
-                }
-            }
-            else if (Properties.Settings.Default.FiltroOrdenar == "Menor precio")
-            {
-                if (panelShowDGVProductosView.Visible == true)
-                {
-                    DGVProductos.Sort(DGVProductos.Columns["Column3"], ListSortDirection.Ascending);
-                }
-                else if (panelShowPhotoView.Visible == true)
-                {
-                    fotos.DefaultView.Sort = "Precio ASC";
-                    fotos = fotos.DefaultView.ToTable();
-                    photoShow();
-                }
-            }
-            else if (Properties.Settings.Default.FiltroOrdenar == "Ordenar por:")
-            {
-                if (panelShowDGVProductosView.Visible == true)
-                {
-                    CargarDatos();
-                }
-                else if (panelShowPhotoView.Visible == true)
-                {
-                    fotos.DefaultView.Sort = "ID ASC";
-                    fotos = fotos.DefaultView.ToTable();
-                    photoShow();
-                }
-            }
+            //if (Properties.Settings.Default.FiltroOrdenar == "A - Z")
+            //{
+            //    if (panelShowDGVProductosView.Visible == true)
+            //    {
+            //        DGVProductos.Sort(DGVProductos.Columns["Column1"], ListSortDirection.Ascending);
+            //    }
+            //    else if (panelShowPhotoView.Visible == true)
+            //    {
+            //        fotos.DefaultView.Sort = "Nombre ASC";
+            //        fotos = fotos.DefaultView.ToTable();
+            //        photoShow();
+            //    }
+            //}
+            //else if (Properties.Settings.Default.FiltroOrdenar == "Z - A")
+            //{
+            //    if (panelShowDGVProductosView.Visible == true)
+            //    {
+            //        DGVProductos.Sort(DGVProductos.Columns["Column1"], ListSortDirection.Descending);
+            //    }
+            //    else if (panelShowPhotoView.Visible == true)
+            //    {
+            //        fotos.DefaultView.Sort = "Nombre DESC";
+            //        fotos = fotos.DefaultView.ToTable();
+            //        photoShow();
+            //    }
+            //}
+            //else if (Properties.Settings.Default.FiltroOrdenar == "Mayor precio")
+            //{
+            //    if (panelShowDGVProductosView.Visible == true)
+            //    {
+            //        DGVProductos.Sort(DGVProductos.Columns["Column3"], ListSortDirection.Descending);
+            //    }
+            //    else if (panelShowPhotoView.Visible == true)
+            //    {
+            //        fotos.DefaultView.Sort = "Precio DESC";
+            //        fotos = fotos.DefaultView.ToTable();
+            //        photoShow();
+            //    }
+            //}
+            //else if (Properties.Settings.Default.FiltroOrdenar == "Menor precio")
+            //{
+            //    if (panelShowDGVProductosView.Visible == true)
+            //    {
+            //        DGVProductos.Sort(DGVProductos.Columns["Column3"], ListSortDirection.Ascending);
+            //    }
+            //    else if (panelShowPhotoView.Visible == true)
+            //    {
+            //        fotos.DefaultView.Sort = "Precio ASC";
+            //        fotos = fotos.DefaultView.ToTable();
+            //        photoShow();
+            //    }
+            //}
+            //else if (Properties.Settings.Default.FiltroOrdenar == "Ordenar por:")
+            //{
+            //    if (panelShowDGVProductosView.Visible == true)
+            //    {
+            //        CargarDatos();
+            //    }
+            //    else if (panelShowPhotoView.Visible == true)
+            //    {
+            //        fotos.DefaultView.Sort = "ID ASC";
+            //        fotos = fotos.DefaultView.ToTable();
+            //        photoShow();
+            //    }
+            //}
 
-            txtBusqueda.Focus();
+            //txtBusqueda.Focus();
         }
 
         private void cbMostrar_SelectionChangeCommitted(object sender, EventArgs e)
@@ -5107,7 +5107,22 @@ namespace PuntoDeVentaV2
                     consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND (Nombre LIKE '%{busquedaEnProductos}%' OR CodigoBarras LIKE '%{busquedaEnProductos}')";
                 }
             }
-
+            if (cbOrden.SelectedIndex.Equals(1))
+            {
+                consultaFiltro += " ORDER BY Nombre ASC";
+            }
+            else if (cbOrden.SelectedIndex.Equals(2))
+            {
+                consultaFiltro += " ORDER BY Nombre DESC";
+            }
+            else if (cbOrden.SelectedIndex.Equals(3))
+            {
+                consultaFiltro += " ORDER BY Precio DESC";
+            }
+            else if (cbOrden.SelectedIndex.Equals(4))
+            {
+                consultaFiltro += " ORDER BY Precio ASC";
+            }
             Console.WriteLine(consultaFiltro);
 
             //================================================================================================================================================
