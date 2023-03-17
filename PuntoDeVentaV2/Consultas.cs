@@ -54,8 +54,8 @@ namespace PuntoDeVentaV2
 
         public string GuardarProducto(string[] datos, int id)
         {
-            string consulta = "INSERT INTO Productos(Nombre, Stock, Precio, Categoria, ClaveInterna, CodigoBarras, ClaveProducto, UnidadMedida, TipoDescuento, IDUsuario, ProdImage, Tipo, Base, IVA, Impuesto, NombreAlterno1, NombreAlterno2, StockNecesario, StockMinimo, PrecioCompra, PrecioMayoreo, FormatoDeVenta, SoloRenta)";
-            consulta += $"VALUES('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', '{datos[20]}', '{datos[21]}', '{datos[22]}')";
+            string consulta = "INSERT INTO Productos(Nombre, Stock, Precio, Categoria, ClaveInterna, CodigoBarras, ClaveProducto, UnidadMedida, TipoDescuento, IDUsuario, ProdImage, Tipo, Base, IVA, Impuesto, NombreAlterno1, NombreAlterno2, StockNecesario, StockMinimo, PrecioCompra, PrecioMayoreo, incluye_impuestos, nombre_ctercero, rfc_ctercero, cp_ctercero, regimen_ctercero, FormatoDeVenta, SoloRenta)";
+            consulta += $"VALUES('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', '{datos[20]}', '{datos[21]}', '{datos[22]}', '{datos[23]}', '{datos[24]}', '{datos[25]}', '{datos[26]}', '{datos[27]}')";
 
             return consulta;
         }
@@ -249,7 +249,7 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
-         
+
         public string CargarDatosIniciarFormReportesCaja(string primerFecha, string segundaFecha, int idNoMostrar)
         {
             var consulta = $"SELECT CJ.ID, CJ.FechaOperacion, CJ.IdEmpleado, EMP.nombre FROM Caja AS CJ LEFT JOIN Empleados AS EMP ON CJ.IdEmpleado = EMP.ID WHERE CJ.IDUsuario = '{FormPrincipal.userID}' AND CJ.Operacion = 'corte' AND CJ.ID != '{idNoMostrar}'  AND(CJ.FechaOperacion BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) ORDER BY CJ.FechaOperacion DESC";
@@ -305,8 +305,8 @@ namespace PuntoDeVentaV2
             var query = cn.CargarDatos($"SELECT ID FROM Empleados WHERE Usuario = '{nombre}'");
 
             if (!query.Rows.Count.Equals(0))
-            { 
-                result = query.Rows[0]["ID"].ToString(); 
+            {
+                result = query.Rows[0]["ID"].ToString();
             }
 
             return result;
@@ -1053,15 +1053,15 @@ namespace PuntoDeVentaV2
             {
                 modif = "INSERT INTO Facturas (id_usuario, id_venta, id_empleado, metodo_pago, forma_pago, num_cuenta, moneda, tipo_cambio, uso_cfdi,";
                 modif += "e_rfc, e_razon_social, e_regimen,  e_correo, e_telefono, e_cp, e_estado, e_municipio, e_colonia, e_calle, e_num_ext, e_num_int, e_nombre_comercial,";
-                modif += "r_rfc, r_razon_social, r_nombre_comercial, r_correo, r_telefono, r_pais, r_estado, r_municipio, r_localidad, r_cp, r_colonia, r_calle, r_num_ext, r_num_int,";
-                modif += "folio, serie, tipo_comprobante)";
-                modif += $" VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', '{datos[20]}', '{datos[37]}', '{datos[21]}', '{datos[22]}', '{datos[23]}', '{datos[24]}', '{datos[25]}', '{datos[26]}', '{datos[27]}', '{datos[28]}', '{datos[29]}', '{datos[30]}', '{datos[31]}', '{datos[32]}', '{datos[33]}', '{datos[34]}', '{datos[35]}', '{datos[36]}', 'I')";
+                modif += "r_rfc, r_razon_social, r_nombre_comercial, r_correo, r_telefono, r_pais, r_estado, r_municipio, r_localidad, r_cp, r_colonia, r_calle, r_num_ext, r_num_int, r_regimen,";
+                modif += "folio, serie, tipo_comprobante, exportacion, r_periodicidad_infog, r_meses_infog, r_anio_infog)";
+                modif += $" VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', '{datos[20]}', '{datos[37]}', '{datos[21]}', '{datos[22]}', '{datos[23]}', '{datos[24]}', '{datos[25]}', '{datos[26]}', '{datos[27]}', '{datos[28]}', '{datos[29]}', '{datos[30]}', '{datos[31]}', '{datos[32]}', '{datos[33]}', '{datos[34]}', '{datos[42]}', '{datos[35]}', '{datos[36]}', 'I', '{datos[38]}', '{datos[39]}', '{datos[40]}', '{datos[41]}')";
             }
 
             // Guarda los productos 
             if (opc == 6)
             {
-                modif = $"INSERT INTO Facturas_productos (id_factura, clave_unidad, clave_producto, descripcion, cantidad, precio_u, base, tasa_cuota, importe_iva, descuento) VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}')";
+                modif = $"INSERT INTO Facturas_productos (id_factura, clave_unidad, clave_producto, descripcion, cantidad, precio_u, base, tasa_cuota, importe_iva, descuento, incluye_impuestos, nombre_ctercero, rfc_ctercero, cp_ctercero, regimen_ctercero) VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}')";
             }
 
             // Guarda los impuestos diferentes de IVA 16, 0, 8 y exento
@@ -1086,7 +1086,7 @@ namespace PuntoDeVentaV2
         }
 
         public string GuardarHistorialPrecios(string[] datos)
-       {
+        {
             var consulta = "INSERT INTO HistorialPrecios (IDUsuario, IDEmpleado, IDProducto, PrecioAnterior, PrecioNuevo, Origen, FechaOperacion)";
             consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}')";
 
@@ -1396,6 +1396,11 @@ namespace PuntoDeVentaV2
                 cons = $"SELECT ID FROM Facturas_complemento_pago WHERE id_factura_principal='{dato}' AND timbrada=1 AND cancelada=0";
             }
 
+            if(opc == 6)
+            {
+                cons = $"SELECT uuid, folio, serie FROM Facturas WHERE ID='{dato}'";
+            }
+
             return cons;
         }
 
@@ -1406,22 +1411,25 @@ namespace PuntoDeVentaV2
             // Crea registro en tabla facturas
             if (opc == 1)
             {
-                crea = "INSERT INTO Facturas (id_usuario, id_empleado, forma_pago, num_cuenta, moneda, tipo_cambio, folio, serie, tipo_comprobante, uso_cfdi, fecha_hora_cpago,";
+                crea = "INSERT INTO Facturas (id_usuario, id_empleado, moneda, folio, serie, tipo_comprobante, uso_cfdi, exportacion,"; //forma_pago, num_cuenta, moneda, tipo_cambio, fecha_hora_cpago
                 crea += "r_rfc, r_razon_social, r_nombre_comercial, r_correo, r_telefono, r_pais, r_estado, r_municipio, r_localidad, r_cp, r_colonia, r_calle, r_num_ext, r_num_int,";
                 crea += "e_rfc, e_razon_social, e_regimen, e_correo, e_telefono, e_cp, e_estado, e_municipio, e_colonia, e_calle, e_num_ext, e_num_int)";
-                crea += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[32]}', 'MXN', '1.000000', '{datos[3]}','{datos[4]}', 'P', 'P01', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', '{datos[20]}', '{datos[21]}', '{datos[22]}', '{datos[23]}', '{datos[24]}', '{datos[25]}', '{datos[26]}', '{datos[27]}', '{datos[28]}', '{datos[29]}', '{datos[30]}', '{datos[31]}')";
+                crea += $"VALUES ('{datos[0]}', '{datos[1]}', 'XXX', '{datos[3]}','{datos[4]}', 'P', 'P01', '01', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', '{datos[20]}', '{datos[21]}', '{datos[22]}', '{datos[23]}', '{datos[24]}', '{datos[25]}', '{datos[26]}', '{datos[27]}', '{datos[28]}', '{datos[29]}', '{datos[30]}', '{datos[31]}')"; //'{datos[2]}', '{datos[32]}', '1.000000',  '{datos[5]}',
             }
 
             // Crea registro en Facturas_productos
             if (opc == 2)
+
             {
-                crea = $"INSERT INTO Facturas_productos (id_factura, clave_unidad, clave_producto, descripcion, cantidad, precio_u) VALUES ('{datos[0]}', 'ACT', '84111506', 'Pago', '1', '0')";
+                crea = $"INSERT INTO Facturas_productos (id_factura, clave_unidad, clave_producto, descripcion, cantidad, precio_u, incluye_impuestos) VALUES ('{datos[0]}', 'ACT', '84111506', 'Pago', '1', '0', '01')";
             }
 
             // Crea registro en tabla complemento de pago
             if (opc == 3)
             {
-                crea = $"INSERT INTO Facturas_complemento_pago (id_factura, id_factura_principal, uuid, moneda, metodo_pago, num_parcialidad, saldo_anterior, importe_pagado, saldo_insoluto) VALUES ('{datos[0]}', '{datos[1]}', '{datos[6]}', 'MXN', 'PPD', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}')";
+                //crea = $"INSERT INTO Facturas_complemento_pago (id_factura, id_factura_principal, uuid, moneda, metodo_pago, num_parcialidad, saldo_anterior, importe_pagado, saldo_insoluto) VALUES ('{datos[0]}', '{datos[1]}', '{datos[6]}', 'MXN', 'PPD', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}')";
+                crea = $"INSERT INTO Facturas_complemento_pago (id_factura, id_doc_relac, id_factura_principal, uuid, moneda, tipo_cambio, num_parcialidad, saldo_anterior, importe_pagado, saldo_insoluto, folio_dr, incluye_impuestos)";
+                crea += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}')";
             }
 
             // Cambia variable a 1 para indicar que la factura principal tienen complementos de pago
@@ -1438,6 +1446,20 @@ namespace PuntoDeVentaV2
             if (opc == 6)
             {
                 crea = $"UPDATE Facturas SET monto_cpago='{datos[1]}' WHERE ID='{datos[0]}'";
+            }
+
+            // Agrega registro principal del nodo pago del complemento
+            if(opc == 7)
+            {
+                crea = $"INSERT INTO Facturas_complemento_pago (id_factura, fecha, hora, moneda, tipo_cambio, forma_pago, cta_ordenante, rfc_ordenante, banco, cta_beneficiario, rfc_beneficiario)";
+                crea += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}')";
+            }
+
+            // Agrega nodo impuestos
+            if(opc == 8)
+            {
+                crea = $"INSERT INTO Facturas_complemento_pago (id_factura, id_dr_impuesto, base, es_rt, impuesto, tipo_factor, tasa_cuota, definir, importe_impuesto)";
+                crea += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}')";
             }
 
 
@@ -2213,7 +2235,7 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        
+
         public string checarProductoEstaActivo(string idProd)
         {
             var consulta = $"SELECT ID, Nombre, Precio, `Status` FROM Productos WHERE ID = '{idProd}' AND `Status` = '1' AND IDUsuario = '{FormPrincipal.userID}';";
@@ -3407,7 +3429,7 @@ namespace PuntoDeVentaV2
         #endregion
 
         #region Listado Ventas desde Empleado sin texto que buscar pero con rango de fechas
-        public string VerComoEpleadoTodasMisVentasPagadasPorFechas(int status,int idEmplado, string FechaInicial, string FechaFinal, string formaPago = "NA")
+        public string VerComoEpleadoTodasMisVentasPagadasPorFechas(int status, int idEmplado, string FechaInicial, string FechaFinal, string formaPago = "NA")
         {
             if (formaPago.Equals("NA"))
             {
@@ -3468,7 +3490,7 @@ namespace PuntoDeVentaV2
 
             var consulta = $"SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT( Usr.Usuario, ' (ADMIN)' ), CONCAT( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM Ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '{status}' AND Vent.IDUsuario = '{FormPrincipal.userID}' {formaPago} AND Vent.FechaOperacion BETWEEN '{FechaInicial}.999999' AND '{FechaFinal}.999999' ORDER BY Vent.ID DESC";
 
-            return consulta;  
+            return consulta;
         }
 
 
@@ -3997,7 +4019,7 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string ImportarProductosDeCSV( string id, string stock)
+        public string ImportarProductosDeCSV(string id, string stock)
         {
             var consulta = $"UPDATE productos SET Stock = {stock} WHERE ID = {id} AND IDUsuario	= '{FormPrincipal.userID}' AND	`Status`=	'1' AND Tipo = 'P'";
             return consulta;
@@ -4128,7 +4150,7 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string cargarAbonosDesdeUltimoCorteRealizadoAdministrador(string idUsuario, string ultimaFechaDeCorte) 
+        public string cargarAbonosDesdeUltimoCorteRealizadoAdministrador(string idUsuario, string ultimaFechaDeCorte)
         {
             var consulta = $"( /* ver solo abonos que pertenecen a ventas a credito solo de administrador */ SELECT Abono.ID, IF ( Abono.IDEmpleado = '0', 'Propia', 'Ajena' ) AS 'Propia', Abono.IDVenta, IF ( Abono.IDEmpleado = '' OR Abono.IDEmpleado IS NULL, '0', Abono.IDEmpleado ) AS 'IDEmpleado', FORMAT( IF ( Abono.Efectivo = '' OR Abono.Efectivo IS NULL, '0', Abono.Efectivo ), 2 ) AS 'Efectivo', FORMAT( IF ( Abono.Tarjeta = '' OR Abono.Tarjeta IS NULL, '0', Abono.Tarjeta ), 2 ) AS 'Tarjeta', FORMAT( IF ( Abono.Vales = '' OR Abono.Vales IS NULL, '0', Abono.Vales ), 2 ) AS 'Vales', FORMAT( IF ( Abono.Cheque = '' OR Abono.Cheque IS NULL, '0', Abono.Cheque ), 2 ) AS 'Cheque', FORMAT( IF ( Abono.Transferencia = '' OR Abono.Transferencia IS NULL, '0', Abono.Transferencia ), 2 ) AS 'Transferencia', FORMAT( ( ( IF ( Abono.Efectivo = '' OR Abono.Efectivo IS NULL, '0', Abono.Efectivo ) ) + ( IF ( Abono.Tarjeta = '' OR Abono.Tarjeta IS NULL, '0', Abono.Tarjeta ) ) + ( IF ( Abono.Vales = '' OR Abono.Vales IS NULL, '0', Abono.Vales ) ) + ( IF ( Abono.Cheque = '' OR Abono.Cheque IS NULL, '0', Abono.Cheque ) ) + ( IF ( Abono.Transferencia = '' OR Abono.Transferencia IS NULL, '0', Abono.Transferencia ) ) ), 2 ) AS 'Total' FROM ventas AS Vent INNER JOIN abonos AS Abono ON ( Abono.IDVenta = Vent.ID ) WHERE Vent.IDUsuario = '{idUsuario}' AND Vent.IDEmpleado = '0' AND Vent.FormaPago = 'Crédito' AND Abono.FechaOperacion >= '{ultimaFechaDeCorte}' AND Abono.IDVenta IN ( SELECT ID FROM ventas WHERE IDUsuario = '{idUsuario}' AND IDEmpleado = '0' AND `Status` = '3' OR `Status` = '4' OR `Status` = '8' OR `Status` = '9') ) UNION ( /* ver solo abonos que pertenecen a ventas a credito solo de administrador pero abonados desde otro usuario */ SELECT Abono.ID, IF ( Emp.nombre = '' OR Emp.nombre IS NULL, 'Propia', 'Ajena' ) AS 'Propia', Abono.IDVenta, IF ( Abono.IDEmpleado = '' OR Abono.IDEmpleado IS NULL, '0', Abono.IDEmpleado ) AS 'IDEmpleado', FORMAT( IF ( Abono.Efectivo = '' OR Abono.Efectivo IS NULL, '0', Abono.Efectivo ), 2 ) AS 'Efectivo', FORMAT( IF ( Abono.Tarjeta = '' OR Abono.Tarjeta IS NULL, '0', Abono.Tarjeta ), 2 ) AS 'Tarjeta', FORMAT( IF ( Abono.Vales = '' OR Abono.Vales IS NULL, '0', Abono.Vales ), 2 ) AS 'Vales', FORMAT( IF ( Abono.Cheque = '' OR Abono.Cheque IS NULL, '0', Abono.Cheque ), 2 ) AS 'Cheque', FORMAT( IF ( Abono.Transferencia = '' OR Abono.Transferencia IS NULL, '0', Abono.Transferencia ), 2 ) AS 'Transferencia', FORMAT( ( ( IF ( Abono.Efectivo = '' OR Abono.Efectivo IS NULL, '0', Abono.Efectivo ) ) + ( IF ( Abono.Tarjeta = '' OR Abono.Tarjeta IS NULL, '0', Abono.Tarjeta ) ) + ( IF ( Abono.Vales = '' OR Abono.Vales IS NULL, '0', Abono.Vales ) ) + ( IF ( Abono.Cheque = '' OR Abono.Cheque IS NULL, '0', Abono.Cheque ) ) + ( IF ( Abono.Transferencia = '' OR Abono.Transferencia IS NULL, '0', Abono.Transferencia ) ) ), 2 ) AS 'Total' FROM ventas AS Vent INNER JOIN abonos AS Abono ON ( Abono.IDVenta = Vent.ID ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Abono.IDEmpleado ) WHERE Vent.IDUsuario = '{idUsuario}' AND Vent.IDEmpleado != '0' AND Vent.FormaPago = 'Crédito' AND Abono.FechaOperacion >= '{ultimaFechaDeCorte}' AND Abono.IDVenta IN ( SELECT ID FROM ventas WHERE IDUsuario = '{idUsuario}' AND IDEmpleado = '0' AND `Status` = '3' OR `Status` = '4' OR `Status` = '8' OR `Status` = '9') ) UNION ( /* ver solo abonos que pertenecen a ventas a credito que ya fueron pagadas en su totalidad solo de administrador */ SELECT Abono.ID, IF ( Abono.IDEmpleado = '0', 'Propia', 'Ajena' ) AS 'Propia', Abono.IDVenta, IF ( Abono.IDEmpleado = '' OR Abono.IDEmpleado IS NULL, '0', Abono.IDEmpleado ) AS 'IDEmpleado', FORMAT( IF ( Abono.Efectivo = '' OR Abono.Efectivo IS NULL, '0', Abono.Efectivo ), 2 ) AS 'Efectivo', FORMAT( IF ( Abono.Tarjeta = '' OR Abono.Tarjeta IS NULL, '0', Abono.Tarjeta ), 2 ) AS 'Tarjeta', FORMAT( IF ( Abono.Vales = '' OR Abono.Vales IS NULL, '0', Abono.Vales ), 2 ) AS 'Vales', FORMAT( IF ( Abono.Cheque = '' OR Abono.Cheque IS NULL, '0', Abono.Cheque ), 2 ) AS 'Cheque', FORMAT( IF ( Abono.Transferencia = '' OR Abono.Transferencia IS NULL, '0', Abono.Transferencia ), 2 ) AS 'Transferencia', FORMAT( ( ( IF ( Abono.Efectivo = '' OR Abono.Efectivo IS NULL, '0', Abono.Efectivo ) ) + ( IF ( Abono.Tarjeta = '' OR Abono.Tarjeta IS NULL, '0', Abono.Tarjeta ) ) + ( IF ( Abono.Vales = '' OR Abono.Vales IS NULL, '0', Abono.Vales ) ) + ( IF ( Abono.Cheque = '' OR Abono.Cheque IS NULL, '0', Abono.Cheque ) ) + ( IF ( Abono.Transferencia = '' OR Abono.Transferencia IS NULL, '0', Abono.Transferencia ) ) ), 2 ) AS 'Total' FROM ventas AS Vent INNER JOIN abonos AS Abono ON ( Abono.IDVenta = Vent.ID ) WHERE Vent.IDUsuario = '{idUsuario}' AND Vent.IDEmpleado = '0' AND Vent.FormaPago = 'Crédito' AND Abono.FechaOperacion >= '{ultimaFechaDeCorte}' AND Abono.IDVenta IN ( SELECT DISTINCT Vent.ID FROM ventas AS Vent INNER JOIN abonos AS Abono ON ( Vent.ID = Abono.IDVenta ) WHERE Vent.IDUsuario = '{idUsuario}' AND Vent.IDEmpleado = '0' AND Vent.`Status` = '0' OR Vent.`Status` = '1' OR Vent.`Status` = '6') ) UNION ( /* ver solo abonos que pertenecen a ventas a credito que ya fueron pagadas en su totalidad, solo de administrador pero abonados desde otro usuario */ SELECT Abono.ID, IF ( Emp.nombre = '' OR Emp.nombre IS NULL, 'Propia', 'Ajena' ) AS 'Propia', Abono.IDVenta, IF ( Abono.IDEmpleado = '' OR Abono.IDEmpleado IS NULL, '0', Abono.IDEmpleado ) AS 'IDEmpleado', FORMAT( IF ( Abono.Efectivo = '' OR Abono.Efectivo IS NULL, '0', Abono.Efectivo ), 2 ) AS 'Efectivo', FORMAT( IF ( Abono.Tarjeta = '' OR Abono.Tarjeta IS NULL, '0', Abono.Tarjeta ), 2 ) AS 'Tarjeta', FORMAT( IF ( Abono.Vales = '' OR Abono.Vales IS NULL, '0', Abono.Vales ), 2 ) AS 'Vales', FORMAT( IF ( Abono.Cheque = '' OR Abono.Cheque IS NULL, '0', Abono.Cheque ), 2 ) AS 'Cheque', FORMAT( IF ( Abono.Transferencia = '' OR Abono.Transferencia IS NULL, '0', Abono.Transferencia ), 2 ) AS 'Transferencia', FORMAT( ( ( IF ( Abono.Efectivo = '' OR Abono.Efectivo IS NULL, '0', Abono.Efectivo ) ) + ( IF ( Abono.Tarjeta = '' OR Abono.Tarjeta IS NULL, '0', Abono.Tarjeta ) ) + ( IF ( Abono.Vales = '' OR Abono.Vales IS NULL, '0', Abono.Vales ) ) + ( IF ( Abono.Cheque = '' OR Abono.Cheque IS NULL, '0', Abono.Cheque ) ) + ( IF ( Abono.Transferencia = '' OR Abono.Transferencia IS NULL, '0', Abono.Transferencia ) ) ), 2 ) AS 'Total' FROM ventas AS Vent INNER JOIN abonos AS Abono ON ( Abono.IDVenta = Vent.ID ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Abono.IDEmpleado ) WHERE Vent.IDUsuario = '{idUsuario}' AND Vent.IDEmpleado != '0' AND Vent.FormaPago = 'Crédito' AND Abono.FechaOperacion >= '{ultimaFechaDeCorte}' )";
 
@@ -4475,7 +4497,7 @@ namespace PuntoDeVentaV2
         }
 
 
-        public  string BuscarFechaDeExpiracion(int Usuario)
+        public string BuscarFechaDeExpiracion(int Usuario)
         {
             var consulta = $"SELECT FechaFinLicencia FROM usuarios where ID = {Usuario}";
             return consulta;
@@ -4491,7 +4513,7 @@ namespace PuntoDeVentaV2
         {
             var consulta = $"SELECT Licencia FROM usuarios WHERE ID = {idusuario}";
             return consulta;
-        }   
+        }
         public string BuscarNombreDelUsuario(int idusuario)
         {
             var consulta = $"SELECT NombreCompleto FROM usuarios WHERE ID = {idusuario}";
@@ -4561,7 +4583,7 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
-         
+
         public string visualizadorTicketAbono(int idVenta, int idAbono)
         {
             var consulta = $"SELECT usr.RazonSocial, CONCAT( IF ( Usr.Calle = '' OR Usr.Calle IS NULL, '', CONCAT( 'DIRECCION: ', Usr.Calle ) ), IF ( Usr.NoExterior = '' OR Usr.NoExterior IS NULL, '', CONCAT( ' #', Usr.NoExterior ) ), IF ( Usr.NoInterior = '' OR Usr.NoInterior IS NULL, '', CONCAT( ', INTERIOR: ', Usr.NoInterior ) ), IF ( Usr.Municipio = '' OR Usr.Municipio IS NULL, '', CONCAT( ', ', Usr.Municipio ) ), IF ( Usr.Estado = '' OR Usr.Estado IS NULL, '', CONCAT( ', ', Usr.Estado ) ) ) AS 'Domicilio', CONCAT( IF ( Usr.Colonia = '' OR Usr.Colonia IS NULL, '', CONCAT( 'COLONIA: ', Usr.Colonia ) ), IF ( Usr.CodigoPostal = '' OR Usr.CodigoPostal IS NULL, '', CONCAT( ', C.P.:', Usr.CodigoPostal ) ) ) AS 'ColyCP', IF ( Usr.RFC = '' OR Usr.RFC IS NULL, '', Usr.RFC ) AS 'RFC', IF ( Usr.Email = '' OR Usr.Email IS NULL, '', Usr.Email ) AS 'Correo', IF ( Usr.Telefono = '' OR Usr.Telefono IS NULL, '', Usr.Telefono ) AS 'Telefono', IF ( Clte.RazonSocial = '' OR Clte.RazonSocial IS NULL, IF ( Vent.IDCliente = '0', 'PUBLICO GENERAL', '' ), Clte.RazonSocial ) AS 'ClienteNombre', IF ( Clte.RFC = '' OR Clte.RFC IS NULL, IF ( Vent.IDCliente = '0', 'RFC: XAXX010101000', '' ), CONCAT( 'RFC: ', Clte.RFC ) ) AS 'ClienteRFC', CONCAT( IF ( Clte.Calle = '' OR Clte.Calle IS NULL, '', CONCAT( 'DOMICILIO: CALLE/AV.: ', Clte.Calle ) ), IF ( Clte.NoExterior = '' OR Clte.NoExterior IS NULL, '', CONCAT( ' #', Clte.NoExterior ) ), IF ( Clte.NoInterior = '' OR Clte.NoInterior IS NULL, '', CONCAT( ', INTERIOR: ', Clte.NoInterior ) ), IF ( Clte.Localidad = '' OR Clte.Localidad IS NULL, '', CONCAT( ', LOCALIDAD: ', Clte.Localidad ) ), IF ( Clte.Municipio = '' OR Clte.Municipio IS NULL, '', CONCAT( ', MUNICIPIO: ', Clte.Municipio ) ) ) AS 'ClienteDomicilio', CONCAT( IF ( Clte.Colonia = '' OR Clte.Colonia IS NULL, '', CONCAT( 'COLONIA: ', Clte.Colonia ) ), IF ( Clte.CodigoPostal = '' OR Clte.CodigoPostal IS NULL, '', CONCAT( ', C.P.: ', Clte.CodigoPostal ) ) ) AS 'ClienteColoniaCodigoPostal', IF ( Clte.Email = '' OR Clte.Email IS NULL, '', CONCAT( 'CORREO: ', Clte.Email ) ) AS 'ClienteCorreo', IF ( Clte.Telefono = '' OR Clte.Telefono IS NULL, '', CONCAT( 'TELEFONO: ', Clte.Telefono ) ) AS 'ClienteTelefono', vent.Folio AS 'Folio', CONCAT( '$ ', FORMAT( vent.Total, 2 ) ) AS 'TotalOriginal', IF ( SUM( abonos.Total ) = '' OR SUM( abonos.Total ) IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( ( SELECT CASE WHEN ( SELECT MIN( ID ) FROM abonos WHERE IDVenta = '{idVenta}' ) = '{idAbono}' THEN Vent.Total WHEN ( SELECT MIN( ID ) FROM abonos WHERE IDVenta = '{idVenta}' ) != '{idAbono}' THEN ( vent.Total - ( SELECT SUM( Total ) AS 'Total' FROM abonos WHERE ID BETWEEN ( SELECT MIN( ID ) FROM abonos WHERE IDVenta = '{idVenta}' ) AND ( '{idAbono}' - 1 ) ) ) ELSE SUM( abonos.Total ) END AS 'Saldo Anterior' FROM abonos INNER JOIN ventas AS Vent ON ( Vent.ID = abonos.IDVenta ) WHERE abonos.IDVenta = '{idVenta}' ), 2 ) ) ) AS 'SaldoAnterior', IF ( SUM( abonos.Total ) = '' OR SUM( abonos.Total ) IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( ( SELECT Total FROM abonos WHERE IDVenta = '{idVenta}' AND ID = '{idAbono}' ORDER BY ID DESC LIMIT 1 ), 2 ) ) ) AS 'CantidadAbonada', IF ( SUM( abonos.Total ) = '' OR SUM( abonos.Total ) IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( ( vent.Total - ( SELECT SUM( Total ) AS 'Total' FROM abonos WHERE ID BETWEEN ( SELECT MIN( ID ) FROM abonos WHERE IDVenta = '{idVenta}' ) AND ( '{idAbono}' ) ) ), 2 ) ) ) AS 'CantidadRestante', ( SELECT FechaOperacion FROM abonos WHERE IDVenta = '{idVenta}' AND ID = '{idAbono}' ORDER BY ID DESC LIMIT 1 ) AS 'FechaUltimoAbono', 'Comprobante de Abono' AS 'comprobante' FROM `ventas` AS vent INNER JOIN usuarios AS usr ON ( usr.ID = vent.IDUsuario ) INNER JOIN abonos ON ( abonos.IDVenta = vent.ID ) INNER JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) WHERE IDVenta = '{idVenta}'";
@@ -4771,7 +4793,7 @@ namespace PuntoDeVentaV2
             {
                 consulta = $"SELECT usr.RazonSocial, CONCAT( IF ( Usr.Calle = '' OR Usr.Calle IS NULL, '', CONCAT( 'DIRECCION: ', Usr.Calle ) ), IF ( Usr.NoExterior = '' OR Usr.NoExterior IS NULL, '', CONCAT( ' #', Usr.NoExterior ) ), IF ( Usr.NoInterior = '' OR Usr.NoInterior IS NULL, '', CONCAT( ', INTERIOR: ', Usr.NoInterior ) ), IF ( Usr.Municipio = '' OR Usr.Municipio IS NULL, '', CONCAT( ', ', Usr.Municipio ) ), IF ( Usr.Estado = '' OR Usr.Estado IS NULL, '', CONCAT( ', ', Usr.Estado ) ) ) AS 'Domicilio', CONCAT( IF ( Usr.Colonia = '' OR Usr.Colonia IS NULL, '', CONCAT( 'COLONIA: ', Usr.Colonia ) ), IF ( Usr.CodigoPostal = '' OR Usr.CodigoPostal IS NULL, '', CONCAT( ', C.P.:', Usr.CodigoPostal ) ) ) AS 'ColyCP', IF ( Usr.RFC = '' OR Usr.RFC IS NULL, '', Usr.RFC ) AS 'RFC', IF ( Usr.Email = '' OR Usr.Email IS NULL, '', Usr.Email ) AS 'Correo', IF ( Usr.Telefono = '' OR Usr.Telefono IS NULL, '', Usr.Telefono ) AS 'Telefono', vent.ID AS 'IDVenta', IF ( vent.IDEmpleado != 0, 'Empleado', 'Administrador' ) AS 'Empleado', ant.Concepto, ant.Cliente, ant.Comentarios, ant.ImporteOriginal AS 'TotalRecibido', ( ( vent.Subtotal + vent.IVA16 + vent.IVA8 ) ) AS 'AnticipoAplicado', vent.anticipo - ( vent.Subtotal + vent.IVA16 + vent.IVA8 - vent.Total ) AS 'SaldoRestante', vent.FechaOperacion AS 'FechaOperacion', vent.IDAnticipo,ant.`Status` FROM anticipos AS ant INNER JOIN ventas AS vent ON ( Vent.IDAnticipo = ant.ID ) INNER JOIN usuarios AS usr ON ( usr.ID = vent.IDUsuario ) WHERE vent.IDAnticipo = '{idAnticpo}' AND vent.ID = '{idventa}' ORDER BY vent.ID DESC";
             }
-            
+
 
             return consulta;
         }
@@ -4786,7 +4808,7 @@ namespace PuntoDeVentaV2
         public string NombreClientePorID(string ID)
         {
             var consulta = $"SELECT RazonSocial FROM clientes WHERE ID = {ID} AND IDUsuario = {FormPrincipal.userID}";
-                return  consulta;
+            return consulta;
         }
         public string PDFNotaDeVentas(int IDVenta)
         {
@@ -5201,7 +5223,7 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string CargarAbonosTodosEmpleado(string idUsuario,string fechaOperacion)
+        public string CargarAbonosTodosEmpleado(string idUsuario, string fechaOperacion)
         {
             var consulta = $"SELECT MAX(Abono.ID) AS 'ID', IF(Abono.IDEmpleado = '' OR Abono.IDEmpleado IS NULL, '{idUsuario}', Abono.IDEmpleado) AS 'IDEmpleado', FORMAT( IF ( sum( Abono.Efectivo ) = '' OR sum( Abono.Efectivo ) IS NULL, '0', sum( Abono.Efectivo ) ), 2 ) AS 'Efectivo', FORMAT( IF ( sum( Abono.Tarjeta ) = '' OR sum( Abono.Tarjeta ) IS NULL, '0', sum( Abono.Tarjeta ) ), 2 ) AS 'Tarjeta', FORMAT( IF ( sum( Abono.Vales ) = '' OR sum( Abono.Vales ) IS NULL, '0', sum( Abono.Vales ) ), 2 ) AS 'Vales', FORMAT( IF ( sum( Abono.Cheque ) = '' OR sum( Abono.Cheque ) IS NULL, '0', sum( Abono.Cheque ) ), 2 ) AS 'Cheque', FORMAT( IF ( sum( Abono.Transferencia ) = '' OR sum( Abono.Transferencia ) IS NULL, '0', sum( Abono.Transferencia ) ), 2 ) AS 'Transferencia', FORMAT( ( ( IF ( sum( Abono.Efectivo ) = '' OR sum( Abono.Efectivo ) IS NULL, '0', sum( Abono.Efectivo ) ) ) + ( IF ( sum( Abono.Tarjeta ) = '' OR sum( Abono.Tarjeta ) IS NULL, '0', sum( Abono.Tarjeta ) ) ) + ( IF ( sum( Abono.Vales ) = '' OR sum( Abono.Vales ) IS NULL, '0', sum( Abono.Vales ) ) ) + ( IF ( sum( Abono.Cheque ) = '' OR sum( Abono.Cheque ) IS NULL, '0', sum( Abono.Cheque ) ) ) + ( IF ( sum( Abono.Transferencia ) = '' OR sum( Abono.Transferencia ) IS NULL, '0', sum( Abono.Transferencia ) ) ) ), 2 ) AS 'Total' FROM Abonos AS Abono INNER JOIN Ventas AS Vent ON ( Vent.ID = Abono.IDVenta ) WHERE Abono.ID IN ( SELECT ID FROM abonos WHERE IDUsuario = '{FormPrincipal.userID}'  AND IDEmpleado = '{idUsuario}' AND FechaOperacion > '{fechaOperacion}' )";
 
@@ -5297,7 +5319,7 @@ namespace PuntoDeVentaV2
         }
 
 
-        public string encontrarUsuarioHuella (string codigo)
+        public string encontrarUsuarioHuella(string codigo)
         {
             var consulta = $"SELECT * FROM detalleschecadorempleados WHERE clave = '{codigo}'";
 
@@ -5423,5 +5445,21 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string obtener_regimen_fiscal(string tipo)
+        {
+            var cons = "";
+
+            if (tipo == "F")
+            {
+                cons = $"SELECT * FROM RegimenFiscal WHERE AplicaFisica='Sí'";
+            }
+            if (tipo == "M")
+            {
+                cons = $"SELECT * FROM RegimenFiscal WHERE AplicaMoral='Sí'";
+            }
+
+            return cons;
+        }
+
     }
-}   
+}

@@ -530,7 +530,7 @@
             this.groupBox3.Controls.Add(this.btnListView);
             this.groupBox3.Controls.Add(this.btnPhotoView);
             this.groupBox3.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(360, 47);
+            this.groupBox3.Location = new System.Drawing.Point(443, 47);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(195, 53);
             this.groupBox3.TabIndex = 26;
@@ -591,7 +591,7 @@
             this.btnCambiarTipo.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnCambiarTipo.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnCambiarTipo.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnCambiarTipo.Location = new System.Drawing.Point(122, 63);
+            this.btnCambiarTipo.Location = new System.Drawing.Point(112, 63);
             this.btnCambiarTipo.Name = "btnCambiarTipo";
             this.btnCambiarTipo.Size = new System.Drawing.Size(110, 27);
             this.btnCambiarTipo.TabIndex = 23;
@@ -617,9 +617,9 @@
             // 
             this.btnPedido.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPedido.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnPedido.Location = new System.Drawing.Point(238, 63);
+            this.btnPedido.Location = new System.Drawing.Point(228, 63);
             this.btnPedido.Name = "btnPedido";
-            this.btnPedido.Size = new System.Drawing.Size(105, 27);
+            this.btnPedido.Size = new System.Drawing.Size(95, 27);
             this.btnPedido.TabIndex = 22;
             this.btnPedido.Text = "Reporte";
             this.btnPedido.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -713,7 +713,7 @@
             this.btnAsignarMultiple.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnAsignarMultiple.Location = new System.Drawing.Point(11, 63);
             this.btnAsignarMultiple.Name = "btnAsignarMultiple";
-            this.btnAsignarMultiple.Size = new System.Drawing.Size(105, 27);
+            this.btnAsignarMultiple.Size = new System.Drawing.Size(95, 27);
             this.btnAsignarMultiple.TabIndex = 16;
             this.btnAsignarMultiple.Text = "Asignar";
             this.TTipButtonText.SetToolTip(this.btnAsignarMultiple, "Asignar Cambios (Ctrl + A)");
@@ -823,19 +823,20 @@
             // 
             // btnAgregarXML
             // 
-            this.btnAgregarXML.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.btnAgregarXML.BackColor = System.Drawing.SystemColors.Control;
             this.btnAgregarXML.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAgregarXML.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarXML.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarXML.Image = global::PuntoDeVentaV2.Properties.Resources.cart_plus;
-            this.btnAgregarXML.Location = new System.Drawing.Point(58, 1);
+            this.btnAgregarXML.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAgregarXML.Location = new System.Drawing.Point(328, 63);
             this.btnAgregarXML.Margin = new System.Windows.Forms.Padding(2);
             this.btnAgregarXML.Name = "btnAgregarXML";
-            this.btnAgregarXML.Size = new System.Drawing.Size(119, 28);
+            this.btnAgregarXML.Size = new System.Drawing.Size(110, 28);
             this.btnAgregarXML.TabIndex = 8;
             this.btnAgregarXML.Text = "Agregar XML";
             this.btnAgregarXML.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.TTipButtonText.SetToolTip(this.btnAgregarXML, "Ctrl + X");
-            this.btnAgregarXML.UseVisualStyleBackColor = false;
+            this.btnAgregarXML.UseVisualStyleBackColor = true;
             this.btnAgregarXML.Click += new System.EventHandler(this.btnAgregarXML_Click);
             // 
             // TTipButtonText

@@ -333,6 +333,11 @@ namespace PuntoDeVentaV2
                 {
                     lista.Add(dr["SoloRenta"].ToString()); // Solo Renta 18
                 }
+                lista.Add(dr["incluye_impuestos"].ToString());  // 18
+                lista.Add(dr["nombre_ctercero"].ToString());    // 19
+                lista.Add(dr["rfc_ctercero"].ToString());       // 20
+                lista.Add(dr["cp_ctercero"].ToString());        // 21
+                lista.Add(dr["regimen_ctercero"].ToString());   // 22
             }
 
             dr.Close();

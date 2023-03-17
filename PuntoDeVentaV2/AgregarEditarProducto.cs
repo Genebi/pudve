@@ -32,6 +32,11 @@ namespace PuntoDeVentaV2
         static public string baseProducto = null;
         static public string ivaProducto = null;
         static public string impuestoProducto = null;
+        static public string incluye_impuestos = null;
+        static public string nombre_cterceros = null; 
+        static public string rfc_cterceros = null;        
+        static public string cp_cterceros = null;
+        static public string regimen_cterceros = null;
         //Para los impuestos obtenidos desde el XML
         static public string impuestoProductoXML = string.Empty;
         static public string importeProductoXML = string.Empty;
@@ -2359,55 +2364,73 @@ namespace PuntoDeVentaV2
                                 errorProvAgregarEditarProducto.SetError(txtClaveProducto, "");
                                 errorProvAgregarEditarProducto.SetError(txtCodigoBarras, "");
 
-                                // Miri.
-                                // Si el producto es guardado sin abrir la ventana de datos de facturación
-                                // y el producto ha agregar trae impuestos, entonces verificará el tipo de impuesto princial 
-                                // para re-calcular: base, tipo de impuesto e importe del impuesto.
-                                if (datosImpuestos == null & DatosSourceFinal == 3 & AgregarStockXML.tipo_impuesto_delxml != "")
-                                {
-                                    string tmp_tipo_impuesto_delxml = AgregarStockXML.tipo_impuesto_delxml + "%";
+                                    // Miri.
+                                    // Si el producto es guardado sin abrir la ventana de datos de facturación
+                                    // y el producto ha agregar trae impuestos, entonces verificará el tipo de impuesto principal 
+                                    // para re-calcular: base, tipo de impuesto e importe del impuesto.
+                                    
+                                    if (datosImpuestos == null & DatosSourceFinal == 3 & AgregarStockXML.tipo_impuesto_delxml != "")
+                                    {
+                                        // Miri.
+                                        // Se agrega en comentarios porque no obtiene el impuesto principal                                    
+                                    
+                                        /*string tmp_tipo_impuesto_delxml = AgregarStockXML.tipo_impuesto_delxml + "%";
 
-                                    // Se verifica si el impuesto principal fue modificado, si no fue editado entonces,
-                                    // obtiene el impuesto por default del xml, caso contrario toma el impuesto del radio elegido.
-                                    // Si solo hay un impuesto y este es editado, los cambios no los tomaba en cuenta por eso se agrega esta condición, y se modifican algunas cosas que ya se tenian. 
-                                    if (impuestoProducto == tmp_tipo_impuesto_delxml)
-                                    {
-                                        impuestoProducto = AgregarStockXML.tipo_impuesto_delxml;
-                                    }
-                                    else
-                                    {
-                                        if (!string.IsNullOrWhiteSpace(impuestoProducto))
+                                        // Se verifica si el impuesto principal fue modificado, si no fue editado entonces,
+                                        // obtiene el impuesto por default del xml, caso contrario toma el impuesto del radio elegido.
+                                        // Si solo hay un impuesto y este es editado, los cambios no los tomaba en cuenta por eso se agrega esta condición, y se modifican algunas cosas que ya se tenian. 
+                                        if (impuestoProducto == tmp_tipo_impuesto_delxml)
                                         {
-                                            var impuestop = impuestoProducto.Split('%');
-                                            impuestoProducto = impuestop[0].Trim();
+                                            impuestoProducto = AgregarStockXML.tipo_impuesto_delxml;
                                         }
-                                    }
+                                        else
+                                        {
+                                            if (!string.IsNullOrWhiteSpace(impuestoProducto))
+                                            {
+                                                var impuestop = impuestoProducto.Split('%');
+                                                impuestoProducto = impuestop[0].Trim();
+                                            }
+                                        }*/
 
-                                    //impuestoProducto = AgregarStockXML.tipo_impuesto_delxml;
-                                    baseProducto = precio;
-                                    ivaProducto = "0.00";
+                                        impuestoProducto = AgregarStockXML.tipo_impuesto_delxml;                                        
+                                        baseProducto = precio;
+                                        ivaProducto = "0.00";
 
-                                    /*if (AgregarStockXML.tipo_impuesto_delxml != "Exento")
-                                    {
-                                        impuestoProducto += "%";
-                                    }*/
-
-                                    if (impuestoProducto == "8")
-                                    {
-                                        baseProducto = (Convert.ToDouble(precio) / 1.08).ToString("0.00");
-                                        ivaProducto = (Convert.ToDouble(baseProducto) * 0.08).ToString("0.00");
-                                    }
-                                    if (impuestoProducto == "16")
-                                    {
-                                        baseProducto = (Convert.ToDouble(precio) / 1.16).ToString("0.00");
-                                        ivaProducto = (Convert.ToDouble(baseProducto) * 0.16).ToString("0.00");
-                                    }
+                                        if (impuestoProducto == "8")
+                                        {
+                                            baseProducto = (Convert.ToDouble(precio) / 1.08).ToString("0.00");
+                                            ivaProducto = (Convert.ToDouble(baseProducto) * 0.08).ToString("0.00");
+                                        }
+                                        if (impuestoProducto == "16")
+                                        {
+                                            baseProducto = (Convert.ToDouble(precio) / 1.16).ToString("0.00");
+                                            ivaProducto = (Convert.ToDouble(baseProducto) * 0.16).ToString("0.00");
+                                        }
 
                                     if (impuestoProducto != "Exento")
                                     {
                                         impuestoProducto += "%";
                                     }
+                            }
+
+
+                                // Miri
+                                // Si se esta agregando por XML entonces verifica si hay datos en nodo "A cuenta terceros".
+                                // Solo para el caso de que no se halla abierto la ventana de detalles facturación y por ende no se guardo desde el botón aceptar.
+
+                                if (DatosSourceFinal == 3 & AgregarDetalleFacturacionProducto.editado == false)
+                                {
+                                    incluye_impuestos = AgregarStockXML.incluye_impuestos_delxml;
+
+                                    if (AgregarStockXML.razon_social_cnt_3ro_delxml != "")
+                                    {
+                                        nombre_cterceros = AgregarStockXML.razon_social_cnt_3ro_delxml;
+                                        rfc_cterceros = AgregarStockXML.rfc_cnt_3ro_delxml;
+                                        cp_cterceros = AgregarStockXML.cp_cnt_3ro_delxml;
+                                        regimen_cterceros = AgregarStockXML.regimen_cnt_3ro_delxml;
+                                    }
                                 }
+
 
                                 tmp_clave_interna = claveIn;
                                 tmp_codigo_barras = codigoB;
@@ -2418,7 +2441,7 @@ namespace PuntoDeVentaV2
                                     nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida,
                                     tipoDescuento, idUsrNvo, logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto,
                                     mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre), stockNecesario, stockMinimo,
-                                    txtPrecioCompra.Text, precioMayoreo, formatoDeVenta, esRenta };
+                                    txtPrecioCompra.Text, precioMayoreo, incluye_impuestos, nombre_cterceros, rfc_cterceros, cp_cterceros, regimen_cterceros, formatoDeVenta , esRenta};
 
                                 #region Inicio Se guardan los datos principales del Producto
                                 //Se guardan los datos principales del producto
@@ -2426,13 +2449,22 @@ namespace PuntoDeVentaV2
                                 {
                                     respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
 
-                                    if (respuesta > 0)
-                                    {
-                                        claveProducto = string.Empty;
-                                        claveUnidadMedida = string.Empty;
+                                        if (respuesta > 0)
+                                        {
+                                            claveProducto = string.Empty;
+                                            claveUnidadMedida = string.Empty;
+                                            
+                                            // Miri.
+                                            limpiar_variables_cnt_3ro();
+                                            
 
-                                            //Se obtiene la ID del último producto agregado
-                                            idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1)); 
+                                            // Miri.
+                                            // Se limpia variable "impuestoProducto" para evitar que siga guardando el porcentaje del producto anterior.
+                                            // Si se registra un producto con impuestos y al 2do registrado no se le añaden, entonces el 2do segirá agregando el % del anterior.
+                                            impuestoProducto = string.Empty; 
+
+                                        //Se obtiene la ID del último producto agregado
+                                        idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
                                             var claveP = txtClaveProducto.Text;
 
                                         // Agregar la relacion de producto ya registrado con Combo Servicio
@@ -2468,17 +2500,17 @@ namespace PuntoDeVentaV2
                                         // Crear registro en tabla de correos para que por defecto se habilite la opcion de enviar correo al hacer venta
                                         cn.EjecutarConsulta($"INSERT INTO CorreosProducto (IDUsuario,IDEmpleado, IDProducto, CorreoPrecioProducto, CorreoStockProducto, CorreoStockMinimo) VALUES ('{FormPrincipal.userID}','{FormPrincipal.id_empleado}' ,'{idProducto}', 1, 1, 1);");
 
-                                        #region Inicio de Datos de Impuestos
-                                        //Se realiza el proceso para guardar los detalles de facturación del producto
-                                        if (datosImpuestos != null)
-                                        {
-                                            guardarDatosImpuestos();
-                                        }
-                                        if (datosImpuestos == null & DatosSourceFinal == 3 & AgregarStockXML.list_impuestos_traslado_retenido.Count() > 0)
-                                        {
-                                            guardar_impuestos_dexml(Convert.ToDouble(baseProducto), idProducto);
-                                        }
-                                        #endregion Final de datos de Impuestos
+                                            #region Inicio de Datos de Impuestos
+                                            //Se realiza el proceso para guardar los detalles de facturación del producto
+                                            if (datosImpuestos != null)
+                                            {
+                                                guardarDatosImpuestos();
+                                            }
+                                                    if (datosImpuestos == null & DatosSourceFinal == 3 & AgregarStockXML.list_impuestos_traslado_retenido.Count() > 0)
+                                            {
+                                                guardar_impuestos_dexml(Convert.ToDouble(baseProducto), idProducto);
+                                            }
+                                            #endregion Final de datos de Impuestos
 
                                         bool isEmpty = detalleProductoBasico.Any();
 
@@ -2809,15 +2841,15 @@ namespace PuntoDeVentaV2
 
                                 stock = "0";
 
-                                // Miri.
-                                // Si el producto es guardado sin abrir la ventana de datos de facturación
-                                // y el producto ha agregar trae impuestos, entonces verificará el tipo de impuesto princial 
-                                // para re-calcular: base, tipo de impuesto e importe del impuesto.
-                                if (datosImpuestos == null & DatosSourceFinal == 3 & AgregarStockXML.tipo_impuesto_delxml != "")
-                                {
-                                    impuestoProducto = AgregarStockXML.tipo_impuesto_delxml;
-                                    baseProducto = precio;
-                                    ivaProducto = "0.00";
+                                    // Miri.
+                                    // Si el producto es guardado sin abrir la ventana de datos de facturación
+                                    // y el producto ha agregar trae impuestos, entonces verificará el tipo de impuesto principal 
+                                    // para re-calcular: base, tipo de impuesto e importe del impuesto.
+                                    if (datosImpuestos == null & DatosSourceFinal == 3 & AgregarStockXML.tipo_impuesto_delxml != "")
+                                    {
+                                        impuestoProducto = AgregarStockXML.tipo_impuesto_delxml;
+                                        baseProducto = precio;
+                                        ivaProducto = "0.00";
 
                                     if (AgregarStockXML.tipo_impuesto_delxml != "Exento")
                                     {
@@ -2845,7 +2877,7 @@ namespace PuntoDeVentaV2
                                     nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida,
                                     tipoDescuento, FormPrincipal.userID.ToString(), logoTipo, ProdServPaq, baseProducto,
                                     ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre),
-                                    stockNecesario, "0", txtPrecioCompra.Text, precioMayoreo, "0", esRenta
+                                    stockNecesario, "0", txtPrecioCompra.Text, precioMayoreo, incluye_impuestos, nombre_cterceros, rfc_cterceros, cp_cterceros, regimen_cterceros, "0", esRenta
                                 };
 
                                 #region Inicio de guardado de los datos principales del Servicios o Combos
@@ -2861,6 +2893,14 @@ namespace PuntoDeVentaV2
                                     {
                                         claveProducto = string.Empty;
                                         claveUnidadMedida = string.Empty;
+
+                                            // Miri.
+                                            limpiar_variables_cnt_3ro();
+
+                                            // Miri.
+                                            // Se limpia variable "impuestoProducto" para evitar que siga guardando el porcentaje del producto anterior.
+                                            // Si se registra un producto con impuestos y al 2do registrado no se le añaden, entonces el 2do segirá agregando el % del anterior.
+                                            impuestoProducto = string.Empty;
 
                                         bool isEmpty = !detalleProductoBasico.Any();
 
@@ -3190,32 +3230,44 @@ namespace PuntoDeVentaV2
                                         //Se obtiene la ID del último producto agregado
                                         idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
 
-                                        #region Inicio Sección proceso para guardar los detalles de facturación del producto
-                                        //Se realiza el proceso para guardar los detalles de facturación del producto
-                                        if (datosImpuestos != null)
-                                        {
-                                            //Cerramos la ventana donde se eligen los impuestos
-                                            FormDetalle.Close();
-                                            string[] listaImpuestos = datosImpuestos.Split('|');
-                                            int longitud = listaImpuestos.Length;
-                                            if (longitud > 0)
+                                            #region Inicio Sección proceso para guardar los detalles de facturación del producto
+                                            //Se realiza el proceso para guardar los detalles de facturación del producto
+                                            if (datosImpuestos != null)
                                             {
-                                                for (int i = 0; i < longitud; i++)
+                                                //Cerramos la ventana donde se eligen los impuestos
+                                                FormDetalle.Close();
+                                                string[] listaImpuestos = datosImpuestos.Split('|');
+                                                int longitud = listaImpuestos.Length;
+
+                                                if (longitud > 0)
                                                 {
-                                                    string[] imp = listaImpuestos[i].Split(',');
-                                                    if (imp[3] == " - ") { imp[3] = "0"; }
-                                                    if (imp[4] == " - ") { imp[4] = "0"; }
-                                                    if (imp[5] == " - ") { imp[5] = "0"; }
-                                                    guardar = new string[] { imp[0], imp[1], imp[2], imp[3], imp[4], imp[5] };
-                                                    cn.EjecutarConsulta(cs.GuardarDetallesProducto(guardar, idProducto));
+                                                    for (int i = 0; i < longitud; i++)
+                                                    {
+                                                        string[] imp = listaImpuestos[i].Split(',');
+
+                                                        if (imp[3] == " - ") { 
+                                                            imp[3] = "0"; 
+                                                        }
+                                                       /* else
+                                                        {
+                                                        // Miri
+                                                            var iva = imp[3].Replace(" %", string.Empty);
+                                                            imp[3] = iva;
+                                                        }*/
+
+                                                        if (imp[4] == " - ") { imp[4] = "0"; }
+                                                        if (imp[5] == " - ") { imp[5] = "0"; }
+
+                                                        guardar = new string[] { imp[0], imp[1], imp[2], imp[3], imp[4], imp[5] };
+                                                        cn.EjecutarConsulta(cs.GuardarDetallesProducto(guardar, idProducto));
+                                                    }
                                                 }
+                                                datosImpuestos = null;
                                             }
-                                            datosImpuestos = null;
-                                        }
-                                        if (datosImpuestos == null & DatosSourceFinal == 3 & AgregarStockXML.list_impuestos_traslado_retenido.Count() > 0)
-                                        {
-                                            guardar_impuestos_dexml(Convert.ToDouble(baseProducto), idProducto);
-                                        }
+                                            if (datosImpuestos == null & DatosSourceFinal == 3 & AgregarStockXML.list_impuestos_traslado_retenido.Count() > 0)
+                                            {
+                                                guardar_impuestos_dexml(Convert.ToDouble(baseProducto), idProducto);
+                                            }
 
                                         #endregion Final Sección proceso para guardar los detalles de facturación del producto
 
@@ -3612,7 +3664,8 @@ namespace PuntoDeVentaV2
                                 // Modifica tabla producto
                                 string edit_p = $@"UPDATE Productos SET Base='{AgregarDetalleFacturacionProducto.tmp_edit_base}',
                                                 IVA='{AgregarDetalleFacturacionProducto.tmp_edit_IVA}',
-                                                Impuesto='{AgregarDetalleFacturacionProducto.tmp_edit_impuesto}'
+                                                Impuesto='{AgregarDetalleFacturacionProducto.tmp_edit_impuesto}', incluye_impuestos='{incluye_impuestos}', 
+                                                nombre_ctercero='{nombre_cterceros}', rfc_ctercero='{rfc_cterceros}', cp_ctercero='{cp_cterceros}', regimen_ctercero='{regimen_cterceros}'
                                                 WHERE ID='{idProductoBuscado}' AND IDUsuario={FormPrincipal.userID}";
 
                                 cn.EjecutarConsulta(edit_p);
@@ -3620,6 +3673,14 @@ namespace PuntoDeVentaV2
                                 AgregarDetalleFacturacionProducto.tmp_edit_base = 0;
                                 AgregarDetalleFacturacionProducto.tmp_edit_IVA = 0;
                                 AgregarDetalleFacturacionProducto.tmp_edit_impuesto = "";
+
+                                    // Miri.
+                                    limpiar_variables_cnt_3ro();
+
+                                    // Miri.
+                                    // Se limpia variable "impuestoProducto" para evitar que siga guardando el porcentaje del producto anterior.
+                                    // Si se registra un producto con impuestos y al 2do registrado no se le añaden, entonces el 2do segirá agregando el % del anterior.
+                                    impuestoProducto = string.Empty;
 
                                 // Busca si antes de la edición tenia impuestos extras, si es así entonces, los eliminará. 
                                 bool existen_imp_extra = (bool)cn.EjecutarSelect($"SELECT * FROM detallesfacturacionproductos WHERE IDProducto='{idProductoBuscado}'", 0);
@@ -4023,7 +4084,8 @@ namespace PuntoDeVentaV2
                         nombreNvoInsert, stockNvoInsert, precioNvoInsert, categoriaNvoInsert, claveInNvoInsert,
                         codigoBNvoInsert, claveProducto, claveUnidadMedida, tipoDescuentoNvoInsert, idUsrNvoInsert,
                         logoTipo, tipoProdNvoInsert, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombreNvoInsert),
-                        mg.RemoverPreposiciones(nombreNvoInsert), stockNecesario, stockMinimo, txtPrecioCompra.Text, precioMayoreo, "0", esRenta
+                        mg.RemoverPreposiciones(nombreNvoInsert), stockNecesario, stockMinimo, txtPrecioCompra.Text, precioMayoreo, 
+                        incluye_impuestos, nombre_cterceros, rfc_cterceros, cp_cterceros, regimen_cterceros, "0", esRenta
                     };
 
                     //if (Productos.copiarDatos.Equals(1) && AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
@@ -4055,32 +4117,55 @@ namespace PuntoDeVentaV2
                             claveProducto = string.Empty;
                             claveUnidadMedida = string.Empty;
 
+
+                                // Miri.
+                                limpiar_variables_cnt_3ro();
+
+
+                                // Miri.
+                                // Se limpia variable "impuestoProducto" para evitar que siga guardando el porcentaje del producto anterior.
+                                // Si se registra un producto con impuestos y al 2do registrado no se le añaden, entonces el 2do segirá agregando el % del anterior.
+                                impuestoProducto = string.Empty;
+
+
                             //Se obtiene la ID del último producto agregado
                             idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
 
-                            #region Inicio Sección de Datos de Impuestos
-                            //Se realiza el proceso para guardar los detalles de facturación del producto
-                            if (datosImpuestos != null)
-                            {
-                                //Cerramos la ventana donde se eligen los impuestos
-                                FormDetalle.Close();
-                                string[] listaImpuestos = datosImpuestos.Split('|');
-                                int longitud = listaImpuestos.Length;
-                                if (longitud > 0)
+                                #region Inicio Sección de Datos de Impuestos
+                                //Se realiza el proceso para guardar los detalles de facturación del producto
+                                if (datosImpuestos != null)
                                 {
-                                    for (int i = 0; i < longitud; i++)
+                                    //Cerramos la ventana donde se eligen los impuestos
+                                    FormDetalle.Close();
+                                    string[] listaImpuestos = datosImpuestos.Split('|');
+                                    int longitud = listaImpuestos.Length;
+                                    if (longitud > 0)
                                     {
-                                        string[] imp = listaImpuestos[i].Split(',');
-                                        if (imp[3] == " - ") { imp[3] = "0"; }
-                                        if (imp[4] == " - ") { imp[4] = "0"; }
-                                        if (imp[5] == " - ") { imp[5] = "0"; }
-                                        guardar = new string[] { imp[0], imp[1], imp[2], imp[3], imp[4], imp[5] };
-                                        cn.EjecutarConsulta(cs.GuardarDetallesProducto(guardar, idProducto));
+                                        for (int i = 0; i < longitud; i++)
+                                        {
+                                            string[] imp = listaImpuestos[i].Split(',');
+
+                                            if (imp[3] == " - ")
+                                            {
+                                                imp[3] = "0";
+                                            }
+                                            /*else
+                                            {
+                                                // Miri
+                                                var iva = imp[3].Replace(" %", string.Empty);
+                                                imp[3] = iva;
+                                            }*/
+
+                                            if (imp[4] == " - ") { imp[4] = "0"; }
+                                            if (imp[5] == " - ") { imp[5] = "0"; }
+
+                                            guardar = new string[] { imp[0], imp[1], imp[2], imp[3], imp[4], imp[5] };
+                                            cn.EjecutarConsulta(cs.GuardarDetallesProducto(guardar, idProducto));
+                                        }
                                     }
+                                    datosImpuestos = null;
                                 }
-                                datosImpuestos = null;
-                            }
-                            #endregion Final  Sección de Datos de Impuestos
+                                #endregion Final  Sección de Datos de Impuestos
 
                             #region Inicio de Sección de Descuentos
                             //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
@@ -4394,9 +4479,9 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(resultado))
             {
-                if (resultado.Contains("|") || resultado.Contains("+") || resultado.Contains("-") || resultado.Contains("'") || resultado.Contains("*") || resultado.Contains("/"))
+                if (resultado.Contains("|") || resultado.Contains("+") || resultado.Contains("'") || resultado.Contains("*") || resultado.Contains("/"))
                 {
-                    var resultadoAuxialiar = Regex.Replace(resultado, @"[+\|\-\'\*\/]", string.Empty);
+                    var resultadoAuxialiar = Regex.Replace(resultado, @"[+\|\'\*\/]", string.Empty);
                     resultado = resultadoAuxialiar;
                     txtValidarTexto.Text = resultado;
                     txtValidarTexto.Focus();
@@ -4560,7 +4645,7 @@ namespace PuntoDeVentaV2
                 {
                     MensajeSiNoCancelar Opcion = new MensajeSiNoCancelar();
                     Opcion.ShowDialog();
-
+                
                     if (Opcion.opcionMensaje == "si")
                     {
                         contador++;
@@ -4570,6 +4655,8 @@ namespace PuntoDeVentaV2
                     {
                         listaProductoToCombo.Clear();
                         ProductosDeServicios.Clear();
+                        // Miri.
+                        limpiar_variables_cnt_3ro();
                     }
                     else
                     {
@@ -8035,7 +8122,7 @@ namespace PuntoDeVentaV2
                     {
                         imp[3] = "0";
                     }
-                    else
+                   /* else
                     {
                         var iva = imp[3].Replace(" %", string.Empty);
 
@@ -8045,7 +8132,7 @@ namespace PuntoDeVentaV2
                         }
 
                         imp[3] = iva;
-                    }
+                    }*/
                     if (imp[4] == " - ")
                     {
                         imp[4] = "0";
@@ -8066,7 +8153,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            datosImpuestos = null;
+            datosImpuestos = null; 
         }
 
         private void productoRegistradoCodigoBarras(string codigoB)
@@ -9790,9 +9877,12 @@ namespace PuntoDeVentaV2
                 producto.recargarDGV();
             }
 
-            LimpiarDatos();
-            Productos.codProductoEditarVenta = 0;
-            AgregarEditarProducto.descuentos.Clear();
+                LimpiarDatos();
+                Productos.codProductoEditarVenta = 0;
+                AgregarEditarProducto.descuentos.Clear();
+
+            // Miri.
+            limpiar_variables_cnt_3ro();
         }
 
         private void mostrarOcultarLblArrow()
@@ -9921,7 +10011,7 @@ namespace PuntoDeVentaV2
 
             mostrarOcultarfLPDetallesProducto();
 
-            if (DatosSourceFinal == 3)      // si el llamado de la ventana proviene del Archivo XML
+             if (DatosSourceFinal == 3)      // si el llamado de la ventana proviene del Archivo XML
             {
                 cbTipo.SelectedIndex = 0;
                 //PCantidadPaqServ.Visible = false;
@@ -12872,5 +12962,18 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Se requiere conexión a internet para el funcionamiento del atajo F8", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void limpiar_variables_cnt_3ro()
+        {
+            nombre_cterceros = string.Empty;
+            rfc_cterceros = string.Empty;
+            cp_cterceros = string.Empty;
+            regimen_cterceros = string.Empty;
+
+            Productos.nombre_cnt_3ro = string.Empty;
+            Productos.rfc_cnt_3ro = string.Empty;
+            Productos.cp_cnt_3ro = string.Empty;
+            Productos.regimen_cnt_3ro = string.Empty;
+        }
     }
-}
+} 

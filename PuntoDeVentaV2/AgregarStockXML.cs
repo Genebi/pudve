@@ -23,8 +23,10 @@ namespace PuntoDeVentaV2
         *   con sus respectivas partial class para hacer los array  *
         *                                                           *   
         ************************************************************/
-        //[XmlRootAttribute(Namespace = "http://www.sat.gob.mx/cfd/3")]
-        
+        //[XmlRootAttribute(Namespace = "http:///www.sat.gob.mx/cfd/3")]
+        [XmlRootAttribute(Namespace = "http://www.sat.gob.mx/cfd/3")]
+
+
         public class Comprobante
         {
             [XmlAttributeAttribute()]
@@ -121,8 +123,11 @@ namespace PuntoDeVentaV2
             public string Importe;
             [XmlAttributeAttribute()]
             public string Descuento;
-            
+            [XmlAttributeAttribute()]
+            public string ObjetoImp; // Miri. CFDI 4.0
+
             public CCImpuestos Impuestos;
+            public CCACuentaTerceros ACuentaTerceros; // Miri. CFDI 4.0
         }
 
         public partial class CCImpuestos
@@ -160,6 +165,18 @@ namespace PuntoDeVentaV2
             public decimal Importe;
         }
 
+        public class CCACuentaTerceros
+        {
+            [XmlAttributeAttribute()]
+            public string NombreACuentaTerceros;
+            [XmlAttributeAttribute()]
+            public string RfcACuentaTerceros;
+            [XmlAttributeAttribute()]
+            public string DomicilioFiscalACuentaTerceros;
+            [XmlAttributeAttribute()]
+            public string RegimenFiscalACuentaTerceros;
+        }
+
         /*public class CComplemento
         {
             public CCImpuestosLocales ImpuestosLocales;
@@ -172,10 +189,10 @@ namespace PuntoDeVentaV2
 
 
 
-            /************************************************************
-            *   Termina la clase para leer el XML y sus respectivas     *
-            *   sub class para hacer los array                          *   
-            ************************************************************/
+        /************************************************************
+        *   Termina la clase para leer el XML y sus respectivas     *
+        *   sub class para hacer los array                          *   
+        ************************************************************/
             private string rutaXML = string.Empty;
         private string[] impuestosXML;
 
@@ -227,6 +244,8 @@ namespace PuntoDeVentaV2
         int idRecordProd;
         string FechaRegistrada, DateComplete, Year, Date, queryRecordHistorialProd;
         DateTime date1;
+        string version_xml;
+        
 
         // variables para poder almacenar la tabla que resulta sobre la consulta el base de datos
         public DataTable dt;                    // almacena el resultado de la funcion de CargarDatos de la funcion consulta
@@ -307,8 +326,13 @@ namespace PuntoDeVentaV2
 
         static public string tipo_impuesto_delxml = ""; // Guarda el impuestos principal. 
         static public List<string> list_impuestos_traslado_retenido = new List<string>();
+        static public string incluye_impuestos_delxml = ""; // Aplica solo a 4.0. Define si el producto trae impuestos o no
         //static public List<string> list_impuestos_traslado_retenido_loc = new List<string>();
         public string codigo_barras = "";
+        static public string razon_social_cnt_3ro_delxml = "";
+        static public string rfc_cnt_3ro_delxml = "";
+        static public string cp_cnt_3ro_delxml = "";
+        static public string regimen_cnt_3ro_delxml = "";
 
         public static int consultadoDesdeListProdFin,
                           opcionGuardarFin;
@@ -485,7 +509,8 @@ namespace PuntoDeVentaV2
             
             string querySearchProveedor = $@"SELECT * FROM Proveedores WHERE IDUsuario = '{FormPrincipal.userID}' AND Nombre = '{ds.Emisor.Nombre.Trim()}' AND RFC = '{ds.Emisor.Rfc.Trim()}'";
             dtSearchProveedor = cn.CargarDatos(querySearchProveedor);
-            
+
+
             if (dtSearchProveedor.Rows.Count > 0)
             {
                 drSearchProveedor = dtSearchProveedor.Rows[0];
@@ -496,7 +521,7 @@ namespace PuntoDeVentaV2
                 fecha = fechaXML.Substring(0,10);
                 hora = fechaXML.Substring(11);
                 fechaOperacion = fecha + " " + hora;
-                string queryAddProveedor = $@"INSERT INTO Proveedores (IDUsuario, Nombre, RFC, FechaOperacion) VALUES ('{FormPrincipal.userID}', '{ds.Emisor.Nombre.Trim()}', '{ds.Emisor.Rfc.Trim()}', '{fechaOperacion}')";
+                string queryAddProveedor = $@"INSERT INTO Proveedores (IDUsuario, Nombre, RFC, FechaOperacion) VALUES ('{FormPrincipal.userID}', '{ds.Emisor.Nombre}', '{ds.Emisor.Rfc.Trim()}', '{fechaOperacion}')";
                 cn.EjecutarConsulta(queryAddProveedor);
                 dtSearchProveedor = cn.CargarDatos(querySearchProveedor);
                 drSearchProveedor = dtSearchProveedor.Rows[0];
@@ -1082,6 +1107,15 @@ namespace PuntoDeVentaV2
                 list_impuestos_traslado_retenido.RemoveRange(0, tam);
             }
 
+            // Miri.
+            // Limpiar variables para evitar que agreguen datos que no se incluyen en el producto.
+            tipo_impuesto_delxml = "";
+            razon_social_cnt_3ro_delxml = "";
+            rfc_cnt_3ro_delxml = "";
+            cp_cnt_3ro_delxml = "";
+            regimen_cnt_3ro_delxml = "";
+
+
             descuento = 0;
             ClaveInterna = "0";
             lblPosicionActualXML.Text = (index + 1).ToString();
@@ -1185,66 +1219,83 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Error: " + ex.Message.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             precioOriginalSinIVA = (importe - descuento) / cantidad; // Calculamos el precio Original Sin IVA (importe - descuento)/cantidad
-            
+
 
             // Miri.
+            // Se agrega condicional a todo lo referente de impuestos, solo aplicará cuando el producto lo incluya.
             // Se obtiene el tipo de impuesto trasladado que tiene el producto.
+            // Primero debe verificar si el producto incluye o no impuestos.
 
             int index_i = 0;
             float xml_iva = 0;
+            bool exi_traslados_tmp = false;
+            bool exi_retenidos_tmp = false;
+            int cant_impuestos_t = 0;
+            int cant_impuestos_r = 0;
             
+
             if (index == 0) { index_i = index; }
             if (index > 0) { index_i = index - 1; }
 
+            var inc_impuestos = ds.Conceptos[index_i].ObjetoImp;
 
-            int cant_impuestos_t = 0;
-            int cant_impuestos_r = 0;
-
-            var exi_traslados = ds.Conceptos[index_i].Impuestos.Traslados;
-            var exi_retenidos = ds.Conceptos[index_i].Impuestos.Retenciones;
-
-            // Valida si hay impuestos trasladados y obtiene el IVA principal. 
-            if (exi_traslados != null)
-            {
-                cant_impuestos_t = ds.Conceptos[index_i].Impuestos.Traslados.Count();
-            }
             
-            if (cant_impuestos_t > 0)
+            if(inc_impuestos == "02")
             {
-                for (int t = 0; t < cant_impuestos_t; t++)
+                var exi_traslados = ds.Conceptos[index_i].Impuestos.Traslados;
+                var exi_retenidos = ds.Conceptos[index_i].Impuestos.Retenciones;
+
+                // Valida si hay impuestos trasladados y obtiene el IVA principal. 
+                if (exi_traslados != null)
                 {
-                    int no_guarda = 0;
+                    cant_impuestos_t = ds.Conceptos[index_i].Impuestos.Traslados.Count();
+                    exi_traslados_tmp = true;
+                }
 
-                    string xml_impuesto = ds.Conceptos[index_i].Impuestos.Traslados[t].Impuesto;
-                    string xml_tipo_factor = ds.Conceptos[index_i].Impuestos.Traslados[t].TipoFactor;
-                    
-                    
-                    if (no_guarda == 0 & xml_impuesto == "002" & (xml_tipo_factor == "Tasa" | xml_tipo_factor == "Exento"))
+                // Valida si hay impuestos retenidos. 
+                if (exi_retenidos != null)
+                {
+                    exi_retenidos_tmp = true;
+                }
+
+                if (cant_impuestos_t > 0)
+                {
+                    for (int t = 0; t < cant_impuestos_t; t++)
                     {
-                        if (xml_tipo_factor == "Exento")
+                        int no_guarda = 0;
+
+                        string xml_impuesto = ds.Conceptos[index_i].Impuestos.Traslados[t].Impuesto;
+                        string xml_tipo_factor = ds.Conceptos[index_i].Impuestos.Traslados[t].TipoFactor;
+
+
+                        if (no_guarda == 0 & xml_impuesto == "002" & (xml_tipo_factor == "Tasa" | xml_tipo_factor == "Exento"))
                         {
-                            xml_iva = 0;
-                        }
-                        else
-                        {
-                            // La tasa-cuota solo se obtendrá si el impuesto es diferente de exento.
-                            string xml_tasa_cuota = ds.Conceptos[index_i].Impuestos.Traslados[t].TasaOCuota;
-
-
-                            if (xml_tasa_cuota == "0.160000")
+                            if (xml_tipo_factor == "Exento")
                             {
-                                xml_iva = 0.16f;
+                                xml_iva = 0;
                             }
-                            if (xml_tasa_cuota == "0.080000")
+                            else
                             {
-                                xml_iva = 0.08f;
-                            }
-                        }
+                                // La tasa-cuota solo se obtendrá si el impuesto es diferente de exento.
+                                string xml_tasa_cuota = ds.Conceptos[index_i].Impuestos.Traslados[t].TasaOCuota;
 
-                        no_guarda++;
+
+                                if (xml_tasa_cuota == "0.160000")
+                                {
+                                    xml_iva = 0.16f;
+                                }
+                                if (xml_tasa_cuota == "0.080000")
+                                {
+                                    xml_iva = 0.08f;
+                                }
+                            }
+
+                            no_guarda++;
+                        }
                     }
                 }
             }
+            
 
             // Precio del producto con IVA incluido.
             if (xml_iva > 0)
@@ -1313,6 +1364,7 @@ namespace PuntoDeVentaV2
             folio = ds.Folio;
             RFCEmisor = ds.Emisor.Rfc;
             nombreEmisor = ds.Emisor.Nombre;
+            version_xml = ds.Version; // Obtiene la versión del XML. Miri.
 
             if (index == 0)
             {
@@ -1324,16 +1376,45 @@ namespace PuntoDeVentaV2
             }
 
 
+            // Miri.
+            // Si la versión es 4.0 se guardan los datos: régimen, domicilio fiscal, incluye impuestos y nodo a cuenta terceros
+
+            if(version_xml == "4.0")
+            {
+                int index_tmp = index;
+
+                if(index >= 1)
+                {
+                    index_tmp = index - 1;
+                }
+
+                incluye_impuestos_delxml = ds.Conceptos[index_tmp].ObjetoImp;
+
+
+                // A cuenta terceros
+
+                var exi_cuenta_3ros = ds.Conceptos[index_tmp].ACuentaTerceros;
+
+                if(exi_cuenta_3ros != null)
+                {
+                    razon_social_cnt_3ro_delxml = ds.Conceptos[index_tmp].ACuentaTerceros.NombreACuentaTerceros;
+                    rfc_cnt_3ro_delxml = ds.Conceptos[index_tmp].ACuentaTerceros.RfcACuentaTerceros;
+                    cp_cnt_3ro_delxml = ds.Conceptos[index_tmp].ACuentaTerceros.DomicilioFiscalACuentaTerceros;
+                    regimen_cnt_3ro_delxml = ds.Conceptos[index_tmp].ACuentaTerceros.RegimenFiscalACuentaTerceros;
+                }
+                
+            }
+
 
             // Miri.
             // Obtiene impuestos del concepto.
 
             // Valida si hay impuestos trasladados y retenidos.
-            if (exi_traslados != null)
+            if (exi_traslados_tmp == true)
             {
                 cant_impuestos_t = ds.Conceptos[index_i].Impuestos.Traslados.Count();
             }
-            if (exi_retenidos != null)
+            if (exi_retenidos_tmp == true)
             {
                 cant_impuestos_r = ds.Conceptos[index_i].Impuestos.Retenciones.Count();
             }

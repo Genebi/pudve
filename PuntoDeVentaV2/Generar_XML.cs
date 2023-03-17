@@ -10,8 +10,10 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.ServiceModel;
 using System.Diagnostics;
+using System.Net;
 //using PuntoDeVentaV2.ServiceReferenceTPrueba;
-using PuntoDeVentaV2.ServiceReference_produccion;
+//using PuntoDeVentaV2.ServiceReference_produccion;
+
 
 namespace PuntoDeVentaV2
 {
@@ -43,19 +45,23 @@ namespace PuntoDeVentaV2
             // Facturas
             DataTable d_facturas;
             DataRow r_facturas;
-            string folio = "",           serie = "";
-            string fecha = "",           moneda = "";
-            string forma_pago = "",      tipo_cambio = "";     
-            string metodo_pago = "",     lugar_expedicion = "";
-            string tipo_comprobante = "";
+            string folio = "",            serie = "";
+            string moneda = "";
+            string forma_pago = "",       tipo_cambio = "";     
+            string metodo_pago = "",      lugar_expedicion = "";
+            string tipo_comprobante = "",  exportacion = ""; 
             // Emisor
             string rfc_e = "";
             string nombre_e = "";
-            string regimen = "";
+            string regimen_e = "";
             // Receptor
             string rfc_r = "";
             string nombre_r = "";
             string uso_cfdi = "";
+            string regimen_r = "";
+            string domicilio_fiscal = "";
+            // Información global
+            string periodicidad_ct = "", meses_ct = "", anio_ct = "";
             // Productos
             DataTable d_productos;
             //DataTable d_concepto_impuesto_t;
@@ -117,18 +123,30 @@ namespace PuntoDeVentaV2
                 metodo_pago = r_facturas["metodo_pago"].ToString();
                 tipo_comprobante = r_facturas["tipo_comprobante"].ToString();
                 lugar_expedicion = r_facturas["e_cp"].ToString();
+                exportacion = r_facturas["exportacion"].ToString();
 
                 rfc_e = r_facturas["e_rfc"].ToString();
                 nombre_e = r_facturas["e_razon_social"].ToString();
-                regimen = Convert.ToString(cn.EjecutarSelect($"SELECT CodigoRegimen FROM RegimenFiscal WHERE Descripcion='{r_facturas["e_regimen"]}'", 12));
+                regimen_e = Convert.ToString(cn.EjecutarSelect($"SELECT CodigoRegimen FROM RegimenFiscal WHERE Descripcion='{r_facturas["e_regimen"]}'", 12));
 
                 rfc_r = r_facturas["r_rfc"].ToString();
                 nombre_r = r_facturas["r_razon_social"].ToString();
                 uso_cfdi = r_facturas["uso_cfdi"].ToString();
+                regimen_r = r_facturas["r_regimen"].ToString();
+                domicilio_fiscal = r_facturas["r_cp"].ToString();
+
+                // Información global
+
+                if(rfc_r == "XAXX010101000" & nombre_r == "PUBLICO EN GENERAL")
+                {
+                    periodicidad_ct = r_facturas["r_periodicidad_infog"].ToString();
+                    meses_ct = r_facturas["r_meses_infog"].ToString();
+                    anio_ct = r_facturas["r_anio_infog"].ToString();
+;               }
 
                 // Solo cuando es un complemento de pago
 
-                if(con_complemento_pg == 1)
+                if (con_complemento_pg == 1)
                 {
                     var f_pg = r_facturas["fecha_hora_cpago"].ToString();
                     string[] fech = f_pg.Split(' ');
@@ -220,7 +238,7 @@ namespace PuntoDeVentaV2
             ComprobanteEmisor emisor = new ComprobanteEmisor();
             emisor.Rfc = rfc_e;
             emisor.Nombre = nombre_e;
-            emisor.RegimenFiscal = regimen;
+            emisor.RegimenFiscal = regimen_e;
 
 
             // NODO RECEPTOR
@@ -229,9 +247,26 @@ namespace PuntoDeVentaV2
             ComprobanteReceptor receptor = new ComprobanteReceptor();
             receptor.Rfc = rfc_r;
             receptor.Nombre = nombre_r;
+            receptor.DomicilioFiscalReceptor = domicilio_fiscal;
+            receptor.RegimenFiscalReceptor = regimen_r;
             receptor.UsoCFDI = uso_cfdi;
 
 
+            // NODO INFORMACIÓN GLOBAL
+            //------------------------
+
+            if (rfc_r == "XAXX010101000" & nombre_r == "PUBLICO EN GENERAL")
+            {
+                ComprobanteInformacionGlobal infog = new ComprobanteInformacionGlobal();
+
+                infog.Periodicidad = periodicidad_ct;
+                infog.Meses = meses_ct;
+                infog.Año = anio_ct;
+
+                comprobante.InformacionGlobal = infog;
+            }
+
+            
             comprobante.Emisor = emisor;
             comprobante.Receptor = receptor;
 
@@ -260,9 +295,10 @@ namespace PuntoDeVentaV2
                     int id_producto = Convert.ToInt32(r_productos["ID"]);
                     decimal precio_unitario = Convert.ToDecimal(r_productos["precio_u"]);
                     decimal cantidad_xproducto_xml = Convert.ToDecimal(r_productos["cantidad"]);
+                    string incluye_impuestos = r_productos["incluye_impuestos"].ToString();
                     
    
-                    if (con_complemento_pg == 0)
+                    if (con_complemento_pg == 0 & incluye_impuestos == "02")
                     {
                         d_base_i = Convert.ToDecimal(r_productos["base"]);
                         d_tasa_c = r_productos["tasa_cuota"].ToString();
@@ -329,10 +365,11 @@ namespace PuntoDeVentaV2
                     concepto.Cantidad = seis_decimales(cantidad_xproducto_xml);
                     concepto.ClaveUnidad = r_productos["clave_unidad"].ToString();
                     concepto.Descripcion = r_productos["descripcion"].ToString();
+
                     // Precio unitario e importe
                     decimal importe_p = cantidad_xproducto_xml * precio_unitario_xml;
                     
-                    if (con_complemento_pg == 0)
+                    if (con_complemento_pg == 0 & incluye_impuestos == "02")
                     {
                         var x = Convert.ToString(importe_p).IndexOf(".");
                         if (x <= -1)
@@ -344,27 +381,40 @@ namespace PuntoDeVentaV2
                         concepto.ValorUnitario = seis_decimales(precio_unitario_xml);
                         concepto.Importe = seis_decimales(importe_p);
                     }
-                    else
+                    if (con_complemento_pg == 0 & (incluye_impuestos == "01" | incluye_impuestos == "03" | incluye_impuestos == "04"))
+                    {
+                        importe_p = cantidad_xproducto_xml * precio_unitario;
+
+                        concepto.ValorUnitario = seis_decimales(precio_unitario);
+                        concepto.Importe = seis_decimales(importe_p);
+                    }
+                    if (con_complemento_pg == 1)
                     {
                         concepto.ValorUnitario = 0;
                         concepto.Importe = 0;
                     }
+
                     // Descuento
                     if(descuento_xproducto_xml > 0)
                     {
                         concepto.Descuento = seis_decimales(descuento_xproducto_xml);
                     }
 
+                    // Objeto de impuestos
+                    concepto.ObjetoImp = incluye_impuestos;
+
 
                     suma_total_productos += importe_p;
                     descuento_general += seis_decimales(descuento_xproducto_xml);
-                    
-                    
 
 
-                    // Si la factura es diferente de un complemento de pago, agrega los nodos impuestos para el concepto
 
-                    if (con_complemento_pg == 0)
+
+                    // Agrega el nodo impuestos para el concepto solo si:
+                    //  - es diferente de un complemento de pago
+                    //  - el producto incluye impuestos
+
+                    if (con_complemento_pg == 0 & incluye_impuestos == "02")
                     {
 
                         // NODO IMPUESTOS TRASLADADOS POR PRODUCTO
@@ -380,6 +430,7 @@ namespace PuntoDeVentaV2
                         //d_concepto_impuesto_t = cn.CargarDatos(cs.cargar_datos_venta_xml(5, id_producto, 0));
 
                         decimal importe_base = 0;
+                        decimal base_total_xprod = 0;
 
                         if (d_base_i > 0 & d_tasa_c != "" & d_imp_iva >= 0)
                         {
@@ -404,6 +455,7 @@ namespace PuntoDeVentaV2
                                     tipo_factor = "Exento";
                                 }
                             }
+                            
 
                             ComprobanteConceptoImpuestosTraslado concepto_traslado = new ComprobanteConceptoImpuestosTraslado();
 
@@ -411,6 +463,9 @@ namespace PuntoDeVentaV2
                             concepto_traslado.Base = seis_decimales(importe_base * cantidad);
                             concepto_traslado.Impuesto = "002";
                             concepto_traslado.TipoFactor = tipo_factor;
+
+                            
+
 
                             if (tipo_factor != "Exento")
                             {
@@ -441,6 +496,8 @@ namespace PuntoDeVentaV2
                                     concepto_traslado.Importe = nuevo_importe;
                                     importe = nuevo_importe;
                                 }
+
+                                base_total_xprod = importe_base * cantidad;
                             }
 
                             list_concepto_impuestos_traslados.Add(concepto_traslado);
@@ -457,16 +514,25 @@ namespace PuntoDeVentaV2
                             if (indice >= 0)
                             {
                                 indice = indice + 1;
+
                                 decimal monto_actual = Convert.ToDecimal(list_porprod_impuestos_trasladados[indice]);
                                 decimal monto_nuevo = monto_actual + seis_decimales(importe);
 
+                                decimal base_actual= Convert.ToDecimal(list_porprod_impuestos_trasladados[indice + 1]);
+                                decimal base_nueva = base_actual + seis_decimales(base_total_xprod);
+
+
                                 list_porprod_impuestos_trasladados.RemoveAt(indice);
                                 list_porprod_impuestos_trasladados.Insert(indice, Convert.ToString(monto_nuevo));
+
+                                list_porprod_impuestos_trasladados.RemoveAt(indice + 1);
+                                list_porprod_impuestos_trasladados.Insert(indice + 1, Convert.ToString(base_nueva));
                             }
                             else
                             {
                                 list_porprod_impuestos_trasladados.Add(cadena);
                                 list_porprod_impuestos_trasladados.Add(seis_decimales(importe).ToString());
+                                list_porprod_impuestos_trasladados.Add(seis_decimales(base_total_xprod).ToString());
                             }
                         }
 
@@ -527,8 +593,15 @@ namespace PuntoDeVentaV2
                                         else
                                         {
                                             string porcentaje = r_concepto_impuesto_td["tasa_cuota"].ToString();
-                                            //porcentaje = porcentaje.Substring(0, -2);  
-                                            tasacuota = Convert.ToDecimal(porcentaje);
+
+                                            var exi_porc= porcentaje.IndexOf('%');
+
+                                            if(exi_porc >= 0)
+                                            {
+                                                porcentaje = porcentaje.Substring(0, (3 - 1));
+                                            }
+                                                                                        
+                                            tasacuota = Convert.ToDecimal(porcentaje);                                            
 
                                             if (tasacuota > 1)
                                             {
@@ -561,13 +634,21 @@ namespace PuntoDeVentaV2
                                         decimal monto_actual = Convert.ToDecimal(list_porprod_impuestos_trasladados[indice]);
                                         decimal monto_nuevo = monto_actual + seis_decimales(importe);
 
+                                        decimal base_actual = Convert.ToDecimal(list_porprod_impuestos_trasladados[indice + 1]);
+                                        decimal base_nueva = base_actual + seis_decimales(base_total_xprod);
+
+
                                         list_porprod_impuestos_trasladados.RemoveAt(indice);
                                         list_porprod_impuestos_trasladados.Insert(indice, Convert.ToString(monto_nuevo));
+
+                                        list_porprod_impuestos_trasladados.RemoveAt(indice + 1);
+                                        list_porprod_impuestos_trasladados.Insert(indice + 1, Convert.ToString(base_nueva));
                                     }
                                     else
                                     {
                                         list_porprod_impuestos_trasladados.Add(cadena);
                                         list_porprod_impuestos_trasladados.Add(seis_decimales(importe).ToString());
+                                        list_porprod_impuestos_trasladados.Add(seis_decimales(base_total_xprod).ToString());
                                     }
                                 }
 
@@ -611,16 +692,6 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
-
-                        /* if (agrega_nodo_concepto_traslado == 1 )
-                         {
-                             concepto.Impuestos = new ComprobanteConceptoImpuestos();
-
-                             if (agrega_nodo_concepto_traslado == 1)
-                             {
-                                 concepto.Impuestos.Traslados = list_concepto_impuestos_traslados.ToArray();
-                             }
-                         }*/
 
 
                         
@@ -748,6 +819,23 @@ namespace PuntoDeVentaV2
                         
                     }
 
+
+                    // NODO A CUENTA TERCEROS
+                    //-----------------------
+
+                    if (r_productos["nombre_ctercero"].ToString() != "" & r_productos["nombre_ctercero"].ToString() != null)
+                    {
+                        ComprobanteConceptoACuentaTerceros cnt_terceros = new ComprobanteConceptoACuentaTerceros();
+
+                        cnt_terceros.RfcACuentaTerceros = r_productos["rfc_ctercero"].ToString();
+                        cnt_terceros.NombreACuentaTerceros = r_productos["nombre_ctercero"].ToString();
+                        cnt_terceros.RegimenFiscalACuentaTerceros = r_productos["regimen_ctercero"].ToString();
+                        cnt_terceros.DomicilioFiscalACuentaTerceros = r_productos["cp_ctercero"].ToString();
+
+                        concepto.ACuentaTerceros = cnt_terceros;
+                    }
+
+
                     listaConceptos.Add(concepto);
 
                     agrega_nodo_concepto_traslado = 0;
@@ -835,6 +923,7 @@ namespace PuntoDeVentaV2
                             {
                                 ComprobanteImpuestosTraslado impuestos_traslado = new ComprobanteImpuestosTraslado();
 
+                                impuestos_traslado.Base= dos_decimales(Convert.ToDecimal(list_porprod_impuestos_trasladados[c_impt + 2]));
                                 impuestos_traslado.Impuesto = dato_it[0];
                                 impuestos_traslado.TipoFactor = t_factor;
                                 impuestos_traslado.TasaOCuota = seis_decimales(t_cuota);
@@ -845,7 +934,7 @@ namespace PuntoDeVentaV2
                                 suma_impuesto_traslado += seis_decimales(Convert.ToDecimal(list_porprod_impuestos_trasladados[c_impt + 1]));
                             }
 
-                            c_impt += 2;
+                            c_impt += 3;
                         }
                     }
 
@@ -930,7 +1019,7 @@ namespace PuntoDeVentaV2
             decimal total_general = (suma_total_productos + dos_decimales(suma_impuesto_traslado)) - (dos_decimales(suma_impuesto_retenido) + dos_decimales(descuento_general));
            
 
-            comprobante.Version = "3.3";
+            comprobante.Version = "4.0";
             // Serie
             if (serie != "")
             {
@@ -995,6 +1084,8 @@ namespace PuntoDeVentaV2
             }
             // Tipo de comprobante
             comprobante.TipoDeComprobante = tipo_comprobante;
+            // Exportación
+            comprobante.Exportacion = exportacion;
             // Método de pago
             if(con_complemento_pg == 0)
             {
@@ -1008,7 +1099,7 @@ namespace PuntoDeVentaV2
 
             if (con_complemento_pg == 0)
             {
-                comprobante.xsiSchemaLocation = "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd";
+                comprobante.xsiSchemaLocation = "http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd";
             }
                 
 
@@ -1025,7 +1116,7 @@ namespace PuntoDeVentaV2
                 // NODO PAGOS, PAGO
                 //-----------------
 
-                Pagos pagos = new Pagos();
+                /*Pagos pagos = new Pagos();
                 PagosPago pago = new PagosPago();
                 List<PagosPago> list_pagos_pago = new List<PagosPago>();
 
@@ -1097,7 +1188,7 @@ namespace PuntoDeVentaV2
                 }
 
                 comprobante.Complemento[0].Any = new XmlElement[1];
-                comprobante.Complemento[0].Any[0] = c_pago.DocumentElement;
+                comprobante.Complemento[0].Any[0] = c_pago.DocumentElement;*/
             }
 
 
@@ -1148,12 +1239,12 @@ namespace PuntoDeVentaV2
 
 
             // .............................................................
-            // .    Geración de la cadena original, sello y certificado    .
+            // .    Generación de la cadena original, sello y certificado    .
             // .............................................................
 
 
             string cadenaOriginal = string.Empty;
-            string rutaXSLT = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\xslt\cadenaoriginal_3_3.xslt";
+            string rutaXSLT = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\xslt\cadenaoriginal_4_0.xslt";
             System.Xml.Xsl.XslCompiledTransform transformador = new System.Xml.Xsl.XslCompiledTransform(true);
             transformador.Load(rutaXSLT);
 
@@ -1176,98 +1267,122 @@ namespace PuntoDeVentaV2
             // .    Timbrar CFDI    .
             // ......................
 
-            var bXML = File.ReadAllBytes(rutaXML);
+           /* string usuario = "EWE1709045U0.Test";
+            string clave_u = "Prueba$1";
+            int id_servicio = 194876591;*/
             string usuario = "NUSN900420SS5";
-            string clave_u = "pGoyQq-RHsaij_yNJfHp";
-            //string clave_u = "c.ofis09NSUNotcatno5SS0240";
+            string clave_u = "Acceso$1";
+            int id_servicio = 196789671;
+            byte[] XML40 = File.ReadAllBytes(rutaXML);
 
 
-            // Crear el objeto cliente
-            timbrado_cfdi33_portClient cliente_timbrar = new timbrado_cfdi33_portClient();
-            // Crear el objeto de la respuesta
-            timbrar_cfdi_result respuesta = new timbrar_cfdi_result();
-            // Llamar al metodo de timbrado
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+            //Convierte archivo en bytes
+            var servicio = new FH_CFDI40_produccion.WsEmisionTimbrado40();
+            //var servicio = new FH_CFDI40_test.WsEmisionTimbrado40();
+
+
             try
             {
-                respuesta = cliente_timbrar.timbrar_cfdi(usuario, clave_u, Convert.ToBase64String(bXML));
-                File.WriteAllText(rutaXML, respuesta.xml);
+                //Crea un objeto del web service
+                var respuesta = servicio.EmitirTimbrar(usuario, clave_u, id_servicio, XML40);
+                
 
-                // Cambia a timbrada la nota de venta
-
-                if (con_complemento_pg == 0)
+                if (!respuesta.isError)
                 {
-                    string[] datos = new string[] { id_venta.ToString() };
+                    //Si no hay errores guarda el xml timbrado
+                    File.WriteAllBytes(rutaXML, respuesta.XML);
 
-                    cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(4, datos));
-                }
+                    // mensaje = "Exíto: " + "\n" +                            
+                    //respuesta.folioUDDI + "\n" +
+                    //respuesta.cadenaOriginal + "\n" +
+                    // respuesta.selloDigitalEmisor + "\n" +
+                    //respuesta.selloDigitalTimbreSAT + "\n" +
+                    // respuesta.fechaHoraTimbrado;
 
-                // Cambia a timbrada la factura
 
-                string[] dat_f = new string[] { id_factura.ToString() };
+                    // Cambia a timbrada la nota de venta
 
-                cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(8, dat_f));
-
-                // Cambia a timbrado cada documento relacionado del complemento de pago
-
-                if (con_complemento_pg == 1)
-                {
-                    string[] dat_cp = new string[] { id_factura.ToString() };
-                    cn.EjecutarConsulta(cs.crear_complemento_pago(5, dat_cp));
-
-                    // Cambia variable a 1 para indicar que la factura principal tienen complementos de pago
-
-                    for (int x = 0; x < arr_idf_principal_pago.Length; x++)
+                    if (con_complemento_pg == 0)
                     {
-                        string[] datos_v = new string[]
-                        {
-                            arr_idf_principal_pago[x][0].ToString(), arr_idf_principal_pago[x][1].ToString()
-                        };
+                        string[] datos = new string[] { id_venta.ToString() };
 
-                        cn.EjecutarConsulta(cs.crear_complemento_pago(4, datos_v));
+                        cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(4, datos));
                     }
+
+                    // Cambia a timbrada la factura
+
+                    string[] dat_f = new string[] { id_factura.ToString() };
+
+                    cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(8, dat_f));
+
+                    // Cambia a timbrado cada documento relacionado del complemento de pago
+
+                    if (con_complemento_pg == 1)
+                    {
+                        string[] dat_cp = new string[] { id_factura.ToString() };
+                        cn.EjecutarConsulta(cs.crear_complemento_pago(5, dat_cp));
+
+                        // Cambia variable a 1 para indicar que la factura principal tienen complementos de pago
+
+                        for (int x = 0; x < arr_idf_principal_pago.Length; x++)
+                        {
+                            string[] datos_v = new string[]
+                            {
+                                arr_idf_principal_pago[x][0].ToString(), arr_idf_principal_pago[x][1].ToString()
+                            };
+
+                            cn.EjecutarConsulta(cs.crear_complemento_pago(4, datos_v));
+                        }
+                    }
+
+
+                    // Leer XML para obtener total, UUID, sellos 
+
+                    XmlDocument xdoc = new XmlDocument();
+                    xdoc.Load(rutaXML);
+
+                    // Total
+                    XmlAttributeCollection c_total = xdoc.DocumentElement.Attributes;
+                    string obt_total = ((XmlAttribute)c_total.GetNamedItem("Total")).Value;
+
+                    // Datos del nodo timbre fiscal
+
+                    string uuid = "", fecha_cer = "";
+                    string sello_cfd = "", rfc_pac = "";
+                    string sello_sat = "";
+
+                    XmlNodeList nod_list = xdoc.GetElementsByTagName("tfd:TimbreFiscalDigital");
+                    XmlAttributeCollection rr = nod_list[0].Attributes;
+
+                    uuid = ((XmlAttribute)rr.GetNamedItem("UUID")).Value;
+                    fecha_cer = ((XmlAttribute)rr.GetNamedItem("FechaTimbrado")).Value;
+                    rfc_pac = ((XmlAttribute)rr.GetNamedItem("RfcProvCertif")).Value;
+                    sello_cfd = ((XmlAttribute)rr.GetNamedItem("SelloCFD")).Value;
+                    sello_sat = ((XmlAttribute)rr.GetNamedItem("SelloSAT")).Value;
+
+
+                    string[] datos_xml = new string[]
+                    {
+                        id_factura.ToString(), fecha_cer, uuid, rfc_pac, sello_sat, sello_cfd, obt_total
+                    };
+                    cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(9, datos_xml));
+
+
+                    // Resta timbre
+
+                    cn.EjecutarConsulta(cs.descontar_timbres(id_usuario));
+
+                }
+                else
+                {
+                    mensaje = respuesta.message;
                 }
 
-
-                // Leer XML para obtener total, UUID, sellos 
-
-                XmlDocument xdoc = new XmlDocument();
-                xdoc.Load(rutaXML);
-
-                // Total
-                XmlAttributeCollection c_total = xdoc.DocumentElement.Attributes;
-                string obt_total = ((XmlAttribute)c_total.GetNamedItem("Total")).Value;
-
-                // Datos del nodo timbre fiscal
-
-                string uuid = "", fecha_cer = "";
-                string sello_cfd = "", rfc_pac = "";
-                string sello_sat = "";
-
-                XmlNodeList nod_list = xdoc.GetElementsByTagName("tfd:TimbreFiscalDigital");
-                XmlAttributeCollection rr = nod_list[0].Attributes;
-
-                uuid = ((XmlAttribute)rr.GetNamedItem("UUID")).Value;
-                fecha_cer = ((XmlAttribute)rr.GetNamedItem("FechaTimbrado")).Value;
-                rfc_pac = ((XmlAttribute)rr.GetNamedItem("RfcProvCertif")).Value;
-                sello_cfd = ((XmlAttribute)rr.GetNamedItem("SelloCFD")).Value;
-                sello_sat = ((XmlAttribute)rr.GetNamedItem("SelloSAT")).Value;
-
-
-                string[] datos_xml = new string[]
-                {
-                    id_factura.ToString(), fecha_cer, uuid, rfc_pac, sello_sat, sello_cfd, obt_total
-                };
-                cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(9, datos_xml));
-
-
-                // Resta timbre
-
-                cn.EjecutarConsulta(cs.descontar_timbres(id_usuario));
             }
             catch (FaultException fex)
-            {
-                //var codigo = fex.Code.ToString();
-                
+            {                
                 mensaje = fex.Message;
 
                 // Elimina la factura que fue creada
@@ -1276,11 +1391,17 @@ namespace PuntoDeVentaV2
             catch (XmlException e_xml)
             {
                 mensaje = e_xml.Message;
-
-                // Elimina la factura que fue creada
-                //error_eliminar_factura(id_factura, con_complemento_pg);
             }
-            
+            catch(CommunicationException com)
+            {
+                mensaje = com.Message;
+            }
+            catch (WebException we)
+            {
+                mensaje = we.Message;
+            }
+
+
 
             return mensaje;
         }
@@ -1291,7 +1412,7 @@ namespace PuntoDeVentaV2
             string xml = string.Empty;
 
             XmlSerializerNamespaces xmlNameSpaces = new XmlSerializerNamespaces();
-            xmlNameSpaces.Add("cfdi", "http://www.sat.gob.mx/cfd/3");
+            xmlNameSpaces.Add("cfdi", "http://www.sat.gob.mx/cfd/4");
             xmlNameSpaces.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 
             if(complemento_pg == 1)
@@ -1380,32 +1501,33 @@ namespace PuntoDeVentaV2
             return media;
         }
 
-        /*private void error_eliminar_factura(int idf, int complemento)
-        {
-            // Complemento pago
-            if(complemento == 1)
-            {
-                cn.EjecutarConsulta($"DELETE Facturas_complemento_pago WHERE id_factura='{idf}'");
-            }
 
-            // Impuestos extras
-            DataTable d_product = cn.CargarDatos(cs.cargar_datos_venta_xml(10, idf, 0));
-
-            if(d_product.Rows.Count > 0)
+            /*private void error_eliminar_factura(int idf, int complemento)
             {
-                foreach(DataRow r_product in d_product.Rows)
+                // Complemento pago
+                if(complemento == 1)
                 {
-                    int id_fact_producto = Convert.ToInt32(r_product["ID"].ToString());
-
-                    cn.EjecutarConsulta($"DELETE Facturas_impuestos WHERE id_factura_producto='{id_fact_producto}'");
+                    cn.EjecutarConsulta($"DELETE Facturas_complemento_pago WHERE id_factura='{idf}'");
                 }
-            }
-            
-            //Productos
-            cn.EjecutarConsulta($"DELETE Facturas_productos WHERE id_factura='{idf}'");
 
-            //Factura principal
-            cn.EjecutarConsulta($"DELETE Facturas WHERE ID='{idf}'");
-        }*/
+                // Impuestos extras
+                DataTable d_product = cn.CargarDatos(cs.cargar_datos_venta_xml(10, idf, 0));
+
+                if(d_product.Rows.Count > 0)
+                {
+                    foreach(DataRow r_product in d_product.Rows)
+                    {
+                        int id_fact_producto = Convert.ToInt32(r_product["ID"].ToString());
+
+                        cn.EjecutarConsulta($"DELETE Facturas_impuestos WHERE id_factura_producto='{id_fact_producto}'");
+                    }
+                }
+
+                //Productos
+                cn.EjecutarConsulta($"DELETE Facturas_productos WHERE id_factura='{idf}'");
+
+                //Factura principal
+                cn.EjecutarConsulta($"DELETE Facturas WHERE ID='{idf}'");
+            }*/
+        }
     }
-}

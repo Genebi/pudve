@@ -249,6 +249,7 @@
       <HintPath>..\packages\System.Drawing.Common.5.0.0\lib\net461\System.Drawing.Common.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -639,7 +640,7 @@
     <Compile Include="CFDI\StringWriterConEncoding.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="cfdv33_tdCFDI_catCFDI.cs" />
+    <Compile Include="cfdv40_tdCFDI_catCFDI.cs" />
     <Compile Include="checarVersion.cs" />
     <Compile Include="Clientes.cs">
       <SubType>Form</SubType>
@@ -690,6 +691,12 @@
     </Compile>
     <Compile Include="Complemento_pago.Designer.cs">
       <DependentUpon>Complemento_pago.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Complemento_pago_impuestos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Complemento_pago_impuestos.Designer.cs">
+      <DependentUpon>Complemento_pago_impuestos.cs</DependentUpon>
     </Compile>
     <Compile Include="ConceptosCaja.cs">
       <SubType>Form</SubType>
@@ -861,6 +868,12 @@
     </Compile>
     <Compile Include="EditarTicket.Designer.cs">
       <DependentUpon>EditarTicket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Elegir_moneda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Elegir_moneda.Designer.cs">
+      <DependentUpon>Elegir_moneda.cs</DependentUpon>
     </Compile>
     <Compile Include="Empleados.cs">
       <SubType>Form</SubType>
@@ -1511,6 +1524,7 @@
     <None Include="PUDVE\icon\black16\circle-yellow-48.png" />
     <None Include="PUDVE\icon\black16\circle-green-48.png" />
     <None Include="PUDVE\icon\black16\circle-red-48.png" />
+    <Content Include="PUDVE\xslt\cadenaoriginal_4_0.xslt" />
     <Content Include="ReportesImpresion\Ticket\Inventario\DTInventario.cs">
       <DependentUpon>DTInventario.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1972,6 +1986,11 @@
     <Compile Include="vizualisarAmortizacion.Designer.cs">
       <DependentUpon>vizualisarAmortizacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Web References\FH_CFDI40_produccion\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Compile Include="WEBCaja.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1989,6 +2008,11 @@
     </Compile>
     <Compile Include="WebUploader.Designer.cs">
       <DependentUpon>WebUploader.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\FH_CFDI40_test\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="WinQueryString.cs">
       <SubType>Form</SubType>
@@ -2179,6 +2203,9 @@
     <EmbeddedResource Include="Complemento_pago.resx">
       <DependentUpon>Complemento_pago.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Complemento_pago_impuestos.resx">
+      <DependentUpon>Complemento_pago_impuestos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConceptosCaja.resx">
       <DependentUpon>ConceptosCaja.cs</DependentUpon>
     </EmbeddedResource>
@@ -2259,6 +2286,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EditarTicket.resx">
       <DependentUpon>EditarTicket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elegir_moneda.resx">
+      <DependentUpon>Elegir_moneda.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Empleados.resx">
       <DependentUpon>Empleados.cs</DependentUpon>
@@ -3306,6 +3336,28 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\ServiceReference_produccion\timbrado_cfdi33.wsdl" />
+    <None Include="Web References\FH_CFDI40_produccion\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\FH_CFDI40_produccion\WsEmisionTimbrado40.wsdl" />
+    <None Include="Web References\FH_CFDI40_produccion\WsEmisionTimbrado40.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\FH_CFDI40_produccion\wsResponseBO.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FH_CFDI40_test\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\FH_CFDI40_test\WsEmisionTimbrado40.wsdl" />
+    <None Include="Web References\FH_CFDI40_test\WsEmisionTimbrado40.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\FH_CFDI40_test\wsResponseBO.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -8580,6 +8632,33 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="PUDVE\Plantillas\Tmp\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://pruebasclientes.facturehoy.com:8080/CFDI40/WsEmisionTimbrado40%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\FH_CFDI40_test\</RelPath>
+      <UpdateFromURL>http://pruebasclientes.facturehoy.com:8080/CFDI40/WsEmisionTimbrado40%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>PuntoDeVentaV2_FH_CFDI40_test_WsEmisionTimbrado40</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://wsprod3.facturehoy.com/CFDI40/WsEmisionTimbrado40%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\FH_CFDI40_produccion\</RelPath>
+      <UpdateFromURL>https://wsprod3.facturehoy.com/CFDI40/WsEmisionTimbrado40%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>PuntoDeVentaV2_FH_CFDI40_produccion_WsEmisionTimbrado40</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.2\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net451\System.Data.SQLite.Core.targets')" />

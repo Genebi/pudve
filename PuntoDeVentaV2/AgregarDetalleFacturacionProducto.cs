@@ -47,6 +47,7 @@ namespace PuntoDeVentaV2
         public string ClaveProducto { get; set; }
         public int id_producto_edit { get; set; }
 
+        
         static public int typeOriginDataFinal;
         static public string UnidadMedidaFinal;
         static public string ClaveMedidaFinal;
@@ -55,6 +56,8 @@ namespace PuntoDeVentaV2
         static public double tmp_edit_base = 0;
         static public double tmp_edit_IVA = 0;
         static public string tmp_edit_impuesto = "";
+        static public string tmp_edit_cadena_impuestos= "";
+
 
         public int numero_actual_productoxml = 0;
 
@@ -65,10 +68,55 @@ namespace PuntoDeVentaV2
 
         public void cargarDatos()
         {
+            string nombre_tmp_ct = "";
+            string rfc_tmp_ct = "";
+            string cp_tmp_ct = "";
+            string regimen_tmp_ct = "";
+
+
             typeOriginDataFinal = typeOriginData;
             UnidadMedidaFinal = UnidadMedida;
             ClaveMedidaFinal = ClaveProducto;
-            
+
+            // Miri.
+            // Sección "A cuenta terceros"
+            // Agregar, editar, copiar
+
+            if (AgregarEditarProducto.DatosSourceFinal != 3)
+            {
+                nombre_tmp_ct= Productos.nombre_cnt_3ro;
+                rfc_tmp_ct = Productos.rfc_cnt_3ro;
+                cp_tmp_ct= Productos.cp_cnt_3ro;
+                regimen_tmp_ct = Productos.regimen_cnt_3ro;
+            }
+
+            // Agregar por XML
+
+            if (AgregarEditarProducto.DatosSourceFinal == 3)
+            {
+                nombre_tmp_ct = AgregarStockXML.razon_social_cnt_3ro_delxml;
+                rfc_tmp_ct = AgregarStockXML.rfc_cnt_3ro_delxml;
+                cp_tmp_ct = AgregarStockXML.cp_cnt_3ro_delxml;
+                regimen_tmp_ct = AgregarStockXML.regimen_cnt_3ro_delxml;
+            }
+
+
+            txt_nombre_cterceros.Text = nombre_tmp_ct;
+            txt_rfc_cterceros.Text = rfc_tmp_ct;
+            txt_cp_cterceros.Text = cp_tmp_ct;
+
+            int longitud= txt_rfc_cterceros.Text.Length;
+                
+            if(longitud == 12)
+            {
+                carga_regimen("M");
+            }
+            if (longitud == 13)
+            {
+                carga_regimen("F");
+            }
+
+            cmb_bx_regimen_cterceros.SelectedValue = regimen_tmp_ct;
         }
 
         public void limpiarCampos()
@@ -138,14 +186,19 @@ namespace PuntoDeVentaV2
                 txtIVA.Text = totalProcentaje.ToString("N2");
             }
 
-            var cantidadBase = precioProducto - float.Parse(txtIVA.Text);
-            var cantidadTotal = cantidadBase + float.Parse(txtIVA.Text);
+            if (!string.IsNullOrEmpty(txtIVA.Text))
+            {
+                var cantidadBase = precioProducto - float.Parse(txtIVA.Text);
+                var cantidadTotal = cantidadBase + float.Parse(txtIVA.Text);
 
-            txtBoxBase.Text = cantidadBase.ToString("0.00");
-            txtTotal.Text = cantidadTotal.ToString("0.00");
+                txtBoxBase.Text = cantidadBase.ToString("0.00");
+                txtTotal.Text = cantidadTotal.ToString("0.00");
 
-            RecalcularCambioPorcentaje();
-            RecalcularTotal();
+
+                RecalcularCambioPorcentaje();
+                RecalcularTotal();
+            }
+            
         }
 
         #region Constructor ===========================================================
@@ -203,36 +256,17 @@ namespace PuntoDeVentaV2
             cbLinea1_26.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbLinea1_36.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbLinea1_46.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cmb_bx_incluye_impuestos.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             //Se definen los valores que tendran los ComboBox y TextBox por default
             //al abrir la ventana por primera vez
             precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
 
-            //***cbLinea1_16.SelectedIndex = 0;
 
             cbUnidadMedida.SelectedIndex = valorDefault;
 
-            /***cbLinea1_26.Enabled = false;
-            cbLinea1_36.Enabled = false;
-            cbLinea1_46.Enabled = false;
-
-            cbLinea1_16.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbLinea1_26.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbLinea1_36.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbLinea1_46.DropDownStyle = ComboBoxStyle.DropDownList;*/
             cbUnidadMedida.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            /***cbLinea1_16.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
-            cbLinea1_26.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
-            cbLinea1_36.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
-            cbLinea1_46.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
 
-            cbLinea1_16.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
-            cbLinea1_26.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
-            cbLinea1_36.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
-            cbLinea1_46.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
-
-            tbLinea1_16.KeyPress += new KeyPressEventHandler(SoloDecimales);
-            tbLinea1_16.KeyUp += new KeyEventHandler(PorcentajeManual_KeyUp);*/
 
             /***************************
              *** Para los ComboBoxes ***
@@ -282,12 +316,34 @@ namespace PuntoDeVentaV2
 
             txtBoxBase.Text = precioProducto.ToString("N2");
 
+            // Miri
+            // Incluye impuestos
+
+            Dictionary<string, string> inc_impuestos = new Dictionary<string, string>();
+            inc_impuestos.Add("01", "No objeto de impuesto.");
+            inc_impuestos.Add("02", "Sí objeto de impuesto.");
+            inc_impuestos.Add("03", "Sí objeto del impuesto y no obligado al desglose.");
+            inc_impuestos.Add("04", "Sí objeto del impuesto y no causa impuesto.");
+
+            cmb_bx_incluye_impuestos.DataSource = inc_impuestos.ToArray();
+            cmb_bx_incluye_impuestos.DisplayMember = "value";
+            cmb_bx_incluye_impuestos.ValueMember = "key";
+
+
             // Miri.
             // No incluye calcular el IVA de los radios porque hasta este punto no se sabe que 
             // impuesto tiene agregado el producto que se esta registrando desde el XML.
-            if (AgregarEditarProducto.DatosSourceFinal != 3)
+
+            //if (AgregarEditarProducto.DatosSourceFinal != 3)
+
+            // Se modifica la anterior condicional para nueva versión de CFDI 4.0
+            // esto para que no afecte al nuevo campo de "Incluye impuestos".
+            // Para registros anteriores se debe primero validar que se tengan o no impuestos agregados.
+
+            if (AgregarEditarProducto.DatosSourceFinal == 1)
             {
-                checarRadioButtons();
+                //checarRadioButtons();
+                des_habilita_elementos_impuestos(0);
             }
                 
 
@@ -298,37 +354,96 @@ namespace PuntoDeVentaV2
                 CargarClaveUnidad();
             }
 
+            // Miri.
+            // Copiar. Se agregan nuevas validaciones para impuestos. Se anexa datos de sección "A cuenta terceros"
+
             if (AgregarEditarProducto.DatosSourceFinal == 4)
             {
-                cargar_impuestos();
+                string incluye_impuestos = Productos.incluye_impuestos;
+                var impuestoSeleccionado = AgregarEditarProducto.impuestoProductoFinal;
+
+                // Deshabilita todos los impuestos
+                des_habilita_elementos_impuestos(0);
+
+                if(impuestoSeleccionado != "" | incluye_impuestos == "02")
+                {
+                    des_habilita_elementos_impuestos(1);
+
+                    cmb_bx_incluye_impuestos.SelectedValue = "02";
+
+                    
+                    if (impuestoSeleccionado == "0%")
+                    {
+                        rb0porCiento.Checked = true;
+                    }
+                    else if (impuestoSeleccionado == "16%")
+                    {
+                        rb16porCiento.Checked = true;
+                    }
+                    else if (impuestoSeleccionado == "8%")
+                    {
+                        rb8porCiento.Checked = true;
+                    }
+                    else if (impuestoSeleccionado == "Exento")
+                    {
+                        rbExcento.Checked = true;
+                    }
+
+                    cargar_impuestos();
+                }
+                else
+                {
+                    cmb_bx_incluye_impuestos.SelectedValue = incluye_impuestos;
+                }
             }
 
             // Miri.
             // Solo para cuando se edite un producto. Carga los impuestos guardados  
+
             if (AgregarEditarProducto.DatosSourceFinal == 2)
             {
                 // Obtiene la lista de impuestos guardados
-                cargar_impuestos();
+                //cargar_impuestos();
                 
                 
                 // Este fragmento de código es cambiado aquí, y quitado en "checarRadioButtons()". Se hizo para que al momento de querer seleccionar otro te permita hacerlo, porque no dejaba elegir otro.   
                 var impuestoSeleccionado = AgregarEditarProducto.impuestoProductoFinal;
+                string incluye_impuestos = Productos.incluye_impuestos;
 
-                if (impuestoSeleccionado == "0%")
+                // No tiene impuestos incluidos, por lo tanto se desactiva todo lo relacionado a impuestos
+                if (impuestoSeleccionado == "")
                 {
-                    rb0porCiento.Checked = true;
+                    des_habilita_elementos_impuestos(0);
+                    cmb_bx_incluye_impuestos.SelectedValue = incluye_impuestos;
                 }
-                else if (impuestoSeleccionado == "16%")
+                else
                 {
-                    rb16porCiento.Checked = true;
-                }
-                else if (impuestoSeleccionado == "8%")
-                {
-                    rb8porCiento.Checked = true;
-                }
-                else if (impuestoSeleccionado == "Exento")
-                {
-                    rbExcento.Checked = true;
+                    // Incluye impuestos, por lo que todo lo relacionado queda habilitado
+
+                    des_habilita_elementos_impuestos(1);
+                    cmb_bx_incluye_impuestos.SelectedValue = "02";
+
+                    // Obtiene la lista de impuestos guardados
+                    cargar_impuestos();
+
+
+                    if (impuestoSeleccionado == "0%")
+                    {
+                        rb0porCiento.Checked = true;
+                    }
+                    else if (impuestoSeleccionado == "16%")
+                    {
+                        rb16porCiento.Checked = true;
+                        checarRadioButtons();
+                    }
+                    else if (impuestoSeleccionado == "8%")
+                    {
+                        rb8porCiento.Checked = true;
+                    }
+                    else if (impuestoSeleccionado == "Exento")
+                    {
+                        rbExcento.Checked = true;
+                    }
                 }
             }
 
@@ -341,24 +456,6 @@ namespace PuntoDeVentaV2
                 cargar_impuestos_dexml();
             }
 
-            //if (typeOriginDataFinal == 2)
-            //{
-            //    //Verificar si existe ya una clave de unidad y de producto proveniente desde cargar XML
-            //    if (!string.IsNullOrWhiteSpace(AgregarEditarProducto.claveProducto))
-            //    {
-            //        txtClaveProducto.Text = AgregarEditarProducto.claveProducto;
-            //    }
-
-                //    if (!string.IsNullOrWhiteSpace(AgregarEditarProducto.claveUnidadMedida))
-                //    {
-                //        txtClaveUnidad.Text = AgregarEditarProducto.claveUnidadMedida;
-
-                //        CargarClaveUnidad();
-                //    }
-                //txtClaveProducto.Text = ClaveMedidaFinal;
-                //txtClaveUnidad.Text = UnidadMedidaFinal;
-                //CargarClaveUnidad();
-                //}
         }
 
         private void btnExtra_Click(object sender, EventArgs e)
@@ -503,7 +600,7 @@ namespace PuntoDeVentaV2
 
             //TextBox para el porcentaje
             TextBox tb1 = new TextBox();
-            tb1.Name = etiqueta2 + id + "_1";
+            tb1.Name = etiqueta2 + id + "_1"; 
             tb1.Width = 100;
             tb1.Height = 20;
             tb1.Margin = new Padding(20, 0, 0, 0);
@@ -642,67 +739,123 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            string cadenaImpuestos = null;
+            // Miri.
+            // Valida datos de a cuenta terceros
 
-            /***if (cbLinea1_16.Text != "...")
+            if(!string.IsNullOrEmpty(txt_nombre_cterceros.Text) | !string.IsNullOrEmpty(txt_rfc_cterceros.Text) | !string.IsNullOrEmpty(txt_cp_cterceros.Text))
             {
-                cadenaImpuestos += ValidarCampos(cbLinea1_16.Text) + ",";
-                cadenaImpuestos += ValidarCampos(cbLinea1_26.Text) + ",";
-                cadenaImpuestos += ValidarCampos(cbLinea1_36.Text) + ",";
-                cadenaImpuestos += ValidarCampos(cbLinea1_46.Text) + ",";
-                cadenaImpuestos += ValidarCampos(tbLinea1_16.Text) + ",";
-                cadenaImpuestos += ValidarCampos(tbLinea1_26.Text) + "|";
-            }*/
-
-
-            //Leer todos los datos de los ComboBox y TextBox que se hayan agregado para el producto
-            if (panelContenedor.Controls.Count > 0)
-            {
-                foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+                if (string.IsNullOrEmpty(txt_nombre_cterceros.Text) | string.IsNullOrEmpty(txt_rfc_cterceros.Text) | string.IsNullOrEmpty(txt_cp_cterceros.Text))
                 {
-                    foreach (Control item in panel.Controls.OfType<Control>())
-                    {
-                        if (item.Name.Contains("cbLinea"))
-                        {
-                            cadenaImpuestos += ValidarCampos(item.Text) + ",";
-                        }
+                    MessageBox.Show("No debe haber campos vacíos en la sección 'A cuenta terceros'. Sin un campo de esa sección es llenado, los demás también deberán serlo.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (string.IsNullOrEmpty(cmb_bx_regimen_cterceros.SelectedValue.ToString()) | cmb_bx_regimen_cterceros.SelectedValue.ToString() == "...")
+                {
+                    MessageBox.Show("Debe haber un tipo de régimen fiscal seleccionado.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-                        if (item.Name.Contains("tbLinea"))
-                        {
-                            cadenaImpuestos += ValidarCampos(item.Text) + ",";
-                        }
-                    }
+                // RFC
 
-                    cadenaImpuestos = cadenaImpuestos.Remove(cadenaImpuestos.Length - 1);
-                    cadenaImpuestos += "|";
+                string resultado = formato_rfc();
+
+                if(resultado != "")
+                {
+                    MessageBox.Show(resultado, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Código postal
+
+                string formato_cp = "^[0-9]{5}$";
+
+                Regex exp_cp = new Regex(formato_cp);
+
+                if (!exp_cp.IsMatch(txt_cp_cterceros.Text))
+                {
+                    MessageBox.Show("El formato del código postal no es valido", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
             }
 
-            //Eliminamos el ultimo caracter de la cadena impuestos "|"
-            if (!string.IsNullOrWhiteSpace(cadenaImpuestos))
-            {
-                cadenaImpuestos = cadenaImpuestos.Remove(cadenaImpuestos.Length - 1);
-            }
-            
-            //Verificamos cual impuesto de los radio buttons fue seleccionado
+
+            string cadenaImpuestos = null;
             var impuesto = string.Empty;
 
-            if (rb0porCiento.Checked)
+
+
+            // Miri.
+            // Los impuestos serán agregados solo si es objeto de impuestos
+
+            if (cmb_bx_incluye_impuestos.SelectedValue.ToString() == "02")
             {
-                impuesto = "0%";
+                //Leer todos los datos de los ComboBox y TextBox que se hayan agregado para el producto
+                if (panelContenedor.Controls.Count > 0)
+                {
+                    foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+                    {
+                        foreach (Control item in panel.Controls.OfType<Control>())
+                        {
+                            if (item.Name.Contains("cbLinea"))
+                            {
+                                cadenaImpuestos += ValidarCampos(item.Text) + ",";
+                            }
+
+                            if (item.Name.Contains("tbLinea"))
+                            {
+                                cadenaImpuestos += ValidarCampos(item.Text) + ",";
+                            }
+                        }
+
+                        cadenaImpuestos = cadenaImpuestos.Remove(cadenaImpuestos.Length - 1);
+                        cadenaImpuestos += "|";
+                    }
+                }
+
+                //Eliminamos el ultimo caracter de la cadena impuestos "|"
+                if (!string.IsNullOrWhiteSpace(cadenaImpuestos))
+                {
+                    cadenaImpuestos = cadenaImpuestos.Remove(cadenaImpuestos.Length - 1);
+                }
+
+                //Verificamos cual impuesto de los radio buttons fue seleccionado
+                
+                if (rb0porCiento.Checked)
+                {
+                    impuesto = "0%";
+                }
+                else if (rb16porCiento.Checked)
+                {
+                    impuesto = "16%";
+                }
+                else if (rb8porCiento.Checked)
+                {
+                    impuesto = "8%";
+                }
+                else if (rbExcento.Checked)
+                {
+                    impuesto = "Exento";
+                }
             }
-            else if (rb16porCiento.Checked)
+
+            // Miri.
+            // A cuenta terceros
+
+            if (!string.IsNullOrEmpty(txt_nombre_cterceros.Text) & !string.IsNullOrEmpty(txt_rfc_cterceros.Text))
             {
-                impuesto = "16%";
+                AgregarEditarProducto.nombre_cterceros = txt_nombre_cterceros.Text;
+                AgregarEditarProducto.rfc_cterceros = txt_rfc_cterceros.Text;
+                AgregarEditarProducto.cp_cterceros = txt_cp_cterceros.Text;
+
+                var regimen = cmb_bx_regimen_cterceros.SelectedValue;
+                var r = cmb_bx_regimen_cterceros.SelectedItem;
+
+                AgregarEditarProducto.regimen_cterceros = cmb_bx_regimen_cterceros.SelectedValue.ToString();
             }
-            else if (rb8porCiento.Checked)
-            {
-                impuesto = "8%";
-            }
-            else if (rbExcento.Checked)
-            {
-                impuesto = "Exento";
-            }
+            
+
+            AgregarEditarProducto.incluye_impuestos = cmb_bx_incluye_impuestos.SelectedValue.ToString();
+
 
             AgregarEditarProducto.datosImpuestos = cadenaImpuestos;
             AgregarEditarProducto.claveProducto = txtClaveProducto.Text;
@@ -713,9 +866,15 @@ namespace PuntoDeVentaV2
 
             // Miri.
             // Agregado para que al momento de editar el producto también se guarde el impuesto que se cambio de los radio.
-            tmp_edit_base = Convert.ToDouble(txtBoxBase.Text);
-            tmp_edit_IVA = Convert.ToDouble(txtIVA.Text);
+            
+            if(txtBoxBase.Text != "")
+            {
+                tmp_edit_base = Convert.ToDouble(txtBoxBase.Text);
+                tmp_edit_IVA = Convert.ToDouble(txtIVA.Text);
+            }
+            
             tmp_edit_impuesto = impuesto;
+            tmp_edit_cadena_impuestos = cadenaImpuestos;
             
             // Se agrega variable para identificar si al momento de editar se guardan los cambios o se cancelan.
             // Esto es para evitar que se eliminen los impuestos si no se da clic en este botón 
@@ -732,17 +891,29 @@ namespace PuntoDeVentaV2
             string nombreCB = cb.Name;
 
             //Identificar tipo impuesto
-            string tipoImpuesto = nombreCB.Substring(0, 8);
+            //string tipoImpuesto = nombreCB.Substring(0, 8);
             int rango = 0;
 
-            if (tipoImpuesto == "cbLineaL")
+            // Miri.
+            // Obtención del tipo de impuesto modificado debido a que falla cuando se tiene mas de
+            // un digito. Ejemplo, cbLinea110_3. También se modifica el valor de la variable "rango".
+
+            string[] nombre_cbox = nombreCB.Split('_');
+            int long_nombre_cbox = nombre_cbox[0].Length;
+
+            rango = long_nombre_cbox + 1;
+
+           /* string tipo_cbox = nombre_cbox[0].Substring(0, 8);
+
+
+            if (tipo_cbox == "cbLineaL")
             {
                 rango = 10;
             }
             else
             {
                 rango = 9;
-            }
+            }*/
             
             string subNombreCB = nombreCB.Substring(0, rango);
             string seleccionado = cb.GetItemText(cb.SelectedItem);
@@ -1165,7 +1336,7 @@ namespace PuntoDeVentaV2
 
                 nombre = nombre.Replace("cbLinea", "tbLinea");
 
-                if (porcentajeSeleccionado == "Definir %")
+                if (porcentajeSeleccionado == "Definir %" | porcentajeSeleccionado == "Definir") //if (porcentajeSeleccionado == "Definir %")
                 {
                     nombre += "1";
 
@@ -1186,12 +1357,17 @@ namespace PuntoDeVentaV2
 
                     //float porcentaje = CantidadPorcentaje(cantidadTmp[0]);
                     double porcentaje = convertir_porcentaje(Convert.ToDouble(cantidadTmp[0]), tipoPorcentaje);
+                    double importe = 0;
 
-                    double precioProductoTmp = Convert.ToDouble(txtBoxBase.Text);
-                    double importe = precioProductoTmp * porcentaje;
+                    if (txtBoxBase.Text != "")
+                    {
+                        double precioProductoTmp = Convert.ToDouble(txtBoxBase.Text);
+                        importe = precioProductoTmp * porcentaje;
 
-                    TextBox tbTmp = (TextBox)this.Controls.Find(nombre, true).FirstOrDefault();
-                    tbTmp.Text = importe.ToString("0.00");
+                        TextBox tbTmp = (TextBox)this.Controls.Find(nombre, true).FirstOrDefault();
+                        tbTmp.Text = importe.ToString("0.00");
+                    }
+                    
 
                     //Para sumar o restar la cantidad del impuesto al total final
                     if (tipoImpuesto == "Traslado" || tipoImpuesto == "Loc. Traslado")
@@ -1276,8 +1452,7 @@ namespace PuntoDeVentaV2
             txt_f_c1.Text = string.Empty;
             txt_f_c2.Text = string.Empty;
 
-            //cb.DataSource = null;
-            //cb.Items.Clear();
+            
             cb.Enabled = habilitado;
         }
 
@@ -1345,6 +1520,8 @@ namespace PuntoDeVentaV2
             var nombre = tb.Name.Remove(tb.Name.Length - 1);
                     
             var cantidad = tb.Text;
+
+            var tipo_txt = tb.Name.Split('_');
 
             int numero_fila_actual = 0;
             string txt_timpuest= nombre.Substring(0, 7);
@@ -1470,7 +1647,7 @@ namespace PuntoDeVentaV2
             //float porcentaje = CantidadPorcentaje(cantidad);
             double porcentaje = convertir_porcentaje(Convert.ToDouble(cantidad), cmb_impuesto_actual);
 
-            if (porcentaje < lim_porc_minimo || porcentaje > lim_porc_maximo)
+            if (porcentaje < lim_porc_minimo || porcentaje > lim_porc_maximo & tipo_txt[1] == "1")
             {
                 MessageBox.Show("El porcentaje debe ser entre " + txt_lim_maxmin, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -1550,9 +1727,150 @@ namespace PuntoDeVentaV2
                 // Miri.
                 // No incluye calcular el IVA de los radios porque hasta este punto no se sabe que 
                 // impuesto tiene agregado el producto que se esta registrando desde el XML.
-                if (AgregarEditarProducto.DatosSourceFinal != 3)
+
+                //if (AgregarEditarProducto.DatosSourceFinal != 3)
+
+                // Se modifica la anterior condicional para nueva versión de CFDI 4.0
+                // esto para que no afecte al nuevo campo de "Incluye impuestos".
+                // Para registros anteriores se debe primero validar que se tengan o no impuestos agregados.
+
+                if (AgregarEditarProducto.DatosSourceFinal == 1)
                 {
-                    checarRadioButtons();
+                    //checarRadioButtons(); 
+                    des_habilita_elementos_impuestos(0);
+
+                    if (editado == true)
+                    {
+                        editado = false; 
+
+                        if (tmp_edit_impuesto != "")
+                        {
+                            des_habilita_elementos_impuestos(1);
+
+                            if (tmp_edit_impuesto == "0%")
+                            {
+                                rb0porCiento.Checked = true;
+                            }
+                            if (tmp_edit_impuesto == "16%")
+                            {
+                                rb16porCiento.Checked = true;
+                            }
+                            if (tmp_edit_impuesto == "8%")
+                            {
+                                rb8porCiento.Checked = true;
+                            }
+                            if (tmp_edit_impuesto == "Exento")
+                            {
+                                rbExcento.Checked = true;
+                            }
+
+                            // Verifica si tiene mas impuestos
+
+                            if (tmp_edit_cadena_impuestos != "")
+                            {
+                                string[] lista_impuestos_extra = tmp_edit_cadena_impuestos.Split('|');
+                                int longitud = lista_impuestos_extra.Length;
+                                int id_tmp = 0;
+                                string nombre_cb = "";
+                                string nombre_txt = "";
+                                string loc = "";
+
+
+                                for (int i = 0; i < longitud; i++)
+                                {
+                                    string[] dato = lista_impuestos_extra[i].Split(',');
+                                    
+                                    if (dato[0] == "Traslado" | dato[0] == "Retención")
+                                    {
+                                        GenerarCampos(1);
+                                    }
+                                    if (dato[0] == "Loc. Traslado" | dato[0] == "Loc. Retenido")
+                                    {
+                                        GenerarCampos(0);
+                                        loc = "L";
+                                    }
+
+                                    id_tmp = id - 1;
+                                    nombre_cb = "cbLinea" + loc + id_tmp + "_";
+                                    nombre_txt = "tbLinea" + loc + id_tmp + "_";
+
+                                    
+
+                                    
+                                    // Combobox: Es...
+                                    
+                                    ComboBox cb1 = (ComboBox)this.Controls.Find(nombre_cb + 1, true).FirstOrDefault();
+                                    cb1.SelectedItem = dato[0];
+                                    int index1 = cb1.SelectedIndex;
+
+                                    AccederComboBox(nombre_cb + 2, 2, index1, dato[0]);
+
+                                    // Combobox: impuesto 
+
+                                    ComboBox cb2 = (ComboBox)this.Controls.Find(nombre_cb + 2, true).FirstOrDefault();
+                                    cb2.SelectedItem = dato[1];
+                                    int index2 = cb2.SelectedIndex;
+
+                                    AccederComboBox(nombre_cb + 3, 3, index2, dato[1]);
+
+                                    // Combobox: tipo factor
+
+                                    ComboBox cb3 = (ComboBox)this.Controls.Find(nombre_cb + 3, true).FirstOrDefault();
+                                    cb3.SelectedItem = dato[2];
+                                    int index3 = cb3.SelectedIndex;
+
+                                    AccederComboBox(nombre_cb + 4, 4, index3, dato[2]);
+
+                                    // Combobox: tasa/cuota
+
+                                    ComboBox cb4 = (ComboBox)this.Controls.Find(nombre_cb + 4, true).FirstOrDefault();
+                                    cb4.SelectedItem = dato[3];// + " %";
+                                    int index4 = cb4.SelectedIndex;
+
+                                    AccederComboBox(nombre_cb, 5, index4, dato[3]);// + " %"
+
+
+                                    // Textbox: Definir impuesto
+
+                                    if (dato[3] == "Definir %")
+                                    {
+                                        TextBox tb1 = (TextBox)this.Controls.Find(nombre_txt + 1, true).FirstOrDefault();
+                                        tb1.Text = dato[4];
+
+
+                                        // Textbox: Importe
+
+                                        double importe = 0;
+
+                                        if (dato[2] == "Tasa")
+                                        {
+                                            importe = Convert.ToDouble(dato[4]) * Convert.ToDouble(txtBoxBase.Text);
+
+                                            if (Convert.ToDecimal(dato[4]) > 1)
+                                            {
+                                                importe = importe / 100;
+                                            }
+                                        }
+                                        if (dato[2] == "Cuota")
+                                        {
+                                            importe = Convert.ToDouble(dato[4]) * 1;
+                                        }
+
+                                        TextBox tb2 = (TextBox)this.Controls.Find(nombre_txt + 2, true).FirstOrDefault();
+                                        tb2.Text = importe.ToString("0.00");
+                                    }
+
+                                    //RecalcularTotal();
+
+                                }
+                            }
+                        }
+
+                        if (tmp_edit_impuesto == "")
+                        {
+
+                        }
+                    }
                 }
                 
                 //RecalcularTotal();
@@ -1638,14 +1956,10 @@ namespace PuntoDeVentaV2
 
                 if (tipo == 1)
                 {
-                    //totalFinal += importe;
-                    //totalFinal -= importe;
                     total_tra += importe; 
                 }
                 else
                 {
-                    //totalFinal -= importe;
-                    //totalFinal += importe;
                     total_ret += importe;
                 }
             }
@@ -1668,11 +1982,16 @@ namespace PuntoDeVentaV2
                 }
             }*/
 
-            //float totalActual = float.Parse(txtTotal.Text) + totalFinal;
-            double total_nuevo = Convert.ToDouble(txtIVA.Text) + Convert.ToDouble(txtBoxBase.Text);
+            double total_nuevo = 0;
+
+            if (txtIVA.Text != "" & txtBoxBase.Text != "")
+            {
+                total_nuevo = Convert.ToDouble(txtIVA.Text) + Convert.ToDouble(txtBoxBase.Text);
+            }
+
+            //double total_nuevo = Convert.ToDouble(txtIVA.Text) + Convert.ToDouble(txtBoxBase.Text);
             total_nuevo = (total_nuevo + total_tra) - total_ret;
             txtTotal.Text = total_nuevo.ToString("0.00");
-            //txtTotal.Text = totalActual.ToString("0.00");
         }
         #endregion
 
@@ -1681,49 +2000,6 @@ namespace PuntoDeVentaV2
         {
             float cantidadBase = float.Parse(txtBoxBase.Text);
 
-            //Fijo
-            /***if (cbLinea1_16.Text != "...")
-            {
-                var manual = false;
-                var auxiliar = string.Empty;
-
-                if (cbLinea1_46.Text == "Definir %")
-                {
-                    manual = true;
-                }
-                else
-                {
-                    auxiliar = cbLinea1_46.Text;
-                }
-
-                if (manual)
-                {
-                    auxiliar = tbLinea1_16.Text;
-                }
-
-                var porcentajeTmp = auxiliar.Split(' ');
-                
-                // Si el tipo de impuesto es un IEPS y el tipo factor es Cuota,
-                // entonces el calculo para el importe es diferente, se calcula con la cantidad de unidades y no a la base.
-                   
-                string cb_linea_1_2 = cbLinea1_26.GetItemText(cbLinea1_26.SelectedItem);
-                string cb_linea_1_3 = cbLinea1_36.GetItemText(cbLinea1_36.SelectedItem);
-
-                if (cb_linea_1_2 == "IEPS" & cb_linea_1_3 == "Cuota")
-                {
-                    double importe = 1 * Convert.ToDouble(porcentajeTmp[0]);
-
-                    tbLinea1_26.Text = importe.ToString("0.00");
-                }
-                else
-                {
-                    //var porcentaje = CantidadPorcentaje(porcentajeTmp[0]);
-                    double porcentaje = convertir_porcentaje(Convert.ToDouble(porcentajeTmp[0]), cb_linea_1_2);
-                    var importe = cantidadBase * porcentaje;
-
-                    tbLinea1_26.Text = importe.ToString("0.00");
-                }
-            }*/
 
             //Dinamicos
             foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
@@ -1780,6 +2056,7 @@ namespace PuntoDeVentaV2
                         {
                             var porcentajeTmp = auxiliar.Split(' ');
 
+                            // Miri.
                             // Si el tipo de impuesto es un IEPS y el tipo factor es Cuota,
                             // entonces el calculo para el importe es diferente, se calcula con la cantidad de unidades y no a la base.
 
@@ -1800,9 +2077,17 @@ namespace PuntoDeVentaV2
 
                                 double porcentaje = 0;
 
+                                // Miri.
+                                // Se agrega 2da condicional porque marca error cuando el valor de es: porcentajeTmp[0] == "..."
                                 if (porcentajeTmp[0] != "")
                                 {
+                                    if (porcentajeTmp[0] == "...")
+                                    {
+                                        porcentajeTmp[0] = "0";
+                                    }
+                                    
                                     porcentaje = convertir_porcentaje(Convert.ToDouble(porcentajeTmp[0]), cmb_col_2);
+                                                                            
                                 }
 
                                 var importe = cantidadBase * porcentaje;
@@ -1899,7 +2184,11 @@ namespace PuntoDeVentaV2
 
                         ComboBox cb4 = (ComboBox)this.Controls.Find(nombre_cb + 4, true).FirstOrDefault();
 
-                        string tasaCuotaAux = "...";
+                        string tasaCuotaAux = r_impuestos_ext["tasacuota"].ToString(); // "...";
+                        // Modificado. Miri,
+                        // Linea anterior puesta en comentarios debido a que no puede haber registro de un impuesto donde no se halla especificado una tasa cuota.
+                        // Se asigna por default lo que trae guardado porque las siguientes condicionales fallan cuando en el registro se encuentra agregado en signo de "%",
+                        // no se selecciona la opción.
 
                         if (r_impuestos_ext["tasacuota"].ToString().Equals("0.00")) { tasaCuotaAux = "0 %"; }
                         if (r_impuestos_ext["tasacuota"].ToString().Equals("26.50")) { tasaCuotaAux = "26.5 %"; }
@@ -1919,13 +2208,17 @@ namespace PuntoDeVentaV2
                         cb4.SelectedItem = tasaCuotaAux;
                         int index4 = cb4.SelectedIndex;
 
-
-                        AccederComboBox(nombre_cb, 5, index4, r_impuestos_ext["tasacuota"].ToString() + " %");
+                        AccederComboBox(nombre_cb, 5, index4, r_impuestos_ext["tasacuota"].ToString()); //+" %"
 
 
                         // Textbox: Definir impuesto
                         // Antes comparaba con Definir %
-                        if (r_impuestos_ext["tasacuota"].ToString() == "0.00" && r_impuestos_ext["Definir"].ToString() != "0.00")
+                        //if (r_impuestos_ext["tasacuota"].ToString() == "0.00" && r_impuestos_ext["Definir"].ToString() != "0.00")
+                        // Miri.
+                        // Se regresa la comparación que se tenia. Agregaron el anterior if (se desconoce el motivo), pero esa validación no es funcional
+                        // Cuando se define el impuesto por el usuario, en el campo "r_impuestos_ext["tasacuota"]" guarda la leyenda "Definir %".
+                        // Si yo no hago el cambio, no se agregaran los impuestos cada vez que se edite un producto.
+                        if (r_impuestos_ext["tasacuota"].ToString() == "Definir %")
                         {
                             TextBox tb1 = (TextBox)this.Controls.Find(nombre_tb + 1, true).FirstOrDefault();
                             tb1.Text = r_impuestos_ext["Definir"].ToString();
@@ -2045,10 +2338,15 @@ namespace PuntoDeVentaV2
             ValidarEntradaDeTexto(sender, e);
         }
 
+       
         private void cargar_impuestos_dexml()
         {
-            int t = 1;
+            // Miri.
+            // Todo modificado
+
+            //int t = 1;
             int e = 1;
+            string incluye_impuesto = AgregarStockXML.incluye_impuestos_delxml;
 
             // Inicia limpiando el área de impuestos.
             int cant_filas = panelContenedor.Controls.OfType<FlowLayoutPanel>().Count();
@@ -2073,10 +2371,20 @@ namespace PuntoDeVentaV2
                 RecalcularTotal();
             }
 
+            // Deshabilita todo lo de impuestos
+            des_habilita_elementos_impuestos(0);
 
             // Solo aplica para el impuesto de los radio. 
-            if (AgregarStockXML.tipo_impuesto_delxml != "")
+
+            if (AgregarStockXML.tipo_impuesto_delxml != "" | incluye_impuesto == "02")
             {
+
+                // Habilita todo lo de impuestos 
+                des_habilita_elementos_impuestos(1);
+
+                cmb_bx_incluye_impuestos.SelectedValue = incluye_impuesto;
+
+
                 if (AgregarStockXML.tipo_impuesto_delxml == "0")
                 {
                     rb0porCiento.Checked = true;
@@ -2096,13 +2404,13 @@ namespace PuntoDeVentaV2
 
                 checarRadioButtons();
             }
-            else
+            /*else
             {
                 rb0porCiento.Checked = false;
                 rb8porCiento.Checked = false;
                 rb16porCiento.Checked = false;
                 rbExcento.Checked = false;
-            }
+            }*/
 
             
             // Trasladados y retenidos
@@ -2111,8 +2419,14 @@ namespace PuntoDeVentaV2
             {
                 foreach (var list_tras in AgregarStockXML.list_impuestos_traslado_retenido)
                 {
-                    string nombre_cb = "cbLinea" + t + "_";
-                    string nombre_tb = "tbLinea" + t + "_";
+
+                    GenerarCampos(1);
+
+
+                    var id_tmp = id - 1;
+
+                    string nombre_cb = "cbLinea" + id_tmp + "_";
+                    string nombre_tb = "tbLinea" + id_tmp + "_";
                     string tra_ret = "";
                     string t_impuesto = "";
                     string tasa_cuota = "";
@@ -2120,9 +2434,7 @@ namespace PuntoDeVentaV2
 
                     var dato = list_tras.Split('-');
 
-
-                    GenerarCampos(1);
-
+                  
 
                     // Traslado - retención
                     if (dato[0] == "t") { tra_ret = "Traslado"; }
@@ -2239,9 +2551,190 @@ namespace PuntoDeVentaV2
 
                     RecalcularTotal();
 
-                    t++;
+                    //t++;
                 }                
             }
+        }
+
+        private void sel_incluye_impuestos(object sender, EventArgs e)
+        {
+            string valor = cmb_bx_incluye_impuestos.SelectedValue.ToString();
+
+            
+            // No incluye impuestos, o no esta obligado a desglosarlos
+
+            if (valor == "01" | valor == "03" | valor == "04")
+            {
+                des_habilita_elementos_impuestos(0);
+            }
+
+            // Incluye impuestos
+
+            // Agregar
+            if(valor == "02" & AgregarEditarProducto.DatosSourceFinal == 1)
+            {
+                des_habilita_elementos_impuestos(1);
+                rb16porCiento.Checked = true;
+            }
+
+            // Editar 
+            if (valor == "02" & AgregarEditarProducto.DatosSourceFinal == 2)
+            {
+                var impuestoSeleccionado = AgregarEditarProducto.impuestoProductoFinal;
+
+                des_habilita_elementos_impuestos(1);
+
+                // Obtiene la lista de impuestos guardados
+                cargar_impuestos();
+
+
+                if (impuestoSeleccionado == "0%")
+                {
+                    rb0porCiento.Checked = true;
+                }
+                else if (impuestoSeleccionado == "16%")
+                {
+                    rb16porCiento.Checked = true;
+                }
+                else if (impuestoSeleccionado == "8%")
+                {
+                    rb8porCiento.Checked = true;
+                }
+                else if (impuestoSeleccionado == "Exento")
+                {
+                    rbExcento.Checked = true;
+                }
+
+                // Aplica para productos donde no se tenia impuestos agregados
+
+                if(impuestoSeleccionado == "")
+                {
+                    rb16porCiento.Checked = true;
+                }
+            }
+        }
+
+        private void valida_rfc(object sender, EventArgs e)
+        {
+            string resul= formato_rfc();
+
+            if(resul != "")
+            {
+                MessageBox.Show(resul, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void des_habilita_elementos_impuestos(int opcion)
+        {
+            // Deshabilita todo lo de impuestos
+
+            if(opcion == 0)
+            {
+                btnExtra.Enabled = false;
+                btnImpLocal.Enabled = false;
+                gbx_impuestos_radios.Enabled = false;
+                panelContenedor.Controls.Clear();
+                txtIVA.Text = string.Empty;
+                txtBoxBase.Text = string.Empty;
+                txtTotal.Text = string.Empty;
+                txtTotal.Enabled = false;
+
+                rb0porCiento.Checked = false;
+                rb8porCiento.Checked = false;
+                rb16porCiento.Checked = false;
+                rbExcento.Checked = false;
+            }
+
+            // Habilita todo lo de impuestos
+
+            if (opcion == 1)
+            {
+                btnExtra.Enabled = true;
+                btnImpLocal.Enabled = true;
+                gbx_impuestos_radios.Enabled = true;
+                txtIVA.Enabled = true;
+                txtTotal.Enabled = true;
+            }
+        }
+
+        private string formato_rfc()
+        {
+            string mensaje = "";
+            int long_rfc = txt_rfc_cterceros.Text.Length;
+
+            if (!string.IsNullOrEmpty(txt_rfc_cterceros.Text))
+            {
+                string formato_rfc = "^[A-Z&Ñ]{3,4}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{2}[0-9A]$";
+
+                Regex exp = new Regex(formato_rfc);
+
+                if (!exp.IsMatch(txt_rfc_cterceros.Text))
+                {
+                    return "El formato del RFC no es valido.";
+                }
+
+                // Carga opciones del régimen fiscal
+
+                if (long_rfc == 12)
+                {
+                    carga_regimen("M");
+                }
+                if (long_rfc == 13)
+                {
+                    carga_regimen("F");
+                }
+            }
+            
+            if (long_rfc < 12 & long_rfc > 13)
+            {
+                return "La longitud del RFC es incorrecta.";
+            }
+
+            if (string.IsNullOrEmpty(txt_rfc_cterceros.Text))
+            {
+                carga_regimen("");
+            }
+            
+
+            return mensaje;
+        }
+
+        private void solo_numeros_cp_cterceros(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsDigit(e.KeyChar) | Char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void carga_regimen(string tipo)
+        {
+            Dictionary<string, string> regimenf = new Dictionary<string, string>();
+            DataTable d_regimen_fiscal;
+
+
+            if (tipo != "")
+            {
+                d_regimen_fiscal = cn.CargarDatos(cs.obtener_regimen_fiscal(tipo));
+
+                foreach (DataRow r_regimen_fiscal in d_regimen_fiscal.Rows)
+                {
+                    regimenf.Add(r_regimen_fiscal["CodigoRegimen"].ToString(), r_regimen_fiscal["Descripcion"].ToString());
+                }
+            }
+            else
+            {
+                regimenf.Add("", "...");
+            }
+
+            cmb_bx_regimen_cterceros.DataSource = regimenf.ToArray();
+            cmb_bx_regimen_cterceros.DisplayMember = "value";
+            cmb_bx_regimen_cterceros.ValueMember = "key";
+
         }
     }
 }
