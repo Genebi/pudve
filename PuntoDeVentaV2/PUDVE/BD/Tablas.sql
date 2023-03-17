@@ -2361,5 +2361,27 @@ ALTER TABLE Facturas_productos ADD COLUMN IF NOT EXISTS rfc_ctercero VARCHAR(255
 ALTER TABLE Facturas_productos ADD COLUMN IF NOT EXISTS cp_ctercero   VARCHAR(255);
 ALTER TABLE Facturas_productos ADD COLUMN IF NOT EXISTS regimen_ctercero VARCHAR(255);
 
+ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS id_doc_relac INT(11);
+ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS id_dr_impuesto INT(11);
+ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS fecha VARCHAR(255);
+ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS hora VARCHAR(255);
+ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS monto DECIMAL(10, 2);
+ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS forma_pago VARCHAR(255);
+ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS cta_ordenante VARCHAR(255);
+ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS rfc_ordenante VARCHAR(255);
+ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS banco VARCHAR(255);
+ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS cta_beneficiario VARCHAR(255);
+ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS rfc_beneficiario VARCHAR(255);
+ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS incluye_impuestos VARCHAR(255);
+ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS base DECIMAL(10, 2);
+ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS base_cuota DECIMAL(10, 2) DEFAULT 0;
+ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS es_rt VARCHAR(255);
+ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS impuesto VARCHAR(255);
+ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS tipo_factor VARCHAR(255);
+ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS tasa_cuota VARCHAR(255);
+ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS definir VARCHAR(255);
+ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS importe_impuesto DECIMAL(10, 2);
+
+ALTER TABLE DetallesfacturacionProductos MODIFY COLUMN TasaCuota VARCHAR(255);
 
 ALTER TABLE Abonos ADD COLUMN IF NOT EXISTS restanteIntereses DECIMAL (16,2) DEFAULT 0;
