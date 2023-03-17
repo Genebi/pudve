@@ -1396,6 +1396,11 @@ namespace PuntoDeVentaV2
                 cons = $"SELECT ID FROM Facturas_complemento_pago WHERE id_factura_principal='{dato}' AND timbrada=1 AND cancelada=0";
             }
 
+            if(opc == 6)
+            {
+                cons = $"SELECT uuid, folio, serie FROM Facturas WHERE ID='{dato}'";
+            }
+
             return cons;
         }
 
@@ -1423,8 +1428,8 @@ namespace PuntoDeVentaV2
             if (opc == 3)
             {
                 //crea = $"INSERT INTO Facturas_complemento_pago (id_factura, id_factura_principal, uuid, moneda, metodo_pago, num_parcialidad, saldo_anterior, importe_pagado, saldo_insoluto) VALUES ('{datos[0]}', '{datos[1]}', '{datos[6]}', 'MXN', 'PPD', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}')";
-                crea = $"INSERT INTO Facturas_complemento_pago (id_doc_relac, id_factura_principal, uuid, moneda, tipo_cambio, num_parcialidad, saldo_anterior, importe_pagado, saldo_insoluto)";
-                crea += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}')";
+                crea = $"INSERT INTO Facturas_complemento_pago (id_factura, id_doc_relac, id_factura_principal, uuid, moneda, tipo_cambio, num_parcialidad, saldo_anterior, importe_pagado, saldo_insoluto, folio_dr, incluye_impuestos)";
+                crea += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}')";
             }
 
             // Cambia variable a 1 para indicar que la factura principal tienen complementos de pago
@@ -1447,7 +1452,14 @@ namespace PuntoDeVentaV2
             if(opc == 7)
             {
                 crea = $"INSERT INTO Facturas_complemento_pago (id_factura, fecha, hora, moneda, tipo_cambio, forma_pago, cta_ordenante, rfc_ordenante, banco, cta_beneficiario, rfc_beneficiario)";
-                crea += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}','{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}')";
+                crea += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}')";
+            }
+
+            // Agrega nodo impuestos
+            if(opc == 8)
+            {
+                crea = $"INSERT INTO Facturas_complemento_pago (id_factura, id_dr_impuesto, base, es_rt, impuesto, tipo_factor, tasa_cuota, definir, importe_impuesto)";
+                crea += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}')";
             }
 
 

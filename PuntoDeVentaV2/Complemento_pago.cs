@@ -329,6 +329,10 @@ namespace PuntoDeVentaV2
                         }
 
                         arr_totales[t][4] = panel.Text;
+                    }
+                    if (panel.Name.Contains("cmb_bx_incluye_impuestos"))
+                    {
+                        arr_totales[t][5] = panel.Text;
 
                         t++;
                     }
@@ -441,9 +445,14 @@ namespace PuntoDeVentaV2
 
                 for (int r = 0; r < arr_totales.Length; r++)
                 {
-                    // Obtiene el folio fiscal de la factura que se esta abonando/pagando
+                    // Obtiene UUID, folio y serie de la factura que se esta abonando/pagando
 
-                    string uuid = Convert.ToString(cn.EjecutarSelect($"SELECT uuid FROM Facturas WHERE ID='{arr_totales[r][0]}'", 10));
+                    //string uuid = Convert.ToString(cn.EjecutarSelect($"SELECT uuid FROM Facturas WHERE ID='{arr_totales[r][0]}'", 10));
+                    DataTable d_dts_facturap= cn.CargarDatos(cs.obtener_datos_para_gcpago(6, Convert.ToInt32(arr_totales[r][0])));
+                    DataRow r_dts_facturap = d_dts_facturap.Rows[0];
+
+                    string uuid = r_dts_facturap["uuid"].ToString();
+                    string folio_fp = r_dts_facturap["folio"].ToString();
 
                     // Obtiene el número de la parcialidad anterior
 
@@ -455,11 +464,37 @@ namespace PuntoDeVentaV2
 
                     string[] datos_nd_drelac = new string[]
                     {
-                        id_pago.ToString(), arr_totales[r][0].ToString(), uuid, arr_totales[r][3], arr_totales[r][4], n_parcialidad.ToString(), arr_totales[r][1], arr_totales[r][2], saldo_insoluto.ToString()
+                        id_factura_pago.ToString(), id_pago.ToString(), arr_totales[r][0].ToString(), uuid, arr_totales[r][3], arr_totales[r][4], n_parcialidad.ToString(), arr_totales[r][1], arr_totales[r][2], saldo_insoluto.ToString(), folio_fp, arr_totales[r][5].ToString()
                     };
 
                     cn.EjecutarConsulta(cs.crear_complemento_pago(3, datos_nd_drelac));
 
+
+                    // Obtiene el id del documento relacionado recién agregado.
+                    int id_drelac = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Facturas_complemento_pago WHERE id_factura='{id_factura_pago}' AND  id_doc_relac='{id_pago}' AND id_factura_principal='{arr_totales[r][0]}' ORDER BY ID DESC LIMIT 1", 1));
+
+
+                    // Agrega impuestos 
+
+                    if (arr_totales[r][5].ToString() == "Sí objeto de impuesto.")
+                    {
+                        int tam_arr_i = arr_impuestos[r].Count();
+
+                        for (int j = 0; j < tam_arr_i; j++) 
+                        {
+                            if(arr_impuestos[r][j][0] == arr_totales[r][0])
+                            {
+                                string[] datos_nd_impuests = new string[]
+                                {
+                                    id_factura_pago.ToString(), id_drelac.ToString(),
+                                    arr_impuestos[r][j][1].ToString(), arr_impuestos[r][j][2].ToString(), arr_impuestos[r][j][3].ToString(), arr_impuestos[r][j][4].ToString(), 
+                                    arr_impuestos[r][j][5].ToString(), arr_impuestos[r][j][6].ToString(), arr_impuestos[r][j][7].ToString()
+                                };
+
+                                cn.EjecutarConsulta(cs.crear_complemento_pago(8, datos_nd_impuests));
+                            }
+                        }
+                    }
 
                     /*
                     monto_pago += Convert.ToDecimal(arr_totales[r][2]);
@@ -489,13 +524,13 @@ namespace PuntoDeVentaV2
 
                 // Agrega el monto pagado a la factura principal  
 
-                string[] datos_fm = new string[]
+              /*  string[] datos_fm = new string[]
                 {
                 id_factura_pago.ToString(), monto_pago.ToString()
                 };
 
                 cn.EjecutarConsulta(cs.crear_complemento_pago(6, datos_fm));
-
+                */
 
 
 

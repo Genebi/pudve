@@ -2213,7 +2213,12 @@ namespace PuntoDeVentaV2
 
                         // Textbox: Definir impuesto
                         // Antes comparaba con Definir %
-                        if (r_impuestos_ext["tasacuota"].ToString() == "0.00" && r_impuestos_ext["Definir"].ToString() != "0.00")
+                        //if (r_impuestos_ext["tasacuota"].ToString() == "0.00" && r_impuestos_ext["Definir"].ToString() != "0.00")
+                        // Miri.
+                        // Se regresa la comparación que se tenia. Agregaron el anterior if (se desconoce el motivo), pero esa validación no es funcional
+                        // Cuando se define el impuesto por el usuario, en el campo "r_impuestos_ext["tasacuota"]" guarda la leyenda "Definir %".
+                        // Si yo no hago el cambio, no se agregaran los impuestos cada vez que se edite un producto.
+                        if (r_impuestos_ext["tasacuota"].ToString() == "Definir %")
                         {
                             TextBox tb1 = (TextBox)this.Controls.Find(nombre_tb + 1, true).FirstOrDefault();
                             tb1.Text = r_impuestos_ext["Definir"].ToString();
