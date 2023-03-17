@@ -34,6 +34,7 @@ namespace PuntoDeVentaV2
 
         private void txtPrecioVenta_KeyPress(object sender, KeyPressEventArgs e)
         {
+            calculadora(sender, e);
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
             {
                 e.Handled = true;
@@ -43,6 +44,40 @@ namespace PuntoDeVentaV2
             if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
             {
                 e.Handled = true;
+            }
+
+            
+        }
+
+        private void calculadora(object sender, KeyPressEventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            int calcu = 0;
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txt.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+                }
             }
         }
 
