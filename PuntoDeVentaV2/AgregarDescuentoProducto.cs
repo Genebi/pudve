@@ -2058,6 +2058,13 @@ namespace PuntoDeVentaV2
             TextBox tb = sender as TextBox;
             if (tb.Name == "txtPorcentaje")
             {
+                if (!string.IsNullOrWhiteSpace(tb.Text))
+                {
+                    if (Convert.ToInt32(tb.Text)>=100)
+                    {
+                        tb.Text = "99";
+                    }
+                }
                 TextBox tbDescuento = (TextBox)this.Controls.Find("txtDescuento", true).FirstOrDefault();
                 TextBox tbPrecioDescuento = (TextBox)this.Controls.Find("txtPrecioDescuento", true).FirstOrDefault();
                 var valorPorc = tb.Text;
@@ -2260,7 +2267,7 @@ namespace PuntoDeVentaV2
                 //Verifica si la cantidad ingresada es el 100 porciento o mas
                 if (porc >= 100)
                 {
-                    return "0.00";
+                    return "99";
                 }
                 if (porcentaje.Contains('.'))
                 {
