@@ -9506,6 +9506,7 @@ namespace PuntoDeVentaV2
             {
                 txtBuscadorProducto.Text = codBarProdVentaRapida;
                 txtBuscadorProducto.Focus();
+                codBarProdVentaRapida = "";
                 SendKeys.Send("{ENTER}");
             }
         }
