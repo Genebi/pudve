@@ -353,7 +353,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(427, 29);
+            this.label11.Location = new System.Drawing.Point(452, 29);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(42, 18);
@@ -365,7 +365,7 @@
             this.txtBoxBase.Enabled = false;
             this.txtBoxBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxBase.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtBoxBase.Location = new System.Drawing.Point(489, 26);
+            this.txtBoxBase.Location = new System.Drawing.Point(514, 26);
             this.txtBoxBase.Margin = new System.Windows.Forms.Padding(2);
             this.txtBoxBase.Name = "txtBoxBase";
             this.txtBoxBase.Size = new System.Drawing.Size(120, 26);
@@ -507,7 +507,7 @@
             this.cmb_bx_incluye_impuestos.FormattingEnabled = true;
             this.cmb_bx_incluye_impuestos.Location = new System.Drawing.Point(165, 29);
             this.cmb_bx_incluye_impuestos.Name = "cmb_bx_incluye_impuestos";
-            this.cmb_bx_incluye_impuestos.Size = new System.Drawing.Size(230, 23);
+            this.cmb_bx_incluye_impuestos.Size = new System.Drawing.Size(269, 23);
             this.cmb_bx_incluye_impuestos.TabIndex = 58;
             this.cmb_bx_incluye_impuestos.SelectionChangeCommitted += new System.EventHandler(this.sel_incluye_impuestos);
             // 
