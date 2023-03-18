@@ -2381,6 +2381,7 @@ ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS tipo_factor VARCH
 ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS tasa_cuota VARCHAR(255);
 ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS definir VARCHAR(255);
 ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS importe_impuesto DECIMAL(10, 2);
+ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS folio_dr VARCHAR(255);
 
 ALTER TABLE DetallesfacturacionProductos MODIFY COLUMN TasaCuota VARCHAR(255);
 

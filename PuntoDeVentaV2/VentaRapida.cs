@@ -34,6 +34,7 @@ namespace PuntoDeVentaV2
 
         private void txtPrecioVenta_KeyPress(object sender, KeyPressEventArgs e)
         {
+            calculadora(sender, e);
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
             {
                 e.Handled = true;
@@ -43,6 +44,40 @@ namespace PuntoDeVentaV2
             if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
             {
                 e.Handled = true;
+            }
+
+            
+        }
+
+        private void calculadora(object sender, KeyPressEventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            int calcu = 0;
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txt.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+                }
             }
         }
 
@@ -82,7 +117,14 @@ namespace PuntoDeVentaV2
         {
             if (string.IsNullOrWhiteSpace(txtNombreProd.Text) || string.IsNullOrWhiteSpace(txtPrecioVenta.Text))
             {
-                MessageBox.Show("Favot de rellenar ambos campos", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Favor de rellenar ambos campos", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (Convert.ToDecimal(txtPrecioVenta.Text)<= 0)
+            {
+                MessageBox.Show("El precio debe ser mayor a 0", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtPrecioVenta.SelectAll();
+                txtPrecioVenta.Focus();
                 return;
             }
             Random myObject = new Random();

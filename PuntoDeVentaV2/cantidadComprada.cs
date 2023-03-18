@@ -64,9 +64,41 @@ namespace PuntoDeVentaV2
                 btnCancelar.PerformClick();
             }
         }
+        private void calculadora(object sender, KeyPressEventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            int calcu = 0;
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txt.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+                }
+            }
+        }
 
         private void txtCantidad_KeyPress(object sender, KeyPressEventArgs e)
         {
+            calculadora(sender, e);
             var dato = cn.CargarDatos($"SELECT FormatoDeVenta FROM productos WHERE CodigoBarras = '{Ventas.codBarras}' AND IDUSuario = '{FormPrincipal.userID}' AND Status = '1'");
             var estado = dato.Rows[0]["FormatoDeVenta"].ToString();
 
