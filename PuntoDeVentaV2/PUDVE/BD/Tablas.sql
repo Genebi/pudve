@@ -2386,3 +2386,34 @@ ALTER TABLE Facturas_complemento_pago ADD COLUMN IF NOT EXISTS folio_dr VARCHAR(
 ALTER TABLE DetallesfacturacionProductos MODIFY COLUMN TasaCuota VARCHAR(255);
 
 ALTER TABLE Abonos ADD COLUMN IF NOT EXISTS restanteIntereses DECIMAL (16,2) DEFAULT 0;
+
+-- Tabla de RegimenFiscal 4.0
+CREATE TABLE 
+IF 
+	NOT EXISTS RegimenFiscal_40 (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+		CodigoRegimen INTEGER NOT NULL,
+		Descripcion TEXT NOT NULL,
+		AplicaFisica TEXT NOT NULL,
+		AplicaMoral TEXT NOT NULL,
+		InicioVigencia DATE,
+		FinVigencia DATE
+	);
+
+-- Tabla de CatalogoUnidadesMedida 4.0
+CREATE TABLE 
+IF 
+	NOT EXISTS CatalogoUnidadesMedida_40 (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		ClaveUnidad TEXT,
+		Nombre      TEXT
+	);
+
+-- Tabla de Catalogo_claves_producto 4.0
+CREATE TABLE 
+IF 
+	NOT EXISTS Catalogo_claves_producto_40 (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+		clave TEXT,
+		descripcion TEXT
+	);

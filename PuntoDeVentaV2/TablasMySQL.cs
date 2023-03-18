@@ -43,7 +43,7 @@ namespace PuntoDeVentaV2
 
         private async Task InsertarDatos()
         {
-            string[] archivos = new string[] { "RegimenFiscal", "CatalogoMonedas", "UnidadesMedida", "ClavesProducto", "Basculas", "UpdateInformationTablesIntoDataRows" };
+            string[] archivos = new string[] { "RegimenFiscal", "RegimenFiscal40", "CatalogoMonedas", "UnidadesMedida", "UnidadesMedida40", "ClavesProducto", "ClavesProducto40", "Basculas", "UpdateInformationTablesIntoDataRows" };
 
             string conexion = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
 
@@ -76,8 +76,9 @@ namespace PuntoDeVentaV2
                 await CrearTablas();
 
                 var existen = (bool)cn.EjecutarSelect($"SELECT * FROM RegimenFiscal");
+                var existen40 = (bool)cn.EjecutarSelect($"SELECT * FROM RegimenFiscal_40");
 
-                if (!existen)
+                if (!existen || !existen40)
                 {
                     await InsertarDatos();
                 }
