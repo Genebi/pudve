@@ -212,7 +212,7 @@ namespace PuntoDeVentaV2
                         cmb_bx_c_inc_impuestos.SelectedValueChanged += new EventHandler(sel_inc_impuestos);
 
                         Button btn_agregar_impuestos = new Button();
-                        btn_agregar_impuestos.Name = "btn_agregar_6q2cd25  impuestos-" + nfila;
+                        btn_agregar_impuestos.Name = "btn_agregar_impuestos-" + nfila;
                         btn_agregar_impuestos.Location = new Point(815, location_y);
                         btn_agregar_impuestos.Size = new Size(70, 28);
                         btn_agregar_impuestos.Text = "Agregar";
@@ -234,9 +234,9 @@ namespace PuntoDeVentaV2
                         pnl_info.Controls.Add(lb_c_folio_serie);
                         pnl_info.Controls.Add(lb_c_total);
                         pnl_info.Controls.Add(txt_c_total);
-                        pnl_info.Controls.Add(cmb_bx_c_inc_impuestos);
                         pnl_info.Controls.Add(txt_c_moneda_dr);
                         pnl_info.Controls.Add(txt_c_tcambio_dr);
+                        pnl_info.Controls.Add(cmb_bx_c_inc_impuestos);
                         pnl_info.Controls.Add(btn_agregar_impuestos);
                         pnl_info.Controls.Add(lb_idf);
 
@@ -279,7 +279,7 @@ namespace PuntoDeVentaV2
                 {
                     if (panel.Name.Contains("lb_total"))
                     {
-                        arr_totales[t] = new string[5];
+                        arr_totales[t] = new string[6];
 
                         arr_totales[t][1] = panel.Text;
                     }
@@ -287,31 +287,41 @@ namespace PuntoDeVentaV2
                     {
                         arr_totales[t][2] = panel.Text;
 
-                        if (panel.Text.Trim() == "" | Convert.ToDecimal(panel.Text) == 0)
+                        if (panel.Text.Trim() == "")
                         {
                             error++;
+                        }
+                        if (panel.Text.Trim() != "")
+                        {
+                            if (Convert.ToDecimal(panel.Text) == 0)
+                            {
+                                error++;
+                            }
                         }
 
                         // Valida que el abono no sea mayor a lo que debe
 
-                        decimal resta = Convert.ToDecimal(arr_totales[t][1]);
-                        decimal abono = Convert.ToDecimal(arr_totales[t][2]);
-
-                        if (abono > 0)
+                        if(error == 0)
                         {
-                            if (resta >= abono)
+                            decimal resta = Convert.ToDecimal(arr_totales[t][1]);
+                            decimal abono = Convert.ToDecimal(arr_totales[t][2]);
+
+                            if (abono > 0)
                             {
-                                arr_totales[t][0] = Facturas.arr_id_facturas[t].ToString();
+                                if (resta >= abono)
+                                {
+                                    arr_totales[t][0] = Facturas.arr_id_facturas[t].ToString();
+                                }
+                                else
+                                {
+                                    error_monto_mayor++;
+                                }
                             }
                             else
                             {
                                 error_monto_mayor++;
                             }
-                        }
-                        else
-                        {
-                            error_monto_mayor++;
-                        }
+                        }                        
                     }
                     if (panel.Name.Contains("txt_moneda_dr"))
                     {
