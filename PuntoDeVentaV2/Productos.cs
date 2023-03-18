@@ -5688,6 +5688,14 @@ namespace PuntoDeVentaV2
                 //linkLblPaginaActual_Click_1(sender, e);
                 //recargarDGV();
                 AgregarEditarProducto.stockNecesario = "0";
+
+                // Miri. 
+                // Se limpian variables para que no siga mostrando información.
+                // Las variables son limpiadas en AgregarEditarProducto cuando se crea o modifica un producto pero
+                // si solo se visualiza el producto, estas variables siguen almacenando la misma información.
+                AgregarEditarProducto.claveProducto = string.Empty;
+                AgregarEditarProducto.claveUnidadMedida = string.Empty;
+
                 clickBoton = 0;
                 agregarEspacioAlFinal();
                 txtBusqueda.Focus();
