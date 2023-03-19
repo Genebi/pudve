@@ -2417,3 +2417,7 @@ IF
 		clave TEXT,
 		descripcion TEXT
 	);
+
+
+ALTER TABLE Productos MODIFY COLUMN Base VARCHAR(255);
+ALTER TABLE Productos MODIFY COLUMN IVA VARCHAR(255);
