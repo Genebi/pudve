@@ -622,6 +622,33 @@ namespace PuntoDeVentaV2
             if (seGuarda.Equals(true))
             {
                 cn.EjecutarConsulta(actualizar);
+
+                if (Registro.ConectadoInternet())
+                {
+                    MySqlConnection conexion = new MySqlConnection();
+
+                    conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
+
+                    try
+                    {
+                        conexion.Open();
+
+                        MySqlCommand actualizar = new MySqlCommand("UPDATE usuarios SET razonSocial = @razon WHERE usuario = @usuario", conexion);
+                        actualizar.Parameters.AddWithValue("@razon", nomComp);
+                        //actualizar.Parameters.AddWithValue("@email", email);
+                        //actualizar.Parameters.AddWithValue("@telefono", telefono);
+                        actualizar.Parameters.AddWithValue("@usuario", FormPrincipal.userNickName);
+                        actualizar.ExecuteNonQuery();
+
+                        //Cerramos la conexion de MySQL
+                        conexion.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        //MessageBox.Show(ex.Message, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Console.WriteLine(ex.Message);
+                    }
+                }
             }
             seGuarda = false;
 
