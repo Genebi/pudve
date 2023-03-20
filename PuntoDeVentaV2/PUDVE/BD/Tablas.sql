@@ -2421,3 +2421,4 @@ IF
 
 ALTER TABLE Productos MODIFY COLUMN Base VARCHAR(255);
 ALTER TABLE Productos MODIFY COLUMN IVA VARCHAR(255);
+ALTER TABLE Facturas_complemento_pago MODIFY COLUMN id_factura_principal INT(11);
