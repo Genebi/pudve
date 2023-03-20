@@ -5107,19 +5107,19 @@ namespace PuntoDeVentaV2
                     consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND (Nombre LIKE '%{busquedaEnProductos}%' OR CodigoBarras LIKE '%{busquedaEnProductos}')";
                 }
             }
-            if (cbOrden.SelectedIndex.Equals(1))
+            if (cbOrden.SelectedIndex.Equals(1) && string.IsNullOrWhiteSpace(txtBusqueda.Text))
             {
                 consultaFiltro += " ORDER BY Nombre ASC";
             }
-            else if (cbOrden.SelectedIndex.Equals(2))
+            else if (cbOrden.SelectedIndex.Equals(2) && string.IsNullOrWhiteSpace(txtBusqueda.Text))
             {
                 consultaFiltro += " ORDER BY Nombre DESC";
             }
-            else if (cbOrden.SelectedIndex.Equals(3))
+            else if (cbOrden.SelectedIndex.Equals(3) && string.IsNullOrWhiteSpace(txtBusqueda.Text))
             {
                 consultaFiltro += " ORDER BY Precio DESC";
             }
-            else if (cbOrden.SelectedIndex.Equals(4))
+            else if (cbOrden.SelectedIndex.Equals(4)  && string.IsNullOrWhiteSpace(txtBusqueda.Text))
             {
                 consultaFiltro += " ORDER BY Precio ASC";
             }
