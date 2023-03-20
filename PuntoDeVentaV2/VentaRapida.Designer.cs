@@ -92,7 +92,7 @@ namespace PuntoDeVentaV2
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(159, 16);
             this.label1.TabIndex = 65;
-            this.label1.Text = "Nombre del Prodcuto.";
+            this.label1.Text = "Nombre del Producto.";
             // 
             // label2
             // 
