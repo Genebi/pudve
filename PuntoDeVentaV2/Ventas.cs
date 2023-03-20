@@ -3348,6 +3348,18 @@ namespace PuntoDeVentaV2
         }
         private void btnTerminarVenta_Click(object sender, EventArgs e)
         {
+            if (!IDAnticipo.Equals(0))
+            {
+                using (var dt = cn.CargarDatos($"SELECT `Status` FROM anticipos WHERE ID = {IDAnticipo}"))
+                {
+                    if (!dt.Rows[0][0].Equals(1) && !dt.Rows[0][0].Equals(5))
+                    {
+                        MessageBox.Show("Este Anticipo se encuentra deshabilitado o fue devuelto", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        btnEliminarAnticipos.PerformClick();
+                        return;
+                    }
+                }
+            }
             Ganancia.gananciaGrafica = 3;
             //sepresiono = true;
             btnGanancia.PerformClick();
