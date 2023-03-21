@@ -5899,6 +5899,13 @@ namespace PuntoDeVentaV2
                 //actualizarDatosDespuesDeAgregarProducto();
                 actualizar();
                 CambiarCheckBoxMaster();
+
+                // Miri. 
+                // Se limpian variables para que no siga mostrando información.
+                // Las variables son limpiadas en AgregarEditarProducto cuando se crea o modifica un combo pero
+                // si solo se visualiza el combo, estas variables siguen almacenando la misma información.
+                AgregarEditarProducto.claveProducto = string.Empty;
+                AgregarEditarProducto.claveUnidadMedida = string.Empty;
             };
 
             if (!FormAgregar.Visible)
@@ -6034,6 +6041,13 @@ namespace PuntoDeVentaV2
                 //actualizarDatosDespuesDeAgregarProducto();
                 actualizar();
                 CambiarCheckBoxMaster();
+
+                // Miri. 
+                // Se limpian variables para que no siga mostrando información.
+                // Las variables son limpiadas en AgregarEditarProducto cuando se crea o modifica un servicio pero
+                // si solo se visualiza el servicio, estas variables siguen almacenando la misma información.
+                AgregarEditarProducto.claveProducto = string.Empty;
+                AgregarEditarProducto.claveUnidadMedida = string.Empty;
 
             };
 

@@ -407,7 +407,7 @@ namespace PuntoDeVentaV2
 
                 string[] datos_f = new string[]
                 {
-                id_usuario.ToString(), id_empleado.ToString(), folio, serie,// fecha_hora_pago,
+                id_usuario.ToString(), id_empleado.ToString(), folio, serie, "1",// fecha_hora_pago,
                 r_recetor["r_rfc"].ToString(), r_recetor["r_razon_social"].ToString(), r_recetor["r_nombre_comercial"].ToString(), r_recetor["r_correo"].ToString(), r_recetor["r_telefono"].ToString(), r_recetor["r_pais"].ToString(), r_recetor["r_estado"].ToString(),
                 r_recetor["r_municipio"].ToString(), r_recetor["r_localidad"].ToString(), r_recetor["r_cp"].ToString(), r_recetor["r_colonia"].ToString(), r_recetor["r_calle"].ToString(), r_recetor["r_num_ext"].ToString(), r_recetor["r_num_int"].ToString(),
                 r_emisor["RFC"].ToString(), r_emisor["RazonSocial"].ToString(), r_emisor["Regimen"].ToString(), r_emisor["Email"].ToString(), r_emisor["Telefono"].ToString(), r_emisor["CodigoPostal"].ToString(),
@@ -436,13 +436,37 @@ namespace PuntoDeVentaV2
                 int x = 0;
                 string fecha_pago = datetime_fecha_pago.Value.ToString("yyy-MM-dd");
                 string hora_pago = datetime_hora_pago.Value.ToString("hh:mm:ss");
+                string cuenta_or = "", rfc_or = "";
+                string banco = "";
+                string cuenta_be = "", rfc_be = "";
+                string forma_pago = cmb_bx_forma_pago.SelectedValue.ToString();
 
+
+                if (forma_pago == "02" | forma_pago == "03" | forma_pago == "04" | forma_pago == "28" | forma_pago == "29") // Cheque y transferencia
+                {
+                    cuenta_or = txt_cuenta.Text;
+                    rfc_or = txt_rfc_ordenante.Text;
+                    banco = txt_banco.Text;
+                    cuenta_be = txt_cuenta_beneficiario.Text;
+                    rfc_be = txt_rfc_beneficiario.Text;
+                }
+                if (forma_pago == "05" | forma_pago == "06") 
+                {
+                    cuenta_or = txt_cuenta.Text;
+                    rfc_or = txt_rfc_ordenante.Text;
+
+                    if(forma_pago == "05")
+                    {
+                        cuenta_be = txt_cuenta_beneficiario.Text;
+                        rfc_be = txt_rfc_beneficiario.Text;
+                    }                    
+                }
 
                 // Agrega primer registro donde se almacenarán datos para el nodo pago
 
                 string[] datos_nd_pago = new string[]
                 {
-                    id_factura_pago.ToString(), fecha_pago, hora_pago, txt_moneda_pago.Text, txt_tipo_cambio_pago.Text, cmb_bx_forma_pago.SelectedValue.ToString(), txt_cuenta.Text, txt_rfc_ordenante.Text, txt_banco.Text, txt_cuenta_beneficiario.Text, txt_rfc_beneficiario.Text
+                    id_factura_pago.ToString(), fecha_pago, hora_pago, txt_moneda_pago.Text, txt_tipo_cambio_pago.Text, forma_pago, cuenta_or, rfc_or, banco, cuenta_be, rfc_be
                 };
 
                 cn.EjecutarConsulta(cs.crear_complemento_pago(7, datos_nd_pago));
@@ -463,6 +487,24 @@ namespace PuntoDeVentaV2
 
                     string uuid = r_dts_facturap["uuid"].ToString();
                     string folio_fp = r_dts_facturap["folio"].ToString();
+                    string incluye_impuestos = "";
+
+                    if (arr_totales[r][5].ToString() == "No objeto de impuesto.")
+                    {
+                        incluye_impuestos = "01";
+                    }
+                    if (arr_totales[r][5].ToString() == "Sí objeto de impuesto.")
+                    {
+                        incluye_impuestos = "02";
+                    }
+                    if (arr_totales[r][5].ToString() == "Sí objeto del impuesto y no obligado al desglose.")
+                    {
+                        incluye_impuestos = "03";
+                    }
+                    if (arr_totales[r][5].ToString() == "Sí objeto del impuesto y no causa impuesto.")
+                    {
+                        incluye_impuestos = "04";
+                    }
 
                     // Obtiene el número de la parcialidad anterior
 
@@ -474,7 +516,7 @@ namespace PuntoDeVentaV2
 
                     string[] datos_nd_drelac = new string[]
                     {
-                        id_factura_pago.ToString(), id_pago.ToString(), arr_totales[r][0].ToString(), uuid, arr_totales[r][3], arr_totales[r][4], n_parcialidad.ToString(), arr_totales[r][1], arr_totales[r][2], saldo_insoluto.ToString(), folio_fp, arr_totales[r][5].ToString()
+                        id_factura_pago.ToString(), id_pago.ToString(), arr_totales[r][0].ToString(), uuid, arr_totales[r][3], arr_totales[r][4], n_parcialidad.ToString(), arr_totales[r][1], arr_totales[r][2], saldo_insoluto.ToString(), folio_fp, incluye_impuestos
                     };
 
                     cn.EjecutarConsulta(cs.crear_complemento_pago(3, datos_nd_drelac));
@@ -488,6 +530,7 @@ namespace PuntoDeVentaV2
 
                     if (arr_totales[r][5].ToString() == "Sí objeto de impuesto.")
                     {
+                        
                         int tam_arr_i = arr_impuestos[r].Count();
 
                         for (int j = 0; j < tam_arr_i; j++) 
@@ -497,7 +540,7 @@ namespace PuntoDeVentaV2
                                 string[] datos_nd_impuests = new string[]
                                 {
                                     id_factura_pago.ToString(), id_drelac.ToString(),
-                                    arr_impuestos[r][j][1].ToString(), arr_impuestos[r][j][2].ToString(), arr_impuestos[r][j][3].ToString(), arr_impuestos[r][j][4].ToString(), 
+                                    arr_impuestos[r][j][1].ToString(), arr_impuestos[r][j][2].ToString(), arr_impuestos[r][j][3].ToString(), arr_impuestos[r][j][4].ToString(),
                                     arr_impuestos[r][j][5].ToString(), arr_impuestos[r][j][6].ToString(), arr_impuestos[r][j][7].ToString()
                                 };
 
