@@ -1302,7 +1302,6 @@ namespace PuntoDeVentaV2
                             DataTable d_venta = cn.CargarDatos(cs.cargar_datos_venta_xml(9, id_venta, Convert.ToInt32(id_usuario)));
                             DataRow r_venta = d_venta.Rows[0];
 
-
                             string[] datos_f = new string[]
                             {
                                  id_usuario, id_venta.ToString(), id_empleado, cmb_bx_metodo_pago.SelectedValue.ToString(), cmb_bx_forma_pago.SelectedValue.ToString(), txt_cuenta.Text,
@@ -1311,7 +1310,7 @@ namespace PuntoDeVentaV2
                                  r_emisor["Estado"].ToString(), r_emisor["Municipio"].ToString(), r_emisor["Colonia"].ToString(), r_emisor["Calle"].ToString(), r_emisor["NoExterior"].ToString(), r_emisor["NoInterior"].ToString(),//20
                                  txt_rfc.Text, txt_razon_social.Text, txt_nombre_comercial.Text, txt_correo.Text, txt_telefono.Text, txt_pais.Text, txt_estado.Text, txt_municipio.Text, txt_localidad.Text, txt_cp.Text, txt_colonia.Text, txt_calle.Text, txt_num_ext.Text, txt_num_int.Text,//34
                                  r_venta["Folio"].ToString(), r_venta["Serie"].ToString(), r_emisor["nombre_comercial"].ToString(), //37
-                                 cmb_bx_exportacion.SelectedValue.ToString(), periodicidad_ctercero, meses_ctercero, anio_ctercero, cmb_bx_regimen.SelectedValue.ToString()
+                                 cmb_bx_exportacion.SelectedValue.ToString(), periodicidad_ctercero, meses_ctercero, anio_ctercero, cmb_bx_regimen.SelectedValue.ToString(), "1"
                             };
 
                             cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(5, datos_f));
@@ -1727,7 +1726,7 @@ namespace PuntoDeVentaV2
                                     r_emisor["Estado"].ToString(), r_emisor["Municipio"].ToString(), r_emisor["Colonia"].ToString(), r_emisor["Calle"].ToString(), r_emisor["NoExterior"].ToString(), r_emisor["NoInterior"].ToString(),
                                     txt_rfc.Text, txt_razon_social.Text, txt_nombre_comercial.Text, txt_correo.Text, txt_telefono.Text, txt_pais.Text, txt_estado.Text, txt_municipio.Text, txt_localidad.Text, txt_cp.Text, txt_colonia.Text, txt_calle.Text, txt_num_ext.Text, txt_num_int.Text,
                                     r_venta["Folio"].ToString(), r_venta["Serie"].ToString(), r_emisor["nombre_comercial"].ToString(),
-                                    cmb_bx_exportacion.SelectedValue.ToString(), periodicidad_ctercero, meses_ctercero, anio_ctercero, cmb_bx_regimen.SelectedValue.ToString()
+                                    cmb_bx_exportacion.SelectedValue.ToString(), periodicidad_ctercero, meses_ctercero, anio_ctercero, cmb_bx_regimen.SelectedValue.ToString(), "1"
                                 };
 
                                 cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(5, datos_f));

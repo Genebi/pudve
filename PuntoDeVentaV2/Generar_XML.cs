@@ -397,7 +397,21 @@ namespace PuntoDeVentaV2
                     // Descuento
                     if(descuento_xproducto_xml > 0)
                     {
-                        concepto.Descuento = seis_decimales(descuento_xproducto_xml);
+                        var exi = seis_decimales(importe_p).ToString().IndexOf(".");
+
+                        if(exi >= 0)
+                        {
+                            var n_digitos = seis_decimales(importe_p).ToString().Split('.');
+
+                            if (n_digitos[1].Length == 2)
+                            {
+                                concepto.Descuento = dos_decimales(descuento_xproducto_xml);
+                            }
+                            else
+                            {
+                                concepto.Descuento = seis_decimales(descuento_xproducto_xml);
+                            }
+                        }
                     }
 
                     // Objeto de impuestos
@@ -1269,7 +1283,7 @@ namespace PuntoDeVentaV2
             // .    Timbrar CFDI    .
             // ......................
 
-           /* string usuario = "EWE1709045U0.Test";
+            /*string usuario = "EWE1709045U0.Test";
             string clave_u = "Prueba$1";
             int id_servicio = 194876591;*/
             string usuario = "NUSN900420SS5";
@@ -1281,8 +1295,8 @@ namespace PuntoDeVentaV2
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             //Convierte archivo en bytes
-            var servicio = new FH_CFDI40_produccion.WsEmisionTimbrado40();
-            //var servicio = new FH_CFDI40_test.WsEmisionTimbrado40();
+            //var servicio = new FH_CFDI40_produccion.WsEmisionTimbrado40();
+            var servicio = new FH_CFDI40_test.WsEmisionTimbrado40();
 
 
             try

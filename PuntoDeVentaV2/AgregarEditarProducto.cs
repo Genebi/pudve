@@ -2956,7 +2956,7 @@ namespace PuntoDeVentaV2
                                             string DateServ = fechaCompletaServ.Substring(foundServicio + 1);
                                             string FechaRegistradaServ = YearServ + " " + DateServ;
                                             string queryRecordHistorialServ = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistradaServ}')";
-                                            cn.EjecutarConsulta(queryRecordHistorialServ);
+                                            //cn.EjecutarConsulta(queryRecordHistorialServ);
 
 
                                             int found = 10;
@@ -2966,7 +2966,7 @@ namespace PuntoDeVentaV2
                                             string Date = fechaCompleta.Substring(found + 1);
                                             string FechaRegistrada = Year + " " + Date;
                                             string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistrada}')";
-                                            cn.EjecutarConsulta(queryRecordHistorialProd);
+                                            //cn.EjecutarConsulta(queryRecordHistorialProd);
 
                                             /*if (flowLayoutPanel2.Controls.Count == 0)
                                             {

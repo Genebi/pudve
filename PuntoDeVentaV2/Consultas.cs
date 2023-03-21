@@ -1054,8 +1054,8 @@ namespace PuntoDeVentaV2
                 modif = "INSERT INTO Facturas (id_usuario, id_venta, id_empleado, metodo_pago, forma_pago, num_cuenta, moneda, tipo_cambio, uso_cfdi,";
                 modif += "e_rfc, e_razon_social, e_regimen,  e_correo, e_telefono, e_cp, e_estado, e_municipio, e_colonia, e_calle, e_num_ext, e_num_int, e_nombre_comercial,";
                 modif += "r_rfc, r_razon_social, r_nombre_comercial, r_correo, r_telefono, r_pais, r_estado, r_municipio, r_localidad, r_cp, r_colonia, r_calle, r_num_ext, r_num_int, r_regimen,";
-                modif += "folio, serie, tipo_comprobante, exportacion, r_periodicidad_infog, r_meses_infog, r_anio_infog)";
-                modif += $" VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', '{datos[20]}', '{datos[37]}', '{datos[21]}', '{datos[22]}', '{datos[23]}', '{datos[24]}', '{datos[25]}', '{datos[26]}', '{datos[27]}', '{datos[28]}', '{datos[29]}', '{datos[30]}', '{datos[31]}', '{datos[32]}', '{datos[33]}', '{datos[34]}', '{datos[42]}', '{datos[35]}', '{datos[36]}', 'I', '{datos[38]}', '{datos[39]}', '{datos[40]}', '{datos[41]}')";
+                modif += "folio, serie, tipo_comprobante, exportacion, r_periodicidad_infog, r_meses_infog, r_anio_infog, cfdi_40)";
+                modif += $" VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', '{datos[20]}', '{datos[37]}', '{datos[21]}', '{datos[22]}', '{datos[23]}', '{datos[24]}', '{datos[25]}', '{datos[26]}', '{datos[27]}', '{datos[28]}', '{datos[29]}', '{datos[30]}', '{datos[31]}', '{datos[32]}', '{datos[33]}', '{datos[34]}', '{datos[42]}', '{datos[35]}', '{datos[36]}', 'I', '{datos[38]}', '{datos[39]}', '{datos[40]}', '{datos[41]}', '{datos[43]}')";
             }
 
             // Guarda los productos 
@@ -1411,10 +1411,10 @@ namespace PuntoDeVentaV2
             // Crea registro en tabla facturas
             if (opc == 1)
             {
-                crea = "INSERT INTO Facturas (id_usuario, id_empleado, moneda, folio, serie, tipo_comprobante, uso_cfdi, exportacion,"; //forma_pago, num_cuenta, moneda, tipo_cambio, fecha_hora_cpago
+                crea = "INSERT INTO Facturas (id_usuario, id_empleado, moneda, folio, serie, tipo_comprobante, uso_cfdi, exportacion, cfdi_40,"; //forma_pago, num_cuenta, moneda, tipo_cambio, fecha_hora_cpago
                 crea += "r_rfc, r_razon_social, r_nombre_comercial, r_correo, r_telefono, r_pais, r_estado, r_municipio, r_localidad, r_cp, r_colonia, r_calle, r_num_ext, r_num_int,";
                 crea += "e_rfc, e_razon_social, e_regimen, e_correo, e_telefono, e_cp, e_estado, e_municipio, e_colonia, e_calle, e_num_ext, e_num_int)";
-                crea += $"VALUES ('{datos[0]}', '{datos[1]}', 'XXX', '{datos[2]}','{datos[3]}', 'P', 'P01', '01', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', '{datos[20]}', '{datos[21]}', '{datos[22]}', '{datos[23]}', '{datos[24]}', '{datos[25]}', '{datos[26]}', '{datos[27]}', '{datos[28]}', '{datos[29]}')"; //'{datos[2]}', '{datos[32]}', '1.000000',  '{datos[5]}',
+                crea += $"VALUES ('{datos[0]}', '{datos[1]}', 'XXX', '{datos[2]}','{datos[3]}', 'P', 'P01', '01', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', '{datos[20]}', '{datos[21]}', '{datos[22]}', '{datos[23]}', '{datos[24]}', '{datos[25]}', '{datos[26]}', '{datos[27]}', '{datos[28]}', '{datos[29]}', '{datos[30]}')"; //'{datos[2]}', '{datos[32]}', '1.000000',  '{datos[5]}',
             }
 
             // Crea registro en Facturas_productos
