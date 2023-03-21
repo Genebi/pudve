@@ -186,7 +186,7 @@ namespace PuntoDeVentaV2
             totalTarjeta = cantidadTotalTarjetaEnCaja+cantidadTarjetaSaldoInicialEnCaja /*+ cantidadTarjetaSaldoInicialEnCaja*/;
             totalVales = cantidadTotalValesEnCaja+cantidadValesSaldoInicialEnCaja/* + cantidadValesSaldoInicialEnCaja*/;
             totalCheque = cantidadTotalCehqueEnCaja+cantidadChequeSaldoInicialEnCaja /*+ cantidadChequeSaldoInicialEnCaja*/;
-            totalTransferencia = cantidadTotalTransferenciaEnCaja+cantidadTotalTransferenciaEnCaja /*+ cantidadTransferenciaSaldoInicialEnCaja*/;
+            totalTransferencia = cantidadTotalTransferenciaEnCaja+ cantidadTransferenciaSaldoInicialEnCaja /*+ cantidadTransferenciaSaldoInicialEnCaja*/;
 
             totalSaldoInicial = CajaN.totalSaldoInicial;
             totalEnCaja = CajaN.sumaDeTotalesEnCaja;
