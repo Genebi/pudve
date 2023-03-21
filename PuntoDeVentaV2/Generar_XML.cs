@@ -1295,8 +1295,8 @@ namespace PuntoDeVentaV2
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             //Convierte archivo en bytes
-            //var servicio = new FH_CFDI40_produccion.WsEmisionTimbrado40();
-            var servicio = new FH_CFDI40_test.WsEmisionTimbrado40();
+            var servicio = new FH_CFDI40_produccion.WsEmisionTimbrado40();
+            //var servicio = new FH_CFDI40_test.WsEmisionTimbrado40();
 
 
             try
