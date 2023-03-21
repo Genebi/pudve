@@ -1045,15 +1045,15 @@ namespace PuntoDeVentaV2
                                 datos[3] = "Complemento de retiro desde saldo inicial";
                             }
 
-                            if (operacion == 1)
+                            if (operacion == 1 && restanteEfectivo > 0 || operacion == 1 && restanteCheque > 0 || operacion == 1 && restanteTarjeta > 0 || operacion == 1 && restanteTransferencia > 0 || operacion == 1 && restanteVales > 0)
                             {
                                 //datos[3] = "Retiro desde saldo inicial";
                                 resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte,Comentario));
                             }
-                            else
-                            {
-                                resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte, Comentario));//Registro complementario del retiro de saldo inicial
-                            }
+                            //else
+                            //{
+                            //    resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte, Comentario));//Registro complementario del retiro de saldo inicial
+                            //}
                         }
                     }
                     else
