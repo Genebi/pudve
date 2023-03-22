@@ -217,12 +217,12 @@ namespace PuntoDeVentaV2
             {
                 if (dt.Rows[0][0].Equals(1))
                 {
-                    if (!Convert.ToInt16(DTNotaDeVentas.Rows[0]["IVA8"]).Equals(0))
+                    if (!Convert.ToDecimal(DTNotaDeVentas.Rows[0]["IVA8"]).Equals(0))
                     {
                         TipoIVA = "IVA 8%";
                         cantidadIVA = DTNotaDeVentas.Rows[0]["IVA8"].ToString();
                     }
-                    else if (!Convert.ToInt16(DTNotaDeVentas.Rows[0]["IVA16"]).Equals(0))
+                    else if (!Convert.ToDecimal(DTNotaDeVentas.Rows[0]["IVA16"]).Equals(0))
                     {
                         TipoIVA = "IVA 16%";
                         cantidadIVA = DTNotaDeVentas.Rows[0]["IVA16"].ToString();
