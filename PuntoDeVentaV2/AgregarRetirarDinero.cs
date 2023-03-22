@@ -211,7 +211,7 @@ namespace PuntoDeVentaV2
             }
             if(Inventario.desdeRegresarProdcuto == 1)
             {
-                cbConceptoConBusqueda.SelectedIndex = 1;
+                cbConceptoConBusqueda.SelectedIndex = 0;
                 cbConceptoConBusqueda.Visible = false;
                 lbSubtitulo.Visible = false;
                 btnAgregarConcepto.Visible = false;
@@ -319,7 +319,7 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (cbConceptoConBusqueda.SelectedIndex.Equals(0))
+            if (cbConceptoConBusqueda.SelectedIndex.Equals(0) && Inventario.desdeRegresarProdcuto != 1)
             {
                 MessageBox.Show("Favor de seleccionar un concepto");
                 return;
