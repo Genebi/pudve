@@ -2121,9 +2121,14 @@ namespace PuntoDeVentaV2
                 var cantidadRetiradaSaldoInicial = cn.CargarDatos(cs.dineroRetiradoSaldoInicial(FormPrincipal.userID, 0, ultimoCorteDeCaja));
                 lblCantidadRetirada.Text = cantidadRetiradaSaldoInicial.Rows[0]["Total retirado"].ToString();
             }
-            else
+            else if (!string.IsNullOrWhiteSpace(opcionComboBoxFiltroAdminEmp))
             {
                 var cantidadRetiradaSaldoInicial = cn.CargarDatos(cs.dineroRetiradoSaldoInicial(FormPrincipal.userID, Convert.ToInt32(opcionComboBoxFiltroAdminEmp), ultimoCorteDeCaja));
+                lblCantidadRetirada.Text = cantidadRetiradaSaldoInicial.Rows[0]["Total retirado"].ToString();
+            }
+            else if (FormPrincipal.id_empleado != 0)
+            {
+                var cantidadRetiradaSaldoInicial = cn.CargarDatos(cs.dineroRetiradoSaldoInicial(FormPrincipal.userID, FormPrincipal.id_empleado, ultimoCorteDeCaja));
                 lblCantidadRetirada.Text = cantidadRetiradaSaldoInicial.Rows[0]["Total retirado"].ToString();
             }
 
