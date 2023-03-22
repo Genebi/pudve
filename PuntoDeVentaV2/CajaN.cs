@@ -1034,7 +1034,8 @@ namespace PuntoDeVentaV2
                                 lbSaldoInicialInfo.Visible = false;
                                 foreach (DataRow item in dtHistorialCorteDeCaja.Rows)
                                 {
-                                    fechaUltimoCorte = Convert.ToDateTime(item["Fecha"].ToString());
+                                    var dato = cn.CargarDatos($"SELECT MAX(fechaOperacion) FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID}");
+                                    fechaUltimoCorte = Convert.ToDateTime(dato.Rows[0][0].ToString());
                                     fechaFormateadaCorteParaAbonos = fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss");
                                     ultimoCorteDeCaja = fechaFormateadaCorteParaAbonos;
                                     cantidadEfectivoSaldoInicialEnCaja = cantidadTotalEfectivoEnCaja = Convert.ToDecimal(item["Efectivo"].ToString());
@@ -1052,6 +1053,7 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
+                                fechaUltimoCorte = DateTime.Now;
                                 lbSaldoInicialInfo.Visible = false;
                                 limpiarVariablesCantidadesDeCaja();
                             }
@@ -1067,7 +1069,8 @@ namespace PuntoDeVentaV2
                             lbSaldoInicialInfo.Visible = false;
                             foreach (DataRow item in dtHistorialCorteDeCaja.Rows)
                             {
-                                fechaUltimoCorte = Convert.ToDateTime(item["Fecha"].ToString());
+                                var dato = cn.CargarDatos($"SELECT MAX(fechaOperacion) FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado = {opcionComboBoxFiltroAdminEmp}");
+                                fechaUltimoCorte = Convert.ToDateTime(dato.Rows[0][0].ToString());
                                 fechaFormateadaCorteParaAbonos = fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss");
                                 ultimoCorteDeCaja = fechaFormateadaCorteParaAbonos;
                                 cantidadEfectivoSaldoInicialEnCaja = cantidadTotalEfectivoEnCaja = Convert.ToDecimal(item["Efectivo"].ToString());
@@ -1085,6 +1088,7 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
+                            fechaUltimoCorte = DateTime.Now;
                             lbSaldoInicialInfo.Visible = false;
                             limpiarVariablesCantidadesDeCaja();
                         }
@@ -1100,7 +1104,8 @@ namespace PuntoDeVentaV2
                         lbSaldoInicialInfo.Visible = false;
                         foreach (DataRow item in dtHistorialCorteDeCaja.Rows)
                         {
-                            fechaUltimoCorte = Convert.ToDateTime(item["Fecha"].ToString());
+                            var dato = cn.CargarDatos($"SELECT MAX(fechaOperacion) FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado = {FormPrincipal.id_empleado}");
+                            fechaUltimoCorte = Convert.ToDateTime(dato.Rows[0][0].ToString());
                             fechaFormateadaCorteParaAbonos = fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss");
                             ultimoCorteDeCaja = fechaFormateadaCorteParaAbonos;
                             cantidadEfectivoSaldoInicialEnCaja = cantidadTotalEfectivoEnCaja = Convert.ToDecimal(item["Efectivo"].ToString());
@@ -1118,6 +1123,7 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
+                        fechaUltimoCorte = DateTime.Now;
                         lbSaldoInicialInfo.Visible = false;
                         limpiarVariablesCantidadesDeCaja();
                     }
@@ -1190,7 +1196,7 @@ namespace PuntoDeVentaV2
         {
             //fechaUltimoCorte = null;
             fechaFormateadaCorteParaAbonos = string.Empty;
-            ultimoCorteDeCaja = string.Empty;
+            //ultimoCorteDeCaja = string.Empty;
             cantidadTotalEfectivoEnCaja = 0;
             cantidadTotalTarjetaEnCaja = 0;
             cantidadTotalValesEnCaja = 0;
@@ -2105,8 +2111,22 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            var cantidadRetiradaSaldoInicial = cn.CargarDatos(cs.dineroRetiradoSaldoInicial(FormPrincipal.userID, FormPrincipal.id_empleado, ultimoCorteDeCaja));
-            lblCantidadRetirada.Text = cantidadRetiradaSaldoInicial.Rows[0]["Total retirado"].ToString();
+            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+            {
+                var cantidadRetiradaSaldoInicial = cn.CargarDatos(cs.dineroRetiradoSaldoInicial(FormPrincipal.userID, 0, ultimoCorteDeCaja));
+                lblCantidadRetirada.Text = cantidadRetiradaSaldoInicial.Rows[0]["Total retirado"].ToString();
+            }
+            else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+            {
+                var cantidadRetiradaSaldoInicial = cn.CargarDatos(cs.dineroRetiradoSaldoInicial(FormPrincipal.userID, 0, ultimoCorteDeCaja));
+                lblCantidadRetirada.Text = cantidadRetiradaSaldoInicial.Rows[0]["Total retirado"].ToString();
+            }
+            else
+            {
+                var cantidadRetiradaSaldoInicial = cn.CargarDatos(cs.dineroRetiradoSaldoInicial(FormPrincipal.userID, Convert.ToInt32(opcionComboBoxFiltroAdminEmp), ultimoCorteDeCaja));
+                lblCantidadRetirada.Text = cantidadRetiradaSaldoInicial.Rows[0]["Total retirado"].ToString();
+            }
+
 
             var cantidadAgregadaSaldoInicial = cn.CargarDatos(cs.dineroAgregadoSaldoInicial(FormPrincipal.userID, FormPrincipal.id_empleado, ultimoCorteDeCaja));
             lblTotalAgregado.Text = cantidadAgregadaSaldoInicial.Rows[0]["Total agregado"].ToString();
@@ -6704,8 +6724,27 @@ namespace PuntoDeVentaV2
                     botonRedondo1.Visible = false;
                     botonRedondo2.Visible = false;
                     var ids = cn.CargarDatos($"SELECT GROUP_CONCAT(ID SEPARATOR ', ') AS IDs FROM empleados WHERE IDUsuario = {FormPrincipal.userID} AND estatus = 1");
-                    var datos = cn.CargarDatos($"SELECT SUM(Efectivo) + SUM(Tarjeta) + SUM(Vales) + SUM(Cheque) + SUM(Transferencia) AS Total FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString()}) AND FechaOperacion > ( SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString()}) AND Concepto = 'Complemento de retiro desde saldo inicial' GROUP BY IDEmpleado ORDER BY FechaOperacion DESC LIMIT 1 )");
-                    var saldoInicialTotal = cn.CargarDatos($"SELECT SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) AS Total FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString() + ",0"}) AND FechaOperacion IN ( SELECT MAX(FechaOperacion) FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString() + ",0"}) AND Operacion IN ('deposito', 'PrimerSaldo') AND Concepto IN ('Insert primer saldo inicial', 'Insert primer saldo inicial con corte') GROUP BY IDEmpleado )");
+                    var datos = new DataTable();
+                    var saldoInicialTotal = new DataTable();
+                    var validacionIds = ids.Rows[0][0].ToString();
+                    if (validacionIds.Contains(","))
+                    {
+                         datos = cn.CargarDatos($"SELECT SUM(Efectivo) + SUM(Tarjeta) + SUM(Vales) + SUM(Cheque) + SUM(Transferencia) AS Total FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString()}) AND FechaOperacion > ( SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString()}) AND Concepto = 'Complemento de retiro desde saldo inicial' GROUP BY IDEmpleado ORDER BY FechaOperacion DESC LIMIT 1 )");
+                    }
+                    else
+                    {
+                        datos = cn.CargarDatos($"SELECT SUM(Efectivo) + SUM(Tarjeta) + SUM(Vales) + SUM(Cheque) + SUM(Transferencia) AS Total FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN (0) AND FechaOperacion > ( SELECT MAX(FechaOperacion) FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN (0) AND Concepto = 'Complemento de retiro desde saldo inicial' )");
+                    }
+
+                    if (validacionIds.Contains(",")) 
+                    {
+                        saldoInicialTotal = cn.CargarDatos($"SELECT SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) AS Total FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString() + ",0"}) AND FechaOperacion IN ( SELECT MAX(FechaOperacion) FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString() + ",0"}) AND Operacion IN ('deposito', 'PrimerSaldo') AND Concepto IN ('Insert primer saldo inicial', 'Insert primer saldo inicial con corte') GROUP BY IDEmpleado )");
+                    }
+                    else
+                    {
+                        saldoInicialTotal = cn.CargarDatos($"SELECT SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) AS Total FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({"0"}) AND FechaOperacion IN ( SELECT MAX(FechaOperacion) FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({"0"}) AND Operacion IN ('deposito', 'PrimerSaldo') AND Concepto IN ('Insert primer saldo inicial', 'Insert primer saldo inicial con corte') GROUP BY IDEmpleado )");
+                    }
+                       
                     btnRedondoSaldoInicial.Text = "SALDO INICIAL\n" + $"$ {saldoInicialTotal.Rows[0][0].ToString()}";
                     if (!string.IsNullOrWhiteSpace(datos.Rows[0][0].ToString()))
                     {
@@ -6736,6 +6775,27 @@ namespace PuntoDeVentaV2
             {
                 FormPrincipal.id_empleado = 0;
             }
+
+            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+            {
+                var cantidadRetiradaSaldoInicial = cn.CargarDatos(cs.dineroRetiradoSaldoInicial(FormPrincipal.userID, 0, ultimoCorteDeCaja));
+                lblCantidadRetirada.Text = cantidadRetiradaSaldoInicial.Rows[0]["Total retirado"].ToString();
+            }
+            else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+            {
+                var cantidadRetiradaSaldoInicial = cn.CargarDatos(cs.dineroRetiradoSaldoInicial(FormPrincipal.userID, 0, ultimoCorteDeCaja));
+                lblCantidadRetirada.Text = cantidadRetiradaSaldoInicial.Rows[0]["Total retirado"].ToString();
+            }
+            else
+            {
+                var cantidadRetiradaSaldoInicial = cn.CargarDatos(cs.dineroRetiradoSaldoInicial(FormPrincipal.userID, Convert.ToInt32(opcionComboBoxFiltroAdminEmp), ultimoCorteDeCaja));
+                lblCantidadRetirada.Text = cantidadRetiradaSaldoInicial.Rows[0]["Total retirado"].ToString();
+            }
+
+
+            var cantidadAgregadaSaldoInicial = cn.CargarDatos(cs.dineroAgregadoSaldoInicial(FormPrincipal.userID, FormPrincipal.id_empleado, ultimoCorteDeCaja));
+            lblTotalAgregado.Text = cantidadAgregadaSaldoInicial.Rows[0]["Total agregado"].ToString();
+
         }
 
         private void filtrarInformacionSeleccionada()
