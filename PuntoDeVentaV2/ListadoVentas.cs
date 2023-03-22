@@ -2163,17 +2163,22 @@ namespace PuntoDeVentaV2
                             if (formaPago.Equals("05")) { columnaFormaPago = "Efectivo"; }
                             if (formaPago.Equals("08")) { columnaFormaPago = "Vales"; }
 
-                            cn.EjecutarConsulta($"UPDATE Anticipos SET Importe = {importeOriginal}, Status = 4 WHERE IDVenta = {idVenta}");
+
+                            if (importeOriginal.Equals(anticipoAplicado))
+                            {
+                                cn.EjecutarConsulta($"UPDATE Anticipos SET Importe = {importeOriginal}, Status = 4 WHERE IDVenta = {idVenta}");
+                            }
 
                             importeOriginal *= -1;
-                            anticipoAplicado *= -1;
+                            //anticipoAplicado *= -1;
 
-                            cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, FechaOperacion, IDUsuario, Anticipo) VALUES ('venta', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{anticipoAplicado}')");
-                            cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, FechaOperacion, IDUsuario, {columnaFormaPago}) VALUES ('anticipo', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{importeOriginal}')");
+                            cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, FechaOperacion, IDUsuario, Anticipo) VALUES ('venta', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{anticipoAplicado * -1}')");
+                            //cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, FechaOperacion, IDUsuario, {columnaFormaPago}) VALUES ('anticipo', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{importeOriginal}')");
+                            cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, FechaOperacion, IDUsuario, {columnaFormaPago}) VALUES ('retiro', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{anticipoAplicado}')");
                         }
                     }
 
-                    var ultimaFechaCorte = mb.ObtenerFechaUltimoCorte();
+                    var ultimaFechaCorte = mb.ObtenerFechaUltimoCorte();        
                     var fechaVenta = mb.ObtenerFechaVenta(idVenta);
 
                     DateTime validarFechaCorte = Convert.ToDateTime(ultimaFechaCorte);
