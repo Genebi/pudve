@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Ubiety.Dns.Core;
 
 namespace PuntoDeVentaV2
 {
@@ -218,6 +219,13 @@ namespace PuntoDeVentaV2
                         row.Cells["Status"].Value = habilitar;
                         row.Cells["Devolver"].Value = sinImagen;
                         row.Cells["Info"].Value = sinImagen;
+                    }
+                    else if (status == 5)
+                    {
+                        row.Cells["Ticket"].Value = historialAnticipos;
+                        row.Cells["Status"].Value = sinImagen;
+                        row.Cells["Devolver"].Value = devolver;
+                        row.Cells["Info"].Value = info;
                     }
                     else
                     {
@@ -580,6 +588,34 @@ namespace PuntoDeVentaV2
                             idanticipoVer.idAnticipoViz = idAnticipo;
                             idanticipoVer.anticipoSinHistorial = 1;
                             idanticipoVer.Show();
+                        }
+                    }
+                    else if (indice == 4)
+                    {
+                        // Para devolver los anticipos parciales
+                        var respuesta = MessageBox.Show("¿Está seguro de devolver la cantidad restante del anticipo?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (respuesta == DialogResult.Yes)
+                        {
+                            var datosAnticipo = mb.ObtenerAnticipo(idAnticipo, FormPrincipal.userID);
+
+                            var importeRestante = Convert.ToDecimal(datosAnticipo[5].ToString());
+                            var importeOriginal = Convert.ToDecimal(datosAnticipo[6].ToString());
+
+                            var columnaFormaPago = string.Empty;
+
+                            if (formaPago.Equals("01")) { columnaFormaPago = "Efectivo"; }
+                            if (formaPago.Equals("02")) { columnaFormaPago = "Cheque"; }
+                            if (formaPago.Equals("03")) { columnaFormaPago = "Transferencia"; }
+                            if (formaPago.Equals("04")) { columnaFormaPago = "Tarjeta"; }
+                            if (formaPago.Equals("05")) { columnaFormaPago = "Efectivo"; }
+                            if (formaPago.Equals("08")) { columnaFormaPago = "Vales"; }
+
+                            cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, FechaOperacion, IDUsuario, {columnaFormaPago}) VALUES ('retiro', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{importeRestante}')");
+
+                            cn.EjecutarConsulta($"UPDATE Anticipos SET Importe = {importeOriginal}, Status = 4 WHERE ID = {idAnticipo} AND IDUsuario = {FormPrincipal.userID}");
+
+                            CargarDatos(cbAnticipos.SelectedIndex + 1);
                         }
                     }
                 }

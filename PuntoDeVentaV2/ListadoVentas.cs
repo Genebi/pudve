@@ -2164,7 +2164,7 @@ namespace PuntoDeVentaV2
                             if (formaPago.Equals("08")) { columnaFormaPago = "Vales"; }
 
 
-                            if (importeOriginal.Equals(anticipoAplicado))
+                            if (importeOriginal.Equals(anticipoAplicado))       
                             {
                                 cn.EjecutarConsulta($"UPDATE Anticipos SET Importe = {importeOriginal}, Status = 4 WHERE IDVenta = {idVenta}");
                             }

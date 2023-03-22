@@ -703,11 +703,13 @@ namespace PuntoDeVentaV2
             if (dr.Read())
             {
                 lista.Add(dr["Concepto"].ToString());
-                lista.Add(dr["Importe"].ToString());
                 lista.Add(dr["Cliente"].ToString());
                 lista.Add(dr["FormaPago"].ToString());
                 lista.Add(dr["Comentarios"].ToString());
                 lista.Add(dr["Fecha"].ToString());
+                lista.Add(dr["Importe"].ToString());
+                lista.Add(dr["ImporteOriginal"].ToString());
+                lista.Add(dr["AnticipoAplicado"].ToString());
             }
 
             dr.Close();
