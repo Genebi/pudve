@@ -210,27 +210,28 @@ namespace PuntoDeVentaV2
                 StatusVenta += " (RENTA)";
             }
             reportParameters.Add(new ReportParameter("StatusVenta", StatusVenta));
+
             string TipoIVA = string.Empty;
             string cantidadIVA = string.Empty;
-            if (!DTNotaDeVentas.Rows[0]["IVA8"].ToString().Equals("0.00"))
+            using (var dt = cn.CargarDatos($"SELECT mostrarIVA FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
             {
-                TipoIVA = "IVA 8%";
-                cantidadIVA = DTNotaDeVentas.Rows[0]["IVA8"].ToString();
-            }
-            else if (!DTNotaDeVentas.Rows[0]["IVA16"].ToString().Equals("0.00"))
-            {
-                TipoIVA = "IVA 16%";
-                cantidadIVA = DTNotaDeVentas.Rows[0]["IVA16"].ToString();
-            }
-            else
-            {
-                TipoIVA = "IVA";
-                cantidadIVA = "N/A";
+                if (dt.Rows[0][0].Equals(1))
+                {
+                    if (!Convert.ToInt16(DTNotaDeVentas.Rows[0]["IVA8"]).Equals(0))
+                    {
+                        TipoIVA = "IVA 8%";
+                        cantidadIVA = DTNotaDeVentas.Rows[0]["IVA8"].ToString();
+                    }
+                    else if (!Convert.ToInt16(DTNotaDeVentas.Rows[0]["IVA16"]).Equals(0))
+                    {
+                        TipoIVA = "IVA 16%";
+                        cantidadIVA = DTNotaDeVentas.Rows[0]["IVA16"].ToString();
+                    }
+                }
+                reportParameters.Add(new ReportParameter("TipoIVA", TipoIVA));
+                reportParameters.Add(new ReportParameter("cantidadIVA", cantidadIVA));
             }
 
-            
-            reportParameters.Add(new ReportParameter("TipoIVA", TipoIVA));
-            reportParameters.Add(new ReportParameter("cantidadIVA", cantidadIVA));
             LocalReport rdlc = new LocalReport(); 
             rdlc.EnableExternalImages = true;
             rdlc.ReportPath = FullReportPath;
@@ -348,18 +349,25 @@ namespace PuntoDeVentaV2
 
             string TipoIVA = string.Empty;
             string cantidadIVA = string.Empty;
-            if (!DTNotaDeVentas.Rows[0]["IVA8"].ToString().Equals("0"))
+            using (var dt = cn.CargarDatos($"SELECT mostrarIVA FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
             {
-                TipoIVA = "IVA 8%";
-                cantidadIVA = DTNotaDeVentas.Rows[0]["IVA8"].ToString();
+                if (dt.Rows[0][0].Equals(1))
+                {
+                    if (!Convert.ToInt16(DTNotaDeVentas.Rows[0]["IVA8"]).Equals(0))
+                    {
+                        TipoIVA = "IVA 8%";
+                        cantidadIVA = DTNotaDeVentas.Rows[0]["IVA8"].ToString();
+                    }
+                    else if (!Convert.ToInt16(DTNotaDeVentas.Rows[0]["IVA16"]).Equals(0))
+                    {
+                        TipoIVA = "IVA 16%";
+                        cantidadIVA = DTNotaDeVentas.Rows[0]["IVA16"].ToString();
+                    }
+                }
+                reportParameters.Add(new ReportParameter("TipoIVA", TipoIVA));
+                reportParameters.Add(new ReportParameter("cantidadIVA", cantidadIVA));
             }
-            else if (!DTNotaDeVentas.Rows[0]["IVA16"].ToString().Equals("0"))
-            {
-                TipoIVA = "IVA 16%";
-                cantidadIVA = DTNotaDeVentas.Rows[0]["IVA16"].ToString();
-            }
-            reportParameters.Add(new ReportParameter("TipoIVA", TipoIVA));
-            reportParameters.Add(new ReportParameter("cantidadIVA", cantidadIVA));
+               
             ReportDataSource NotasVENTAS = new ReportDataSource("DTNotaVenta", DTNotaDeVentas);
 
             LocalReport rdlc = new LocalReport();
