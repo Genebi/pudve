@@ -77,8 +77,6 @@ namespace PuntoDeVentaV2
 
             if (cbEmpleados.SelectedIndex.Equals(0))
             {
-
-
                 //using (var dbEsComboServicio = cn.CargarDatos(cs.SaberSiEsComboServicio(Productos.idProductoHistorialStock)))
                 //{
                 //    if (!dbEsComboServicio.Rows.Count.Equals(0))
@@ -87,27 +85,27 @@ namespace PuntoDeVentaV2
                 //    }
                 //    else
                 //    {
-                        var datos = cn.CargarDatos($"SELECT SUBSTRING_INDEX(HS.TipoDeMovimiento, ':', -1) AS 'Folio', HS.Fecha, ven.FormaPago AS 'modopago', SUM( HS.Cantidad * (-1)) AS Cantidad, SUM( HS.Cantidad * (-pro.Precio) ) AS 'PrecioUnidad', HS.NombreUsuario AS 'Empleado', cli.RazonSocial AS 'Cliente' FROM historialstock AS HS LEFT JOIN productos AS pro ON ( pro.ID = HS.IDProducto ) LEFT JOIN ventas AS ven ON (HS.Fecha = ven.FechaOperacion) LEFT JOIN clientes AS cli ON(ven.IDCliente = cli.ID) WHERE IDProducto = '{Productos.idProductoHistorialStock}' AND TipoDeMovimiento LIKE '%Venta Ralizada%' AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}' GROUP BY hs.ID");
+                var query = $"SELECT SUBSTRING_INDEX(HS.TipoDeMovimiento, ':', -1) AS 'Folio', HS.Fecha, ven.FormaPago AS 'modopago', SUM( HS.Cantidad * (-1)) AS Cantidad, SUM( HS.Cantidad * (-pro.Precio) ) AS 'PrecioUnidad', HS.NombreUsuario AS 'Empleado', cli.RazonSocial AS 'Cliente' FROM historialstock AS HS LEFT JOIN productos AS pro ON ( pro.ID = HS.IDProducto ) LEFT JOIN ventas AS ven ON (HS.Fecha = ven.FechaOperacion) LEFT JOIN clientes AS cli ON(ven.IDCliente = cli.ID) WHERE IDProducto = '{Productos.idProductoHistorialStock}' AND TipoDeMovimiento LIKE '%Venta R%' AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}' GROUP BY hs.ID";
+                var datos = cn.CargarDatos(query);
 
-                        if (datos.Rows.Count.Equals(0))
-                        {
-                    MessageBox.Show("no se encontraron ventas");
+                if (datos.Rows.Count.Equals(0))
+                {
+                    MessageBox.Show("No se encontraron ventas realizadas\nen las fechas indicadas.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
-                        }
+                }
 
                 using (DataTable dt = cn.CargarDatos($"SELECT Fecha FROM historialstock WHERE idComboServicio = {Productos.idProductoHistorialStock} AND Fecha < '2023-02-20'"))
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        MessageBox.Show("Solamete se podran ver las ventas a partir de la actualizacion de febrero del 2023", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Solamente se podrán ver las ventas a partir de la actualización de Febrero de 2023", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
 
-                        FormReporteHistorialVentasProducto historial = new FormReporteHistorialVentasProducto(datos);
-                        historial.ShowDialog();
+                FormReporteHistorialVentasProducto historial = new FormReporteHistorialVentasProducto(datos);
+                historial.ShowDialog();
                     //}
                 //}
-
             }
             else
             {
