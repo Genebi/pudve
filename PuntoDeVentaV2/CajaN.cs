@@ -260,6 +260,11 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void cbFiltroAdminEmpleado_MouseClick(object sender, MouseEventArgs e)
+        {
+            
+        }
+
         private void CargarDatosTodosVentasProveedor()
         {
             string FechaInicial = string.Empty;
@@ -893,7 +898,13 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            tipoUsuario.Add("All", "TODOS");
+            
+            var empleadosActivos = cn.CargarDatos($"SELECT * FROM empleados WHERE IDUsuario = {FormPrincipal.userID} AND estatus = 1");
+            if (!empleadosActivos.Rows.Count.Equals(0))
+            {
+                tipoUsuario.Add("All", "TODOS");
+            }
+            
 
             cbFiltroAdminEmpleado.DataSource = tipoUsuario.ToArray();
             cbFiltroAdminEmpleado.DisplayMember = "Value";
@@ -6718,6 +6729,7 @@ namespace PuntoDeVentaV2
             label7.Visible = true;
             if (!FormPrincipal.userNickName.Contains("@"))
             {
+
                 limpiarVariablesParaTotales();
                 clasificarTipoDeUsuario();
                 CargarSaldoInicial();
@@ -6732,7 +6744,8 @@ namespace PuntoDeVentaV2
                     var datos = new DataTable();
                     var saldoInicialTotal = new DataTable();
                     var validacionIds = ids.Rows[0][0].ToString();
-                    if (validacionIds.Contains(","))
+
+                    if (validacionIds.Contains(",") || !string.IsNullOrWhiteSpace(validacionIds))
                     {
                          datos = cn.CargarDatos($"SELECT SUM(Efectivo) + SUM(Tarjeta) + SUM(Vales) + SUM(Cheque) + SUM(Transferencia) AS Total FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString()}) AND FechaOperacion > ( SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString()}) AND Concepto = 'Complemento de retiro desde saldo inicial' GROUP BY IDEmpleado ORDER BY FechaOperacion DESC LIMIT 1 )");
                     }
@@ -6741,7 +6754,7 @@ namespace PuntoDeVentaV2
                         datos = cn.CargarDatos($"SELECT SUM(Efectivo) + SUM(Tarjeta) + SUM(Vales) + SUM(Cheque) + SUM(Transferencia) AS Total FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN (0) AND FechaOperacion > ( SELECT MAX(FechaOperacion) FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN (0) AND Concepto = 'Complemento de retiro desde saldo inicial' )");
                     }
 
-                    if (validacionIds.Contains(",")) 
+                    if (validacionIds.Contains(",") || !string.IsNullOrWhiteSpace(validacionIds)) 
                     {
                         saldoInicialTotal = cn.CargarDatos($"SELECT SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) AS Total FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString() + ",0"}) AND FechaOperacion IN ( SELECT MAX(FechaOperacion) FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString() + ",0"}) AND Operacion IN ('deposito', 'PrimerSaldo') AND Concepto IN ('Insert primer saldo inicial', 'Insert primer saldo inicial con corte') GROUP BY IDEmpleado )");
                     }
@@ -6755,10 +6768,17 @@ namespace PuntoDeVentaV2
                     {
                         lblCantidadSaldoActual.Text = "$" + "  " + Convert.ToString(Convert.ToDecimal(saldoInicialTotal.Rows[0][0].ToString()) - Convert.ToDecimal(datos.Rows[0][0].ToString()));
                     }
-                    else
+                    else 
                     {
-                        lblCantidadSaldoActual.Text = "$  0.00";
-                        btnRedondoSaldoInicial.Text = "SALDO INICIAL\n" + "$  0.00";
+                        if (string.IsNullOrWhiteSpace(lblCantidadSaldoActual.Text))
+                        {
+                            lblCantidadSaldoActual.Text = "$  0.00";
+                        }
+                        if (string.IsNullOrWhiteSpace(saldoInicialTotal.Rows[0][0].ToString()))
+                        {
+                            btnRedondoSaldoInicial.Text = "SALDO INICIAL\n" + "$  0.00";
+                        }
+                       
                     }
 
                     lblCantidadRetirada.Visible = false;
@@ -6851,7 +6871,7 @@ namespace PuntoDeVentaV2
         {
             if (opcionComboBoxFiltroAdminEmp.Equals("All"))
             {
-                cantidadTotalEfectivoEnCaja = ((cantidadEfectivoVentaTodos + totalEfectivoAnticiposEnCaja + totalEfectivoDepsitosEnCaja + totalAbonoEfectivo) - totalEfectivoRetiroEnCaja);
+                cantidadTotalEfectivoEnCaja = ((totalEfectivoVentaEnCaja + totalEfectivoAnticiposEnCaja + totalEfectivoDepsitosEnCaja + totalAbonoEfectivo) - totalEfectivoRetiroEnCaja);
                 cantidadTotalTarjetaEnCaja = ((cantidadTarjetaVentaTodos + totalTarjetaAnticiposEnCaja + totalTarjetaDepositosEnCaja + totalAbonoTarjeta) - totalTarjetaRetiroEnCaja);
                 cantidadTotalValesEnCaja = ((cantidadValesVentaTodos + totalValesAnticiposEnCaja + totalValesDepositosEnCaja + totalAbonoVales) - totalValesRetiroEnCaja);
                 cantidadTotalCehqueEnCaja = ((cantidadChequeVentaTodos + totalChequesAnticipoEnCaja + totalChequesDepsoitosEnCaja + totalAbonoCheque) - totalChequesRetiroEnCaja);
@@ -7309,8 +7329,7 @@ namespace PuntoDeVentaV2
             }
 
             var noEstaVacia = IsEmpty(IDEmpleados);
-
-            if (noEstaVacia)
+            if (true)
             {
                 var resultadoIDEmpleados = string.Join(",", IDEmpleados);
 
