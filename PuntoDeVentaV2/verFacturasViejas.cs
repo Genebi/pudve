@@ -1,6 +1,7 @@
 ﻿using Microsoft.Reporting.WinForms;
 using System;
 using System.Data;
+using System.IO;
 using System.Windows.Forms;
 
 namespace PuntoDeVentaV2
@@ -10,13 +11,18 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         bool esNueva=false;
+        bool descarga = false;
+        string path = "";
         int factura;
-
-        public verFacturasViejas(int facturaC,bool esNueva=false)
+        string certificadoSAT = string.Empty;
+        public verFacturasViejas(int facturaC, string certificadoSAT, bool esNueva = false, bool descarga = false, string path="")
         {
             InitializeComponent();
             factura =facturaC;
             this.esNueva = esNueva;
+            this.descarga = descarga;
+            this.path = path;
+            this.certificadoSAT = certificadoSAT;
         }
 
         private void VisualizadorReporteVentas_Load(object sender, EventArgs e)
@@ -55,7 +61,6 @@ namespace PuntoDeVentaV2
             string total = string.Empty;
             string totalAlfa = string.Empty;
             string certificadoEmisor = string.Empty;
-            string certificadoSAT = string.Empty;
             string RFCPAC = string.Empty;
             string cadenaDigital = string.Empty;
             string selloDigitalSAT = string.Empty;
@@ -101,6 +106,7 @@ namespace PuntoDeVentaV2
 	        Usuarios.NombreCompleto AS usuario_Nombre,
 	        usuarios.rfc AS usuario_RFC,
 	        usuarios.Regimen AS usuario_Regimen,
+            metodo_pago AS cliente_MetodoPago,
 	        ventas.FechaOperacion AS fechaEmision,
 	        fecha_certificacion AS fechaCertificacion,
 	        facturas.r_razon_social AS cliente_Nombre,
@@ -121,6 +127,14 @@ namespace PuntoDeVentaV2
 	        num_certificado AS certificadoEmisor,
 	        rfc_pac AS RFCPAC,
 	        sello_cfd AS selloDigitalEmisor,
+            r_calle,
+            r_num_ext,
+            r_pais,
+            r_estado,
+            r_municipio,
+            r_localidad,
+            r_cp,
+            r_colonia,
 	        sello_sat AS selloDigitalSAT
             FROM
 	        facturas
@@ -142,16 +156,15 @@ namespace PuntoDeVentaV2
                 cliente_Nombre = datos.Rows[0]["cliente_Nombre"].ToString(); 
                  cliente_RFC = datos.Rows[0]["cliente_RFC"].ToString();
                 cliente_CFDI = datos.Rows[0]["cliente_CFDI"].ToString();
-                cliente_Locacion = datos.Rows[0]["cliente_Locacion"].ToString();
+                cliente_Locacion = $"{datos.Rows[0]["r_calle"].ToString()},{datos.Rows[0]["r_num_ext"].ToString()}, Col.{datos.Rows[0]["r_colonia"].ToString()},Cp.{datos.Rows[0]["r_cp"].ToString()},{datos.Rows[0]["r_localidad"].ToString()},{datos.Rows[0]["r_municipio"].ToString()},{datos.Rows[0]["r_estado"].ToString()},{datos.Rows[0]["r_pais"].ToString()}";
                 cliente_FolioFiscal = datos.Rows[0]["cliente_FolioFiscal"].ToString();
                 cliente_LugarExpedicion = datos.Rows[0]["cliente_LugarExpedicion"].ToString();
-                //cliente_MetodoPago = datos.Rows[0]["cliente_MetodoPago"].ToString();
+                cliente_MetodoPago = datos.Rows[0]["cliente_MetodoPago"].ToString();
                 cliente_FormaPago = datos.Rows[0]["cliente_FormaPago"].ToString();
                 cliente_Moneda = datos.Rows[0]["cliente_Moneda"].ToString();
                 cliente_TipoCambio = datos.Rows[0]["cliente_TipoCambio"].ToString();
                 
                 certificadoEmisor = datos.Rows[0]["certificadoEmisor"].ToString();
-                //certificadoSAT = datos.Rows[0]["certificadoSAT"].ToString();
                 RFCPAC = datos.Rows[0]["RFCPAC"].ToString();
                 //cadenaDigital = datos.Rows[0]["cadenaDigital"].ToString();
                 selloDigitalSAT = datos.Rows[0]["selloDigitalSAT"].ToString();
@@ -159,6 +172,7 @@ namespace PuntoDeVentaV2
 
                 if (esNueva)
                 {
+                    cliente_Locacion = "CP: "+datos.Rows[0]["r_cp"].ToString();
                     periodicidad = datos.Rows[0]["r_periodicidad_infog"].ToString();
                     meses = datos.Rows[0]["r_meses_infog"].ToString();
                     año = datos.Rows[0]["r_anio_infog"].ToString();
@@ -220,6 +234,23 @@ namespace PuntoDeVentaV2
             this.reportViewer1.LocalReport.EnableExternalImages = true;
             this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.RefreshReport();
+
+
+            if (descarga)
+            {
+                //Este pinche codigo asi de sencillo asi de bonito neta no salia, gpt no lo pudo hacer, no estaba en ningun lugar de google tampoco. Me lo tuve que pepenar de lo mas recondito de un foro indio jajajaj https://media.tenor.com/ThX4z7W4s6IAAAAd/fr-fr-ong.gif
+                byte[] Bytes = this.reportViewer1.LocalReport.Render(format: "PDF", deviceInfo: @"
+            <DeviceInfo><EmbedFonts>None</EmbedFonts></DeviceInfo>
+            ");
+
+                using (FileStream stream = new FileStream(path, FileMode.Create))
+                {
+                    stream.Write(Bytes, 0, Bytes.Length);
+                }
+                this.Close();
+            }
+            
+
         }
 
         

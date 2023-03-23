@@ -428,12 +428,12 @@ namespace PuntoDeVentaV2
 
                     if (ReadXmlFile(ruta_archivo)=="3.3")
                     {
-                        verFacturasViejas verfacvieja = new verFacturasViejas(id_factura);
+                        verFacturasViejas verfacvieja = new verFacturasViejas(id_factura,ReadXmlFile(ruta_archivo, "NoCertificadoSAT"));
                         verfacvieja.ShowDialog();
                     }
                     else
                     {
-                        verFacturasViejas verfacNueva = new verFacturasViejas(id_factura,true);
+                        verFacturasViejas verfacNueva = new verFacturasViejas(id_factura, ReadXmlFile(ruta_archivo, "NoCertificadoSAT"),true);
                         verfacNueva.ShowDialog();
                     }
                     //// Verifica si el archivo pdf ya esta creado, de no ser así lo crea
@@ -636,7 +636,7 @@ namespace PuntoDeVentaV2
         }
 
         //Claramente yo hise este codigo, desde luego no me lo pepene de internet 8)
-        public static string ReadXmlFile(string filePath)
+        public static string ReadXmlFile(string filePath, string attribute="Version")
         {
             // Create a new XmlDocument object.
             XmlDocument xmlDocument = new XmlDocument();
@@ -648,7 +648,7 @@ namespace PuntoDeVentaV2
             XmlElement rootElement = xmlDocument.DocumentElement;
 
             // Get the attributes of the root element.
-            return rootElement.GetAttribute("Version");
+            return rootElement.GetAttribute(attribute);
             
         }
 
@@ -1276,7 +1276,19 @@ namespace PuntoDeVentaV2
             {
                 if (!File.Exists(ruta_archivos + ".pdf"))
                 {
-                    generar_PDF("XML_" + nombrexml, idf);
+                    //generar_PDF("XML_" + nombrexml, idf);
+                    if (ReadXmlFile(ruta_archivos+".xml") == "3.3")
+                    {
+                        verFacturasViejas descargarFac = new verFacturasViejas(idf, ReadXmlFile(ruta_archivos + ".xml", "NoCertificadoSAT"), false, true, ruta_archivos + ".pdf");
+                        descargarFac.ShowDialog();
+                    }
+                    else
+                    {
+                        verFacturasViejas verfacNueva = new verFacturasViejas(idf, ReadXmlFile(ruta_archivos + ".xml", "NoCertificadoSAT"), true, true, ruta_archivos + ".pdf");
+                        verfacNueva.ShowDialog();
+                    }
+
+                    
                 }
             }
 
