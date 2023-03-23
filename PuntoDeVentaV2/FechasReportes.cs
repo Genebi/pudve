@@ -85,6 +85,7 @@ namespace PuntoDeVentaV2
                 //    }
                 //    else
                 //    {
+
                 var query = $"SELECT SUBSTRING_INDEX(HS.TipoDeMovimiento, ':', -1) AS 'Folio', HS.Fecha, ven.FormaPago AS 'modopago', SUM( HS.Cantidad * (-1)) AS Cantidad, SUM( HS.Cantidad * (-pro.Precio) ) AS 'PrecioUnidad', HS.NombreUsuario AS 'Empleado', cli.RazonSocial AS 'Cliente' FROM historialstock AS HS LEFT JOIN productos AS pro ON ( pro.ID = HS.IDProducto ) LEFT JOIN ventas AS ven ON (HS.Fecha = ven.FechaOperacion) LEFT JOIN clientes AS cli ON(ven.IDCliente = cli.ID) WHERE IDProducto = '{Productos.idProductoHistorialStock}' AND TipoDeMovimiento LIKE '%Venta R%' AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}' GROUP BY hs.ID";
                 var datos = cn.CargarDatos(query);
 
