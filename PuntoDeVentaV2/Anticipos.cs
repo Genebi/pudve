@@ -599,23 +599,37 @@ namespace PuntoDeVentaV2
                         {
                             var datosAnticipo = mb.ObtenerAnticipo(idAnticipo, FormPrincipal.userID);
 
-                            var importeRestante = Convert.ToDecimal(datosAnticipo[5].ToString());
-                            var importeOriginal = Convert.ToDecimal(datosAnticipo[6].ToString());
+                            var importeRestante = float.Parse(datosAnticipo[5].ToString());
+                            //var importeOriginal = Convert.ToDecimal(datosAnticipo[6].ToString());
 
-                            var columnaFormaPago = string.Empty;
+                            //var columnaFormaPago = string.Empty;
 
-                            if (formaPago.Equals("01")) { columnaFormaPago = "Efectivo"; }
-                            if (formaPago.Equals("02")) { columnaFormaPago = "Cheque"; }
-                            if (formaPago.Equals("03")) { columnaFormaPago = "Transferencia"; }
-                            if (formaPago.Equals("04")) { columnaFormaPago = "Tarjeta"; }
-                            if (formaPago.Equals("05")) { columnaFormaPago = "Efectivo"; }
-                            if (formaPago.Equals("08")) { columnaFormaPago = "Vales"; }
+                            //if (formaPago.Equals("01")) { columnaFormaPago = "Efectivo"; }
+                            //if (formaPago.Equals("02")) { columnaFormaPago = "Cheque"; }
+                            //if (formaPago.Equals("03")) { columnaFormaPago = "Transferencia"; }
+                            //if (formaPago.Equals("04")) { columnaFormaPago = "Tarjeta"; }
+                            //if (formaPago.Equals("05")) { columnaFormaPago = "Efectivo"; }
+                            //if (formaPago.Equals("08")) { columnaFormaPago = "Vales"; }
 
-                            cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, FechaOperacion, IDUsuario, {columnaFormaPago}) VALUES ('retiro', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{importeRestante}')");
+                            DevolverAnticipo da = new DevolverAnticipo(idAnticipo, importeRestante);
 
-                            cn.EjecutarConsulta($"UPDATE Anticipos SET Importe = {importeOriginal}, Status = 4 WHERE ID = {idAnticipo} AND IDUsuario = {FormPrincipal.userID}");
+                            da.FormClosed += delegate
+                            {
+                                //cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, FechaOperacion, IDUsuario, {columnaFormaPago}) VALUES ('retiro', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{importeRestante}')");
 
-                            CargarDatos(cbAnticipos.SelectedIndex + 1);
+                                //cn.EjecutarConsulta($"UPDATE Anticipos SET Importe = {importeOriginal}, Status = 4 WHERE ID = {idAnticipo} AND IDUsuario = {FormPrincipal.userID}");
+
+                                CargarDatos(cbAnticipos.SelectedIndex + 1);
+                            };
+
+                            da.ShowDialog();
+                        }
+
+                        if (SeCancelo.Equals(true))
+                        {
+                            idanticipoVer.idAnticipoViz = idAnticipo;
+                            idanticipoVer.anticipoSinHistorial = 1;
+                            idanticipoVer.Show();
                         }
                     }
                 }
