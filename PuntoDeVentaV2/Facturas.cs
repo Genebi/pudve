@@ -664,7 +664,7 @@ namespace PuntoDeVentaV2
                 XmlElement root = doc.DocumentElement;
 
                 // Get the value of the NoCertificadoSAT attribute
-                string noCertificadoSAT = root.GetAttribute("NoCertificadoSAT");
+                string noCertificadoSAT = root.GetAttribute("NoCertificado");
                 return noCertificadoSAT;
             }
 
