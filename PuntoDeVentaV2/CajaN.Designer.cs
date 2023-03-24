@@ -1957,7 +1957,6 @@
             this.cbFiltroAdminEmpleado.Size = new System.Drawing.Size(200, 21);
             this.cbFiltroAdminEmpleado.TabIndex = 121;
             this.cbFiltroAdminEmpleado.SelectedIndexChanged += new System.EventHandler(this.cbFiltroAdminEmpleado_SelectedIndexChanged);
-            this.cbFiltroAdminEmpleado.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbFiltroAdminEmpleado_MouseClick);
             // 
             // label6
             // 

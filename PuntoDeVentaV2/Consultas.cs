@@ -4117,7 +4117,7 @@ namespace PuntoDeVentaV2
 
         public string totalCantidadesDepositosTodos(string IDUsuario, string IDEmpleado, string IDCaja)
         {
-            var consulta = $"SELECT ID, Operacion, IDUsuario, IdEmpleado, SUM( Efectivo ) AS 'Efectivo', SUM( Tarjeta ) AS 'Tarjeta', SUM( Vales ) AS 'Vales', SUM( Cheque ) AS 'Cheque', SUM( Transferencia ) AS 'Transferencia', (  SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) ) AS 'TotalDepositos' FROM caja WHERE IDUsuario = '{IDUsuario}' AND IdEmpleado = '{IDEmpleado}' AND ID > '{IDCaja}' AND Operacion = 'deposito'";
+            var consulta = $"SELECT ID, Operacion, IDUsuario, IdEmpleado, SUM( Efectivo ) AS 'Efectivo', SUM( Tarjeta ) AS 'Tarjeta', SUM( Vales ) AS 'Vales', SUM( Cheque ) AS 'Cheque', SUM( Transferencia ) AS 'Transferencia', (  SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) ) AS 'TotalDepositos' FROM caja WHERE IDUsuario = '{IDUsuario}' AND IdEmpleado = '{IDEmpleado}' AND ID > '{IDCaja}' AND Operacion = 'deposito' AND Concepto != 'Insert primer saldo inicial' AND Concepto != 'Insert primer saldo inicial con corte'";
 
             return consulta;
         }
