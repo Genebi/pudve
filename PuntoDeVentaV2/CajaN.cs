@@ -260,11 +260,6 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void cbFiltroAdminEmpleado_MouseClick(object sender, MouseEventArgs e)
-        {
-            
-        }
-
         private void CargarDatosTodosVentasProveedor()
         {
             string FechaInicial = string.Empty;
