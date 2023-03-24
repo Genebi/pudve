@@ -19,6 +19,10 @@ namespace PuntoDeVentaV2
         string serie = string.Empty;
         string Folio = string.Empty;
         string usuario_Nombre = string.Empty;
+
+        string usuario_cp = string.Empty;
+        string usuario_fono = string.Empty;
+
         string usuario_RFC = string.Empty;
         string usuario_Regimen = string.Empty;
         string fechaEmision = string.Empty;
@@ -137,6 +141,8 @@ namespace PuntoDeVentaV2
             r_municipio,
             r_localidad,
             r_cp,
+            e_cp,
+            e_telefono,
             r_colonia,
 	        sello_sat AS selloDigitalSAT
             FROM
@@ -152,6 +158,10 @@ namespace PuntoDeVentaV2
                  Folio = datos.Rows[0]["Folio"].ToString();
                 usuario_Nombre = datos.Rows[0]["usuario_Nombre"].ToString();
                 usuario_RFC = datos.Rows[0]["usuario_RFC"].ToString();
+
+                usuario_cp = datos.Rows[0]["e_cp"].ToString();
+                usuario_fono = datos.Rows[0]["e_telefono"].ToString();
+
                 usuario_Regimen = datos.Rows[0]["usuario_Regimen"].ToString();
                 fechaEmision = datos.Rows[0]["fechaEmision"].ToString();
                 fechaCertificacion = datos.Rows[0]["fechaCertificacion"].ToString();
@@ -218,6 +228,9 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("selloDigitalEmisor", selloDigitalEmisor));
             reportParameters.Add(new ReportParameter("selloDigitalSAT", selloDigitalSAT));
 
+            reportParameters.Add(new ReportParameter("usuario_CP", usuario_cp));
+            reportParameters.Add(new ReportParameter("usuario_fono", usuario_fono));
+
             reportParameters.Add(new ReportParameter("Periodicidad", periodicidad));
             reportParameters.Add(new ReportParameter("Meses", meses));
             reportParameters.Add(new ReportParameter("Año", año));
@@ -270,8 +283,6 @@ namespace PuntoDeVentaV2
             string b64qr = Convert.ToBase64String(qr);
             string sqr = string.Format("data:image/png;base64,{0}", b64qr);
             sqr = sqr.Replace("data:image/png;base64,", "");
-
-
             return sqr;
         }
 

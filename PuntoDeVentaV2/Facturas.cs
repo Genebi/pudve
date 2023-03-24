@@ -655,19 +655,16 @@ namespace PuntoDeVentaV2
             }
             else
             {
-               // Create a new XmlDocument object.
-                XmlDocument xmlDocument = new XmlDocument();
 
-                // Load the XML file from the specified file path.
-                xmlDocument.Load(filePath);
+                // Load the XML file
+                XmlDocument doc = new XmlDocument();
+                doc.Load(filePath);
 
-                // Define the namespace prefix and URI used in the XML
-                XmlNamespaceManager nsmgr = new XmlNamespaceManager(xmlDocument.NameTable);
-                nsmgr.AddNamespace("cfdi", "http://www.sat.gob.mx/cfd/3");
+                // Get the root element
+                XmlElement root = doc.DocumentElement;
 
-                // Select the Comprobante node and get the value of the NoCertificadoSAT attribute
-                XmlNode comprobanteNode = xmlDocument.SelectSingleNode("/cfdi:Comprobante", nsmgr);
-                string noCertificadoSAT = comprobanteNode.Attributes[9].Value;
+                // Get the value of the NoCertificadoSAT attribute
+                string noCertificadoSAT = root.GetAttribute("NoCertificadoSAT");
                 return noCertificadoSAT;
             }
 
