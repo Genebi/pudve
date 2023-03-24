@@ -136,8 +136,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>usuario_RFC</rd:DefaultName>
-            <Top>1.81391cm</Top>
-            <Left>0.34078cm</Left>
+            <Top>1.74335cm</Top>
+            <Left>0.34551cm</Left>
             <Height>0.6cm</Height>
             <Width>16.41708cm</Width>
             <ZIndex>2</ZIndex>
@@ -168,7 +168,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>usuario_Regimen</rd:DefaultName>
-            <Top>2.51974cm</Top>
+            <Top>2.37863cm</Top>
             <Left>0.34078cm</Left>
             <Height>0.6cm</Height>
             <Width>16.45709cm</Width>
@@ -2073,6 +2073,70 @@
               </Border>
             </Style>
           </Image>
+          <Textbox Name="usuario_CP">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>="CP. "+Parameters!usuario_CP.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>usuario_CP</rd:DefaultName>
+            <Top>3.01391cm</Top>
+            <Left>0.34551cm</Left>
+            <Height>0.6cm</Height>
+            <Width>16.45236cm</Width>
+            <ZIndex>52</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="usuario_fono">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>="Tel. "+Parameters!usuario_fono.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>usuario_fono</rd:DefaultName>
+            <Top>3.64918cm</Top>
+            <Left>0.38079cm</Left>
+            <Height>0.6cm</Height>
+            <Width>16.41708cm</Width>
+            <ZIndex>53</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
         <Height>27.91412cm</Height>
         <Style />
@@ -2305,11 +2369,29 @@
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="usuario_CP">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="usuario_Email">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="usuario_fono">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>9</NumberOfRows>
+      <NumberOfRows>10</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
@@ -2490,6 +2572,21 @@
           <ColumnIndex>3</ColumnIndex>
           <RowIndex>8</RowIndex>
           <ParameterName>tasa</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>9</RowIndex>
+          <ParameterName>usuario_CP</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>9</RowIndex>
+          <ParameterName>usuario_Email</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>9</RowIndex>
+          <ParameterName>usuario_fono</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>
