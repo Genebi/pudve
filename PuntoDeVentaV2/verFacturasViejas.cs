@@ -10,6 +10,7 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        Moneda oMoneda = new Moneda();
         bool esNueva=false;
         bool descarga = false;
         string path = "";
@@ -96,7 +97,7 @@ namespace PuntoDeVentaV2
                     total = String.Format("{0:0.00}", totalValue);
                 }
 
-                //totalAlfa = NumberToWords(decimal.Parse(total));
+                totalAlfa  = oMoneda.Convertir(total, true, "PESOS");
 
             }
 

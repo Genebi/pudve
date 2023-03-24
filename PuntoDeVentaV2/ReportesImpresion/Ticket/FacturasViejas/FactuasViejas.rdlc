@@ -2020,7 +2020,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Parameters!Periodicidad.Value</Value>
+                    <Value>="Periodicidad: "+Parameters!Periodicidad.Value</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -2050,7 +2050,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Parameters!Meses.Value</Value>
+                    <Value>="Meses: "+Parameters!Meses.Value</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -2080,7 +2080,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Parameters!Año.Value</Value>
+                    <Value>="Año: "+Parameters!Año.Value</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
