@@ -1067,7 +1067,7 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    dpFechaFinal.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    //dpFechaFinal.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd HH:mm:ss");
 
                     if (FormPrincipal.userNickName.Contains("@"))
@@ -1804,7 +1804,7 @@ namespace PuntoDeVentaV2
 
             fechaInicial = $"{fechaInicial} {horaInicial}:00";
 
-            var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd");
+                var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd");
             var horaFinal = dpHoraFinal.Value.ToString("HH:mm");
 
             fechaFinal = $"{fechaFinal} {horaFinal}:59";
