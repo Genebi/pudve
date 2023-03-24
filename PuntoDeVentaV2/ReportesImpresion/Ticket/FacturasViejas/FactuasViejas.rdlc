@@ -1229,52 +1229,6 @@
               </Border>
             </Style>
           </Tablix>
-          <Rectangle Name="Rectangle1">
-            <ReportItems>
-              <Textbox Name="Textbox46">
-                <CanGrow>true</CanGrow>
-                <KeepTogether>true</KeepTogether>
-                <Paragraphs>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value>qr</Value>
-                        <Style />
-                      </TextRun>
-                    </TextRuns>
-                    <Style>
-                      <TextAlign>Center</TextAlign>
-                    </Style>
-                  </Paragraph>
-                </Paragraphs>
-                <rd:DefaultName>Textbox46</rd:DefaultName>
-                <Top>1.66688cm</Top>
-                <Left>0.635cm</Left>
-                <Height>0.6cm</Height>
-                <Width>2.5cm</Width>
-                <Style>
-                  <Border>
-                    <Style>None</Style>
-                  </Border>
-                  <PaddingLeft>2pt</PaddingLeft>
-                  <PaddingRight>2pt</PaddingRight>
-                  <PaddingTop>2pt</PaddingTop>
-                  <PaddingBottom>2pt</PaddingBottom>
-                </Style>
-              </Textbox>
-            </ReportItems>
-            <KeepTogether>true</KeepTogether>
-            <Top>13.51601cm</Top>
-            <Left>0.34076cm</Left>
-            <Height>3.68792cm</Height>
-            <Width>3.69062cm</Width>
-            <ZIndex>24</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-            </Style>
-          </Rectangle>
           <Textbox Name="Textbox47">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
@@ -1299,7 +1253,7 @@
             <Left>4.33597cm</Left>
             <Height>0.6cm</Height>
             <Width>16.7875cm</Width>
-            <ZIndex>25</ZIndex>
+            <ZIndex>24</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1331,7 +1285,7 @@
             <Left>4.33597cm</Left>
             <Height>0.6cm</Height>
             <Width>5.54271cm</Width>
-            <ZIndex>26</ZIndex>
+            <ZIndex>25</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1363,7 +1317,7 @@
             <Left>9.98451cm</Left>
             <Height>0.6cm</Height>
             <Width>5.54271cm</Width>
-            <ZIndex>27</ZIndex>
+            <ZIndex>26</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1395,7 +1349,7 @@
             <Left>15.63306cm</Left>
             <Height>0.6cm</Height>
             <Width>5.49041cm</Width>
-            <ZIndex>28</ZIndex>
+            <ZIndex>27</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1425,7 +1379,7 @@
             <Left>4.33597cm</Left>
             <Height>0.6cm</Height>
             <Width>5.54271cm</Width>
-            <ZIndex>29</ZIndex>
+            <ZIndex>28</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1455,7 +1409,7 @@
             <Left>9.98451cm</Left>
             <Height>0.6cm</Height>
             <Width>5.54271cm</Width>
-            <ZIndex>30</ZIndex>
+            <ZIndex>29</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1485,7 +1439,7 @@
             <Left>15.63306cm</Left>
             <Height>0.6cm</Height>
             <Width>5.49041cm</Width>
-            <ZIndex>31</ZIndex>
+            <ZIndex>30</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1520,7 +1474,7 @@
             <Left>4.33597cm</Left>
             <Height>0.6cm</Height>
             <Width>16.7875cm</Width>
-            <ZIndex>32</ZIndex>
+            <ZIndex>31</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1550,7 +1504,7 @@
             <Left>4.33597cm</Left>
             <Height>1.11153cm</Height>
             <Width>16.7875cm</Width>
-            <ZIndex>33</ZIndex>
+            <ZIndex>32</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1585,7 +1539,7 @@
             <Left>0.34077cm</Left>
             <Height>0.6cm</Height>
             <Width>20.7827cm</Width>
-            <ZIndex>34</ZIndex>
+            <ZIndex>33</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1617,7 +1571,7 @@
             <Left>0.34077cm</Left>
             <Height>1.15563cm</Height>
             <Width>20.7827cm</Width>
-            <ZIndex>35</ZIndex>
+            <ZIndex>34</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1652,7 +1606,7 @@
             <Left>0.34077cm</Left>
             <Height>0.6cm</Height>
             <Width>20.7827cm</Width>
-            <ZIndex>36</ZIndex>
+            <ZIndex>35</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1684,7 +1638,7 @@
             <Left>0.34077cm</Left>
             <Height>1.15563cm</Height>
             <Width>20.7827cm</Width>
-            <ZIndex>37</ZIndex>
+            <ZIndex>36</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1700,7 +1654,7 @@
             <Left>21.13665cm</Left>
             <Height>0.74083cm</Height>
             <Width>0cm</Width>
-            <ZIndex>38</ZIndex>
+            <ZIndex>37</ZIndex>
             <Style>
               <Border>
                 <Color>Gray</Color>
@@ -1713,7 +1667,7 @@
             <Left>0.34078cm</Left>
             <Height>0.74083cm</Height>
             <Width>0cm</Width>
-            <ZIndex>39</ZIndex>
+            <ZIndex>38</ZIndex>
             <Style>
               <Border>
                 <Color>Gray</Color>
@@ -1744,7 +1698,7 @@
             <Left>0.34077cm</Left>
             <Height>0.60326cm</Height>
             <Width>16.55391cm</Width>
-            <ZIndex>40</ZIndex>
+            <ZIndex>39</ZIndex>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -1776,7 +1730,7 @@
             <Left>18.82388cm</Left>
             <Height>0.60326cm</Height>
             <Width>2.31277cm</Width>
-            <ZIndex>41</ZIndex>
+            <ZIndex>40</ZIndex>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -1808,7 +1762,7 @@
             <Left>16.89468cm</Left>
             <Height>0.60326cm</Height>
             <Width>1.9292cm</Width>
-            <ZIndex>42</ZIndex>
+            <ZIndex>41</ZIndex>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -1840,7 +1794,7 @@
             <Left>0.34078cm</Left>
             <Height>0.60326cm</Height>
             <Width>16.55391cm</Width>
-            <ZIndex>43</ZIndex>
+            <ZIndex>42</ZIndex>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -1858,7 +1812,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Tasa 16%</Value>
+                    <Value>="Tasa"+Parameters!tasa.Value</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -1872,7 +1826,7 @@
             <Left>16.89469cm</Left>
             <Height>0.60326cm</Height>
             <Width>1.9292cm</Width>
-            <ZIndex>44</ZIndex>
+            <ZIndex>43</ZIndex>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -1904,7 +1858,7 @@
             <Left>18.82389cm</Left>
             <Height>0.60326cm</Height>
             <Width>2.31277cm</Width>
-            <ZIndex>45</ZIndex>
+            <ZIndex>44</ZIndex>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -1938,7 +1892,7 @@
             <Left>0.34077cm</Left>
             <Height>0.60326cm</Height>
             <Width>16.55391cm</Width>
-            <ZIndex>46</ZIndex>
+            <ZIndex>45</ZIndex>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -1970,7 +1924,7 @@
             <Left>16.89468cm</Left>
             <Height>0.60326cm</Height>
             <Width>1.9292cm</Width>
-            <ZIndex>47</ZIndex>
+            <ZIndex>46</ZIndex>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -2002,7 +1956,7 @@
             <Left>18.82388cm</Left>
             <Height>0.60326cm</Height>
             <Width>2.31277cm</Width>
-            <ZIndex>48</ZIndex>
+            <ZIndex>47</ZIndex>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -2020,7 +1974,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>="Periodicidad: "+Parameters!Periodicidad.Value</Value>
+                    <Value>=Parameters!Periodicidad.Value</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -2031,8 +1985,8 @@
             <Top>7.84919cm</Top>
             <Left>0.38079cm</Left>
             <Height>0.6cm</Height>
-            <Width>6.69142cm</Width>
-            <ZIndex>49</ZIndex>
+            <Width>7.03955cm</Width>
+            <ZIndex>48</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2050,7 +2004,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>="Meses: "+Parameters!Meses.Value</Value>
+                    <Value>=Parameters!Meses.Value</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -2061,8 +2015,8 @@
             <Top>7.84919cm</Top>
             <Left>7.42034cm</Left>
             <Height>0.6cm</Height>
-            <Width>6.69142cm</Width>
-            <ZIndex>50</ZIndex>
+            <Width>6.86781cm</Width>
+            <ZIndex>49</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2080,7 +2034,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>="Año: "+Parameters!Año.Value</Value>
+                    <Value>=Parameters!Año.Value</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -2089,10 +2043,10 @@
             </Paragraphs>
             <rd:DefaultName>Año</rd:DefaultName>
             <Top>7.84919cm</Top>
-            <Left>14.44524cm</Left>
+            <Left>14.28815cm</Left>
             <Height>0.6cm</Height>
-            <Width>6.69142cm</Width>
-            <ZIndex>51</ZIndex>
+            <Width>6.84851cm</Width>
+            <ZIndex>50</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2103,6 +2057,22 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Image Name="qr">
+            <Source>Database</Source>
+            <Value>=Parameters!qr.Value</Value>
+            <MIMEType>image/png</MIMEType>
+            <Sizing>FitProportional</Sizing>
+            <Top>13.51601cm</Top>
+            <Left>0.38079cm</Left>
+            <Height>3.68792cm</Height>
+            <Width>3.77879cm</Width>
+            <ZIndex>51</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Image>
         </ReportItems>
         <Height>27.91412cm</Height>
         <Style />
@@ -2323,6 +2293,18 @@
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="qr">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="tasa">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
@@ -2498,6 +2480,16 @@
           <ColumnIndex>1</ColumnIndex>
           <RowIndex>8</RowIndex>
           <ParameterName>Año</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>8</RowIndex>
+          <ParameterName>qr</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>8</RowIndex>
+          <ParameterName>tasa</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

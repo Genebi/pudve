@@ -636,20 +636,42 @@ namespace PuntoDeVentaV2
         }
 
         //Claramente yo hise este codigo, desde luego no me lo pepene de internet 8)
-        public static string ReadXmlFile(string filePath, string attribute="Version")
+        public static string ReadXmlFile(string filePath, string attribute= "Version")
         {
-            // Create a new XmlDocument object.
-            XmlDocument xmlDocument = new XmlDocument();
+            if (attribute=="Version")
+            {
+                // Create a new XmlDocument object.
+                XmlDocument xmlDocument = new XmlDocument();
 
-            // Load the XML file from the specified file path.
-            xmlDocument.Load(filePath);
+                // Load the XML file from the specified file path.
+                xmlDocument.Load(filePath);
 
-            // Get the root element of the XML document.
-            XmlElement rootElement = xmlDocument.DocumentElement;
+                // Get the root element of the XML document.
+                XmlElement rootElement = xmlDocument.DocumentElement;
 
-            // Get the attributes of the root element.
-            return rootElement.GetAttribute(attribute);
-            
+                // Get the attributes of the root element.
+                string xdddd = rootElement.GetAttribute("Version");
+                return xdddd;
+            }
+            else
+            {
+               // Create a new XmlDocument object.
+                XmlDocument xmlDocument = new XmlDocument();
+
+                // Load the XML file from the specified file path.
+                xmlDocument.Load(filePath);
+
+                // Define the namespace prefix and URI used in the XML
+                XmlNamespaceManager nsmgr = new XmlNamespaceManager(xmlDocument.NameTable);
+                nsmgr.AddNamespace("cfdi", "http://www.sat.gob.mx/cfd/3");
+
+                // Select the Comprobante node and get the value of the NoCertificadoSAT attribute
+                XmlNode comprobanteNode = xmlDocument.SelectSingleNode("/cfdi:Comprobante", nsmgr);
+                string noCertificadoSAT = comprobanteNode.Attributes[9].Value;
+                return noCertificadoSAT;
+            }
+
+           
         }
 
         private void cursor_en_icono(object sender, DataGridViewCellEventArgs e)

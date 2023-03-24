@@ -16,6 +16,39 @@ namespace PuntoDeVentaV2
         string path = "";
         int factura;
         string certificadoSAT = string.Empty;
+        string serie = string.Empty;
+        string Folio = string.Empty;
+        string usuario_Nombre = string.Empty;
+        string usuario_RFC = string.Empty;
+        string usuario_Regimen = string.Empty;
+        string fechaEmision = string.Empty;
+        string fechaCertificacion = string.Empty;
+        string tipoComprobante = string.Empty;
+        string cliente_Nombre = string.Empty;
+        string cliente_RFC = string.Empty;
+        string cliente_CFDI = string.Empty;
+        string cliente_Locacion = string.Empty;
+        string cliente_FolioFiscal = string.Empty;
+        string cliente_LugarExpedicion = string.Empty;
+        string cliente_MetodoPago = string.Empty;
+        string cliente_FormaPago = string.Empty;
+        string cliente_Moneda = string.Empty;
+        string cliente_TipoCambio = string.Empty;
+        string subtotal = string.Empty;
+        string tasa16 = string.Empty;
+        string tasa = string.Empty;
+        string total = string.Empty;
+        string totalAlfa = string.Empty;
+        string certificadoEmisor = string.Empty;
+        string RFCPAC = string.Empty;
+        string cadenaDigital = string.Empty;
+        string selloDigitalSAT = string.Empty;
+        string selloDigitalEmisor = string.Empty;
+
+        string periodicidad = string.Empty;
+        string meses = string.Empty;
+        string año = string.Empty;
+        string version = "3.3";
         public verFacturasViejas(int facturaC, string certificadoSAT, bool esNueva = false, bool descarga = false, string path="")
         {
             InitializeComponent();
@@ -39,46 +72,15 @@ namespace PuntoDeVentaV2
             string pathApplication = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\FacturasViejas\FactuasViejas.rdlc";
 
-            string serie = string.Empty;
-            string Folio = string.Empty;
-            string usuario_Nombre = string.Empty;
-            string usuario_RFC = string.Empty;
-            string usuario_Regimen = string.Empty;
-            string fechaEmision = string.Empty;
-            string fechaCertificacion = string.Empty;
-            string tipoComprobante = string.Empty;
-            string cliente_Nombre = string.Empty;
-            string cliente_RFC = string.Empty;
-            string cliente_CFDI = string.Empty;
-            string cliente_Locacion = string.Empty;
-            string cliente_FolioFiscal = string.Empty;
-            string cliente_LugarExpedicion = string.Empty;
-            string cliente_MetodoPago = string.Empty;
-            string cliente_FormaPago = string.Empty;
-            string cliente_Moneda = string.Empty;
-            string cliente_TipoCambio = string.Empty;
-            string subtotal = string.Empty;
-            string tasa16 = string.Empty;
-            string total = string.Empty;
-            string totalAlfa = string.Empty;
-            string certificadoEmisor = string.Empty;
-            string RFCPAC = string.Empty;
-            string cadenaDigital = string.Empty;
-            string selloDigitalSAT = string.Empty;
-            string selloDigitalEmisor = string.Empty;
-
-            string periodicidad = string.Empty;
-            string meses = string.Empty;
-            string año = string.Empty;
-            string version = "3.3";
+            
 
             DataTable DataTable1 = cn.CargarDatos($"select cantidad AS Cantidad, clave_producto AS ClavePS, clave_unidad AS ClaveU, descripcion as Descripcion, precio_u AS PU, cantidad*(precio_u-importe_iva) AS Importe from facturas_productos WHERE id_factura = {factura}");
-            using (DataTable totales = cn.CargarDatos($"select sum(cantidad*(precio_u-importe_iva)) as monosas, SUM(cantidad*(precio_u-importe_iva)*16/100) as sincho, sum(cantidad*(precio_u-importe_iva)) + SUM(cantidad*(precio_u-importe_iva)*16/100) AS kowka from facturas_productos WHERE id_factura = {factura}"))
+            using (DataTable totales = cn.CargarDatos($"select tasa_cuota, sum(cantidad*(precio_u-importe_iva)) as monosas, SUM(cantidad*(precio_u-importe_iva)*16/100) as sincho, sum(cantidad*(precio_u-importe_iva)) + SUM(cantidad*(precio_u-importe_iva)*16/100) AS kowka from facturas_productos WHERE id_factura = {factura}"))
             {
                 subtotal = totales.Rows[0]["monosas"].ToString();
                 tasa16 = totales.Rows[0]["sincho"].ToString();
                 total = totales.Rows[0]["kowka"].ToString();
-                
+                tasa = totales.Rows[0]["tasa_cuota"].ToString();
 
                 decimal subtotalValue, tasa16Value, totalValue;
 
@@ -167,16 +169,18 @@ namespace PuntoDeVentaV2
                 
                 certificadoEmisor = datos.Rows[0]["certificadoEmisor"].ToString();
                 RFCPAC = datos.Rows[0]["RFCPAC"].ToString();
-                //cadenaDigital = datos.Rows[0]["cadenaDigital"].ToString();
+                
                 selloDigitalSAT = datos.Rows[0]["selloDigitalSAT"].ToString();
                 selloDigitalEmisor = datos.Rows[0]["selloDigitalEmisor"].ToString();
+
+                cadenaDigital = $"||1.1|{cliente_FolioFiscal}|{fechaCertificacion}|{selloDigitalEmisor}|{certificadoSAT}|";
 
                 if (esNueva)
                 {
                     cliente_Locacion = "CP: "+datos.Rows[0]["r_cp"].ToString();
-                    periodicidad = datos.Rows[0]["r_periodicidad_infog"].ToString();
-                    meses = datos.Rows[0]["r_meses_infog"].ToString();
-                    año = datos.Rows[0]["r_anio_infog"].ToString();
+                    periodicidad = "Periodicidad: "+datos.Rows[0]["r_periodicidad_infog"].ToString();
+                    meses = "Meses: "+datos.Rows[0]["r_meses_infog"].ToString();
+                    año = "Año: "+datos.Rows[0]["r_anio_infog"].ToString();
                     version = "4.0";
                 }
             }
@@ -218,10 +222,16 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("Meses", meses));
             reportParameters.Add(new ReportParameter("Año", año));
             reportParameters.Add(new ReportParameter("Version", version));
+            reportParameters.Add(new ReportParameter("tasa", tasa));
+
+            string qr = QR();
+            reportParameters.Add(new ReportParameter("qr", qr));
 
             LocalReport rdlc = new LocalReport();
+
             rdlc.EnableExternalImages = true;
             rdlc.ReportPath = FullReportPath;
+
             rdlc.SetParameters(reportParameters);
 
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
@@ -254,7 +264,17 @@ namespace PuntoDeVentaV2
 
         }
 
-        
+        public string QR()
+        {
+            byte[] qr = Genera_QR.createBarCode("https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=" + cliente_FolioFiscal + "&re=" + usuario_RFC + "&rr=" + cliente_RFC + "&tt=" + total + "&fe=" + selloDigitalEmisor.Substring(selloDigitalEmisor.Length - 9, 8));
+            string b64qr = Convert.ToBase64String(qr);
+            string sqr = string.Format("data:image/png;base64,{0}", b64qr);
+            sqr = sqr.Replace("data:image/png;base64,", "");
+
+
+            return sqr;
+        }
+
     }
 }
 
