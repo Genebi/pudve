@@ -619,7 +619,8 @@ namespace PuntoDeVentaV2
                             con.EjecutarConsulta($"INSERT INTO datosProducto(CodigoBarras, Nombre, Proveedores, Precio, StockMin, StockMax, Stock, Usuario, Empleado,Exito, Revision) VALUES('{txtCodigoBarras.Text}', '{txtNombreProducto.Text}', 'TEST', '{lblPrecioProducto.Text}', '{lblStockMinimo.Text}', '{lblStockMaximo.Text}', '{txtCantidadStock.Text}', '{FormPrincipal.userNickName.Split('@')[0]}', '{idEmpleado}',1,{lblNoRevision.Text})");
 
                             using (DataTable datosCategoria = cn.CargarDatos($@"SELECT
-                                p.CodigoBarras AS IDLocal,
+                                detallesubdetalle.id AS IDLocal,
+                                p.CodigoBarras AS CodigoBarras,
                                 subdetallesdeproducto.Categoria AS Detalle,
                                 CASE
                                     subdetallesdeproducto.TipoDato 
@@ -643,11 +644,11 @@ namespace PuntoDeVentaV2
                                 {
                                     try
                                     {
-                                        con.EjecutarConsulta($"DELETE FROM websubdetalles WHERE IDCliente = '{FormPrincipal.userNickName.Split('@')[0]}' AND IDLocal = {datosCategoria.Rows[0][0].ToString()}");
+                                        con.EjecutarConsulta($"DELETE FROM websubdetalles WHERE IDCliente = '{FormPrincipal.userNickName.Split('@')[0]}' AND CodigoBarras = {datosCategoria.Rows[0][1].ToString()}");
                                         foreach (DataRow item in datosCategoria.Rows)
                                         {
-                                            string consulta = "INSERT INTO websubdetalles (IDLocal, IDCliente, Detalle, SubDetalle, Tipo, Stock)";
-                                            consulta += $"VALUES ('{item["IDLocal"].ToString()}', '{FormPrincipal.userNickName.Split('@')[0]}', '{item["Detalle"].ToString()}', '{item["SubDetalle"].ToString()}', '{item["Tipo"].ToString()}', {item["Stock"].ToString()})";
+                                            string consulta = "INSERT INTO websubdetalles (IDLocal,CodigoBarras, IDCliente, Detalle, SubDetalle, Tipo, Stock)";
+                                            consulta += $"VALUES ('{item["IDLocal"].ToString()}', '{item["CodigoBarras"].ToString()}','{FormPrincipal.userNickName.Split('@')[0]}', '{item["Detalle"].ToString()}', '{item["SubDetalle"].ToString()}', '{item["Tipo"].ToString()}', {item["Stock"].ToString()})";
                                             con.EjecutarConsulta(consulta);
                                         }
                                     }
@@ -1272,32 +1273,37 @@ namespace PuntoDeVentaV2
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
 
-            using (DataTable datosCategoria = cn.CargarDatos($@"SELECT 
-                            subdetallesdeproducto.ID AS IDLocal,
-                            Categoria AS Detalle,
-                            CASE subdetallesdeproducto.TipoDato
-                                WHEN 0 THEN detallesubdetalle.Fecha
-                                WHEN 1 THEN detallesubdetalle.Valor
-                                WHEN 2 THEN detallesubdetalle.Nombre
-                            END AS Subdetalle,
-                            subdetallesdeproducto.TipoDato AS Tipo,
-		                        detallesubdetalle.Stock
-                        FROM 
-                            subdetallesdeproducto 
-                            INNER JOIN detallesubdetalle ON subdetallesdeproducto.ID = detallesubdetalle.IDSubDetalle 
-                        WHERE 
-                            IDProducto = '{idProducto}' AND IDUsuario = '{FormPrincipal.userID}' AND Activo = 1;
+            using (DataTable datosCategoria = cn.CargarDatos($@"SELECT
+                                detallesubdetalle.id AS IDLocal,
+                                p.CodigoBarras AS CodigoBarras,
+                                subdetallesdeproducto.Categoria AS Detalle,
+                                CASE
+                                    subdetallesdeproducto.TipoDato 
+                                    WHEN 0 THEN detallesubdetalle.Fecha 
+                                    WHEN 1 THEN detallesubdetalle.Valor 
+                                    WHEN 2 THEN detallesubdetalle.Nombre 
+                                END AS Subdetalle,
+                                subdetallesdeproducto.TipoDato AS Tipo,
+                                detallesubdetalle.Stock 
+                            FROM
+                                subdetallesdeproducto
+                                INNER JOIN detallesubdetalle ON subdetallesdeproducto.ID = detallesubdetalle.IDSubDetalle 
+                                INNER JOIN Productos p ON subdetallesdeproducto.IDProducto = p.ID
+                            WHERE
+                                subdetallesdeproducto.IDUsuario = '{FormPrincipal.userID}'
+                                AND subdetallesdeproducto.Activo = 1
+                                AND p.ID = '{idProducto}';
                         "))
             {
                 if (!datosCategoria.Rows.Count.Equals(0))
                 {
                     try
                     {
-                        con.EjecutarConsulta($"DELETE FROM websubdetalles WHERE IDCliente = '{FormPrincipal.userNickName}' AND IDLocal = {idProducto}");
+                        con.EjecutarConsulta($"DELETE FROM websubdetalles WHERE IDCliente = '{FormPrincipal.userNickName.Split('@')[0]}' AND CodigoBarras = {datosCategoria.Rows[0][1].ToString()}");
                         foreach (DataRow item in datosCategoria.Rows)
                         {
-                            string consulta = "INSERT INTO websubdetalles (IDLocal, IDCliente, Detalle, SubDetalle, Tipo, Stock)";
-                            consulta += $"VALUES ('{item["IDLocal"].ToString()}', '{FormPrincipal.userNickName}', '{item["Detalle"].ToString()}', '{item["SubDetalle"].ToString()}', '{item["Tipo"].ToString()}', {item["Stock"].ToString()})";
+                            string consulta = "INSERT INTO websubdetalles (IDLocal,CodigoBarras, IDCliente, Detalle, SubDetalle, Tipo, Stock)";
+                            consulta += $"VALUES ('{item["IDLocal"].ToString()}', '{item["CodigoBarras"].ToString()}','{FormPrincipal.userNickName.Split('@')[0]}', '{item["Detalle"].ToString()}', '{item["SubDetalle"].ToString()}', '{item["Tipo"].ToString()}', {item["Stock"].ToString()})";
                             con.EjecutarConsulta(consulta);
                         }
                     }
@@ -2380,7 +2386,10 @@ namespace PuntoDeVentaV2
                                     cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{FormPrincipal.userNickName.Split('@')[0]}'");
                                     btnTerminar.PerformClick();
                                     break;
-                                default:
+                                case "detalleGuardar":
+                                cn.EjecutarConsulta(peticion["Tipo"].ToString());
+                                    break;
+                            default:
                                     break;
                             }
                         }
