@@ -45,7 +45,7 @@ namespace PuntoDeVentaV2
                    nuevosCodigos = string.Empty,
                    theNumberAsAString = string.Empty,
                    busqueda = string.Empty;
-        
+
 
         bool isEmptyAuxWord,
             isEmptySetUpVariable,
@@ -63,7 +63,7 @@ namespace PuntoDeVentaV2
         string extra = string.Empty, extra2 = string.Empty;
         int maximo_x_pagina = 17;
         int clickBoton = 0;
-        
+
 
         public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
@@ -90,12 +90,12 @@ namespace PuntoDeVentaV2
         public static Dictionary<int, string> contarProductosSeleccionados = new Dictionary<int, string>();
         //Lista para los checkbox que se desmarcan cuando estan todos marcados
         public static Dictionary<int, string> quitarProductosDeseleccionados = new Dictionary<int, string>();
-        
+
         // Variables para saber si uso el boton de cambiar tipo
         public int idProductoCambio { get; set; }
         public bool cambioProducto { get; set; }
 
-        public static Dictionary<int, string> diccionarioAjustePrecio { get; set; } 
+        public static Dictionary<int, string> diccionarioAjustePrecio { get; set; }
 
         int paginacompletaMarcada = -1;
 
@@ -121,7 +121,7 @@ namespace PuntoDeVentaV2
         MetodosBusquedas mb = new MetodosBusquedas();
 
         int numfila, index, number_of_rows, i, seleccionadoDato, origenDeLosDatos = 0, editarEstado = 0, numerofila = 0;
-        string Id_Prod_select, buscar,Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, ClaveProducto, UnidadMedida, filtro, idProductoEditar, impuestoProducto;
+        string Id_Prod_select, buscar, Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, ClaveProducto, UnidadMedida, filtro, idProductoEditar, impuestoProducto;
         string id = FormPrincipal.userID.ToString();
 
         DataTable dt, dtConsulta, fotos, registros;
@@ -295,7 +295,7 @@ namespace PuntoDeVentaV2
                         if (!productosSeleccionados.ContainsKey(id))
                         {
                             productosSeleccionados.Add(id, tipo);
-                            
+
                         }
 
                         if (!productosSeleccionadosParaHistorialPrecios.ContainsKey(id))
@@ -356,15 +356,15 @@ namespace PuntoDeVentaV2
             var posicionIndex = cbMostrar.SelectedIndex;
             var nuevoDatoCbo = -1;
 
-            if (posicionIndex==0)
+            if (posicionIndex == 0)
             {
                 nuevoDatoCbo = 1;
             }
-            else if (posicionIndex==1)
+            else if (posicionIndex == 1)
             {
                 nuevoDatoCbo = 0;
             }
-            else if (posicionIndex==2)
+            else if (posicionIndex == 2)
             {
                 nuevoDatoCbo = 2;
             }
@@ -406,12 +406,12 @@ namespace PuntoDeVentaV2
         private void txtMaximoPorPagina_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-                {
+            {
                 btnActualizarMaximoProductos.PerformClick();
 
-            //    if (!txtMaximoPorPagina.Text.Equals(string.Empty))
-            //    {
-            //        var cantidadAMostrar = Convert.ToInt32(txtMaximoPorPagina.Text);
+                //    if (!txtMaximoPorPagina.Text.Equals(string.Empty))
+                //    {
+                //        var cantidadAMostrar = Convert.ToInt32(txtMaximoPorPagina.Text);
 
                 //        if (cantidadAMostrar <= 0)
                 //        {
@@ -469,7 +469,7 @@ namespace PuntoDeVentaV2
             var fila = DGVProductos.CurrentCell.RowIndex;
 
             int idProducto = Convert.ToInt32(DGVProductos.Rows[fila].Cells["_IDProducto"].Value);
-            
+
             //Esta condicion es para que no de error al momento que se haga click en el header de la columna por error
             if (e.RowIndex >= 0)
             {
@@ -497,7 +497,7 @@ namespace PuntoDeVentaV2
                     var producto = cn.BuscarProducto(Convert.ToInt32(idProducto), FormPrincipal.userID);
 
                     string typeProduct = producto[5];
-                    
+
 
                     if (typeProduct == "S")
                     {
@@ -785,7 +785,7 @@ namespace PuntoDeVentaV2
                             btn.Image = new Bitmap(btn.Image, btn.Size);
                         }
                     }
-                    
+
                 }
                 btn.Tag = row["ID"].ToString();
                 fLPShowPhoto.Controls.Add(btn);
@@ -795,7 +795,7 @@ namespace PuntoDeVentaV2
 
         private void cbOrden_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CargarDatos(); 
+            CargarDatos();
         }
 
         // Metodo creado para manejo de mostrar ventana
@@ -978,7 +978,7 @@ namespace PuntoDeVentaV2
                 var Tipo = Convert.ToString(DGVProductos.Rows[e.RowIndex].Cells[22].Value.ToString());
                 var minimo = Convert.ToInt32(DGVProductos.Rows[e.RowIndex].Cells[24].Value.ToString());
                 var maximo = Convert.ToInt32(DGVProductos.Rows[e.RowIndex].Cells[25].Value.ToString());
-                
+
                 if (Tipo.Equals("P") || Tipo.Equals("VR"))
                 {
                     var stock = Convert.ToDecimal(DGVProductos.Rows[e.RowIndex].Cells[2].Value.ToString());
@@ -1168,25 +1168,25 @@ namespace PuntoDeVentaV2
 
                     //using (var dbEsComboServicio = cn.CargarDatos(cs.SaberSiEsComboServicio(idProducto)))
                     //{
-                        //if (!dbEsComboServicio.Rows.Count.Equals(0))
-                        //{
-                            //var mensajeSiEsComboServicioHistorial = string.Empty;
+                    //if (!dbEsComboServicio.Rows.Count.Equals(0))
+                    //{
+                    //var mensajeSiEsComboServicioHistorial = string.Empty;
 
-                            //foreach (DataRow item in dbEsComboServicio.Rows)
-                            //{
-                            //    if (item["Tipo"].Equals("PQ"))
-                            //    {
-                            //        mensajeSiEsComboServicioHistorial = "Los Combos No Manejan Stock Físico";
-                            //    }
-                            //    else if (item["Tipo"].Equals("S"))
-                            //    {
-                            //        mensajeSiEsComboServicioHistorial = "Los Servicios No Manejan Stock Físico";
-                            //    }
+                    //foreach (DataRow item in dbEsComboServicio.Rows)
+                    //{
+                    //    if (item["Tipo"].Equals("PQ"))
+                    //    {
+                    //        mensajeSiEsComboServicioHistorial = "Los Combos No Manejan Stock Físico";
+                    //    }
+                    //    else if (item["Tipo"].Equals("S"))
+                    //    {
+                    //        mensajeSiEsComboServicioHistorial = "Los Servicios No Manejan Stock Físico";
+                    //    }
 
-                            //    MessageBox.Show(mensajeSiEsComboServicioHistorial, "Aviso Historial Producto, Combo, Servicio", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                            //    return;
-                            //}
-                        //}
+                    //    MessageBox.Show(mensajeSiEsComboServicioHistorial, "Aviso Historial Producto, Combo, Servicio", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    //    return;
+                    //}
+                    //}
                     //}
                     HistorialVenta = true;
                     idProductoHistorialStock = idProducto;
@@ -1581,13 +1581,13 @@ namespace PuntoDeVentaV2
             {
                 habilitadosOno = MessageBox.Show("¿Desea Habilitar este producto?", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             }
-            
+
             // Cantidad de productos seleccionados
             Thread cargando = new Thread(() => new Cargando().ShowDialog());
 
             if (habilitadosOno.Equals(DialogResult.Yes))
             {
-                
+
                 if (contador >= 50)
                 {
                     cargando.Start();
@@ -1697,12 +1697,14 @@ namespace PuntoDeVentaV2
                         estado = 1;
                     }
 
+                    string IDs = "";
+                    bool stock = false;
                     foreach (DataGridViewRow row in DGVProductos.Rows)
                     {
+                        stock = false;
+                        var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
                         if ((bool)row.Cells["CheckProducto"].Value == true)
                         {
-                            var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
-
                             if (estado < 2)
                             {
                                 //Verificamos si el codigo de barras o clave ya esta usada en unos de los productos
@@ -1725,38 +1727,75 @@ namespace PuntoDeVentaV2
 
                                 if (estado == 0)
                                 {
-                                    // Comprobar si esta vinculado a un servicio o combo
-                                    var vinculado = (bool)cn.EjecutarSelect($"SELECT * FROM ProductosDeServicios WHERE IDProducto = {idProducto}");
-
-                                    if (vinculado)
+                                    using (var dt = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {idProducto}"))
                                     {
-                                        var datos = cn.BuscarProducto(idProducto, FormPrincipal.userID);
-                                        var producto = datos[1];
-
-                                        var mensaje = string.Join(
-                                            Environment.NewLine,
-                                            $"El producto {producto}",
-                                            "se encuentra vinculado a un servicio o combo, al",
-                                            "deshabilitar este producto se perderá la vinculación,",
-                                            "¿Estás seguro de deshabilitar el producto?"
-                                        );
-
-                                        var respuesta = MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                                        if (respuesta == DialogResult.Yes)
+                                        if (Convert.ToDecimal(dt.Rows[0][0]) > 0)
                                         {
-                                            cn.EjecutarConsulta($"DELETE FROM ProductosDeServicios WHERE IDProducto = {idProducto}");
-                                        }
-                                        else
-                                        {
-                                            continue;
+                                            stock = true;
                                         }
                                     }
+
+                                    if (stock.Equals(false))
+                                    {
+                                        // Comprobar si esta vinculado a un servicio o combo
+                                        var vinculado = (bool)cn.EjecutarSelect($"SELECT * FROM ProductosDeServicios WHERE IDProducto = {idProducto}");
+
+                                        if (vinculado)
+                                        {
+                                            var datos = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                                            var producto = datos[1];
+
+                                            var mensaje = string.Join(
+                                                Environment.NewLine,
+                                                $"El producto {producto}",
+                                                "se encuentra vinculado a un servicio o combo, al",
+                                                "deshabilitar este producto se perderá la vinculación,",
+                                                "¿Estás seguro de deshabilitar el producto?"
+                                            );
+
+                                            var respuesta = MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                                            if (respuesta == DialogResult.Yes)
+                                            {
+                                                cn.EjecutarConsulta($"DELETE FROM ProductosDeServicios WHERE IDProducto = {idProducto}");
+                                            }
+                                            else
+                                            {
+                                                continue;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        IDs += idProducto.ToString() + ",";
+                                    }
+
+
                                 }
 
-                                cn.EjecutarConsulta(cs.ActualizarStatusProducto(estado, idProducto, FormPrincipal.userID));
-                                productosSeleccionados.Clear();
+                                if (stock.Equals(false))
+                                {
+                                    cn.EjecutarConsulta(cs.ActualizarStatusProducto(estado, idProducto, FormPrincipal.userID));
+                                    productosSeleccionados.Clear();
+                                }
+                               
                             }
+
+
+                        }
+                    }
+                    //aqui ya no esta el foreach
+                    if (!IDs.Equals(""))
+                    {
+                        IDs = IDs.TrimEnd(',');
+                        using (var dt = cn.CargarDatos($"SELECT Nombre FROM productos WHERE ID IN ({IDs})"))
+                        {
+                            string nombreProductos = "Los siguientes productos no pueden ser Deshabilitados porque tienen stock positivo:\n";
+                            foreach (DataRow item in dt.Rows)
+                            {
+                                nombreProductos += "-"+item["Nombre"] + "\n";
+                            }
+                            MessageBox.Show(nombreProductos,"Aviso del Ssitema", MessageBoxButtons.OK,MessageBoxIcon.Information);
                         }
                     }
                 }
@@ -1983,7 +2022,7 @@ namespace PuntoDeVentaV2
             foreach (var control in VariablesSistema)
             {
                 words = control.Split(' ');
-                
+
                 foreach (Control panel in fLPDynamicTags.Controls)
                 {
                     if (panel.Name.Equals("pEtiqueta" + words[0]))
@@ -2043,7 +2082,7 @@ namespace PuntoDeVentaV2
 
             //actualizarBtnFiltro();
 
-            CargarDatos(cbMostrar.SelectedIndex+1);
+            CargarDatos(cbMostrar.SelectedIndex + 1);
 
             verificarBotonLimpiarTags();
         }
@@ -2072,7 +2111,7 @@ namespace PuntoDeVentaV2
             productosSeleccionados = new Dictionary<int, string>();
             checkboxMarcados = new Dictionary<int, string>();
             filtros = new Dictionary<string, Tuple<string, float>>();
-            
+
 
             listVariables = new List<Control>();
 
@@ -2137,11 +2176,11 @@ namespace PuntoDeVentaV2
             //{
             //    btnAgregarXML.Visible = true;
             //}
-            if(FormPrincipal.userNickName == "MI_RI" | FormPrincipal.userNickName == "OXXOCLARA6" | FormPrincipal.userNickName == "ALEXHIT" | FormPrincipal.userNickName == "HOUSEDEPOTREPARTO")
-            if(FormPrincipal.userNickName == "MI_RI" | FormPrincipal.userNickName == "OXXOCLARA6" | FormPrincipal.userNickName == "ALEXHIT"| FormPrincipal.userNickName == "MUELASO")
-            {
-                btnAgregarXML.Visible = true;
-            }
+            if (FormPrincipal.userNickName == "MI_RI" | FormPrincipal.userNickName == "OXXOCLARA6" | FormPrincipal.userNickName == "ALEXHIT" | FormPrincipal.userNickName == "HOUSEDEPOTREPARTO")
+                if (FormPrincipal.userNickName == "MI_RI" | FormPrincipal.userNickName == "OXXOCLARA6" | FormPrincipal.userNickName == "ALEXHIT" | FormPrincipal.userNickName == "MUELASO")
+                {
+                    btnAgregarXML.Visible = true;
+                }
 
             copiarMensajesProd = 0;
 
@@ -2201,9 +2240,9 @@ namespace PuntoDeVentaV2
 
         public void recargarDGV()
         {
-            int ultimaPagina = 0, 
+            int ultimaPagina = 0,
                 currentPage = 0;
-            
+
             if (!txtBusqueda.Text.Trim().Equals(""))
             {
                 if (retornoAgregarEditarProductoDatosSourceFinal.Equals(1) ||
@@ -2222,7 +2261,7 @@ namespace PuntoDeVentaV2
                 }
                 else if (retornoAgregarEditarProductoDatosSourceFinal.Equals(2))
                 {
-                    if(!txtBusqueda.Text.Trim().Equals(""))
+                    if (!txtBusqueda.Text.Trim().Equals(""))
                     {
                         quitarEspacioEnBlanco();
                         busquedaDelUsuario();
@@ -2291,13 +2330,13 @@ namespace PuntoDeVentaV2
                     {
                         lista.Add(idProducto, tipoProducto);
                     }
-                   
+
                 }
             }
 
             if (lista.Count.Equals(0))
             {
-                MessageBox.Show("No tiene ningun producto seleccionado","Aviso del Ssitema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MessageBox.Show("No tiene ningun producto seleccionado", "Aviso del Ssitema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -2325,18 +2364,18 @@ namespace PuntoDeVentaV2
 
                 opciones.ShowDialog();
 
-                 txtBusqueda.Focus();
-                 desmarcarCheckBoxSeleccionados();
-                 productosSeleccionados.Clear();
-                 checkboxMarcados.Clear();
+                txtBusqueda.Focus();
+                desmarcarCheckBoxSeleccionados();
+                productosSeleccionados.Clear();
+                checkboxMarcados.Clear();
                 cbTodos.Checked = false;
             }
-           
+
         }
 
         private void txtBusqueda_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (int) Keys.Enter)
+            if (e.KeyChar == (int)Keys.Enter)
             {
                 recargarBusqueda();
             }
@@ -2775,7 +2814,7 @@ namespace PuntoDeVentaV2
                         CargarDatos();
                         recargarDatos = false;
                     }
-                    else if(!txtBusqueda.Text.Equals(string.Empty))
+                    else if (!txtBusqueda.Text.Equals(string.Empty))
                     {
                         int opc = 0;
 
@@ -3017,7 +3056,7 @@ namespace PuntoDeVentaV2
                         var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
 
                         row.Cells["CheckProducto"].Value = false;
-                    } 
+                    }
                 }
                 //CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
                 //headerBox.Checked = false;
@@ -3122,7 +3161,7 @@ namespace PuntoDeVentaV2
                 }
 
                 listDictionary.Clear();
- 
+
                 //setUpDinamicos.Clear();
             }
 
@@ -3150,7 +3189,7 @@ namespace PuntoDeVentaV2
 
         private void txtMaximoPorPagina_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back) )
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 e.Handled = true;
             }
@@ -3245,7 +3284,7 @@ namespace PuntoDeVentaV2
             }
             crearEtiquetaSetUpVariable();
         }
-        
+
 
         private void crearEtiquetaSetUpVariable()
         {
@@ -3540,7 +3579,7 @@ namespace PuntoDeVentaV2
         {
             txtIrPagina.Text = string.Empty;
         }
-        
+
         private void DGVProductos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             // for the Name cell paint, paint the background as highligth and text as white in case of slection
@@ -3577,7 +3616,8 @@ namespace PuntoDeVentaV2
                 lAtajo.Text = "F4";
 
                 DGVProductos_CellClick(this, new DataGridViewCellEventArgs(7, 0));
-            }else if (e.KeyCode == Keys.F2)
+            }
+            else if (e.KeyCode == Keys.F2)
             {
                 Ventas mostrarVentas = new Ventas();
                 mostrarVentas.Show();
@@ -3718,7 +3758,7 @@ namespace PuntoDeVentaV2
 
                 btnEtiqueta.PerformClick();
             }
-            else if(e.KeyCode==Keys.A && (e.Control))//Boton Asignar
+            else if (e.KeyCode == Keys.A && (e.Control))//Boton Asignar
             {
                 timer1.Start();
                 lAtajo.Visible = true;
@@ -3726,7 +3766,7 @@ namespace PuntoDeVentaV2
 
                 btnAsignarMultiple.PerformClick();
             }
-            else if (e.KeyCode==Keys.T && (e.Control))//Boton Cmbiar Tipo
+            else if (e.KeyCode == Keys.T && (e.Control))//Boton Cmbiar Tipo
             {
                 timer1.Start();
                 lAtajo.Visible = true;
@@ -3734,7 +3774,7 @@ namespace PuntoDeVentaV2
 
                 btnCambiarTipo.PerformClick();
             }
-            else if (e.KeyCode==Keys.D && (e.Control))//Boton Deshabilitar Seleccionado
+            else if (e.KeyCode == Keys.D && (e.Control))//Boton Deshabilitar Seleccionado
             {
                 timer1.Start();
                 lAtajo.Visible = true;
@@ -3937,7 +3977,7 @@ namespace PuntoDeVentaV2
         {
             int conteo = 0;
             conteo++;
-            
+
             if (conteo == 1)
             {
                 lAtajo.Visible = false;
@@ -4145,7 +4185,7 @@ namespace PuntoDeVentaV2
         private void btnRightSetUpVariable_Click(object sender, EventArgs e)
         {
             Button btnTag = (Button)sender;
-            string name = btnTag.Name.Remove(0, 8); 
+            string name = btnTag.Name.Remove(0, 8);
             string newtext = string.Empty;
 
             // Cuando se remueve una etiqueta estatica se quita del diccionario filtros y se vuelve a hacer la consulta de busqueda solo con las etiquetas restantes
@@ -4162,7 +4202,7 @@ namespace PuntoDeVentaV2
                         if (diccionarioAux.ContainsKey(filtro.Key))
                         {
                             diccionarioAux.Remove(filtro.Key);
-                        }       
+                        }
                     }
                 }
             }
@@ -4217,7 +4257,7 @@ namespace PuntoDeVentaV2
             {
                 reiniciarVariablesDescuento();
             }
-                
+
             if (txtBusqueda.Text.Equals(""))
             {
                 CargarDatos();
@@ -4385,7 +4425,8 @@ namespace PuntoDeVentaV2
 
                             if (filtrosEstaticos.Contains(datos[0]))
                             {
-                                if (!filtros.ContainsKey(datos[0])) {
+                                if (!filtros.ContainsKey(datos[0]))
+                                {
 
                                     filtros.Add(datos[0], new Tuple<string, float>(datos[1], float.Parse(filtro["textCantidad"].ToString())));
                                 }
@@ -4507,7 +4548,7 @@ namespace PuntoDeVentaV2
                     {
                         productosSeleccionados.Remove(id);
 
-                        
+
                     }
 
                     if (checkboxMarcados.ContainsKey(id))
@@ -4571,7 +4612,7 @@ namespace PuntoDeVentaV2
                         {
                             extraProductos += $"P.{filtro.Key} {operador} {filtro.Value.Item2} AND ";
                         }
-                        
+
                     }
                     else if (filtro.Key == "Proveedor")
                     {
@@ -4687,7 +4728,7 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    
+
                     if (extraDetallesNombres.Length > 4 && extraDetallesValores.Length > 4)
                     {
                         extraDetallesNombres = extraDetallesNombres.Remove(extraDetallesNombres.Length - 4);
@@ -4696,7 +4737,7 @@ namespace PuntoDeVentaV2
                         extraDetallesNombres += ")";
                         extraDetallesValores += ")";
                     }
-                    
+
 
                     if (!productosConFiltroSIN.Equals("("))
                     {
@@ -4740,7 +4781,7 @@ namespace PuntoDeVentaV2
                     {
                         extraDetallesNombres = $"{extraDetallesValores} ORDER BY P.ID ASC";
                     }
-                    
+
                     extraProductos += extraDetallesNombres;
                 }
 
@@ -4760,7 +4801,7 @@ namespace PuntoDeVentaV2
 
                 // retorna un diccionario con las coincidencias que hubo en la base de datos
                 var status = cbMostrar.SelectedIndex;
-                var coincidencias = mb.BusquedaCoincidencias(busquedaEnProductos.Trim(),status);
+                var coincidencias = mb.BusquedaCoincidencias(busquedaEnProductos.Trim(), status);
                 productosEncontrados = Convert.ToInt32(coincidencias.Count);
 
                 if (coincidencias.Count == 0)
@@ -5036,7 +5077,7 @@ namespace PuntoDeVentaV2
             }
 
             // CONSULTA GENERAL
-             consultaFiltro = $"SELECT * FROM Productos AS P ";
+            consultaFiltro = $"SELECT * FROM Productos AS P ";
 
             // DESCRIPCION DEL FUNCIONAMIENTO DE ESTE CODIGO
             // Se comprueba si hay filtros aplicados y si se le dio click al boton aceptar del form de filtros ejecuta el codigo dentro de la condicional
@@ -5092,7 +5133,7 @@ namespace PuntoDeVentaV2
                 {
                     DGVProductos.Rows.Clear();
                     consultaFiltro = "SELECT * FROM Productos WHERE ID = 0";
-                    MessageBox.Show($"No se encontro ninguna coincidencia con el producto: {busquedaEnProductos}","Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"No se encontro ninguna coincidencia con el producto: {busquedaEnProductos}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else if (status == 1 && consultaFiltro == "")
                 {
@@ -5119,7 +5160,7 @@ namespace PuntoDeVentaV2
             {
                 consultaFiltro += " ORDER BY Precio DESC";
             }
-            else if (cbOrden.SelectedIndex.Equals(4)  && string.IsNullOrWhiteSpace(txtBusqueda.Text))
+            else if (cbOrden.SelectedIndex.Equals(4) && string.IsNullOrWhiteSpace(txtBusqueda.Text))
             {
                 consultaFiltro += " ORDER BY Precio ASC";
             }
@@ -5207,7 +5248,7 @@ namespace PuntoDeVentaV2
             {
                 mostrarColumnas = false;
             }
-             
+
             DGVProductos.Columns["Column7"].Visible = mostrarColumnas;
             DGVProductos.Columns["Column8"].Visible = mostrarColumnas;
             //DGVProductos.Columns["Column9"].Visible = mostrarColumnas;
@@ -5288,7 +5329,8 @@ namespace PuntoDeVentaV2
                     {
                         row.Cells["Column2"].Value = filaDatos["Stock"].ToString();
 
-                        row.Cells["Column2"].Style = new DataGridViewCellStyle {
+                        row.Cells["Column2"].Style = new DataGridViewCellStyle
+                        {
                             ForeColor = Color.White,
                             BackColor = Color.Black
                         };
@@ -5427,7 +5469,7 @@ namespace PuntoDeVentaV2
 
             string[] resultado = words.Distinct().ToArray();
 
-            foreach(var item in resultado)
+            foreach (var item in resultado)
             {
                 lista += item + " ";
             }
@@ -5599,7 +5641,7 @@ namespace PuntoDeVentaV2
                     SendKeys.Send("{ENTER}");
                     //CargarDatos();
                 }
-                
+
                 //actualizarDatosDespuesDeAgregarProducto();
                 actualizar();
             }
@@ -5839,7 +5881,7 @@ namespace PuntoDeVentaV2
             //    {
             //        goToPageNumber(currentPage);
             //    }
-                
+
             //}
 
             origenDeLosDatos = 0;
@@ -5905,7 +5947,7 @@ namespace PuntoDeVentaV2
                 AgregarEditarProducto.stockNecesario = "0";
                 clickBoton = 0;
                 agregarEspacioAlFinal();
-                
+
                 txtBusqueda.Focus();
                 Utilidades.remplazarComillasSimplesEnLaTablaProductos();
                 p.primerPagina();
@@ -6494,7 +6536,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("Error al Intentar verificar si hay algo en\nLista (De palabras a Buscar o Filtro Dinamicos) o en el Diccionario de filtro dinamico\n" + ex.Message.ToString(), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            
+
             if (isEmptyAuxWord && isEmptySetUpVariable && isEmptySetUpDinamicos)
             {
                 fLPDynamicTags.Controls.Clear();
@@ -6586,18 +6628,18 @@ namespace PuntoDeVentaV2
                 {
                     //if (!palabras[i].Equals(string.Empty))
                     //{
-                        if (auxWord.Count == 0)
+                    if (auxWord.Count == 0)
+                    {
+                        auxWord.Add(palabras[i]);
+                    }
+                    else if (!auxWord.Contains(palabras[i]))
+                    {
+                        if (auxWord.Count != 0)
                         {
                             auxWord.Add(palabras[i]);
                         }
-                        else if (!auxWord.Contains(palabras[i]))
-                        {
-                            if (auxWord.Count != 0)
-                            {
-                                auxWord.Add(palabras[i]);
-                            }
-                        }
-                //}
+                    }
+                    //}
                 }
                 crearEtiquetaDinamica();
             }
@@ -6798,7 +6840,7 @@ namespace PuntoDeVentaV2
                     var resultado = formImprimir.ShowDialog();
                     txtBusqueda.Focus();
                 }
-                
+
             }
             else
             {
