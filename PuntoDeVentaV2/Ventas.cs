@@ -3143,29 +3143,35 @@ namespace PuntoDeVentaV2
                 lbDescuento.Visible = false;
                 cDescuento.Visible = false;
             }
+            using (var dt = cn.CargarDatos($"SELECT mostrarIVA from configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (dt.Rows[0][0].Equals(1))
+                {
+                    if (totalOtrosImpuestos > 0)
+                    {
+                        lbOtrosImpuestos.Visible = true;
+                        cOtrosImpuestos.Visible = true;
+                    }
+                    else
+                    {
+                        lbOtrosImpuestos.Visible = false;
+                        cOtrosImpuestos.Visible = false;
+                    }
 
-            if (totalOtrosImpuestos > 0)
-            {
-                lbOtrosImpuestos.Visible = true;
-                cOtrosImpuestos.Visible = true;
+                    // Retenciones
+                    if (total_impuestos_retenidos > 0)
+                    {
+                        lb_impuestos_retenidos.Visible = true;
+                        lb_cant_impuestos_retenidos.Visible = true;
+                    }
+                    else
+                    {
+                        lb_impuestos_retenidos.Visible = false;
+                        lb_cant_impuestos_retenidos.Visible = false;
+                    }
+                }
             }
-            else
-            {
-                lbOtrosImpuestos.Visible = false;
-                cOtrosImpuestos.Visible = false;
-            }
-
-            // Retenciones
-            if (total_impuestos_retenidos > 0)
-            {
-                lb_impuestos_retenidos.Visible = true;
-                lb_cant_impuestos_retenidos.Visible = true;
-            }
-            else
-            {
-                lb_impuestos_retenidos.Visible = false;
-                lb_cant_impuestos_retenidos.Visible = false;
-            }
+    
 
             cOtrosImpuestos.Text = totalOtrosImpuestos.ToString("N");
             lb_cant_impuestos_retenidos.Text = total_impuestos_retenidos.ToString("N");
