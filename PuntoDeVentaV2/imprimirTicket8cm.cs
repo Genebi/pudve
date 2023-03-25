@@ -253,6 +253,9 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            string impuestoTraslado = "";
+            string impuestoRetenedio = "";
+
             using (var dt = cn.CargarDatos($"SELECT mostrarIVA FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
             {
                 if (dt.Rows[0][0].Equals(1))
@@ -277,12 +280,28 @@ namespace PuntoDeVentaV2
                     {
                         reportParameters.Add(new ReportParameter("IVA", "0"));
                     }
+
+                    using (var dt3 = cn.CargarDatos($"SELECT ImpuestosTraslados,ImpuestosRetenidos FROM ventas WHERE ID = {idVentaRealizada}"))
+                    {
+                        if (!dt3.Rows[0]["ImpuestosTraslados"].ToString().Equals("0.00"))
+                        {
+                            impuestoTraslado = dt3.Rows[0]["ImpuestosTraslados"].ToString();
+                        }
+
+                        if (!dt3.Rows[0]["ImpuestosRetenidos"].ToString().Equals("0.00"))
+                        {
+                            impuestoRetenedio = dt3.Rows[0]["ImpuestosRetenidos"].ToString();
+                        }
+                    }
                 }
                 else
                 {
                     reportParameters.Add(new ReportParameter("IVA", "0"));
                 }
             }
+
+            reportParameters.Add(new ReportParameter("ImpuestosTraslados", impuestoTraslado));
+            reportParameters.Add(new ReportParameter("ImpuestosRetenidos", impuestoRetenedio));
 
             string SubTotal = ventaDT.Rows[0]["Subtotal"].ToString();
             reportParameters.Add(new ReportParameter("SubTotal", SubTotal));

@@ -211,6 +211,10 @@ namespace PuntoDeVentaV2
             }
             reportParameters.Add(new ReportParameter("StatusVenta", StatusVenta));
 
+            string impuestoTraslado = "";
+            string impuestoRetenedio = "";
+
+
             string TipoIVA = string.Empty;
             string cantidadIVA = string.Empty;
             using (var dt = cn.CargarDatos($"SELECT mostrarIVA FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
@@ -227,10 +231,26 @@ namespace PuntoDeVentaV2
                         TipoIVA = "IVA 16%";
                         cantidadIVA = DTNotaDeVentas.Rows[0]["IVA16"].ToString();
                     }
+
+                    using (var dt3 = cn.CargarDatos($"SELECT ImpuestosTraslados,ImpuestosRetenidos FROM ventas WHERE ID = {IDVenta}"))
+                    {
+                        if (!dt3.Rows[0]["ImpuestosTraslados"].ToString().Equals("0.00"))
+                        {
+                            impuestoTraslado = dt3.Rows[0]["ImpuestosTraslados"].ToString();
+                        }
+
+                        if (!dt3.Rows[0]["ImpuestosRetenidos"].ToString().Equals("0.00"))
+                        {
+                            impuestoRetenedio = dt3.Rows[0]["ImpuestosRetenidos"].ToString();
+                        }
+                    }
                 }
                 reportParameters.Add(new ReportParameter("TipoIVA", TipoIVA));
                 reportParameters.Add(new ReportParameter("cantidadIVA", cantidadIVA));
             }
+
+            reportParameters.Add(new ReportParameter("ImpuestosTraslados", impuestoTraslado));
+            reportParameters.Add(new ReportParameter("ImpuestosRetenidos", impuestoRetenedio));
 
             LocalReport rdlc = new LocalReport(); 
             rdlc.EnableExternalImages = true;
@@ -347,6 +367,10 @@ namespace PuntoDeVentaV2
             }
             reportParameters.Add(new ReportParameter("StatusVenta", formaPago));
 
+            string impuestoTraslado = "";
+            string impuestoRetenedio = "";
+
+
             string TipoIVA = string.Empty;
             string cantidadIVA = string.Empty;
             using (var dt = cn.CargarDatos($"SELECT mostrarIVA FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
@@ -363,11 +387,25 @@ namespace PuntoDeVentaV2
                         TipoIVA = "IVA 16%";
                         cantidadIVA = DTNotaDeVentas.Rows[0]["IVA16"].ToString();
                     }
+
+                    using (var dt3 = cn.CargarDatos($"SELECT ImpuestosTraslados,ImpuestosRetenidos FROM ventas WHERE ID = {IDVenta}"))
+                    {
+                        if (!dt3.Rows[0]["ImpuestosTraslados"].ToString().Equals("0.00"))
+                        {
+                            impuestoTraslado = dt3.Rows[0]["ImpuestosTraslados"].ToString();
+                        }
+
+                        if (!dt3.Rows[0]["ImpuestosRetenidos"].ToString().Equals("0.00"))
+                        {
+                            impuestoRetenedio = dt3.Rows[0]["ImpuestosRetenidos"].ToString();
+                        }
+                    }
                 }
                 reportParameters.Add(new ReportParameter("TipoIVA", TipoIVA));
                 reportParameters.Add(new ReportParameter("cantidadIVA", cantidadIVA));
             }
-               
+            reportParameters.Add(new ReportParameter("ImpuestosTraslados", impuestoTraslado));
+            reportParameters.Add(new ReportParameter("ImpuestosRetenidos", impuestoRetenedio));
             ReportDataSource NotasVENTAS = new ReportDataSource("DTNotaVenta", DTNotaDeVentas);
 
             LocalReport rdlc = new LocalReport();
