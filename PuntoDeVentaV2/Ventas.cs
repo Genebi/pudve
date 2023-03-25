@@ -4074,11 +4074,24 @@ namespace PuntoDeVentaV2
                 fechaEntrega = "0001-01-01 00:00:00";
             }
 
+            string otrosImpuestos = "0.00";
+            string impuestosRetenidos = "0.00";
+
+            if (!string.IsNullOrWhiteSpace(cOtrosImpuestos.Text) && !cOtrosImpuestos.Text.Equals("0.00"))
+            {
+                otrosImpuestos =cOtrosImpuestos.Text;
+            }
+
+            if (!string.IsNullOrWhiteSpace(lb_cant_impuestos_retenidos.Text) && !lb_cant_impuestos_retenidos.Text.Equals("0.00"))
+            {
+                impuestosRetenidos = lb_cant_impuestos_retenidos.Text;
+            }
+
             var guardar = new string[] {
                 IdEmpresa, idClienteTmp, IdEmpresa, Subtotal, IVA16, Total, Descuento,
                 DescuentoGeneral, Anticipo, Folio, Serie, statusVenta, FechaOperacion,
                 idClienteDescuento.ToString(), id_empleado, formaDePagoDeVenta, tipoDeVenta,
-                tiempoElaboracion, fechaEntrega
+                tiempoElaboracion, fechaEntrega,otrosImpuestos,impuestosRetenidos
             };
 
 

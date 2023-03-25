@@ -1071,7 +1071,7 @@
                 </Paragraphs>
                 <rd:DefaultName>mensaje1</rd:DefaultName>
                 <Top>0.07056cm</Top>
-                <Height>2.40894cm</Height>
+                <Height>2.91632cm</Height>
                 <Width>13.61424cm</Width>
                 <Style>
                   <Border>
@@ -1083,44 +1083,11 @@
                   <PaddingBottom>2pt</PaddingBottom>
                 </Style>
               </Textbox>
-              <Textbox Name="Textbox30">
-                <CanGrow>true</CanGrow>
-                <KeepTogether>true</KeepTogether>
-                <Paragraphs>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value>=Parameters!TotalEnTexto.Value</Value>
-                        <Style>
-                          <FontSize>9pt</FontSize>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style>
-                      <TextAlign>Left</TextAlign>
-                    </Style>
-                  </Paragraph>
-                </Paragraphs>
-                <rd:DefaultName>Textbox17</rd:DefaultName>
-                <Top>2.47949cm</Top>
-                <Height>0.60326cm</Height>
-                <Width>13.61424cm</Width>
-                <ZIndex>1</ZIndex>
-                <Style>
-                  <Border>
-                    <Style>Solid</Style>
-                  </Border>
-                  <PaddingLeft>2pt</PaddingLeft>
-                  <PaddingRight>2pt</PaddingRight>
-                  <PaddingTop>2pt</PaddingTop>
-                  <PaddingBottom>2pt</PaddingBottom>
-                </Style>
-              </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
             <Top>11.71138cm</Top>
             <Left>1.01036cm</Left>
-            <Height>3.08275cm</Height>
+            <Height>2.98688cm</Height>
             <Width>13.61424cm</Width>
             <ZIndex>12</ZIndex>
             <Style>
@@ -1131,11 +1098,14 @@
           </Rectangle>
           <Rectangle Name="Rectangle7">
             <KeepTogether>true</KeepTogether>
-            <Top>13.56997cm</Top>
+            <Top>12.90612cm</Top>
             <Left>18.30492cm</Left>
-            <Height>0.62091cm</Height>
+            <Height>0.59738cm</Height>
             <Width>2.08132cm</Width>
             <ZIndex>13</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Parameters!cantidadIVA.Value, "DTNotaVenta").ToString = "", True, False)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -1164,10 +1134,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>12.97262cm</Top>
-            <Left>18.31209cm</Left>
+            <Top>12.30876cm</Top>
+            <Left>18.29309cm</Left>
             <Height>0.59738cm</Height>
-            <Width>2.07415cm</Width>
+            <Width>2.09315cm</Width>
             <ZIndex>14</ZIndex>
             <Style>
               <Border>
@@ -1496,8 +1466,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>14.19088cm</Top>
-            <Left>14.6246cm</Left>
+            <Top>14.69826cm</Top>
+            <Left>14.63892cm</Left>
             <Height>0.60326cm</Height>
             <Width>1.77569cm</Width>
             <ZIndex>21</ZIndex>
@@ -1530,10 +1500,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>14.19088cm</Top>
-            <Left>16.4121cm</Left>
+            <Top>14.69826cm</Top>
+            <Left>16.43495cm</Left>
             <Height>0.60326cm</Height>
-            <Width>3.97414cm</Width>
+            <Width>3.95129cm</Width>
             <ZIndex>22</ZIndex>
             <Style>
               <Border>
@@ -1565,7 +1535,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>12.9726cm</Top>
+            <Top>12.30875cm</Top>
             <Left>14.63177cm</Left>
             <Height>0.59737cm</Height>
             <Width>1.77318cm</Width>
@@ -1773,7 +1743,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>12.9726cm</Top>
+            <Top>12.30874cm</Top>
             <Left>16.40746cm</Left>
             <Height>0.59738cm</Height>
             <Width>1.90463cm</Width>
@@ -1808,10 +1778,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>12.3752cm</Top>
-            <Left>14.63892cm</Left>
+            <Top>11.71138cm</Top>
+            <Left>14.63177cm</Left>
             <Height>0.59737cm</Height>
-            <Width>1.77318cm</Width>
+            <Width>1.76852cm</Width>
             <ZIndex>29</ZIndex>
             <Style>
               <Border>
@@ -1843,10 +1813,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>12.37522cm</Top>
-            <Left>18.30492cm</Left>
+            <Top>11.71138cm</Top>
+            <Left>18.29309cm</Left>
             <Height>0.59738cm</Height>
-            <Width>2.08132cm</Width>
+            <Width>2.09315cm</Width>
             <ZIndex>30</ZIndex>
             <Style>
               <Border>
@@ -1877,10 +1847,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>12.37522cm</Top>
+            <Top>11.71138cm</Top>
             <Left>16.40029cm</Left>
             <Height>0.59738cm</Height>
-            <Width>1.91644cm</Width>
+            <Width>1.8928cm</Width>
             <ZIndex>31</ZIndex>
             <Style>
               <Border>
@@ -1911,9 +1881,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>13.56997cm</Top>
+            <Top>12.90614cm</Top>
             <Left>16.4121cm</Left>
-            <Height>0.62091cm</Height>
+            <Height>0.59327cm</Height>
             <Width>1.90463cm</Width>
             <ZIndex>32</ZIndex>
             <Visibility>
@@ -1949,13 +1919,85 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>13.56997cm</Top>
-            <Left>14.62711cm</Left>
+            <Top>12.90612cm</Top>
+            <Left>14.63892cm</Left>
             <Height>0.59738cm</Height>
             <Width>1.77318cm</Width>
             <ZIndex>33</ZIndex>
             <Visibility>
               <Hidden>=iif(First(Parameters!TipoIVA.Value, "DTNotaVenta").ToString = "", True, False)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox30">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!TotalEnTexto.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox17</rd:DefaultName>
+            <Top>14.69826cm</Top>
+            <Left>1.01036cm</Left>
+            <Height>0.60326cm</Height>
+            <Width>13.61424cm</Width>
+            <ZIndex>34</ZIndex>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox37">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Impuesto de traslado</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>7pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox17</rd:DefaultName>
+            <Top>13.5035cm</Top>
+            <Left>14.6246cm</Left>
+            <Height>0.59738cm</Height>
+            <Width>3.68749cm</Width>
+            <ZIndex>35</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Parameters!ImpuestosTraslados.Value, "DTNotaVenta").ToString = "", True, False)</Hidden>
             </Visibility>
             <Style>
               <Border>
@@ -1974,10 +2016,10 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value />
+                    <Value>Impuesto de retencion</Value>
                     <Style>
                       <FontFamily>Arial Black</FontFamily>
-                      <FontSize>8pt</FontSize>
+                      <FontSize>7pt</FontSize>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -1987,11 +2029,14 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>11.70727cm</Top>
-            <Left>14.62711cm</Left>
-            <Height>0.66796cm</Height>
-            <Width>5.75913cm</Width>
-            <ZIndex>34</ZIndex>
+            <Top>14.10088cm</Top>
+            <Left>14.63892cm</Left>
+            <Height>0.59738cm</Height>
+            <Width>3.67317cm</Width>
+            <ZIndex>36</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Parameters!ImpuestosRetenidos.Value, "DTNotaVenta").ToString = "", True, False)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -2002,11 +2047,103 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Textbox Name="Textbox25">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!ImpuestosTraslados.Value</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox17</rd:DefaultName>
+            <Top>14.10088cm</Top>
+            <Left>18.29309cm</Left>
+            <Height>0.59738cm</Height>
+            <Width>2.09315cm</Width>
+            <ZIndex>37</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Parameters!ImpuestosRetenidos.Value, "DTNotaVenta").ToString = "", True, False)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+              <LeftBorder>
+                <Style>None</Style>
+              </LeftBorder>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Line Name="Line2">
+            <Top>11.71138cm</Top>
+            <Left>20.39091cm</Left>
+            <Height>3.59014cm</Height>
+            <Width>0cm</Width>
+            <ZIndex>38</ZIndex>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Textbox Name="Textbox26">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!ImpuestosRetenidos.Value</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox17</rd:DefaultName>
+            <Top>13.5035cm</Top>
+            <Left>18.31209cm</Left>
+            <Height>0.59738cm</Height>
+            <Width>2.08599cm</Width>
+            <ZIndex>39</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Parameters!ImpuestosTraslados.Value, "DTNotaVenta").ToString = "", True, False)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+              <LeftBorder>
+                <Style>None</Style>
+              </LeftBorder>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>18.11739cm</Height>
+        <Height>15.4451cm</Height>
         <Style />
       </Body>
-      <Width>21.59cm</Width>
+      <Width>23.00203cm</Width>
       <Page>
         <PageHeight>27.94cm</PageHeight>
         <PageWidth>21.59cm</PageWidth>
@@ -2043,6 +2180,16 @@
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="ImpuestosTraslados">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ImpuestosRetenidos">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
@@ -2073,6 +2220,16 @@
           <ColumnIndex>0</ColumnIndex>
           <RowIndex>1</RowIndex>
           <ParameterName>TipoIVA</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>ImpuestosTraslados</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>ImpuestosRetenidos</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>
