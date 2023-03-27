@@ -3176,7 +3176,7 @@ namespace PuntoDeVentaV2
         }
 
         public string ActualizarRegimenFiscal()
-        {
+        {//RegimenFiscal_40
             var consulta = "UPDATE RegimenFiscal SET AplicaFisica = REPLACE ( AplicaFisica, '?', 'í' ), AplicaMoral = REPLACE ( AplicaMoral, '?', 'í' )";
 
             return consulta;
@@ -3191,7 +3191,7 @@ namespace PuntoDeVentaV2
         }
 
         public string SimbolosDePreguntaRegimenFiscalEnDescripcion()
-        {
+        {//RegimenFiscal_40
             var consulta = "UPDATE RegimenFiscal SET Descripcion = REPLACE ( Descripcion, 'R?gimen', 'Régimen' ) WHERE CodigoRegimen = 625; UPDATE RegimenFiscal SET Descripcion = REPLACE ( Descripcion, 'trav?s', 'través' ) WHERE CodigoRegimen = 625; UPDATE RegimenFiscal SET Descripcion = REPLACE ( Descripcion, 'Tecnol?gicas', 'Tecnológicas' ) WHERE CodigoRegimen = 625; UPDATE RegimenFiscal SET Descripcion = REPLACE ( Descripcion, 'R?gimen', 'Régimen' ) WHERE CodigoRegimen = 626;";
 
             return consulta;
@@ -5282,7 +5282,7 @@ namespace PuntoDeVentaV2
             return consulta;
         }
         public string validarExisteClaveUnidad(string codigo)
-        {
+        {//catalogounidadesmedida_40
             var consulta = $"SELECT * FROM catalogounidadesmedida  WHERE ClaveUnidad = '{codigo}'";
 
             return consulta;
@@ -5449,7 +5449,7 @@ namespace PuntoDeVentaV2
         {
             var cons = "";
 
-            if (tipo == "F")
+            if (tipo == "F")//RegimenFiscal_40
             {
                 cons = $"SELECT * FROM RegimenFiscal WHERE AplicaFisica='Sí'";
             }

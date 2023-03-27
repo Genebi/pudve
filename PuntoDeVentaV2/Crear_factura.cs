@@ -888,7 +888,7 @@ namespace PuntoDeVentaV2
         {
             if(opc == 1) // Clave de unidad
             {
-                if (clave != "")
+                if (clave != "")//CatalogoUnidadesMedida_40
                 {
                     bool r = (bool)cn.EjecutarSelect($"SELECT * FROM CatalogoUnidadesMedida WHERE ClaveUnidad='{clave}'");
 
@@ -1051,7 +1051,7 @@ namespace PuntoDeVentaV2
 
                                 if (txt_rfc.Text == "")
                                 {
-                                    MessageBox.Show("El RCF no debe estar vacío.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show("El RFC no debe estar vacío.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     botones_visibles(2);
                                     return;
                                 }

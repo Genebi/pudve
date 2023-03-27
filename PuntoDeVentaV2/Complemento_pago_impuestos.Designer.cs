@@ -216,7 +216,7 @@ namespace PuntoDeVentaV2
             this.btn_agregar.TabIndex = 12;
             this.btn_agregar.Text = "Agregar fila";
             this.btn_agregar.UseVisualStyleBackColor = true;
-            this.btn_agregar.Click += new System.EventHandler(this.agregar_nuevo_impuesto);
+            this.btn_agregar.Click += new System.EventHandler(this.btn_agregar_Click);
             // 
             // pnl_impuestos
             // 
@@ -265,6 +265,7 @@ namespace PuntoDeVentaV2
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Impuestos";
             this.Load += new System.EventHandler(this.Complemento_pago_impuestos_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Complemento_pago_impuestos_Paint);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

@@ -679,12 +679,12 @@ namespace PuntoDeVentaV2
             string mnsj_error = "";
             int opc_tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
 
-            /*if (opc_tipo_factura == 2 | opc_tipo_factura == 3)
+            if (opc_tipo_factura == 2 | opc_tipo_factura == 3)
             {
                 MessageBox.Show("La generación de complementos de pago no es aplicable a facturas pagadas y/o canceladas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
-            {*/
+            {
                 int tiene_timbres = mb.obtener_cantidad_timbres();
 
                 if (tiene_timbres <= 0)
@@ -694,60 +694,70 @@ namespace PuntoDeVentaV2
                 }
 
 
-                foreach (DataGridViewRow row in datagv_facturas.Rows)
+                if(FormPrincipal.userNickName == "MIRI3" | FormPrincipal.userNickName == "SOLRAC")
                 {
-                    bool estado= (bool)row.Cells["col_checkbox"].Value;
-                    string tipo_comprobante = row.Cells["col_t_comprobante"].Value.ToString();
-
-                    if(estado == true)
-                    {
-                        cont++;
-
-                        if (tipo_comprobante == "P")
-                        {
-                            cont_pg++;
-                            mnsj_error = "No debe haber facturas de 'Pago' seleccionadas. Los complementos de pago solo se generan a facturas de 'Ingresos'.";
-                        }
-                    }
-                    else
-                    {
-                        mnsj_error = "No ha seleccionado alguna factura para complemento de pago.";
-                    }
-                }
-
-
-                if(cont > 0 & cont_pg == 0)
-                {
-                    arr_id_facturas = new int[cont];
-                    int p = 0;
-
                     foreach (DataGridViewRow row in datagv_facturas.Rows)
                     {
                         bool estado = (bool)row.Cells["col_checkbox"].Value;
+                        string tipo_comprobante = row.Cells["col_t_comprobante"].Value.ToString();
 
                         if (estado == true)
                         {
-                            arr_id_facturas[p] = Convert.ToInt32(row.Cells["col_id"].Value);
+                            cont++;
 
-                            p++;
+                            if (tipo_comprobante == "P")
+                            {
+                                cont_pg++;
+                                mnsj_error = "No debe haber facturas de 'Pago' seleccionadas. Los complementos de pago solo se generan a facturas de 'Ingresos'.";
+                            }
+                        }
+                        else
+                        {
+                            mnsj_error = "No ha seleccionado alguna factura para complemento de pago.";
                         }
                     }
 
-                    int tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
-                    Complemento_pago c_pago = new Complemento_pago();
-  
-                    c_pago.FormClosed += delegate
-                    {
-                        cargar_lista_facturas(tipo_factura);
-                    };
 
-                    c_pago.ShowDialog();
+                    if (cont > 0 & cont_pg == 0)
+                    {
+                        arr_id_facturas = new int[cont];
+                        int p = 0;
+
+                        foreach (DataGridViewRow row in datagv_facturas.Rows)
+                        {
+                            bool estado = (bool)row.Cells["col_checkbox"].Value;
+
+                            if (estado == true)
+                            {
+                                arr_id_facturas[p] = Convert.ToInt32(row.Cells["col_id"].Value);
+
+                                p++;
+                            }
+                        }
+
+                        int tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
+                        Complemento_pago c_pago = new Complemento_pago();
+
+                        c_pago.FormClosed += delegate
+                        {
+                            cargar_lista_facturas(tipo_factura);
+
+                            Complemento_pago_impuestos.dats_en_arr = false;
+                        };
+
+                        c_pago.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Acción no disponible.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            //}
+                
+            }
 
             // Obtenemos la cantidad de timbres
             actualizar_timbres();

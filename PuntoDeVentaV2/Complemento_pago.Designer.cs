@@ -281,6 +281,7 @@
             // 
             // txt_tipo_cambio_pago
             // 
+            this.txt_tipo_cambio_pago.Enabled = false;
             this.txt_tipo_cambio_pago.Location = new System.Drawing.Point(723, 54);
             this.txt_tipo_cambio_pago.Name = "txt_tipo_cambio_pago";
             this.txt_tipo_cambio_pago.Size = new System.Drawing.Size(184, 22);
@@ -356,7 +357,7 @@
             // 
             this.txt_rfc_beneficiario.Enabled = false;
             this.txt_rfc_beneficiario.Location = new System.Drawing.Point(507, 123);
-            this.txt_rfc_beneficiario.MaxLength = 13;
+            this.txt_rfc_beneficiario.MaxLength = 12;
             this.txt_rfc_beneficiario.Name = "txt_rfc_beneficiario";
             this.txt_rfc_beneficiario.Size = new System.Drawing.Size(123, 22);
             this.txt_rfc_beneficiario.TabIndex = 23;

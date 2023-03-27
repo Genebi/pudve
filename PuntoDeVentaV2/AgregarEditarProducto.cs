@@ -2439,11 +2439,11 @@ namespace PuntoDeVentaV2
 
                                 // Si no se incluye ningún impuesto entonces las columnas base e iva serán cero
                                 
-                                if (incluye_impuestos != "02")
+                                /*if (incluye_impuestos != "02")
                                 {
                                     baseProducto = "0";
                                     ivaProducto = "0";
-                                }
+                                }*/
 
                                 guardar = new string[] {
                                     nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida,

@@ -13,10 +13,13 @@ namespace PuntoDeVentaV2
 {
     public partial class Complemento_pago_impuestos : Form
     {
-        int fila_dr = 0;
-        int fila_im = 1;
+        public int fila_im = 1;
+        static public bool dats_en_arr = false;
+
+        int fila_dr = 0;        
         int id_factura = 0;
         decimal abono = 0;
+        
         List<string> list_traslad_retencion = new List<string>();
                 
 
@@ -34,7 +37,100 @@ namespace PuntoDeVentaV2
         {
             //id_factura = 333;
             //abono = 5850;
+            Console.WriteLine("INICIO");
+            int x = 0;
+            int fila_dr_tmp= fila_dr - 1;
 
+            datos_xml();
+
+
+            if (dats_en_arr == true)
+            {
+                int tam_arr = Complemento_pago.arr_impuestos[fila_dr_tmp].Count();
+
+                for (int i = 0; i < tam_arr; i++)
+                {
+
+                    if (Complemento_pago.arr_impuestos[fila_dr_tmp][i][0] == id_factura.ToString())
+                    {
+                        string g_base = Complemento_pago.arr_impuestos[fila_dr_tmp][i][1];
+                        string g_es_rt = Complemento_pago.arr_impuestos[fila_dr_tmp][i][2];
+                        string g_impuesto = Complemento_pago.arr_impuestos[fila_dr_tmp][i][3];
+                        string g_tfactor = Complemento_pago.arr_impuestos[fila_dr_tmp][i][4];
+                        string g_tasa_cuota = Complemento_pago.arr_impuestos[fila_dr_tmp][i][5];
+                        string g_definir = Complemento_pago.arr_impuestos[fila_dr_tmp][i][6];
+                        string g_importe = Complemento_pago.arr_impuestos[fila_dr_tmp][i][7];
+
+                        if (x == 0)
+                        {
+                            txt_base0_7.Text = g_base; Console.WriteLine("base inicial="+txt_base0_7.Text);
+
+                            if (g_tfactor == "Exento")
+                            {
+                                rb_exento.Checked = true;
+                            }
+                            else
+                            {
+                                if (g_tasa_cuota == "0.000000")
+                                {
+                                    rb_cero.Checked = true;
+                                }
+                                if (g_tasa_cuota == "0.080000")
+                                {
+                                    rb_ocho.Checked = true;
+                                }
+                                if (g_tasa_cuota == "0.160000")
+                                {
+                                    rb_dieciseis.Checked = true;
+                                }
+                            }
+
+                            //txt_importe0_6.Text = Complemento_pago.arr_impuestos[fila_dr_tmp][i][7];
+
+                            x++; Console.WriteLine("base segunda=" + txt_base0_7.Text);
+                        }
+                        else
+                        {
+                            btn_agregar.PerformClick();
+                            int fila_im_tmp = fila_im - 1;
+
+                            TextBox g_txt_base = (TextBox)this.Controls.Find("txt_base" + fila_im_tmp + "_7", true).FirstOrDefault();
+                            ComboBox g_cmb_bx_es_rt = (ComboBox)this.Controls.Find("cmb_bx_es-" + fila_im_tmp + "_1", true).FirstOrDefault();
+                            ComboBox g_cmb_bx_timpuesto = (ComboBox)this.Controls.Find("cmb_bx_impuesto-" + fila_im_tmp + "_2", true).FirstOrDefault();
+                            ComboBox g_cmb_bx_tfactor = (ComboBox)this.Controls.Find("cmb_bx_tfactor-" + fila_im_tmp + "_3", true).FirstOrDefault();
+                            ComboBox g_cmb_bx_tasa_cuota = (ComboBox)this.Controls.Find("cmb_bx_tc-" + fila_im_tmp + "_4", true).FirstOrDefault();
+                            TextBox g_txt_importe = (TextBox)this.Controls.Find("txt_importe" + fila_im_tmp + "_6", true).FirstOrDefault();
+
+
+                            // Base
+                            g_txt_base.Text = g_base;
+
+                            // Es retención o traslado
+                            g_cmb_bx_es_rt.SelectedItem = g_es_rt;
+
+                            // Tipo impuesto
+                            g_cmb_bx_timpuesto.SelectedValue = g_impuesto;
+
+                            // Tipo factor
+                            g_cmb_bx_tfactor.SelectedValue = g_tfactor;
+
+                            // Tasa cuota
+                            g_cmb_bx_tasa_cuota.SelectedValue = g_tasa_cuota;
+
+                            // Importe
+                            //g_txt_importe.Text = g_importe;
+
+
+                            x++;
+                        }
+                        Console.WriteLine("base fin=" + txt_base0_7.Text);
+                    }
+                }
+            }
+        }
+
+        private void datos_xml()
+        {
             var servidor = Properties.Settings.Default.Hosting;
             string rutaXML = @"C:\Archivos PUDVE\Facturas\XML_INGRESOS_" + id_factura + ".xml";
 
@@ -52,17 +148,17 @@ namespace PuntoDeVentaV2
 
             XmlAttributeCollection c_total = xdoc.DocumentElement.Attributes;
             decimal xml_total = Convert.ToDecimal(((XmlAttribute)c_total.GetNamedItem("Total")).Value);
-             
+
             decimal porcentaje_abono = (abono * 100) / xml_total;
             //Console.WriteLine("ab=" + porcentaje_abono);
 
 
             // Obtener datos de los nodos impuestos y calcular base
 
-            XmlNodeList nod_list = xdoc.GetElementsByTagName("cfdi:Conceptos");            
+            XmlNodeList nod_list = xdoc.GetElementsByTagName("cfdi:Conceptos");
             XmlNode K = nod_list.Item(0);
 
-            foreach(XmlNode nd_conceptos in K.ChildNodes)
+            foreach (XmlNode nd_conceptos in K.ChildNodes)
             {
                 foreach (XmlNode nd_concepto in nd_conceptos.ChildNodes)
                 {
@@ -117,16 +213,15 @@ namespace PuntoDeVentaV2
                                     list_traslad_retencion.Add(xml_base);
                                     list_traslad_retencion.Add(base_pcalculos.ToString());
                                     Console.WriteLine("base_pcalculos=" + base_pcalculos);
-                                }                              
+                                }
                             }
                         }
-                    }                        
+                    }
                 }
             }
-
         }
 
-        private void agregar_nuevo_impuesto(object sender, EventArgs e)
+        private void btn_agregar_Click(object sender, EventArgs e)
         {
             FlowLayoutPanel flpanel_fila = new FlowLayoutPanel();
             flpanel_fila.Name = "pnl_xfila_impuesto-" + fila_im;
@@ -149,10 +244,10 @@ namespace PuntoDeVentaV2
 
             ComboBox cmb_box_es = new ComboBox();
             cmb_box_es.Name = "cmb_bx_es-" + fila_im + "_1";
-            cmb_box_es.DropDownStyle = ComboBoxStyle.DropDownList;            
+            cmb_box_es.DropDownStyle = ComboBoxStyle.DropDownList;
             cmb_box_es.Width = 87;
             cmb_box_es.Margin = new Padding(10, 0, 0, 0);
-            
+
             cmb_box_es.Items.Add("...");
             cmb_box_es.Items.Add("Traslado");
             cmb_box_es.Items.Add("Retención");
@@ -229,7 +324,7 @@ namespace PuntoDeVentaV2
             btn_eliminar.Text = "X";
             btn_eliminar.Margin = new Padding(5, 0, 0, 0);
             btn_eliminar.Click += new EventHandler(eliminar_fila);
-            
+
 
 
             flpanel_fila.Controls.Add(txt_base);
@@ -246,9 +341,8 @@ namespace PuntoDeVentaV2
             pnl_impuestos.Controls.Add(flpanel_fila);
 
             fila_im++;
-
         }
-
+        
         private void eliminar_fila(object sender, EventArgs e)
         {
             Button fila_boton = (Button)sender;
@@ -588,6 +682,7 @@ namespace PuntoDeVentaV2
             string cadena = "";
             decimal porcent_impuest = 0;
 
+            
             // Impuesto de los radio 
 
             if(nfila == 0 & imp_def != "")
@@ -654,7 +749,7 @@ namespace PuntoDeVentaV2
             // Busca si el impuesto esta agregado en la lista. 
             // De ser asi, obtiene la base para sacar el impuesto.
 
-            var indice = list_traslad_retencion.IndexOf(cadena);
+            var indice = list_traslad_retencion.IndexOf(cadena);            
 
             if (indice >= 0)
             {
@@ -664,7 +759,7 @@ namespace PuntoDeVentaV2
                 TextBox txt_importe_imp = (TextBox)this.Controls.Find("txt_importe" + nfila + "_6", true).FirstOrDefault();
 
                 txt_base.Text = list_traslad_retencion[indice + 2];
-                txt_importe_imp.Text = importe_impuesto.ToString();
+                txt_importe_imp.Text = seis_decimales(importe_impuesto).ToString();
             }
             else
             {
@@ -811,6 +906,7 @@ namespace PuntoDeVentaV2
             }
 
             limpiar_vnt();
+            dats_en_arr = true;
 
             this.Dispose();
             
@@ -826,5 +922,11 @@ namespace PuntoDeVentaV2
             txt_base0_7.Text = string.Empty;
             txt_importe0_6.Text = string.Empty;
         }
+
+        private void Complemento_pago_impuestos_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
     }
 }
