@@ -122,6 +122,7 @@ namespace PuntoDeVentaV2
 
         private void RevisarInventario_Load(object sender, EventArgs e)
         {
+            this.Visible = false;
             try
             {
                 string consulta = string.Empty;
