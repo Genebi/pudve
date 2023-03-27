@@ -621,7 +621,7 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{IDProducto}','Actualizar Stock (Aumentar): N° Revision: {numeroRevision}','{stockAnterior}','{stockNuevo.ToString()}','{fechaOperacion}','{FormPrincipal.userNickName}','+{cantidadCompra}')");
+                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{IDProducto}','Actualizar Stock (Aumentar)','{stockAnterior}','{stockNuevo.ToString()}','{fechaOperacion}','{FormPrincipal.userNickName}','+{cantidadCompra}')");
                         }
                     }
 
@@ -851,7 +851,7 @@ namespace PuntoDeVentaV2
                                     var numeroRevision = numRevision.Rows[0]["NoRevisionDisminuirInventario"].ToString();
                                     decimal cantidad = Convert.ToInt32(stockOriginal) - Convert.ToInt32(stockActual);
 
-                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{IDProducto}','Actualizar Stock (Disminuir): N° Revision: {numeroRevision}','{stockAnterior}','{stockNuevo}','{fechaOperacion}','{FormPrincipal.userNickName}','-{cantidad}')");
+                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{IDProducto}','Actualizar Stock (Disminuir)','{stockAnterior}','{stockNuevo}','{fechaOperacion}','{FormPrincipal.userNickName}','-{cantidad}')");
 
                                     this.Close();
                                 }
@@ -1039,7 +1039,7 @@ namespace PuntoDeVentaV2
                                         var numeroRevision = numRevision.Rows[0]["NoRevisionDisminuirInventario"].ToString();
                                         decimal cantidad = Convert.ToInt32(stockOriginal) - Convert.ToInt32(stockActual);
 
-                                        cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{IDProducto}','Actualizar Stock (Disminuir): N° Revision: {numeroRevision}','{stockAnterior}','{stockNuevo}','{fechaOperacion}','{FormPrincipal.userNickName}','-{cantidad}')");
+                                        cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{IDProducto}','Actualizar Stock (Disminuir)','{stockAnterior}','{stockNuevo}','{fechaOperacion}','{FormPrincipal.userNickName}','-{cantidad}')");
 
                                         this.Close();
                                     }
