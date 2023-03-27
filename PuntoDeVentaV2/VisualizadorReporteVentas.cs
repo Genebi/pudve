@@ -23,6 +23,7 @@ namespace PuntoDeVentaV2
         string codigosBuscar = "";
         int TipoDeVenta;
         bool ValorNull = false;
+        int QueTiempo = 0;
         List<int> ListaIdsProducto = new List<int>();
         public VisualizadorReporteVentas(string IDVentas,int TipoVenta)
         {
@@ -146,6 +147,7 @@ namespace PuntoDeVentaV2
             DTGrafica.Columns.Add("Ganancia", typeof(String));
             if (incio[0].Equals(final[0]) && incio[1].Equals(final[1]) && incio[2].Equals(final[2]))
             {
+                QueTiempo = 0;
                 var DTPorHora = cn.CargarDatos($"SELECT Total,FechaOperacion,Ganancia,Cliente FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
                 int horas = 1;
                 int rows = 0;
@@ -216,6 +218,7 @@ namespace PuntoDeVentaV2
             }
             else if (!incio[0].Equals(final[0]) && incio[1].Equals(final[1]) && incio[2].Equals(final[2]))
             {
+                QueTiempo = 1;
                 var DTPorDia = cn.CargarDatos($"SELECT Total,FechaOperacion,Ganancia,Cliente FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
                 var PrimerDia = FechaInicial.ToString("dd");
                 int rows = 0;
@@ -280,6 +283,7 @@ namespace PuntoDeVentaV2
             }
             else if (!incio[1].Equals(final[1]) && incio[2].Equals(final[2]))
             {
+                QueTiempo = 2;
                 var DTPorMes = cn.CargarDatos($"SELECT Total,FechaOperacion,Ganancia,Cliente FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
                 int rows = 0;
                 int meses = 1;
@@ -391,6 +395,7 @@ namespace PuntoDeVentaV2
             }
             else if (!incio[2].Equals(final[2]))
             {
+                QueTiempo = 3;
                 var DTPorAnno = cn.CargarDatos($"SELECT Total,FechaOperacion,Ganancia,Cliente FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
                 var DTPorAnno2 = cn.CargarDatos($"SELECT Total,FechaOperacion,Ganancia FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion DESC");
                 DateTime PrimerAnno = Convert.ToDateTime(DTPorAnno.Rows[0]["FechaOperacion"]);
@@ -534,9 +539,32 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("TipoVenta", TipoVENTATexto));
             reportParameters.Add(new ReportParameter("usuario", usuario));
             reportParameters.Add(new ReportParameter("Fecha", Fecha));
-            reportParameters.Add(new ReportParameter("SumaTotal", SumaTotal.ToString("0.00"))); ;
-
-
+            reportParameters.Add(new ReportParameter("SumaTotal", SumaTotal.ToString("0.00")));
+            string VentasPor = "";
+            if (QueTiempo.Equals(0))
+            {
+                VentasPor = "Ventas promedio por Hora: ";
+            }
+            else if (QueTiempo.Equals(1))
+            {
+                VentasPor = "Ventas promedio por Dia: ";
+            }
+            else if (QueTiempo.Equals(2))
+            {
+                VentasPor = "Ventas promedio por Mes: ";
+            }
+            else
+            {
+                VentasPor = "Ventas promedio por Año: ";
+            }
+            decimal Promedio = 0;
+            foreach (DataRow item in DTGrafica.Rows)
+            {
+                Promedio += Convert.ToDecimal(item["TotalVendido"]);
+            }
+            Promedio = Promedio / DTGrafica.Rows.Count;
+            VentasPor += Promedio.ToString("C2");
+            reportParameters.Add(new ReportParameter("Promedio", VentasPor));
             LocalReport rdlc = new LocalReport();
             rdlc.EnableExternalImages = true;
             rdlc.ReportPath = FullReportPath;
