@@ -859,7 +859,7 @@ namespace PuntoDeVentaV2
                             else if (item["StockNegativo"].Equals(0))
                             {
                                 bool esNumeroStock = false, esNumeroCantidadDisminuir = false;
-                                decimal numeroStock = 0, cantidadDisminuir = 0;
+                                decimal numeroStock = 0, cantidadDisminuir = 0; 
 
                                 esNumeroStock = Decimal.TryParse(txt_en_stock.Text, out numeroStock);
                                 esNumeroCantidadDisminuir = Decimal.TryParse(txtDisminuir.Text, out cantidadDisminuir);
