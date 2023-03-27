@@ -211,7 +211,7 @@ namespace PuntoDeVentaV2
             {
                 sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
                 sql_con.Open();
-                sql_cmd = sql_con.CreateCommand();
+                sql_cmd = sql_con.CreateCommand(); //CatalogoUnidadesMedida_40
                 sql_cmd.CommandText = "SELECT * FROM CatalogoUnidadesMedida ORDER BY LOWER(Nombre) ASC";
                 sql_cmd.ExecuteNonQuery();
 

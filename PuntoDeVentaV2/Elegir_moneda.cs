@@ -35,7 +35,8 @@ namespace PuntoDeVentaV2
 
             foreach (DataRow r_moneda in d_moneda.Rows)
             {
-                if (r_moneda["clave_moneda"].ToString() != "EUR" & r_moneda["clave_moneda"].ToString() != "MXN" & r_moneda["clave_moneda"].ToString() != "USD")
+                if (r_moneda["clave_moneda"].ToString() != "EUR" & r_moneda["clave_moneda"].ToString() != "MXN" & 
+                    r_moneda["clave_moneda"].ToString() != "USD" & r_moneda["clave_moneda"].ToString() != "XXX")
                 {
                     moneda.Add(r_moneda["clave_moneda"].ToString(), r_moneda["clave_moneda"].ToString() + " - " + r_moneda["descripcion"].ToString());
                 }

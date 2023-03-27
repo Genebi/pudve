@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace PuntoDeVentaV2
 {
@@ -36,7 +37,10 @@ namespace PuntoDeVentaV2
         private void Complemento_pago_Load(object sender, EventArgs e)
         {
             cmb_bx_forma_pago.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
-            
+
+            txt_tipo_cambio_pago.KeyPress += new KeyPressEventHandler(solo_decimales);
+
+
             // Forma de pago
 
             Dictionary<string, string> forma_pago = new Dictionary<string, string>();
@@ -94,30 +98,6 @@ namespace PuntoDeVentaV2
             string fecha_actual = f_actual.ToShortDateString();
             datetime_fecha_pago.Text = fecha_actual;
 
-
-            // Moneda
-
-            /*Dictionary<string, string> moneda = new Dictionary<string, string>();
-            DataTable d_moneda;
-
-            d_moneda = cn.CargarDatos(cs.cargar_datos_venta_xml(6, 0, 0));
-
-            moneda.Add("EUR", "EUR - Euro");
-            moneda.Add("MXN", "MXN - Peso Mexicano");
-            moneda.Add("USD", "USD - Dolar americano");
-
-            foreach (DataRow r_moneda in d_moneda.Rows)
-            {
-                if (r_moneda["clave_moneda"].ToString() != "EUR" & r_moneda["clave_moneda"].ToString() != "MXN" & r_moneda["clave_moneda"].ToString() != "USD")
-                {
-                    moneda.Add(r_moneda["clave_moneda"].ToString(), r_moneda["clave_moneda"].ToString() + " - " + r_moneda["descripcion"].ToString());
-                }
-            }
-
-            cmb_bx_moneda_pago.DataSource = moneda.ToArray();
-            cmb_bx_moneda_pago.DisplayMember = "Value";
-            cmb_bx_moneda_pago.ValueMember = "Key";
-            cmb_bx_moneda_pago.SelectedIndex = 1;*/
 
             // Facturas a pagar/abonar
 
@@ -197,6 +177,7 @@ namespace PuntoDeVentaV2
                         txt_c_tcambio_dr.Location = new Point(390, location_y);
                         txt_c_tcambio_dr.Size = new Size(100, 22);
                         txt_c_tcambio_dr.TextAlign = HorizontalAlignment.Center;
+                        txt_c_tcambio_dr.Enabled = false;
                         txt_c_tcambio_dr.KeyPress += new KeyPressEventHandler(solo_decimales);
 
                         ComboBox cmb_bx_c_inc_impuestos = new ComboBox();
@@ -274,6 +255,15 @@ namespace PuntoDeVentaV2
                 // ...............................
                 // .   Validar y guardar datos   .
                 // ...............................
+
+                var resp = val_campos_forma_pago_moneda();
+
+                if(resp != "")
+                {
+                    MessageBox.Show(resp, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return;
+                }
 
                 foreach (Control panel in pnl_info.Controls)
                 {
@@ -577,13 +567,13 @@ namespace PuntoDeVentaV2
 
                 // Agrega el monto pagado a la factura principal  
 
-              /*  string[] datos_fm = new string[]
-                {
-                id_factura_pago.ToString(), monto_pago.ToString()
-                };
+                /*  string[] datos_fm = new string[]
+                  {
+                  id_factura_pago.ToString(), monto_pago.ToString()
+                  };
 
-                cn.EjecutarConsulta(cs.crear_complemento_pago(6, datos_fm));
-                */
+                  cn.EjecutarConsulta(cs.crear_complemento_pago(6, datos_fm));
+                  */
 
 
 
@@ -592,27 +582,29 @@ namespace PuntoDeVentaV2
                 // ...........................
 
 
-               /* Generar_XML xml_complemento = new Generar_XML();
-                string respuesta_xml = xml_complemento.obtener_datos_XML(id_factura_pago, 0, 1, arr_idf_principal_pago);
+                /* Generar_XML xml_complemento = new Generar_XML();
+                 string respuesta_xml = xml_complemento.obtener_datos_XML(id_factura_pago, 0, 1, arr_idf_principal_pago);
 
-                btn_aceptar.Enabled = true;
-                btn_aceptar.Cursor = Cursors.Hand;
-                btn_cancelar.Enabled = true;
-                btn_cancelar.Cursor = Cursors.Hand;
+                 btn_aceptar.Enabled = true;
+                 btn_aceptar.Cursor = Cursors.Hand;
+                 btn_cancelar.Enabled = true;
+                 btn_cancelar.Cursor = Cursors.Hand;
 
-                if (respuesta_xml == "")
-                {
-                    var r = MessageBox.Show("El complemento de pago ha sido creado y timbrado con éxito.", "Éxito", MessageBoxButtons.OK);
+                 if (respuesta_xml == "")
+                 {
+                     var r = MessageBox.Show("El complemento de pago ha sido creado y timbrado con éxito.", "Éxito", MessageBoxButtons.OK);
 
-                    if (r == DialogResult.OK)
-                    {
-                        this.Dispose();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(respuesta_xml, "Error", MessageBoxButtons.OK);
-                }*/
+                     if (r == DialogResult.OK)
+                     {
+                         this.Dispose();
+                     }
+                 }
+                 else
+                 {
+                     MessageBox.Show(respuesta_xml, "Error", MessageBoxButtons.OK);
+                 }*/
+
+                Complemento_pago_impuestos.dats_en_arr = false;
             }
             else
             {
@@ -836,6 +828,131 @@ namespace PuntoDeVentaV2
             txt_rfc_beneficiario.Text = "(Opcional) RFC.";
         }
 
+        private string val_campos_forma_pago_moneda()
+        {
+            string mensaje = "";
+            string clave = cmb_bx_forma_pago.SelectedValue.ToString();
+            string formato_rfc_or = "^XEXX010101000|[A-Z&amp;Ñ]{3}[0-9]{2}(0[1-9]| 1[012])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{2}[0-9A]$";
+            string formato_rfc_be = "^[A-Z&Ñ]{3}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{2}[0-9A]$";
+            string formato_cnt_or = "";
+            string formato_cnt_be = "^[0-9]{10,11}|[0-9]{15,16}|[0-9]{18}|[A-Z0-9_]{10,50}$";
+
+            
+
+            if (clave == "02") // Cheque
+            {
+                formato_cnt_or = "^[0-9]{16,18}$";
+            }
+            if (clave == "03") // Transferencia
+            {
+                formato_cnt_or = "^[0-9]{10,16,18}$";
+                formato_cnt_be = "^[0-9]{10,18}$";
+            }
+            if (clave == "04") // Tarjeta de crédito
+            {
+                formato_cnt_or = "^[0-9]{16}$";
+            }
+            if (clave == "05") // Monedero electronico
+            {
+                formato_cnt_or = "^[0-9]{10,11}|[0-9]{15,16}|[0-9]{18}|[A-Z0-9_]{10,50}$";
+            }
+            if (clave == "06") // Dinero electronico
+            {
+                formato_cnt_or = "^[0-9]{10}$";
+            }
+            if (clave == "28") // Tarjeta de debito
+            {
+                formato_cnt_or = "^[0-9]{16}$";
+            }
+            if (clave == "29") // Tarjeta de servicio
+            {
+                formato_cnt_or = "^[0-9]{15,16}$";
+            }
+
+
+            if(clave == "02" | clave == "03" | clave == "04" | clave == "05" | clave == "06" | clave == "28" | clave == "29")
+            {
+                // Valida cuenta ordenante
+
+                Regex exp_cuenta_or = new Regex(formato_cnt_or);
+
+                if (exp_cuenta_or.IsMatch(txt_cuenta.Text))
+                {
+                }
+                else
+                {
+                    mensaje = "El formato de la cuenta ordenante no es valida.";
+                }
+
+                // Valida RFC ordenante
+
+                Regex exp_rfc_or = new Regex(formato_rfc_or);
+
+                if (exp_rfc_or.IsMatch(txt_rfc_ordenante.Text))
+                {
+                }
+                else
+                {
+                    mensaje = "El formato del RFC ordenante no es valido.";
+                }
+            }
+
+
+            if (clave == "02" | clave == "03" | clave == "04" | clave == "05" | clave == "28" | clave == "29")
+            {
+                // Valida cuenta beneficiario
+
+                Regex exp_cuenta_be = new Regex(formato_cnt_be);
+
+                if (exp_cuenta_be.IsMatch(txt_cuenta_beneficiario.Text))
+                {
+                }
+                else
+                {
+                    mensaje = "El formato de la cuenta beneficiario no es valida.";
+                }
+
+                // Valida RFC beneficiario
+
+                Regex exp_rfc_be = new Regex(formato_rfc_be);
+
+                if (exp_rfc_be.IsMatch(txt_rfc_beneficiario.Text))
+                {
+                }
+                else
+                {
+                    mensaje = "El formato del RFC beneficiario no es valido.";
+                }
+            }
+
+
+            if (clave == "02" | clave == "03" | clave == "04" | clave == "28" | clave == "29")
+            {
+                if(txt_cuenta.Text == "XEXX010101000" & string.IsNullOrEmpty(txt_banco.Text))
+                {
+                    mensaje = "El nombre del banco es obligatorio cuando el RFC ordenante es 'XEXX010101000'.";
+                }
+            }
+
+
+            // Validar moneda y tipo cambio
+
+            if (string.IsNullOrEmpty(txt_moneda_pago.Text))
+            {
+                mensaje = "El campo moneda pago no debe estar vacío.";
+            }
+            else
+            {
+                if (txt_moneda_pago.Text != "MXN" & string.IsNullOrEmpty(txt_tipo_cambio_pago.Text))
+                {
+                    mensaje = "El campo tipo de cambio del pago no debe estar vacío.";
+                }
+            }
+
+            return mensaje;
+
+        } 
+
         private void sel_inc_impuestos(object sender, EventArgs e)
         {
             ComboBox cmb_box = (ComboBox)sender;
@@ -857,7 +974,9 @@ namespace PuntoDeVentaV2
 
         private void abrir_vnt_moneda(object sender, EventArgs e)
         {
-            TextBox  campo = (TextBox)sender; 
+            TextBox  campo = (TextBox)sender;
+            string dato_tcambio = "";
+            string nom_cmp_tcambio = "";
 
             Elegir_moneda vnt_moneda = new Elegir_moneda();
 
@@ -866,6 +985,32 @@ namespace PuntoDeVentaV2
                 if(ban_moneda == true)
                 {
                     campo.Text = clave_moneda;
+                    
+                    // Define la acción para el campo tipo de cambio
+
+                    if (campo.Name == "txt_moneda_pago")
+                    {
+                        nom_cmp_tcambio = "txt_tipo_cambio_pago";
+                    }
+                    else
+                    {
+                        var nf = campo.Name.Split('r');
+                        nom_cmp_tcambio = "txt_tcambio_dr" + nf[1];
+                    }
+
+                    TextBox txt_tcambio = (TextBox)this.Controls.Find(nom_cmp_tcambio, true).FirstOrDefault();
+
+                    if (clave_moneda == "MXN")
+                    {
+                        txt_tcambio.Text = "1";
+                    }
+                    else
+                    {
+                        txt_tcambio.Enabled = true;
+                        txt_tcambio.Text = string.Empty;
+                        txt_tcambio.Focus();
+                    }
+
                 }
                 
                 vnt_moneda.Dispose();
@@ -893,6 +1038,12 @@ namespace PuntoDeVentaV2
             }
 
             Complemento_pago_impuestos vnt_impuestos = new Complemento_pago_impuestos(Convert.ToInt32(num_dr[1]), id_fct, Convert.ToDecimal(txt_abono.Text));
+
+            vnt_impuestos.FormClosed += delegate
+             {
+                 vnt_impuestos.fila_im = 1;
+             };
+
             vnt_impuestos.ShowDialog();
         }
     }
