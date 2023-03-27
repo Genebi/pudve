@@ -888,9 +888,9 @@ namespace PuntoDeVentaV2
         {
             if(opc == 1) // Clave de unidad
             {
-                if (clave != "")//CatalogoUnidadesMedida_40
+                if (clave != "")
                 {
-                    bool r = (bool)cn.EjecutarSelect($"SELECT * FROM CatalogoUnidadesMedida WHERE ClaveUnidad='{clave}'");
+                    bool r = (bool)cn.EjecutarSelect($"SELECT * FROM CatalogoUnidadesMedida_40 WHERE ClaveUnidad='{clave}'");
 
                     if (r == false)
                     {

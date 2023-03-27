@@ -269,8 +269,8 @@ namespace PuntoDeVentaV2
             // si es que esta marcado el persona Fisica
             if (rbPersonaFisica.Checked)
             {
-                // String para llenar el ComboBox RegimenFiscal_40
-                llenarCB = "SELECT CodigoRegimen, Descripcion FROM RegimenFiscal WHERE AplicaFisica LIKE 'Sí'";
+                // String para llenar el ComboBox 
+                llenarCB = "SELECT CodigoRegimen, Descripcion FROM RegimenFiscal_40 WHERE AplicaFisica LIKE 'Sí'";
                 // la consulta realizada la almacenamos en cbreg
                 cbreg = cn.cargarCBRegimen(llenarCB);
                 /************************************************ 
@@ -288,8 +288,8 @@ namespace PuntoDeVentaV2
             // si es que esta marcado el persona Fisica
             if (rbPersonaMoral.Checked)
             {
-                // String para llenar el ComboBox RegimenFiscal_40
-                llenarCB = "SELECT CodigoRegimen, Descripcion FROM RegimenFiscal WHERE AplicaMoral LIKE 'Sí'";
+                // String para llenar el ComboBox 
+                llenarCB = "SELECT CodigoRegimen, Descripcion FROM RegimenFiscal_40 WHERE AplicaMoral LIKE 'Sí'";
                 // la consulta realizada la almacenamos en cbreg
                 cbreg = cn.cargarCBRegimen(llenarCB);
                 /************************************************ 
