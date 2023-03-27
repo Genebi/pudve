@@ -86,6 +86,7 @@ namespace PuntoDeVentaV2
             catch (MySqlException mysqlex)
             {
                 //System.Windows.Forms.MessageBox.Show("Excepción de MySQL al crear las tablas: " + mysqlex.Message.ToString());
+                //Console.WriteLine("AQUI: " + mysqlex.Message);
                 System.Windows.Forms.MessageBox.Show("Ha ocurrido un error en la creación de la base de datos\nrelacionado a problemas de Internet, póngase en contacto\ncon servicio técnico en https://sifo.com.mx/ - Código [1003].", "Mensaje del sistema", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
             }
             catch (Exception ex)

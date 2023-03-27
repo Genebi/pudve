@@ -2427,3 +2427,10 @@ ALTER TABLE Facturas_complemento_pago MODIFY COLUMN id_factura_principal INT(11)
 ALTER TABLE ventas ADD COLUMN IF NOT EXISTS ImpuestosTraslados DECIMAL (16,2) DEFAULT 0;
 
 ALTER TABLE ventas ADD COLUMN IF NOT EXISTS ImpuestosRetenidos DECIMAL (16,2) DEFAULT 0;
+
+
+CREATE INDEX IF NOT EXISTS idx_idproducto ON historialstock(IDProducto);
+CREATE INDEX IF NOT EXISTS idx_fecha ON historialstock(Fecha);
+CREATE INDEX IF NOT EXISTS idx_compuesto1 ON historialstock(IDProducto, Fecha);
+CREATE INDEX IF NOT EXISTS idx_compuesto2 ON historialstock(IDProducto, TipoDeMovimiento(30), Fecha);
+CREATE INDEX IF NOT EXISTS idx_compuesto3 ON historialstock(TipoDeMovimiento(30), Fecha);

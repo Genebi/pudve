@@ -400,7 +400,8 @@ namespace PuntoDeVentaV2
                 string IDEmpleados = string.Empty;
                 IDEmpleados = recorrerDiccionario(listaIdEmpleados);
                 var algo = Validacion(Productos.idProductoHistorialStock, IDEmpleados, fechaInicialF, fechaFinalF);
-                var datos = cn.CargarDatos($"SELECT SUBSTRING_INDEX(HS.TipoDeMovimiento, ':', -1) AS 'Folio', HS.Fecha, ven.FormaPago AS 'modopago', SUM( HS.Cantidad * ( - 1 ) ) AS 'Cantidad', SUM( HS.Cantidad * ( - pro.Precio ) ) AS 'PrecioUnidad', HS.NombreUsuario AS 'Empleado', cli.RazonSocial AS 'Cliente' FROM historialstock AS HS LEFT JOIN productos AS pro ON ( pro.ID = HS.IDProducto ) LEFT JOIN ventas AS ven ON ( HS.Fecha = ven.FechaOperacion ) LEFT JOIN clientes AS cli ON ( ven.IDCliente = cli.ID ) WHERE IDProducto = '{Productos.idProductoHistorialStock}' AND TipoDeMovimiento LIKE '%Venta Ralizada%' AND DATE( Fecha ) BETWEEN '{fechaInicialF}' AND '{fechaFinalF}' AND ven.IDEmpleado IN ('{IDEmpleados}') GROUP BY hs.ID");
+                var query = $"SELECT SUBSTRING_INDEX(HS.TipoDeMovimiento, ':', -1) AS 'Folio', HS.Fecha, ven.FormaPago AS 'modopago', SUM( HS.Cantidad * ( - 1 ) ) AS 'Cantidad', SUM( HS.Cantidad * ( - pro.Precio ) ) AS 'PrecioUnidad', HS.NombreUsuario AS 'Empleado', cli.RazonSocial AS 'Cliente' FROM historialstock AS HS LEFT JOIN productos AS pro ON ( pro.ID = HS.IDProducto ) LEFT JOIN ventas AS ven ON ( HS.Fecha = ven.FechaOperacion ) LEFT JOIN clientes AS cli ON ( ven.IDCliente = cli.ID ) WHERE pro.ID = '{Productos.idProductoHistorialStock}' AND pro.IDUsuario = {FormPrincipal.userID} AND hs.TipoDeMovimiento LIKE '%Venta R%' AND DATE( hs.Fecha ) BETWEEN '{fechaInicialF}' AND '{fechaFinalF}' AND ven.IDUsuario = {FormPrincipal.userID} AND ven.IDEmpleado IN ({IDEmpleados}) GROUP BY hs.ID";
+                var datos = cn.CargarDatos(query);
                 
                 if (algo.Equals(true))
                 {
