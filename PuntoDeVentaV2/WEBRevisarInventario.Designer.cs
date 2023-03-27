@@ -60,7 +60,6 @@
             this.lbBackground = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblNoRevision = new System.Windows.Forms.Label();
-            this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.lbCantidadFiltro = new System.Windows.Forms.Label();
             this.btnDeshabilitarProducto = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -472,7 +471,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(442, 647);
+            this.ClientSize = new System.Drawing.Size(456, 647);
             this.ControlBox = false;
             this.Controls.Add(this.btnDeshabilitarProducto);
             this.Controls.Add(this.lbCantidadFiltro);
@@ -521,7 +520,6 @@
         private System.Windows.Forms.Label lblNoRegistro;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblNoRevision;
-        private System.Windows.Forms.Timer timerBusqueda;
         private System.Windows.Forms.Label lblPrecioProducto;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
