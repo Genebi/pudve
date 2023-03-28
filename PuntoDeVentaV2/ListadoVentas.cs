@@ -5252,31 +5252,8 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrEmpty(codigosBuscar))
             {
-                //Se quita el * de la consulta para obtener solo los campos que me interesan y se guarda en una nueva variable
-                //var ajustarQuery = FiltroAvanzado.Replace("*", "Cliente, RFC, IDEmpleado, Total, Folio, Serie, FechaOperacion");
-                using (var dt = cn.CargarDatos($"SELECT Ganancia,Cliente FROM ventas WHERE ID IN ({codigosBuscar})"))
-                {
-                    int contador = 0;
-                    foreach (var item in dt.Rows)
-                    {
-                        if (!dt.Rows[contador]["Cliente"].ToString().Equals("Apertura de Caja"))
-                        {
-                            if (dt.Rows[contador]["Ganancia"].ToString().Equals("SIN PODER CALCULAR") || string.IsNullOrWhiteSpace(dt.Rows[contador]["Ganancia"].ToString()))
-                            {
-                                MessageBox.Show("No se podra calcular la Ganancia", "Aviso de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                break;
-                            }
-                        }
-                        contador++;
-                    }
-                }
-                VisualizadorReporteVentas VRV = new VisualizadorReporteVentas(codigosBuscar, cbTipoVentas.SelectedIndex);
-                VRV.ShowDialog();
-
-                //if (!query.Rows.Count.Equals(0))
-                //{
-                //    Utilidades.GenerarReporteVentas(opcion, query);
-                //}
+                OpcionesReporteVentas opcionesReporteVentas = new OpcionesReporteVentas(codigosBuscar,cbTipoVentas.SelectedIndex);
+                opcionesReporteVentas.ShowDialog();
             }
             else
             {

@@ -136,7 +136,7 @@ namespace PuntoDeVentaV2
 
         private void CargarGrafica()
         {
-            var ajustarQuery = cn.CargarDatos( $"SELECT FechaOperacion,Ganancia FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
+            var ajustarQuery = cn.CargarDatos($"SELECT FechaOperacion,Ganancia FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
             var ajustarQuery2 = cn.CargarDatos($"SELECT FechaOperacion,Ganancia FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion DESC");
             DateTime FechaInicial = Convert.ToDateTime(ajustarQuery.Rows[0]["FechaOperacion"]);
             DateTime FechaFinal = Convert.ToDateTime(ajustarQuery2.Rows[0]["FechaOperacion"]);
@@ -181,7 +181,7 @@ namespace PuntoDeVentaV2
                                     {
                                         ganancia += Convert.ToDecimal(DTPorHora.Rows[rows]["Ganancia"]);
                                     }
-                                    
+
                                 }
                             }
                             rows++;
@@ -210,7 +210,7 @@ namespace PuntoDeVentaV2
                         agregarRows++;
                     }
                     horas++;
-                   
+
                     TotalHora = 0;
                 }
 
@@ -253,11 +253,11 @@ namespace PuntoDeVentaV2
                                     {
                                         gananciaDia += Convert.ToDecimal(DTPorDia.Rows[rows]["Ganancia"]);
                                     }
-                                    
+
                                 }
                             }
 
-                          
+
                             rows++;
                         }
                         else
@@ -290,7 +290,7 @@ namespace PuntoDeVentaV2
                 decimal TotalMes = 0;
                 decimal GananciaMes = 0;
                 int agregarRows = 0;
-                
+
                 for (int i = 0; i < 12; i++)
                 {
                     foreach (var item in DTPorMes.Rows)
@@ -319,11 +319,11 @@ namespace PuntoDeVentaV2
                                     {
                                         GananciaMes += Convert.ToDecimal(DTPorMes.Rows[rows]["Ganancia"]);
                                     }
-                                   
+
                                 }
                             }
 
-                          
+
                             rows++;
                         }
                         else
@@ -436,7 +436,7 @@ namespace PuntoDeVentaV2
                                     {
                                         gananciaAnno += Convert.ToDecimal(DTPorAnno.Rows[rows]["Ganancia"]);
                                     }
-                                    
+
                                 }
                             }
                             rows++;
@@ -564,6 +564,11 @@ namespace PuntoDeVentaV2
             }
             Promedio = Promedio / DTGrafica.Rows.Count;
             VentasPor += Promedio.ToString("C2");
+
+            if (OpcionesReporteVentas.SiVentas.Equals(false))
+            {
+                DTFinal.Rows.Clear();
+            }
             reportParameters.Add(new ReportParameter("Promedio", VentasPor));
             LocalReport rdlc = new LocalReport();
             rdlc.EnableExternalImages = true;
