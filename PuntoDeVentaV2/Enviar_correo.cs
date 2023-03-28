@@ -12,6 +12,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace PuntoDeVentaV2
 {
@@ -230,7 +231,7 @@ namespace PuntoDeVentaV2
             }
             if (tipo == "nota de venta")
             {
-                arr_obtiene_datos_correo = datos_nota_venta();
+                //arr_obtiene_datos_correo = datos_nota_venta();
             }
 
             string correo_emisor = arr_obtiene_datos_correo[0];
@@ -461,17 +462,28 @@ namespace PuntoDeVentaV2
 
                     // Verifica si el archivo pdf ya esta creado, de no ser así lo crea
 
-                    string ruta_archivo = @"C:\Archivos PUDVE\Facturas\" + nom + ".pdf";
+                    string ruta_archivo = @"C:\Archivos PUDVE\Facturas\" + nom;
 
                     if (!string.IsNullOrWhiteSpace(servidor))
                     {
-                        ruta_archivo = $@"\\{servidor}\Archivos PUDVE\Facturas\" + nom + ".pdf";
+                        ruta_archivo = $@"\\{servidor}\Archivos PUDVE\Facturas\" + nom;
                     }
 
-                    if (!File.Exists(ruta_archivo))
+                    if (!File.Exists(ruta_archivo + ".pdf"))
                     {
-                        Facturas f = new Facturas();
-                        f.generar_PDF(nom, Convert.ToInt32(arr_ids_f_enviar[i][0]));
+                        //generar_PDF("XML_" + nombrexml, idf);
+                        if (ReadXmlFile(ruta_archivo + ".xml") == "3.3")
+                        {
+                            verFacturasViejas descargarFac = new verFacturasViejas(Int32.Parse(arr_ids_f_enviar[i][0].ToString()), ReadXmlFile(ruta_archivo + ".xml", "NoCertificadoSAT"), false, true, ruta_archivo + ".pdf");
+                            descargarFac.ShowDialog();
+                        }
+                        else
+                        {
+                            verFacturasViejas verfacNueva = new verFacturasViejas(Int32.Parse(arr_ids_f_enviar[i][0].ToString()), ReadXmlFile(ruta_archivo + ".xml", "NoCertificadoSAT"), true, true, ruta_archivo + ".pdf");
+                            verfacNueva.ShowDialog();
+                        }
+
+
                     }
                 }
             }
@@ -749,6 +761,41 @@ namespace PuntoDeVentaV2
                 txtValidarTexto.Focus();
                 txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
             }
+        }
+
+        public static string ReadXmlFile(string filePath, string attribute = "Version")
+        {
+            if (attribute == "Version")
+            {
+                // Create a new XmlDocument object.
+                XmlDocument xmlDocument = new XmlDocument();
+
+                // Load the XML file from the specified file path.
+                xmlDocument.Load(filePath);
+
+                // Get the root element of the XML document.
+                XmlElement rootElement = xmlDocument.DocumentElement;
+
+                // Get the attributes of the root element.
+                string xdddd = rootElement.GetAttribute("Version");
+                return xdddd;
+            }
+            else
+            {
+
+                // Load the XML file
+                XmlDocument doc = new XmlDocument();
+                doc.Load(filePath);
+
+                // Get the root element
+                XmlElement root = doc.DocumentElement;
+
+                // Get the value of the NoCertificadoSAT attribute
+                string noCertificadoSAT = root.GetAttribute("NoCertificado");
+                return noCertificadoSAT;
+            }
+
+
         }
     }
 }
