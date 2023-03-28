@@ -147,13 +147,16 @@ namespace PuntoDeVentaV2
             string StatusVenta = string.Empty;
             using (DataTable ConsultaEstatus = cn.CargarDatos($"SELECT Efectivo,Tarjeta,Vales,Cheque,Transferencia,Credito FROM detallesventa where IDVenta = {IDVenta}"))
             {
+
                 foreach (var item in ConsultaEstatus.Columns)
                 {
                     string TipoVenta = item.ToString();
-
-                    if (Convert.ToDecimal(ConsultaEstatus.Rows[0][TipoVenta])>0)
+                    if (!ConsultaEstatus.Rows.Count.Equals(0))
                     {
-                        StatusVenta += TipoVenta + ",";
+                        if (Convert.ToDecimal(ConsultaEstatus.Rows[0][TipoVenta]) > 0)
+                        {
+                            StatusVenta += TipoVenta + ",";
+                        }
                     }
                 }
                 DataTable dato = cn.CargarDatos($"SELECT  FormaPago FROM ventas where ID = {IDVenta}");
