@@ -4244,6 +4244,15 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string resultadoConcentradooHistorialCorteDeCajaTODOS(string[] numerosIDCarteDeCaja)
+        {
+            var cadenaNumeros = String.Join(",", numerosIDCarteDeCaja);
+
+            var consulta = $"SELECT SUM( SaldoInicialEfectivo ) AS 'Efectivo', SUM( SaldoInicialTarjeta ) AS 'Tarjeta', SUM( SaldoInicialVales ) AS 'Vales', SUM( SaldoInicialCheque ) AS 'Cheque', SUM( SaldoInicialTransferencia ) AS 'Transferencia', SUM( SaldoInicialCredito ) AS 'Credito', SUM( SaldoInicialAnticipo ) AS 'Anticipo', SUM( CantidadRetiradaDelCorte ) AS 'CantidadRetirada', ( SUM( SaldoInicialEfectivo ) + SUM( SaldoInicialTarjeta ) + SUM( SaldoInicialVales ) + SUM( SaldoInicialCheque ) + SUM( SaldoInicialTransferencia ) ) AS 'SaldoInicial' FROM historialcortesdecaja WHERE FechaOperacion IN ( {cadenaNumeros} )";
+
+            return consulta;
+        }
+
         public string corteHistorialCortesDeCaja(string idCodigoCaja)
         {
             var consulta = $"SELECT IDCorteDeCaja, FechaOperacion FROM historialcortesdecaja WHERE IDCorteDeCaja = '{idCodigoCaja}'";

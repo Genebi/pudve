@@ -65,7 +65,24 @@ namespace PuntoDeVentaV2
 
                 if (noEstaVacia)
                 {
-                    using (DataTable dtResultadoConcentradooHistorialCorteDeCaja = cn.CargarDatos(cs.resultadoConcentradooHistorialCorteDeCaja(IDsDeCroteDeCaja.ToArray())))
+                    var ids = CajaN.idsParaSaldoIncial;
+                    List<string> fechasOperacion = new List<string>();
+
+                    foreach (string id in ids)
+                    {
+                       var fechaOperacion = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado = {id} ORDER BY FechaOperacion DESC LIMIT 1");
+
+                        if (fechaOperacion != null && !fechaOperacion.Rows.Equals(0))
+                        {
+                            DateTime fecha = Convert.ToDateTime(fechaOperacion.Rows[0][0]);
+                            string fechaFormateada = "'"+fecha.ToString("yyyy-MM-dd HH:mm:ss") + "'";
+                            fechasOperacion.Add(fechaFormateada);
+                        }
+                    }
+
+                    string[] fechasOperacionArray = fechasOperacion.ToArray();
+
+                    using (DataTable dtResultadoConcentradooHistorialCorteDeCaja = cn.CargarDatos(cs.resultadoConcentradooHistorialCorteDeCajaTODOS(fechasOperacionArray)))
                     {
                         if (!dtResultadoConcentradooHistorialCorteDeCaja.Rows.Count.Equals(0))
                         {

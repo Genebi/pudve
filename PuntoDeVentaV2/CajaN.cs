@@ -217,6 +217,8 @@ namespace PuntoDeVentaV2
 
         public static bool CancelaVenta = false;
 
+        public static string[] idsParaSaldoIncial;
+
         private void botonRedondo3_Click(object sender, EventArgs e)
         {
             opcionComboBoxFiltroAdminEmp = ((KeyValuePair<string, string>)cbFiltroAdminEmpleado.SelectedItem).Key;
@@ -6741,6 +6743,7 @@ namespace PuntoDeVentaV2
                     var validacionIds = ids.Rows[0][0].ToString() + ",0";
 
                     string[] idsSeparados = validacionIds.Split(',');
+                    idsParaSaldoIncial = idsSeparados; 
                     decimal totalRetirado = 0;
                     decimal saldoInicialTotal2 = 0;
                     foreach (string id in idsSeparados)
