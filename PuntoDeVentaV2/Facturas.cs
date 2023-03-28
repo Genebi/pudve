@@ -15,6 +15,7 @@ using System.Xml.Serialization;
 using System.Drawing.Printing;
 using MySql.Data.MySqlClient;
 using System.Threading;
+using System.Xml;
 
 namespace PuntoDeVentaV2
 {
@@ -391,11 +392,16 @@ namespace PuntoDeVentaV2
                         return;
                     }
 
-                    if (!Utilidades.AdobeReaderInstalado())
-                    {
-                        Utilidades.MensajeAdobeReader();
-                        return;
-                    }
+                    
+
+
+
+                    //Old af legacy code lmaooo https://media.tenor.com/TGghI4NZHrwAAAAC/lmaoo.gif
+                    //if (!Utilidades.AdobeReaderInstalado())
+                    //{
+                    //    Utilidades.MensajeAdobeReader();
+                    //    return;
+                    //}
 
                     string nombre_xml = "";
                     string ruta_archivo = "";
@@ -409,49 +415,70 @@ namespace PuntoDeVentaV2
                         nombre_xml = "XML_INGRESOS_" + id_factura;
                     }
 
-                    // Verifica si el archivo pdf ya esta creado, de no ser así lo crea
-                    ruta_archivo = @"C:\Archivos PUDVE\Facturas\" + nombre_xml + ".pdf";
-
                     if (!string.IsNullOrWhiteSpace(servidor))
                     {
-                        ruta_archivo = $@"\\{servidor}\Archivos PUDVE\Facturas\" + nombre_xml + ".pdf";
+                        ruta_archivo = $@"\\{servidor}\Archivos PUDVE\Facturas\" + nombre_xml + ".xml";
+                    }
+                    else
+                    {
+                        ruta_archivo = @"C:\Archivos PUDVE\Facturas\" + nombre_xml + ".xml";
                     }
 
-                    Thread hilo;
+                   
 
-                    if (!File.Exists(ruta_archivo) || File.Exists(ruta_archivo)) 
+                    if (ReadXmlFile(ruta_archivo)=="3.3")
                     {
-                        //MessageBox.Show("La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado. Un momento por favor...", "", MessageBoxButtons.OK);
-                        //Generar_PDF_factura.generar_PDF(nombre_xml);
-                        //generar_PDF(nombre_xml, id_factura);
-
-                        if (string.IsNullOrWhiteSpace(servidor) && (!File.Exists(ruta_archivo) || File.Exists(ruta_archivo)))
-                        {
-                            hilo = new Thread(() => mnsj());
-                            hilo.Start();
-
-                            hilo = new Thread(() => generarPDF(nombre_xml, id_factura));
-                            hilo.Start();
-
-
-                            hilo.Join();
-                        }
-                        else if (!string.IsNullOrWhiteSpace(servidor) && !File.Exists(ruta_archivo))
-                        {
-                            MessageBox.Show("El archivo de la nota no esta descargado en el servidor, abrirlo primero en el servidor para verlo en red", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            return;
-                        }
+                        verFacturasViejas verfacvieja = new verFacturasViejas(id_factura,ReadXmlFile(ruta_archivo, "NoCertificadoSAT"));
+                        verfacvieja.ShowDialog();
                     }
-
-                    // Ver PDF de factura
-                    Visualizar_factura ver_fct = new Visualizar_factura(nombre_xml);
-
-                    ver_fct.FormClosed += delegate
+                    else
                     {
-                        ver_fct.Dispose();
-                    };
+                        verFacturasViejas verfacNueva = new verFacturasViejas(id_factura, ReadXmlFile(ruta_archivo, "NoCertificadoSAT"),true);
+                        verfacNueva.ShowDialog();
+                    }
+                    //// Verifica si el archivo pdf ya esta creado, de no ser así lo crea
+                    //ruta_archivo = @"C:\Archivos PUDVE\Facturas\" + nombre_xml + ".pdf";
 
-                    ver_fct.ShowDialog();
+                    //if (!string.IsNullOrWhiteSpace(servidor))
+                    //{
+                    //    ruta_archivo = $@"\\{servidor}\Archivos PUDVE\Facturas\" + nombre_xml + ".pdf";
+                    //}
+
+                    //Thread hilo;
+
+                    //if (!File.Exists(ruta_archivo) || File.Exists(ruta_archivo))
+                    //{
+                    //    //MessageBox.Show("La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado. Un momento por favor...", "", MessageBoxButtons.OK);
+                    //    //Generar_PDF_factura.generar_PDF(nombre_xml);
+                    //    //generar_PDF(nombre_xml, id_factura);
+
+                    //    if (string.IsNullOrWhiteSpace(servidor) && (!File.Exists(ruta_archivo) || File.Exists(ruta_archivo)))
+                    //    {
+                    //        hilo = new Thread(() => mnsj());
+                    //        hilo.Start();
+
+                    //        hilo = new Thread(() => generarPDF(nombre_xml, id_factura));
+                    //        hilo.Start();
+
+
+                    //        hilo.Join();
+                    //    }
+                    //    else if (!string.IsNullOrWhiteSpace(servidor) && !File.Exists(ruta_archivo))
+                    //    {
+                    //        MessageBox.Show("El archivo de la nota no esta descargado en el servidor, abrirlo primero en el servidor para verlo en red", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //        return;
+                    //    }
+                    //}
+
+                    //// Ver PDF de factura
+                    //Visualizar_factura ver_fct = new Visualizar_factura(nombre_xml);
+
+                    //ver_fct.FormClosed += delegate
+                    //{
+                    //    ver_fct.Dispose();
+                    //};
+
+                    //ver_fct.ShowDialog();
                 }
 
                 // Descargar factura
@@ -606,6 +633,42 @@ namespace PuntoDeVentaV2
         private void generarPDF(string nombre_xml, int id_f)
         {
             generar_PDF(nombre_xml, id_f);
+        }
+
+        //Claramente yo hise este codigo, desde luego no me lo pepene de internet 8)
+        public static string ReadXmlFile(string filePath, string attribute= "Version")
+        {
+            if (attribute=="Version")
+            {
+                // Create a new XmlDocument object.
+                XmlDocument xmlDocument = new XmlDocument();
+
+                // Load the XML file from the specified file path.
+                xmlDocument.Load(filePath);
+
+                // Get the root element of the XML document.
+                XmlElement rootElement = xmlDocument.DocumentElement;
+
+                // Get the attributes of the root element.
+                string xdddd = rootElement.GetAttribute("Version");
+                return xdddd;
+            }
+            else
+            {
+
+                // Load the XML file
+                XmlDocument doc = new XmlDocument();
+                doc.Load(filePath);
+
+                // Get the root element
+                XmlElement root = doc.DocumentElement;
+
+                // Get the value of the NoCertificadoSAT attribute
+                string noCertificadoSAT = root.GetAttribute("NoCertificado");
+                return noCertificadoSAT;
+            }
+
+           
         }
 
         private void cursor_en_icono(object sender, DataGridViewCellEventArgs e)
@@ -1242,7 +1305,19 @@ namespace PuntoDeVentaV2
             {
                 if (!File.Exists(ruta_archivos + ".pdf"))
                 {
-                    generar_PDF("XML_" + nombrexml, idf);
+                    //generar_PDF("XML_" + nombrexml, idf);
+                    if (ReadXmlFile(ruta_archivos+".xml") == "3.3")
+                    {
+                        verFacturasViejas descargarFac = new verFacturasViejas(idf, ReadXmlFile(ruta_archivos + ".xml", "NoCertificadoSAT"), false, true, ruta_archivos + ".pdf");
+                        descargarFac.ShowDialog();
+                    }
+                    else
+                    {
+                        verFacturasViejas verfacNueva = new verFacturasViejas(idf, ReadXmlFile(ruta_archivos + ".xml", "NoCertificadoSAT"), true, true, ruta_archivos + ".pdf");
+                        verfacNueva.ShowDialog();
+                    }
+
+                    
                 }
             }
 
