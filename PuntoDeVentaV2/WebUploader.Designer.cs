@@ -75,6 +75,7 @@ namespace PuntoDeVentaV2
             this.Text = "Respaldo a la nube en curso... Use \"Esc\" para cancelar";
             this.Load += new System.EventHandler(this.WebUploader_Load);
             this.Shown += new System.EventHandler(this.WebUploader_Shown);
+            this.SizeChanged += new System.EventHandler(this.WebUploader_SizeChanged);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.WebUploader_KeyDown);
             this.ResumeLayout(false);
 
