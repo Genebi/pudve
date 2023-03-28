@@ -1299,6 +1299,12 @@
     <Compile Include="OpcionesReporteProducto.Designer.cs">
       <DependentUpon>OpcionesReporteProducto.cs</DependentUpon>
     </Compile>
+    <Compile Include="OpcionesReporteVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OpcionesReporteVentas.Designer.cs">
+      <DependentUpon>OpcionesReporteVentas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Paginar.cs" />
     <Compile Include="PedidoPorProducto.cs">
       <SubType>Form</SubType>
@@ -2496,6 +2502,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OpcionesReporteProducto.resx">
       <DependentUpon>OpcionesReporteProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpcionesReporteVentas.resx">
+      <DependentUpon>OpcionesReporteVentas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PedidoPorProducto.resx">
       <DependentUpon>PedidoPorProducto.cs</DependentUpon>
