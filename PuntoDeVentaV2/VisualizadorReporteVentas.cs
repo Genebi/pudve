@@ -565,10 +565,32 @@ namespace PuntoDeVentaV2
             Promedio = Promedio / DTGrafica.Rows.Count;
             VentasPor += Promedio.ToString("C2");
 
-            if (OpcionesReporteVentas.SiVentas.Equals(false))
+            string MostrarGraficaVentas = "1", MostrarTablaGraficasVenta = "1", MostrarTablaProveedoers ="1", MostrarGraficaProveedoes = "1";
+            if (OpcionesReporteVentas.MostrarGraficaVentas.Equals(false))
+            {
+                MostrarGraficaVentas = "0";
+            }
+            if (OpcionesReporteVentas.MostrarTablaGraficasVenta.Equals(false))
+            {
+                MostrarTablaGraficasVenta = "0";
+            }
+            if (OpcionesReporteVentas.SiVentasDesglosadas.Equals(false))
             {
                 DTFinal.Rows.Clear();
             }
+            if (OpcionesReporteVentas.MostrarTablaProveedoers.Equals(false))
+            {
+                MostrarTablaProveedoers = "0";
+            }
+            if (OpcionesReporteVentas.MostrarGraficaProveedoes.Equals(false))
+            {
+                MostrarGraficaProveedoes = "0";
+            }
+            reportParameters.Add(new ReportParameter("MostrarGraficaVentas", MostrarGraficaVentas));
+            reportParameters.Add(new ReportParameter("MostrarTablaGraficasVenta", MostrarTablaGraficasVenta));
+            reportParameters.Add(new ReportParameter("MostrarTablaProveedoers", MostrarTablaProveedoers));
+            reportParameters.Add(new ReportParameter("MostrarGraficaProveedoes", MostrarGraficaProveedoes));
+
             reportParameters.Add(new ReportParameter("Promedio", VentasPor));
             LocalReport rdlc = new LocalReport();
             rdlc.EnableExternalImages = true;
