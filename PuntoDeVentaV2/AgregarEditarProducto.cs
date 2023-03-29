@@ -2134,7 +2134,7 @@ namespace PuntoDeVentaV2
         {
             if (string.IsNullOrWhiteSpace(txtNombreProducto.Text))
             {
-                MessageBox.Show("Por favor poner Datos Validos\npara el campo de NOMBRE DE PRODUCTO", "Alerta del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Por favor poner Datos Validos\npara el campo de NOMBRE DE PRODUCTO", "Alerta del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information); 
                 return;
             }
             if (Convert.ToDecimal(txtPrecioCompra.Text) >= Convert.ToDecimal(txtPrecioProducto.Text))

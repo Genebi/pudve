@@ -1478,6 +1478,18 @@
       <DependentUpon>TicketAbrirCaja.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Content Include="PUDVE\icon\black16\circle-green.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black16\circle-orange.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black16\circle-red.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black16\circle-yellow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ReportesImpresion\Ticket\Amortizacion\amortizacion1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1527,9 +1539,15 @@
       <DependentUpon>TicketDineroRetirado.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <None Include="PUDVE\icon\black16\circle-yellow-48.png" />
-    <None Include="PUDVE\icon\black16\circle-green-48.png" />
-    <None Include="PUDVE\icon\black16\circle-red-48.png" />
+    <Content Include="PUDVE\icon\black16\circle-yellow-48.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black16\circle-green-48.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black16\circle-red-48.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\xslt\cadenaoriginal_4_0.xslt" />
     <Content Include="ReportesImpresion\Ticket\Inventario\DTInventario.cs">
       <DependentUpon>DTInventario.xsd</DependentUpon>
