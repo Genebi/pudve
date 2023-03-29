@@ -131,8 +131,11 @@ namespace PuntoDeVentaV2
             resultado = oMoneda.Convertir(Total.ToString(), true, "PESOS");
 
             ReportParameterCollection reportParameters = new ReportParameterCollection();
-
-            decimal descuento = Convert.ToDecimal(DTNotaDeVentas.Rows[0]["DescuentoDirectoProducto"]);
+            decimal descuento = 0;
+            if (!string.IsNullOrWhiteSpace(DTNotaDeVentas.Rows[0]["DescuentoDirectoProducto"].ToString()))
+            {
+                descuento = Convert.ToDecimal(DTNotaDeVentas.Rows[0]["DescuentoDirectoProducto"]);
+            }
             DTNotaDeVentas.Rows[0]["DescuentoDirectoProducto"] = descuento.ToString("0.00"); 
             reportParameters.Add(new ReportParameter("TotalEnTexto", resultado));
             if(SiHayLogo.Equals(true))

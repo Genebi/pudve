@@ -8650,8 +8650,15 @@ namespace PuntoDeVentaV2
 
                     NombreCliente = datos[0];
                     var idTipoCliente = Convert.ToInt32(datos[16]);
-
-                    idClienteDescuento = Convert.ToInt32(datos[18]);
+                    if (string.IsNullOrWhiteSpace(datos[18]))
+                    {
+                        idClienteDescuento = 0;
+                    }
+                    else
+                    {
+                        idClienteDescuento = Convert.ToInt32(datos[18]);
+                    }
+                   
                     ClienteConDescuentoNombre = datos[0].ToString();
                     IDClienteConDescuento = idCliente;
                     if (idTipoCliente > 0)
