@@ -43,7 +43,7 @@ namespace PuntoDeVentaV2
 
         private void Agregar_empleado_Load(object sender, EventArgs e)
         {
-
+             
             if (tipo == 1)
             {
                 Text = "Agregar empleado";
