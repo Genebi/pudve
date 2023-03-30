@@ -71,8 +71,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Serie</rd:DefaultName>
-            <Top>0.36724cm</Top>
-            <Left>0.34078cm</Left>
+            <Top>0.3175cm</Top>
+            <Left>0.34077cm</Left>
             <Height>0.6cm</Height>
             <Width>8.08334cm</Width>
             <Style>
@@ -94,7 +94,8 @@
                   <TextRun>
                     <Value>=Parameters!usuario_Nombre.Value</Value>
                     <Style>
-                      <FontWeight>Bold</FontWeight>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Normal</FontWeight>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -105,9 +106,9 @@
             </Paragraphs>
             <rd:DefaultName>usuario_Nombre</rd:DefaultName>
             <Top>1.10807cm</Top>
-            <Left>0.34078cm</Left>
-            <Height>0.6cm</Height>
-            <Width>8.08334cm</Width>
+            <Left>7.42034cm</Left>
+            <Height>0.43067cm</Height>
+            <Width>9.25406cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -127,7 +128,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>="RFC: " + Parameters!usuario_RFC.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -136,10 +139,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>usuario_RFC</rd:DefaultName>
-            <Top>1.84918cm</Top>
-            <Left>0.34078cm</Left>
-            <Height>0.6cm</Height>
-            <Width>8.08334cm</Width>
+            <Top>1.51469cm</Top>
+            <Left>7.42034cm</Left>
+            <Height>0.43067cm</Height>
+            <Width>9.25406cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -159,7 +162,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>="Régimen: "+Parameters!usuario_Regimen.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -168,10 +173,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>usuario_Regimen</rd:DefaultName>
-            <Top>1.84918cm</Top>
-            <Left>8.67925cm</Left>
-            <Height>0.6cm</Height>
-            <Width>8.08334cm</Width>
+            <Top>2.02009cm</Top>
+            <Left>7.42034cm</Left>
+            <Height>0.43067cm</Height>
+            <Width>9.25406cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -1218,7 +1223,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataTable1</DataSetName>
-            <Top>9.14848cm</Top>
+            <Top>8.83098cm</Top>
             <Left>0.34078cm</Left>
             <Height>1.67625cm</Height>
             <Width>20.7827cm</Width>
@@ -1249,7 +1254,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox47</rd:DefaultName>
-            <Top>13.51601cm</Top>
+            <Top>13.19851cm</Top>
             <Left>4.33597cm</Left>
             <Height>0.6cm</Height>
             <Width>16.7875cm</Width>
@@ -1281,7 +1286,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox48</rd:DefaultName>
-            <Top>14.2924cm</Top>
+            <Top>13.9749cm</Top>
             <Left>4.33597cm</Left>
             <Height>0.6cm</Height>
             <Width>5.54271cm</Width>
@@ -1313,7 +1318,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox48</rd:DefaultName>
-            <Top>14.2924cm</Top>
+            <Top>13.9749cm</Top>
             <Left>9.98451cm</Left>
             <Height>0.6cm</Height>
             <Width>5.54271cm</Width>
@@ -1345,7 +1350,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox48</rd:DefaultName>
-            <Top>14.2924cm</Top>
+            <Top>13.9749cm</Top>
             <Left>15.63306cm</Left>
             <Height>0.6cm</Height>
             <Width>5.49041cm</Width>
@@ -1375,7 +1380,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>certificadoEmisor</rd:DefaultName>
-            <Top>14.8924cm</Top>
+            <Top>14.5749cm</Top>
             <Left>4.33597cm</Left>
             <Height>0.6cm</Height>
             <Width>5.54271cm</Width>
@@ -1405,7 +1410,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>certificadoSAT</rd:DefaultName>
-            <Top>14.8924cm</Top>
+            <Top>14.5749cm</Top>
             <Left>9.98451cm</Left>
             <Height>0.6cm</Height>
             <Width>5.54271cm</Width>
@@ -1435,7 +1440,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>RFCPAC</rd:DefaultName>
-            <Top>14.8924cm</Top>
+            <Top>14.5749cm</Top>
             <Left>15.63306cm</Left>
             <Height>0.6cm</Height>
             <Width>5.49041cm</Width>
@@ -1470,7 +1475,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox58</rd:DefaultName>
-            <Top>15.4924cm</Top>
+            <Top>15.1749cm</Top>
             <Left>4.33597cm</Left>
             <Height>0.6cm</Height>
             <Width>16.7875cm</Width>
@@ -1500,7 +1505,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>cadenaDigital</rd:DefaultName>
-            <Top>16.0924cm</Top>
+            <Top>15.7749cm</Top>
             <Left>4.33597cm</Left>
             <Height>1.11153cm</Height>
             <Width>16.7875cm</Width>
@@ -1535,7 +1540,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox58</rd:DefaultName>
-            <Top>17.34504cm</Top>
+            <Top>17.02754cm</Top>
             <Left>0.34077cm</Left>
             <Height>0.6cm</Height>
             <Width>20.7827cm</Width>
@@ -1567,7 +1572,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>selloDigitalEmisor</rd:DefaultName>
-            <Top>17.94504cm</Top>
+            <Top>17.62754cm</Top>
             <Left>0.34077cm</Left>
             <Height>1.15563cm</Height>
             <Width>20.7827cm</Width>
@@ -1602,7 +1607,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox58</rd:DefaultName>
-            <Top>19.10067cm</Top>
+            <Top>18.78317cm</Top>
             <Left>0.34077cm</Left>
             <Height>0.6cm</Height>
             <Width>20.7827cm</Width>
@@ -1634,7 +1639,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>selloDigitalSAT</rd:DefaultName>
-            <Top>19.70067cm</Top>
+            <Top>19.38317cm</Top>
             <Left>0.34077cm</Left>
             <Height>1.15563cm</Height>
             <Width>20.7827cm</Width>
@@ -1650,7 +1655,7 @@
             </Style>
           </Textbox>
           <Line Name="Line2">
-            <Top>10.83902cm</Top>
+            <Top>10.52152cm</Top>
             <Left>21.13665cm</Left>
             <Height>0.74083cm</Height>
             <Width>0cm</Width>
@@ -1663,7 +1668,7 @@
             </Style>
           </Line>
           <Line Name="Line3">
-            <Top>10.83902cm</Top>
+            <Top>10.52152cm</Top>
             <Left>0.34078cm</Left>
             <Height>0.74083cm</Height>
             <Width>0cm</Width>
@@ -1694,7 +1699,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>11.52984cm</Top>
+            <Top>11.21234cm</Top>
             <Left>0.34077cm</Left>
             <Height>0.60326cm</Height>
             <Width>16.55391cm</Width>
@@ -1726,7 +1731,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>11.52984cm</Top>
+            <Top>11.21234cm</Top>
             <Left>18.82388cm</Left>
             <Height>0.60326cm</Height>
             <Width>2.31277cm</Width>
@@ -1758,7 +1763,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>11.52984cm</Top>
+            <Top>11.21234cm</Top>
             <Left>16.89468cm</Left>
             <Height>0.60326cm</Height>
             <Width>1.9292cm</Width>
@@ -1790,7 +1795,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>12.1331cm</Top>
+            <Top>11.8156cm</Top>
             <Left>0.34078cm</Left>
             <Height>0.60326cm</Height>
             <Width>16.55391cm</Width>
@@ -1822,7 +1827,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>12.1331cm</Top>
+            <Top>11.8156cm</Top>
             <Left>16.89469cm</Left>
             <Height>0.60326cm</Height>
             <Width>1.9292cm</Width>
@@ -1854,7 +1859,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>12.1331cm</Top>
+            <Top>11.8156cm</Top>
             <Left>18.82389cm</Left>
             <Height>0.60326cm</Height>
             <Width>2.31277cm</Width>
@@ -1888,7 +1893,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>12.73636cm</Top>
+            <Top>12.41886cm</Top>
             <Left>0.34077cm</Left>
             <Height>0.60326cm</Height>
             <Width>16.55391cm</Width>
@@ -1920,7 +1925,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>12.73636cm</Top>
+            <Top>12.41886cm</Top>
             <Left>16.89468cm</Left>
             <Height>0.60326cm</Height>
             <Width>1.9292cm</Width>
@@ -1952,7 +1957,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>12.73636cm</Top>
+            <Top>12.41886cm</Top>
             <Left>18.82388cm</Left>
             <Height>0.60326cm</Height>
             <Width>2.31277cm</Width>
@@ -2062,7 +2067,7 @@
             <Value>=Parameters!qr.Value</Value>
             <MIMEType>image/png</MIMEType>
             <Sizing>FitProportional</Sizing>
-            <Top>13.51601cm</Top>
+            <Top>13.19851cm</Top>
             <Left>0.38079cm</Left>
             <Height>3.68792cm</Height>
             <Width>3.77879cm</Width>
@@ -2081,7 +2086,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!usuario_CP.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -2090,10 +2097,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>usuario_CP</rd:DefaultName>
-            <Top>3.26085cm</Top>
-            <Left>0.34077cm</Left>
-            <Height>0.6cm</Height>
-            <Width>16.4571cm</Width>
+            <Top>2.52549cm</Top>
+            <Left>7.42034cm</Left>
+            <Height>0.43067cm</Height>
+            <Width>9.25406cm</Width>
             <ZIndex>52</ZIndex>
             <Style>
               <Border>
@@ -2113,7 +2120,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>="Tel. "+Parameters!usuario_fono.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -2122,10 +2131,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>usuario_fono</rd:DefaultName>
-            <Top>2.55501cm</Top>
-            <Left>0.34078cm</Left>
-            <Height>0.6cm</Height>
-            <Width>8.08334cm</Width>
+            <Top>3.0309cm</Top>
+            <Left>7.42034cm</Left>
+            <Height>0.43067cm</Height>
+            <Width>9.25406cm</Width>
             <ZIndex>53</ZIndex>
             <Style>
               <Border>
@@ -2145,7 +2154,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!usuario_Email.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -2154,10 +2165,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>usuario_Email</rd:DefaultName>
-            <Top>2.55501cm</Top>
-            <Left>8.67925cm</Left>
-            <Height>0.6cm</Height>
-            <Width>8.08334cm</Width>
+            <Top>3.5363cm</Top>
+            <Left>7.42034cm</Left>
+            <Height>0.43067cm</Height>
+            <Width>9.25406cm</Width>
             <ZIndex>54</ZIndex>
             <Style>
               <Border>
