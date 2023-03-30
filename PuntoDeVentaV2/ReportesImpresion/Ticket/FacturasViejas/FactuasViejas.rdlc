@@ -74,7 +74,7 @@
             <Top>0.36724cm</Top>
             <Left>0.34078cm</Left>
             <Height>0.6cm</Height>
-            <Width>8.66479cm</Width>
+            <Width>8.08334cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -99,7 +99,7 @@
                   </TextRun>
                 </TextRuns>
                 <Style>
-                  <TextAlign>Center</TextAlign>
+                  <TextAlign>Left</TextAlign>
                 </Style>
               </Paragraph>
             </Paragraphs>
@@ -107,7 +107,7 @@
             <Top>1.10807cm</Top>
             <Left>0.34078cm</Left>
             <Height>0.6cm</Height>
-            <Width>16.41708cm</Width>
+            <Width>8.08334cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -131,15 +131,15 @@
                   </TextRun>
                 </TextRuns>
                 <Style>
-                  <TextAlign>Center</TextAlign>
+                  <TextAlign>Left</TextAlign>
                 </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>usuario_RFC</rd:DefaultName>
-            <Top>1.74335cm</Top>
-            <Left>0.34551cm</Left>
+            <Top>1.84918cm</Top>
+            <Left>0.34078cm</Left>
             <Height>0.6cm</Height>
-            <Width>16.41708cm</Width>
+            <Width>8.08334cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -163,15 +163,15 @@
                   </TextRun>
                 </TextRuns>
                 <Style>
-                  <TextAlign>Center</TextAlign>
+                  <TextAlign>Left</TextAlign>
                 </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>usuario_Regimen</rd:DefaultName>
-            <Top>2.37863cm</Top>
-            <Left>0.34078cm</Left>
+            <Top>1.84918cm</Top>
+            <Left>8.67925cm</Left>
             <Height>0.6cm</Height>
-            <Width>16.45709cm</Width>
+            <Width>8.08334cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -2080,20 +2080,20 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>="CP. "+Parameters!usuario_CP.Value</Value>
+                    <Value>=Parameters!usuario_CP.Value</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
                 <Style>
-                  <TextAlign>Center</TextAlign>
+                  <TextAlign>Left</TextAlign>
                 </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>usuario_CP</rd:DefaultName>
-            <Top>3.01391cm</Top>
-            <Left>0.34551cm</Left>
+            <Top>3.26085cm</Top>
+            <Left>0.34077cm</Left>
             <Height>0.6cm</Height>
-            <Width>16.45236cm</Width>
+            <Width>16.4571cm</Width>
             <ZIndex>52</ZIndex>
             <Style>
               <Border>
@@ -2117,16 +2117,48 @@
                   </TextRun>
                 </TextRuns>
                 <Style>
-                  <TextAlign>Center</TextAlign>
+                  <TextAlign>Left</TextAlign>
                 </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>usuario_fono</rd:DefaultName>
-            <Top>3.64918cm</Top>
-            <Left>0.38079cm</Left>
+            <Top>2.55501cm</Top>
+            <Left>0.34078cm</Left>
             <Height>0.6cm</Height>
-            <Width>16.41708cm</Width>
+            <Width>8.08334cm</Width>
             <ZIndex>53</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="usuario_Email">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!usuario_Email.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>usuario_Email</rd:DefaultName>
+            <Top>2.55501cm</Top>
+            <Left>8.67925cm</Left>
+            <Height>0.6cm</Height>
+            <Width>8.08334cm</Width>
+            <ZIndex>54</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
