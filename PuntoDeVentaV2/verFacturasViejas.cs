@@ -77,7 +77,16 @@ namespace PuntoDeVentaV2
             string pathApplication = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\FacturasViejas\FactuasViejas.rdlc";
 
-            
+
+
+            DataTable impuestos = new DataTable();
+
+            // Add columns to the DataTable
+            impuestos.Columns.Add("Column1", typeof(string));
+            impuestos.Columns.Add("Column2", typeof(string));
+            impuestos.Columns.Add("Column3", typeof(string));
+
+
 
             DataTable DataTable1 = cn.CargarDatos($"select cantidad AS Cantidad, clave_producto AS ClavePS, clave_unidad AS ClaveU, descripcion as Descripcion, precio_u AS PU, cantidad*(precio_u-importe_iva) AS Importe from facturas_productos WHERE id_factura = {factura}");
             using (DataTable totales = cn.CargarDatos($"select tasa_cuota, sum(cantidad*(precio_u-importe_iva)) as monosas, SUM(cantidad*(precio_u-importe_iva)*16/100) as sincho, sum(cantidad*(precio_u-importe_iva)) + SUM(cantidad*(precio_u-importe_iva)*16/100) AS kowka from facturas_productos WHERE id_factura = {factura}"))
@@ -105,6 +114,22 @@ namespace PuntoDeVentaV2
                 }
 
                 totalAlfa  = oMoneda.Convertir(total, true, "PESOS");
+
+                impuestos.Rows.Add("", "SubTotal", subtotal);
+                impuestos.Rows.Add("Traslado IVA", "Tasa: "+tasa, tasa16);
+
+                using (DataTable todosImpuestos = cn.CargarDatos($@"SELECT impuesto, facturas_impuestos.tasa_cuota, SUM(importe) as total_importe
+                FROM facturas_impuestos
+                INNER JOIN facturas_productos ON facturas_impuestos.id_factura_producto = facturas_productos.id
+                WHERE facturas_productos.id_factura = {factura}
+                GROUP BY impuesto, tasa_cuota"))
+                {
+                    foreach (DataRow data in todosImpuestos.Rows)
+                    {
+                        impuestos.Rows.Add(data["Impuesto"].ToString(), "Tasa: "+ data["tasa_cuota"].ToString(), data["total_importe"].ToString());
+                    }
+                }
+                impuestos.Rows.Add(totalAlfa, "Total", total);
 
             }
 
@@ -203,9 +228,53 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            
+            //imagen
+            string pathLogoImage;
+            string ruta_archivos_guadados;
+            string DireccionLogo=string.Empty;
+            var servidor = Properties.Settings.Default.Hosting;
+            string saveDirectoryImg = @"C:\Archivos PUDVE\MisDatos\Usuarios\";
+
+            using (DataTable ConsultaLogo = cn.CargarDatos(cs.buscarNombreLogoTipo2(FormPrincipal.userID)))
+            {
+                if (!ConsultaLogo.Rows.Count.Equals(0))
+                {
+                    string Logo = ConsultaLogo.Rows[0]["Logo"].ToString();
+                    if (!Logo.Equals(""))
+                    {
+
+                        if (!Directory.Exists(saveDirectoryImg))    // verificamos que si no existe el directorio
+                        {
+                            Directory.CreateDirectory(saveDirectoryImg);    // lo crea para poder almacenar la imagen
+                        }
+                        if (!string.IsNullOrWhiteSpace(servidor))
+                        {
+                            // direccion de la carpeta donde se va poner las imagenes
+                            pathLogoImage = new Uri($@"\\{servidor}\Archivos PUDVE\MisDatos\Usuarios\").AbsoluteUri;
+                            // ruta donde estan guardados los archivos digitales
+                            ruta_archivos_guadados = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_{Logo}\";
+
+                            DireccionLogo = pathLogoImage + Logo;
+                        }
+                        else
+                        {
+                            // direccion de la carpeta donde se va poner las imagenes
+                            pathLogoImage = new Uri($"C:/Archivos PUDVE/MisDatos/Usuarios/").AbsoluteUri;
+                            // ruta donde estan guardados los archivos digitales
+                            ruta_archivos_guadados = $@"C:\Archivos PUDVE\MisDatos\CSD_{Logo}\";
+
+                            DireccionLogo = pathLogoImage + Logo;
+
+                        }
+                    }
+                }
+            }
+            //imagen
+
+
 
             ReportParameterCollection reportParameters = new ReportParameterCollection();
+            reportParameters.Add(new ReportParameter("Logo", DireccionLogo));
             reportParameters.Add(new ReportParameter("Serie", serie));
             reportParameters.Add(new ReportParameter("Folio", Folio));
             reportParameters.Add(new ReportParameter("usuario_Nombre", usuario_Nombre));
@@ -262,9 +331,11 @@ namespace PuntoDeVentaV2
             this.reportViewer1.LocalReport.DataSources.Clear();
 
             ReportDataSource ReporteVentas = new ReportDataSource("DataTable1", DataTable1);
+            ReportDataSource inpuestos = new ReportDataSource("impuestos", impuestos);
 
             this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
             this.reportViewer1.LocalReport.DataSources.Add(ReporteVentas);
+            this.reportViewer1.LocalReport.DataSources.Add(inpuestos);
             this.reportViewer1.LocalReport.EnableExternalImages = true;
             this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.RefreshReport();
