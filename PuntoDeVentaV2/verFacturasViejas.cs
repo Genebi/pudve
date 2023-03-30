@@ -48,6 +48,7 @@ namespace PuntoDeVentaV2
         string cadenaDigital = string.Empty;
         string selloDigitalSAT = string.Empty;
         string selloDigitalEmisor = string.Empty;
+        string Usremail = string.Empty;
 
         string periodicidad = string.Empty;
         string meses = string.Empty;
@@ -122,6 +123,7 @@ namespace PuntoDeVentaV2
 	        r_localidad AS cliente_Locacion,
 	        r_telefono,
             r_regimen,
+            e_correo,
             exportacion,
             r_periodicidad_infog,
             r_meses_infog,
@@ -141,9 +143,13 @@ namespace PuntoDeVentaV2
             r_municipio,
             r_localidad,
             r_cp,
+            e_calle,
+            e_num_ext,
+            e_estado,
+            e_municipio,
             e_cp,
             e_telefono,
-            r_colonia,
+            e_colonia,r_colonia,
 	        sello_sat AS selloDigitalSAT
             FROM
 	        facturas
@@ -158,8 +164,8 @@ namespace PuntoDeVentaV2
                  Folio = datos.Rows[0]["Folio"].ToString();
                 usuario_Nombre = datos.Rows[0]["usuario_Nombre"].ToString();
                 usuario_RFC = datos.Rows[0]["usuario_RFC"].ToString();
-
-                usuario_cp = datos.Rows[0]["e_cp"].ToString();
+                Usremail = datos.Rows[0]["e_correo"].ToString();
+                usuario_cp = $"{datos.Rows[0]["e_calle"].ToString()},{datos.Rows[0]["e_num_ext"].ToString()}, Col.{datos.Rows[0]["e_colonia"].ToString()},Cp.{datos.Rows[0]["e_cp"].ToString()},{datos.Rows[0]["e_municipio"].ToString()},{datos.Rows[0]["e_estado"].ToString()}";
                 usuario_fono = datos.Rows[0]["e_telefono"].ToString();
 
                 usuario_Regimen = datos.Rows[0]["usuario_Regimen"].ToString();
@@ -187,11 +193,13 @@ namespace PuntoDeVentaV2
 
                 if (esNueva)
                 {
-                    cliente_Locacion = "CP: "+datos.Rows[0]["r_cp"].ToString();
-                    periodicidad = "Periodicidad: "+datos.Rows[0]["r_periodicidad_infog"].ToString();
-                    meses = "Meses: "+datos.Rows[0]["r_meses_infog"].ToString();
-                    año = "Año: "+datos.Rows[0]["r_anio_infog"].ToString();
-                    version = "4.0";
+                    if (!string.IsNullOrEmpty(datos.Rows[0]["r_periodicidad_infog"].ToString()))
+                    {
+                        periodicidad = "Periodicidad: " + datos.Rows[0]["r_periodicidad_infog"].ToString();
+                        meses = "Meses: " + datos.Rows[0]["r_meses_infog"].ToString();
+                        año = "Año: " + datos.Rows[0]["r_anio_infog"].ToString();
+                        version = "4.0";
+                    }
                 }
             }
 
@@ -236,6 +244,8 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("Año", año));
             reportParameters.Add(new ReportParameter("Version", version));
             reportParameters.Add(new ReportParameter("tasa", tasa));
+
+            reportParameters.Add(new ReportParameter("usuario_Email", "Email: "+Usremail));
 
             string qr = QR();
             reportParameters.Add(new ReportParameter("qr", qr));
