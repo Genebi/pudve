@@ -101,7 +101,6 @@ namespace PuntoDeVentaV2
                             DTProveedores.Rows[contador2]["Proveedor"] = DTIDSproducto.Rows[contador]["Proveedor"].ToString();
                             DTProveedores.Rows[contador2]["Total"] = total.ToString("0.00");
                         }
-
                         contador++;
                     }
                 }
@@ -256,8 +255,6 @@ namespace PuntoDeVentaV2
 
                                 }
                             }
-
-
                             rows++;
                         }
                         else

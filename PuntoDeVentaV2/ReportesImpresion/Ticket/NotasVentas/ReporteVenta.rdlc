@@ -1501,7 +1501,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
             <Top>14.69826cm</Top>
-            <Left>16.43495cm</Left>
+            <Left>16.40746cm</Left>
             <Height>0.60326cm</Height>
             <Width>3.95129cm</Width>
             <ZIndex>22</ZIndex>
@@ -1978,9 +1978,8 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Impuesto de traslado</Value>
+                    <Value>Otros impuestos traslados</Value>
                     <Style>
-                      <FontFamily>Arial Black</FontFamily>
                       <FontSize>7pt</FontSize>
                     </Style>
                   </TextRun>
@@ -1991,10 +1990,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>13.5035cm</Top>
+            <Top>13.49941cm</Top>
             <Left>14.6246cm</Left>
             <Height>0.59738cm</Height>
-            <Width>3.68749cm</Width>
+            <Width>3.69213cm</Width>
             <ZIndex>35</ZIndex>
             <Visibility>
               <Hidden>=iif(First(Parameters!ImpuestosTraslados.Value, "DTNotaVenta").ToString = "", True, False)</Hidden>
@@ -2018,7 +2017,6 @@
                   <TextRun>
                     <Value>Impuesto de retencion</Value>
                     <Style>
-                      <FontFamily>Arial Black</FontFamily>
                       <FontSize>7pt</FontSize>
                     </Style>
                   </TextRun>
@@ -2066,13 +2064,13 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>14.10088cm</Top>
-            <Left>18.29309cm</Left>
+            <Top>13.49941cm</Top>
+            <Left>18.29776cm</Left>
             <Height>0.59738cm</Height>
             <Width>2.09315cm</Width>
             <ZIndex>37</ZIndex>
             <Visibility>
-              <Hidden>=iif(First(Parameters!ImpuestosRetenidos.Value, "DTNotaVenta").ToString = "", True, False)</Hidden>
+              <Hidden>=iif(First(Parameters!ImpuestosTraslados.Value, "DTNotaVenta").ToString = "", True, False)</Hidden>
             </Visibility>
             <Style>
               <Border>
@@ -2118,13 +2116,13 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>13.5035cm</Top>
-            <Left>18.31209cm</Left>
+            <Top>14.10088cm</Top>
+            <Left>18.31673cm</Left>
             <Height>0.59738cm</Height>
-            <Width>2.08599cm</Width>
+            <Width>2.07418cm</Width>
             <ZIndex>39</ZIndex>
             <Visibility>
-              <Hidden>=iif(First(Parameters!ImpuestosTraslados.Value, "DTNotaVenta").ToString = "", True, False)</Hidden>
+              <Hidden>=iif(First(Parameters!ImpuestosRetenidos.Value, "DTNotaVenta").ToString = "", True, False)</Hidden>
             </Visibility>
             <Style>
               <Border>
