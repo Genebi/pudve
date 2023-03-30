@@ -48,7 +48,7 @@ namespace PuntoDeVentaV2
 
         private void AbonosPerdonarIntereses_Load(object sender, EventArgs e)
         {
-
+             
         }
     }
 }
