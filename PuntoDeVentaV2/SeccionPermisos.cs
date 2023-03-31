@@ -108,10 +108,7 @@ namespace PuntoDeVentaV2
                 var datos = permisos.Split(',');
                 GenerarCheckbox(10, 35, 150, "Marcar todos", 0);
                 GenerarCheckbox(30, 35, 250, "Agregar/Editar Predeterminada",Convert.ToInt32(datos[0]));
-
             }
-
-
         }
 
         private void GenerarProductos()

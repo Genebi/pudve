@@ -2434,3 +2434,7 @@ CREATE INDEX IF NOT EXISTS idx_fecha ON historialstock(Fecha);
 CREATE INDEX IF NOT EXISTS idx_compuesto1 ON historialstock(IDProducto, Fecha);
 CREATE INDEX IF NOT EXISTS idx_compuesto2 ON historialstock(IDProducto, TipoDeMovimiento(30), Fecha);
 CREATE INDEX IF NOT EXISTS idx_compuesto3 ON historialstock(TipoDeMovimiento(30), Fecha);
+
+
+ALTER TABLE permisosconfiguracion  ADD COLUMN IF NOT EXISTS PermisoDeshabilitarProdStockPositivo INT DEFAULT 1;
+ALTER TABLE Configuracion  ADD COLUMN IF NOT EXISTS DeshabilitarProdStockPositivo INT DEFAULT 1;
