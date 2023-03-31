@@ -11,7 +11,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         Moneda oMoneda = new Moneda();
-        bool esNueva=false;
+        bool esNueva = false;
         bool descarga = false;
         string path = "";
         int factura;
@@ -54,10 +54,10 @@ namespace PuntoDeVentaV2
         string meses = string.Empty;
         string año = string.Empty;
         string version = "3.3";
-        public verFacturasViejas(int facturaC, string certificadoSAT, bool esNueva = false, bool descarga = false, string path="")
+        public verFacturasViejas(int facturaC, string certificadoSAT, bool esNueva = false, bool descarga = false, string path = "")
         {
             InitializeComponent();
-            factura =facturaC;
+            factura = facturaC;
             this.esNueva = esNueva;
             this.descarga = descarga;
             this.path = path;
@@ -70,7 +70,7 @@ namespace PuntoDeVentaV2
             this.reportViewer1.RefreshReport();
         }
 
-       
+
         private void CargarRDLC()
         {
 
@@ -89,49 +89,44 @@ namespace PuntoDeVentaV2
 
 
             DataTable DataTable1 = cn.CargarDatos($"select cantidad AS Cantidad, clave_producto AS ClavePS, clave_unidad AS ClaveU, descripcion as Descripcion, precio_u AS PU, cantidad*(precio_u-importe_iva) AS Importe from facturas_productos WHERE id_factura = {factura}");
-            using (DataTable totales = cn.CargarDatos($"select tasa_cuota, sum(cantidad*(precio_u-importe_iva)) as monosas, SUM(cantidad*(precio_u-importe_iva)*16/100) as sincho, sum(cantidad*(precio_u-importe_iva)) + SUM(cantidad*(precio_u-importe_iva)*16/100) AS kowka from facturas_productos WHERE id_factura = {factura}"))
+            using (DataTable totales = cn.CargarDatos($"select tasa_cuota, sum(cantidad*(precio_u-importe_iva)) as monosas from facturas_productos WHERE id_factura = {factura}"))
             {
                 subtotal = totales.Rows[0]["monosas"].ToString();
-                tasa16 = totales.Rows[0]["sincho"].ToString();
-                total = totales.Rows[0]["kowka"].ToString();
-                tasa = totales.Rows[0]["tasa_cuota"].ToString();
-
-                decimal subtotalValue, tasa16Value, totalValue;
-
-                if (decimal.TryParse(subtotal, out subtotalValue))
-                {
-                    subtotal = String.Format("{0:0.00}", subtotalValue);
-                }
-
-                if (decimal.TryParse(tasa16, out tasa16Value))
-                {
-                    tasa16 = String.Format("{0:0.00}", tasa16Value);
-                }
-
-                if (decimal.TryParse(total, out totalValue))
-                {
-                    total = String.Format("{0:0.00}", totalValue);
-                }
-
-                totalAlfa  = oMoneda.Convertir(total, true, "PESOS");
-
-                impuestos.Rows.Add("", "SubTotal", subtotal);
-                impuestos.Rows.Add("Traslado IVA", "Tasa: "+tasa, tasa16);
-
-                using (DataTable todosImpuestos = cn.CargarDatos($@"SELECT impuesto, facturas_impuestos.tasa_cuota, SUM(importe) as total_importe
-                FROM facturas_impuestos
-                INNER JOIN facturas_productos ON facturas_impuestos.id_factura_producto = facturas_productos.id
-                WHERE facturas_productos.id_factura = {factura}
-                GROUP BY impuesto, tasa_cuota"))
-                {
-                    foreach (DataRow data in todosImpuestos.Rows)
-                    {
-                        impuestos.Rows.Add(data["Impuesto"].ToString(), "Tasa: "+ data["tasa_cuota"].ToString(), data["total_importe"].ToString());
-                    }
-                }
-                impuestos.Rows.Add(totalAlfa, "Total", total);
-
             }
+            using (DataTable totalTT = cn.CargarDatos($"select total from facturas where id = {factura}"))
+            {
+                total = totalTT.Rows[0]["total"].ToString();
+            }
+
+            decimal subtotalValue, tasa16Value, totalValue;
+
+            if (decimal.TryParse(subtotal, out subtotalValue))
+            {
+                subtotal = String.Format("{0:0.00}", subtotalValue);
+            }
+
+            totalAlfa = oMoneda.Convertir(total, true, "PESOS");
+
+            impuestos.Rows.Add("", "SubTotal", subtotal);
+
+            using (DataTable aaaaa = cn.CargarDatos($"SELECT tasa_cuota,SUM(importe_iva) as importe FROM facturas_productos WHERE id_factura = {factura} GROUP BY tasa_cuota"))
+            {
+                foreach (DataRow data in aaaaa.Rows)
+                {
+                    impuestos.Rows.Add("Traslado IVA", "Tasa "+data["tasa_cuota"], String.Format("{0:0.00}", decimal.Parse(data["importe"].ToString())));
+                }
+            }
+
+            using (DataTable todosImpuestos = cn.CargarDatos($@"SELECT CONCAT(tipo,' ',impuesto) as impuesto, IF(facturas_impuestos.tasa_cuota = 'Definir %',CONCAT(facturas_impuestos.definir, '%'), facturas_impuestos.tasa_cuota) AS tasa_cuota, SUM( importe ) AS total_importe FROM facturas_impuestos INNER JOIN facturas_productos ON facturas_impuestos.id_factura_producto = facturas_productos.id WHERE facturas_productos.id_factura = {factura} GROUP BY impuesto,tasa_cuota"))
+            {
+                foreach (DataRow data in todosImpuestos.Rows)
+                {
+                    impuestos.Rows.Add(data["Impuesto"].ToString(), "Tasa: " + data["tasa_cuota"].ToString(), data["total_importe"].ToString());
+                }
+            }
+            impuestos.Rows.Add(totalAlfa, "Total", total);
+
+
 
             string segs = $@"SELECT
 	        ventas.Folio,
@@ -186,7 +181,7 @@ namespace PuntoDeVentaV2
             using (DataTable datos = cn.CargarDatos(segs))
             {
                 serie = datos.Rows[0]["serie"].ToString();
-                 Folio = datos.Rows[0]["Folio"].ToString();
+                Folio = datos.Rows[0]["Folio"].ToString();
                 usuario_Nombre = datos.Rows[0]["usuario_Nombre"].ToString();
                 usuario_RFC = datos.Rows[0]["usuario_RFC"].ToString();
                 Usremail = datos.Rows[0]["e_correo"].ToString();
@@ -197,8 +192,8 @@ namespace PuntoDeVentaV2
                 fechaEmision = datos.Rows[0]["fechaEmision"].ToString();
                 fechaCertificacion = datos.Rows[0]["fechaCertificacion"].ToString();
                 //tipoComprobante = datos.Rows[0]["tipoComprobante"].ToString();
-                cliente_Nombre = datos.Rows[0]["cliente_Nombre"].ToString(); 
-                 cliente_RFC = datos.Rows[0]["cliente_RFC"].ToString();
+                cliente_Nombre = datos.Rows[0]["cliente_Nombre"].ToString();
+                cliente_RFC = datos.Rows[0]["cliente_RFC"].ToString();
                 cliente_CFDI = datos.Rows[0]["cliente_CFDI"].ToString();
                 cliente_Locacion = $"{datos.Rows[0]["r_calle"].ToString()},{datos.Rows[0]["r_num_ext"].ToString()}, Col.{datos.Rows[0]["r_colonia"].ToString()},Cp.{datos.Rows[0]["r_cp"].ToString()},{datos.Rows[0]["r_localidad"].ToString()},{datos.Rows[0]["r_municipio"].ToString()},{datos.Rows[0]["r_estado"].ToString()},{datos.Rows[0]["r_pais"].ToString()}";
                 cliente_FolioFiscal = datos.Rows[0]["cliente_FolioFiscal"].ToString();
@@ -207,10 +202,10 @@ namespace PuntoDeVentaV2
                 cliente_FormaPago = datos.Rows[0]["cliente_FormaPago"].ToString();
                 cliente_Moneda = datos.Rows[0]["cliente_Moneda"].ToString();
                 cliente_TipoCambio = datos.Rows[0]["cliente_TipoCambio"].ToString();
-                
+
                 certificadoEmisor = datos.Rows[0]["certificadoEmisor"].ToString();
                 RFCPAC = datos.Rows[0]["RFCPAC"].ToString();
-                
+
                 selloDigitalSAT = datos.Rows[0]["selloDigitalSAT"].ToString();
                 selloDigitalEmisor = datos.Rows[0]["selloDigitalEmisor"].ToString();
 
@@ -218,12 +213,12 @@ namespace PuntoDeVentaV2
 
                 if (esNueva)
                 {
+                    version = "4.0";
                     if (!string.IsNullOrEmpty(datos.Rows[0]["r_periodicidad_infog"].ToString()))
                     {
                         periodicidad = "Periodicidad: " + datos.Rows[0]["r_periodicidad_infog"].ToString();
                         meses = "Meses: " + datos.Rows[0]["r_meses_infog"].ToString();
                         año = "Año: " + datos.Rows[0]["r_anio_infog"].ToString();
-                        version = "4.0";
                     }
                 }
             }
@@ -231,7 +226,7 @@ namespace PuntoDeVentaV2
             //imagen
             string pathLogoImage;
             string ruta_archivos_guadados;
-            string DireccionLogo=string.Empty;
+            string DireccionLogo = string.Empty;
             var servidor = Properties.Settings.Default.Hosting;
             string saveDirectoryImg = @"C:\Archivos PUDVE\MisDatos\Usuarios\";
 
@@ -314,7 +309,7 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("Version", version));
             reportParameters.Add(new ReportParameter("tasa", tasa));
 
-            reportParameters.Add(new ReportParameter("usuario_Email", "Email: "+Usremail));
+            reportParameters.Add(new ReportParameter("usuario_Email", "Email: " + Usremail));
 
             string qr = QR();
             reportParameters.Add(new ReportParameter("qr", qr));
@@ -354,7 +349,7 @@ namespace PuntoDeVentaV2
                 }
                 this.Close();
             }
-            
+
 
         }
 
