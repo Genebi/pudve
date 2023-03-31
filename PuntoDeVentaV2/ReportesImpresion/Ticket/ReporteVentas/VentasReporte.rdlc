@@ -2042,7 +2042,7 @@
             <DataSetName>DTProveedores</DataSetName>
             <Top>19.57327cm</Top>
             <Left>1.06019cm</Left>
-            <Height>7.75167cm</Height>
+            <Height>10.60715cm</Height>
             <Width>19.15374cm</Width>
             <ZIndex>8</ZIndex>
             <Visibility>
@@ -2459,7 +2459,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>27.42875cm</Height>
+        <Height>30.18042cm</Height>
         <Style />
       </Body>
       <Width>21cm</Width>
