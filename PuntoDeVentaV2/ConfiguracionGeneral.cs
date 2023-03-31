@@ -615,6 +615,18 @@ namespace PuntoDeVentaV2
                             cbkMostrarIVA.Checked = false;
                         }
                         #endregion
+                        if (item["DeshabilitarProdStockPositivo"].Equals(1))
+                        {
+                            cbkStockPositivo.Checked = true;
+                        }
+                        else
+                        {
+                            cbkStockPositivo.Checked = false;
+                        }
+                        #region
+
+                        #endregion
+
                         checkRentas.Checked = (bool)item["RealizaRentas"];
                         checkOrdenes.Checked = (bool)item["RealizaOrdenes"];
                     }
@@ -1767,6 +1779,76 @@ namespace PuntoDeVentaV2
             var consulta = $"UPDATE Configuracion SET RealizaOrdenes = {realizaOrdenes} WHERE IDUsuario = {FormPrincipal.userID}";
 
             confiGeneral.Add(consulta);
+        }
+
+        private void cbkStockPositivo_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("PermisoDeshabilitarProdStockPositivo", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    var habilitado = 0;
+
+                    valorCambioCheckBox = cbkStockPositivo.Checked;
+
+                    if (valorCambioCheckBox.Equals(true))
+                    {
+                        habilitado = 1;
+                    }
+                    else
+                    {
+                        habilitado = 0;
+                    }
+
+                    var consulta = $"UPDATE Configuracion SET DeshabilitarProdStockPositivo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    confiGeneral.Add(consulta);
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            var habilitado = 0;
+
+                            valorCambioCheckBox = cbkStockPositivo.Checked;
+
+                            if (valorCambioCheckBox.Equals(true))
+                            {
+                                habilitado = 1;
+                            }
+                            else
+                            {
+                                habilitado = 0;
+                            }
+
+                            var consulta = $"UPDATE Configuracion SET DeshabilitarProdStockPositivo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            confiGeneral.Add(consulta);
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (cbkStockPositivo.Checked == true)
+                            {
+                                cbkStockPositivo.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                cbkStockPositivo.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
         }
     }
 }

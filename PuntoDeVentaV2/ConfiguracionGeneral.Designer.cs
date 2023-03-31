@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfiguracionGeneral));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.checkOrdenes = new System.Windows.Forms.CheckBox();
+            this.cbkStockPositivo = new System.Windows.Forms.CheckBox();
             this.checkRentas = new System.Windows.Forms.CheckBox();
             this.numDiasCad = new System.Windows.Forms.NumericUpDown();
             this.cbkMostrarIVA = new System.Windows.Forms.CheckBox();
@@ -49,6 +49,7 @@
             this.cbMostrarCB = new System.Windows.Forms.CheckBox();
             this.cbMostrarPrecio = new System.Windows.Forms.CheckBox();
             this.cbStockNegativo = new System.Windows.Forms.CheckBox();
+            this.checkOrdenes = new System.Windows.Forms.CheckBox();
             this.chkMensajeVenderProducto = new System.Windows.Forms.CheckBox();
             this.chkMensajeRealizarInventario = new System.Windows.Forms.CheckBox();
             this.btnAceptar = new System.Windows.Forms.Button();
@@ -66,7 +67,7 @@
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
-            this.groupBox2.Controls.Add(this.checkOrdenes);
+            this.groupBox2.Controls.Add(this.cbkStockPositivo);
             this.groupBox2.Controls.Add(this.checkRentas);
             this.groupBox2.Controls.Add(this.numDiasCad);
             this.groupBox2.Controls.Add(this.cbkMostrarIVA);
@@ -93,18 +94,17 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CONFIGURACION GENERAL";
             // 
-            // checkOrdenes
+            // cbkStockPositivo
             // 
-            this.checkOrdenes.AutoSize = true;
-            this.checkOrdenes.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkOrdenes.Location = new System.Drawing.Point(308, 225);
-            this.checkOrdenes.Name = "checkOrdenes";
-            this.checkOrdenes.Size = new System.Drawing.Size(211, 21);
-            this.checkOrdenes.TabIndex = 137;
-            this.checkOrdenes.Text = "Este negocio realiza órdenes";
-            this.checkOrdenes.UseVisualStyleBackColor = true;
-            this.checkOrdenes.Visible = false;
-            this.checkOrdenes.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkOrdenes_MouseClick);
+            this.cbkStockPositivo.AutoSize = true;
+            this.cbkStockPositivo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbkStockPositivo.Location = new System.Drawing.Point(307, 225);
+            this.cbkStockPositivo.Name = "cbkStockPositivo";
+            this.cbkStockPositivo.Size = new System.Drawing.Size(295, 21);
+            this.cbkStockPositivo.TabIndex = 137;
+            this.cbkStockPositivo.Text = "Deshabilitar productos con stock positivo";
+            this.cbkStockPositivo.UseVisualStyleBackColor = true;
+            this.cbkStockPositivo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbkStockPositivo_MouseClick);
             // 
             // checkRentas
             // 
@@ -161,7 +161,7 @@
             this.linkLabel2.AutoSize = true;
             this.linkLabel2.Location = new System.Drawing.Point(540, 138);
             this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(86, 16);
+            this.linkLabel2.Size = new System.Drawing.Size(87, 16);
             this.linkLabel2.TabIndex = 134;
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Text = "página web";
@@ -332,6 +332,19 @@
             this.cbStockNegativo.CheckedChanged += new System.EventHandler(this.cbStockNegativo_CheckedChanged);
             this.cbStockNegativo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbStockNegativo_MouseClick);
             // 
+            // checkOrdenes
+            // 
+            this.checkOrdenes.AutoSize = true;
+            this.checkOrdenes.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkOrdenes.Location = new System.Drawing.Point(425, 312);
+            this.checkOrdenes.Name = "checkOrdenes";
+            this.checkOrdenes.Size = new System.Drawing.Size(211, 21);
+            this.checkOrdenes.TabIndex = 137;
+            this.checkOrdenes.Text = "Este negocio realiza órdenes";
+            this.checkOrdenes.UseVisualStyleBackColor = true;
+            this.checkOrdenes.Visible = false;
+            this.checkOrdenes.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkOrdenes_MouseClick);
+            // 
             // chkMensajeVenderProducto
             // 
             this.chkMensajeVenderProducto.AutoSize = true;
@@ -475,6 +488,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(663, 347);
+            this.Controls.Add(this.checkOrdenes);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.checkMayoreo);
             this.Controls.Add(this.label1);
@@ -538,5 +552,6 @@
         private System.Windows.Forms.CheckBox chbVentaFacil;
         private System.Windows.Forms.CheckBox checkOrdenes;
         private System.Windows.Forms.CheckBox checkRentas;
+        private System.Windows.Forms.CheckBox cbkStockPositivo;
     }
 }
