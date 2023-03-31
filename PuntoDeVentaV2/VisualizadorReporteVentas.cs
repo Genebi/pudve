@@ -60,7 +60,7 @@ namespace PuntoDeVentaV2
                 IDs += item + ",";
             }
             IDs = IDs.TrimEnd(',');
-            using (var DTIDSproducto = cn.CargarDatos($"SELECT PV.IDProducto, SUM(PV.Cantidad) * PV.Precio AS 'PrecioTotal', DP.Proveedor FROM productosventa AS PV INNER JOIN detallesproducto AS DP ON ( PV.IDProducto = DP.IDProducto ) INNER JOIN ventas AS VEN ON (PV.IDVenta = VEN.ID) WHERE VEN.IDUsuario = 10 AND PV.IDProducto IN ( {IDs}) AND PV.IDVenta IN({codigosBuscar}) GROUP BY IDProducto ORDER BY IDProveedor"))
+            using (var DTIDSproducto = cn.CargarDatos($"SELECT PV.IDProducto, SUM(PV.Cantidad) * PV.Precio AS 'PrecioTotal', DP.Proveedor FROM productosventa AS PV INNER JOIN detallesproducto AS DP ON ( PV.IDProducto = DP.IDProducto ) INNER JOIN ventas AS VEN ON (PV.IDVenta = VEN.ID) WHERE VEN.IDUsuario = 10 AND PV.IDProducto IN ( {IDs}) AND PV.IDVenta IN({codigosBuscar}) GROUP BY IDProducto ORDER BY Proveedor"))
             {
                 if (!DTIDSproducto.Rows.Count.Equals(0))
                 {
