@@ -216,241 +216,6 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Textbox Name="Textbox5">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>FACTURA ELECTRÓNICA</Value>
-                    <Style>
-                      <FontSize>8pt</FontSize>
-                      <FontWeight>Bold</FontWeight>
-                      <Color>White</Color>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style>
-                  <TextAlign>Center</TextAlign>
-                </Style>
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox5</rd:DefaultName>
-            <Top>0.50807cm</Top>
-            <Left>16.79787cm</Left>
-            <Height>0.6cm</Height>
-            <Width>4.33878cm</Width>
-            <ZIndex>4</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <BackgroundColor>Red</BackgroundColor>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox6">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Fecha emisíon</Value>
-                    <Style>
-                      <FontWeight>Bold</FontWeight>
-                      <Color>White</Color>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style>
-                  <TextAlign>Left</TextAlign>
-                </Style>
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox5</rd:DefaultName>
-            <Top>1.03752cm</Top>
-            <Left>16.79787cm</Left>
-            <Height>0.6cm</Height>
-            <Width>4.33878cm</Width>
-            <ZIndex>5</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <BackgroundColor>DarkBlue</BackgroundColor>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="fechaEmision">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=Parameters!fechaEmision.Value</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>fechaEmision</rd:DefaultName>
-            <Top>1.6728cm</Top>
-            <Left>16.79787cm</Left>
-            <Height>0.6cm</Height>
-            <Width>4.33878cm</Width>
-            <ZIndex>6</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox7">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Fecha certificación</Value>
-                    <Style>
-                      <FontWeight>Bold</FontWeight>
-                      <Color>White</Color>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style>
-                  <TextAlign>Left</TextAlign>
-                </Style>
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox5</rd:DefaultName>
-            <Top>2.2728cm</Top>
-            <Left>16.79787cm</Left>
-            <Height>0.6cm</Height>
-            <Width>4.33878cm</Width>
-            <ZIndex>7</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <BackgroundColor>DarkBlue</BackgroundColor>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="fechaCertificacion">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=Parameters!fechaCertificacion.Value</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>fechaCertificacion</rd:DefaultName>
-            <Top>2.8728cm</Top>
-            <Left>16.79787cm</Left>
-            <Height>0.6cm</Height>
-            <Width>4.33878cm</Width>
-            <ZIndex>8</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox8">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Tipo comprobante</Value>
-                    <Style>
-                      <FontWeight>Bold</FontWeight>
-                      <Color>White</Color>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style>
-                  <TextAlign>Left</TextAlign>
-                </Style>
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox5</rd:DefaultName>
-            <Top>3.4728cm</Top>
-            <Left>16.79787cm</Left>
-            <Height>0.6cm</Height>
-            <Width>4.33878cm</Width>
-            <ZIndex>9</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <BackgroundColor>DarkBlue</BackgroundColor>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="tipoComprobante">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=Parameters!tipoComprobante.Value</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>tipoComprobante</rd:DefaultName>
-            <Top>4.0728cm</Top>
-            <Left>16.79787cm</Left>
-            <Height>0.6cm</Height>
-            <Width>4.32561cm</Width>
-            <ZIndex>10</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
           <Textbox Name="cliente_Nombre">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
@@ -470,7 +235,7 @@
             <Left>0.38079cm</Left>
             <Height>0.6cm</Height>
             <Width>10.25229cm</Width>
-            <ZIndex>11</ZIndex>
+            <ZIndex>4</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -500,7 +265,7 @@
             <Left>10.91121cm</Left>
             <Height>0.6cm</Height>
             <Width>10.22544cm</Width>
-            <ZIndex>12</ZIndex>
+            <ZIndex>5</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -530,7 +295,7 @@
             <Left>0.38079cm</Left>
             <Height>0.6cm</Height>
             <Width>10.25229cm</Width>
-            <ZIndex>13</ZIndex>
+            <ZIndex>6</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -560,7 +325,7 @@
             <Left>0.38079cm</Left>
             <Height>0.6cm</Height>
             <Width>10.25229cm</Width>
-            <ZIndex>14</ZIndex>
+            <ZIndex>7</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -590,7 +355,7 @@
             <Left>0.38079cm</Left>
             <Height>0.6cm</Height>
             <Width>10.25229cm</Width>
-            <ZIndex>15</ZIndex>
+            <ZIndex>8</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -620,7 +385,7 @@
             <Left>0.38079cm</Left>
             <Height>0.6cm</Height>
             <Width>10.25229cm</Width>
-            <ZIndex>16</ZIndex>
+            <ZIndex>9</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -650,7 +415,7 @@
             <Left>10.91121cm</Left>
             <Height>0.6cm</Height>
             <Width>5.88666cm</Width>
-            <ZIndex>17</ZIndex>
+            <ZIndex>10</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -680,7 +445,7 @@
             <Left>16.83788cm</Left>
             <Height>0.6cm</Height>
             <Width>4.29877cm</Width>
-            <ZIndex>18</ZIndex>
+            <ZIndex>11</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -710,7 +475,7 @@
             <Left>10.91121cm</Left>
             <Height>0.6cm</Height>
             <Width>10.22544cm</Width>
-            <ZIndex>19</ZIndex>
+            <ZIndex>12</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -740,7 +505,7 @@
             <Left>10.91121cm</Left>
             <Height>0.6cm</Height>
             <Width>10.22544cm</Width>
-            <ZIndex>20</ZIndex>
+            <ZIndex>13</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -770,7 +535,7 @@
             <Left>10.91121cm</Left>
             <Height>0.6cm</Height>
             <Width>5.88666cm</Width>
-            <ZIndex>21</ZIndex>
+            <ZIndex>14</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -800,7 +565,7 @@
             <Left>16.79787cm</Left>
             <Height>0.6cm</Height>
             <Width>4.33878cm</Width>
-            <ZIndex>22</ZIndex>
+            <ZIndex>15</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -824,13 +589,13 @@
                   <Width>2.12344cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>9.47434cm</Width>
+                  <Width>8.83073cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.00922cm</Width>
+                  <Width>2.35318cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.21958cm</Width>
+                  <Width>2.53241cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1254,8 +1019,8 @@
             <Top>8.83098cm</Top>
             <Left>0.34078cm</Left>
             <Height>1.67625cm</Height>
-            <Width>20.7827cm</Width>
-            <ZIndex>23</ZIndex>
+            <Width>20.79588cm</Width>
+            <ZIndex>16</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1272,6 +1037,7 @@
                     <Value>="Este Documento es una Representación Impresa de un CFDI "+Parameters!Version.Value</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
+                      <FontSize>9pt</FontSize>
                       <FontWeight>Normal</FontWeight>
                       <TextDecoration>None</TextDecoration>
                       <Color>#000000</Color>
@@ -1284,9 +1050,9 @@
             <rd:DefaultName>Textbox47</rd:DefaultName>
             <Top>12.24601cm</Top>
             <Left>4.33597cm</Left>
-            <Height>0.6cm</Height>
+            <Height>0.46771cm</Height>
             <Width>16.7875cm</Width>
-            <ZIndex>24</ZIndex>
+            <ZIndex>17</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1306,6 +1072,7 @@
                   <TextRun>
                     <Value>Certificado emisor:</Value>
                     <Style>
+                      <FontSize>9pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -1314,11 +1081,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox48</rd:DefaultName>
-            <Top>13.0224cm</Top>
+            <Top>12.749cm</Top>
             <Left>4.33597cm</Left>
-            <Height>0.6cm</Height>
+            <Height>0.45889cm</Height>
             <Width>5.54271cm</Width>
-            <ZIndex>25</ZIndex>
+            <ZIndex>18</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1338,6 +1105,7 @@
                   <TextRun>
                     <Value>Certificado SAT:</Value>
                     <Style>
+                      <FontSize>9pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -1346,11 +1114,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox48</rd:DefaultName>
-            <Top>13.0224cm</Top>
+            <Top>12.749cm</Top>
             <Left>9.98451cm</Left>
-            <Height>0.6cm</Height>
+            <Height>0.45889cm</Height>
             <Width>5.54271cm</Width>
-            <ZIndex>26</ZIndex>
+            <ZIndex>19</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1370,6 +1138,7 @@
                   <TextRun>
                     <Value>RFC del PAC:</Value>
                     <Style>
+                      <FontSize>9pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -1378,11 +1147,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox48</rd:DefaultName>
-            <Top>13.0224cm</Top>
+            <Top>12.749cm</Top>
             <Left>15.63306cm</Left>
-            <Height>0.6cm</Height>
-            <Width>5.49041cm</Width>
-            <ZIndex>27</ZIndex>
+            <Height>0.45889cm</Height>
+            <Width>5.54271cm</Width>
+            <ZIndex>20</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1401,18 +1170,20 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!certificadoEmisor.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>certificadoEmisor</rd:DefaultName>
-            <Top>13.6224cm</Top>
+            <Top>13.20789cm</Top>
             <Left>4.33597cm</Left>
-            <Height>0.6cm</Height>
+            <Height>0.45889cm</Height>
             <Width>5.54271cm</Width>
-            <ZIndex>28</ZIndex>
+            <ZIndex>21</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1431,18 +1202,20 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!certificadoSAT.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>certificadoSAT</rd:DefaultName>
-            <Top>13.6224cm</Top>
+            <Top>13.20789cm</Top>
             <Left>9.98451cm</Left>
-            <Height>0.6cm</Height>
+            <Height>0.45889cm</Height>
             <Width>5.54271cm</Width>
-            <ZIndex>29</ZIndex>
+            <ZIndex>22</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1461,18 +1234,20 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!RFCPAC.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>RFCPAC</rd:DefaultName>
-            <Top>13.6224cm</Top>
+            <Top>13.20789cm</Top>
             <Left>15.63306cm</Left>
-            <Height>0.6cm</Height>
-            <Width>5.49041cm</Width>
-            <ZIndex>30</ZIndex>
+            <Height>0.45889cm</Height>
+            <Width>5.54271cm</Width>
+            <ZIndex>23</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1503,11 +1278,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox58</rd:DefaultName>
-            <Top>14.2224cm</Top>
+            <Top>13.66677cm</Top>
             <Left>4.33597cm</Left>
             <Height>0.6cm</Height>
             <Width>16.7875cm</Width>
-            <ZIndex>31</ZIndex>
+            <ZIndex>24</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1526,18 +1301,20 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!cadenaDigital.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>6pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>cadenaDigital</rd:DefaultName>
-            <Top>14.8224cm</Top>
+            <Top>14.26677cm</Top>
             <Left>4.33597cm</Left>
-            <Height>1.11153cm</Height>
+            <Height>1.63188cm</Height>
             <Width>16.7875cm</Width>
-            <ZIndex>32</ZIndex>
+            <ZIndex>25</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1572,7 +1349,7 @@
             <Left>0.34077cm</Left>
             <Height>0.6cm</Height>
             <Width>20.7827cm</Width>
-            <ZIndex>33</ZIndex>
+            <ZIndex>26</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1592,7 +1369,7 @@
                   <TextRun>
                     <Value>=Parameters!selloDigitalEmisor.Value</Value>
                     <Style>
-                      <FontSize>8pt</FontSize>
+                      <FontSize>6pt</FontSize>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -1604,7 +1381,7 @@
             <Left>0.34077cm</Left>
             <Height>1.15563cm</Height>
             <Width>20.7827cm</Width>
-            <ZIndex>34</ZIndex>
+            <ZIndex>27</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1639,7 +1416,7 @@
             <Left>0.34077cm</Left>
             <Height>0.6cm</Height>
             <Width>20.7827cm</Width>
-            <ZIndex>35</ZIndex>
+            <ZIndex>28</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1659,7 +1436,7 @@
                   <TextRun>
                     <Value>=Parameters!selloDigitalSAT.Value</Value>
                     <Style>
-                      <FontSize>8pt</FontSize>
+                      <FontSize>6pt</FontSize>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -1671,7 +1448,7 @@
             <Left>0.34077cm</Left>
             <Height>1.15563cm</Height>
             <Width>20.7827cm</Width>
-            <ZIndex>36</ZIndex>
+            <ZIndex>29</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1701,7 +1478,7 @@
             <Left>0.38079cm</Left>
             <Height>0.6cm</Height>
             <Width>7.03955cm</Width>
-            <ZIndex>37</ZIndex>
+            <ZIndex>30</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1731,7 +1508,7 @@
             <Left>7.42034cm</Left>
             <Height>0.6cm</Height>
             <Width>6.86781cm</Width>
-            <ZIndex>38</ZIndex>
+            <ZIndex>31</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1761,7 +1538,7 @@
             <Left>14.28815cm</Left>
             <Height>0.6cm</Height>
             <Width>6.84851cm</Width>
-            <ZIndex>39</ZIndex>
+            <ZIndex>32</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1781,7 +1558,7 @@
             <Left>0.38079cm</Left>
             <Height>3.68792cm</Height>
             <Width>3.77879cm</Width>
-            <ZIndex>40</ZIndex>
+            <ZIndex>33</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1811,7 +1588,7 @@
             <Left>5.47329cm</Left>
             <Height>0.43067cm</Height>
             <Width>10.77778cm</Width>
-            <ZIndex>41</ZIndex>
+            <ZIndex>34</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1845,7 +1622,7 @@
             <Left>5.47329cm</Left>
             <Height>0.43067cm</Height>
             <Width>10.77778cm</Width>
-            <ZIndex>42</ZIndex>
+            <ZIndex>35</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1879,7 +1656,7 @@
             <Left>5.47329cm</Left>
             <Height>0.43067cm</Height>
             <Width>10.77778cm</Width>
-            <ZIndex>43</ZIndex>
+            <ZIndex>36</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1894,13 +1671,13 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>16.55391cm</Width>
+                  <Width>15.9103cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.00922cm</Width>
+                  <Width>2.35318cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.23276cm</Width>
+                  <Width>2.51922cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -2012,7 +1789,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Column1.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -2044,7 +1823,10 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Column2.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -2074,10 +1856,14 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Column3.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Column3</rd:DefaultName>
@@ -2119,8 +1905,8 @@
             <Top>10.50723cm</Top>
             <Left>0.34077cm</Left>
             <Height>1.18208cm</Height>
-            <Width>20.79589cm</Width>
-            <ZIndex>44</ZIndex>
+            <Width>20.7827cm</Width>
+            <ZIndex>37</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2135,7 +1921,7 @@
             <Left>0.38079cm</Left>
             <Height>3.61419cm</Height>
             <Width>4.91611cm</Width>
-            <ZIndex>45</ZIndex>
+            <ZIndex>38</ZIndex>
             <Visibility>
               <Hidden>=Iif((Parameters!Logo.Value).ToString() = "", True, False)</Hidden>
             </Visibility>
@@ -2145,11 +1931,265 @@
               </Border>
             </Style>
           </Image>
+          <Rectangle Name="Rectangle1">
+            <ReportItems>
+              <Textbox Name="Textbox5">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>FACTURA ELECTRÓNICA</Value>
+                        <Style>
+                          <FontSize>8pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                          <Color>White</Color>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Center</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox5</rd:DefaultName>
+                <Top>0.04946cm</Top>
+                <Height>0.6cm</Height>
+                <Width>4.33878cm</Width>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <BackgroundColor>Red</BackgroundColor>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox6">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Fecha emisíon</Value>
+                        <Style>
+                          <FontWeight>Bold</FontWeight>
+                          <Color>White</Color>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox5</rd:DefaultName>
+                <Top>0.6892cm</Top>
+                <Height>0.6cm</Height>
+                <Width>4.33878cm</Width>
+                <ZIndex>1</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <BackgroundColor>DarkBlue</BackgroundColor>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="fechaEmision">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=Parameters!fechaEmision.Value</Value>
+                        <Style>
+                          <FontSize>8pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>fechaEmision</rd:DefaultName>
+                <Top>1.32895cm</Top>
+                <Height>0.46313cm</Height>
+                <Width>4.33878cm</Width>
+                <ZIndex>2</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox7">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Fecha certificación</Value>
+                        <Style>
+                          <FontWeight>Bold</FontWeight>
+                          <Color>White</Color>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox5</rd:DefaultName>
+                <Top>1.83182cm</Top>
+                <Height>0.6cm</Height>
+                <Width>4.33878cm</Width>
+                <ZIndex>3</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <BackgroundColor>DarkBlue</BackgroundColor>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="fechaCertificacion">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=Parameters!fechaCertificacion.Value</Value>
+                        <Style>
+                          <FontSize>8pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>fechaCertificacion</rd:DefaultName>
+                <Top>2.47157cm</Top>
+                <Height>0.46313cm</Height>
+                <Width>4.33878cm</Width>
+                <ZIndex>4</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox8">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Tipo comprobante</Value>
+                        <Style>
+                          <FontWeight>Bold</FontWeight>
+                          <Color>White</Color>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox5</rd:DefaultName>
+                <Top>2.97444cm</Top>
+                <Height>0.6cm</Height>
+                <Width>4.33878cm</Width>
+                <ZIndex>5</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <BackgroundColor>DarkBlue</BackgroundColor>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="tipoComprobante">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=Parameters!tipoComprobante.Value</Value>
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>tipoComprobante</rd:DefaultName>
+                <Top>3.61419cm</Top>
+                <Height>0.46313cm</Height>
+                <Width>4.33878cm</Width>
+                <ZIndex>6</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+            </ReportItems>
+            <KeepTogether>true</KeepTogether>
+            <Top>0.3175cm</Top>
+            <Left>16.78469cm</Left>
+            <Height>4.07732cm</Height>
+            <Width>4.33878cm</Width>
+            <ZIndex>39</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Rectangle>
         </ReportItems>
         <Height>27.91412cm</Height>
         <Style />
       </Body>
-      <Width>21.59954cm</Width>
+      <Width>21.57308cm</Width>
       <Page>
         <PageHeight>27.94cm</PageHeight>
         <PageWidth>21.59cm</PageWidth>
