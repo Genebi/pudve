@@ -1478,6 +1478,15 @@
       <DependentUpon>TicketAbrirCaja.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Content Include="PUDVE\BD\ClavesProducto40.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\BD\RegimenFiscal40.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\BD\UnidadesMedida40.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black16\circle-green.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

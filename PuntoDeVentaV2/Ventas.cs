@@ -5882,7 +5882,7 @@ namespace PuntoDeVentaV2
                         var tipoDescuento = Convert.ToInt32(info[4]);
                         var cantidadDescuento = 0f;
 
-                        if (tipoDescuento.Equals(0))
+                        if (!tipoDescuento.Equals(0))
                         {
                             if (info[3].Contains("-"))
                             {
