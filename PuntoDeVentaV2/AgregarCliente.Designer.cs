@@ -70,6 +70,7 @@
             this.cbTipoCliente = new System.Windows.Forms.ComboBox();
             this.lAgregarClienteNuevo = new System.Windows.Forms.Label();
             this.gbContenedor = new System.Windows.Forms.GroupBox();
+            this.label22 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.cmb_bx_regimen = new System.Windows.Forms.ComboBox();
             this.btnGoella = new PuntoDeVentaV2.BotonRedondo();
@@ -79,7 +80,6 @@
             this.label19 = new System.Windows.Forms.Label();
             this.btnReglasdecredito = new System.Windows.Forms.Button();
             this.lblVerificar = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
             this.gbContenedor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRegion)).BeginInit();
@@ -602,6 +602,16 @@
             this.gbContenedor.TabStop = false;
             this.gbContenedor.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.gbContenedor_PreviewKeyDown);
             // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(28, 469);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(60, 17);
+            this.label22.TabIndex = 112;
+            this.label22.Text = "Régimen";
+            // 
             // label20
             // 
             this.label20.AutoSize = true;
@@ -709,7 +719,7 @@
             this.btnReglasdecredito.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReglasdecredito.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReglasdecredito.ForeColor = System.Drawing.Color.White;
-            this.btnReglasdecredito.Location = new System.Drawing.Point(152, 526);
+            this.btnReglasdecredito.Location = new System.Drawing.Point(152, 533);
             this.btnReglasdecredito.Name = "btnReglasdecredito";
             this.btnReglasdecredito.Size = new System.Drawing.Size(144, 28);
             this.btnReglasdecredito.TabIndex = 18;
@@ -730,16 +740,6 @@
             this.lblVerificar.Text = "Verificar";
             this.lblVerificar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblVerificar.Click += new System.EventHandler(this.lblVerificar_Click);
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(28, 469);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(60, 17);
-            this.label22.TabIndex = 112;
-            this.label22.Text = "Régimen";
             // 
             // AgregarCliente
             // 
