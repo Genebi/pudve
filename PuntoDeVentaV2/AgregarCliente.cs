@@ -161,6 +161,7 @@ namespace PuntoDeVentaV2
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             valdarRFCExistente();
+            txtTelefono.Text = txtTelefono.Text.Replace(" ", "");
             if (!txtTelefono.Text.All(char.IsDigit) && !string.IsNullOrEmpty(txtTelefono.Text))
             {
                 MessageBox.Show("El número de teléfono no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -168,6 +169,8 @@ namespace PuntoDeVentaV2
                 txtTelefono.Focus();
                 return;
             }
+
+
             bool r_uso_regimen = validar_usocfdi_regimen();
 
             if (validarRFC == true || cbCliente.Checked)
@@ -177,8 +180,12 @@ namespace PuntoDeVentaV2
                      var razon = txtRazonSocial.Text;
                      var comercial = txtNombreComercial.Text;
                      var rfc = txtRFC.Text;
-                     var usoCFDI = cbUsoCFDI.SelectedValue;
-                     var pais = txtPais.Text;
+                    string usoCFDI = "";
+                    if (cbUsoCFDI.SelectedValue != null)
+                    {
+                        usoCFDI = cbUsoCFDI.SelectedValue.ToString();
+                    }
+                    var pais = txtPais.Text;
                      var estado = txtEstado.Text;
                      var municipio = txtMunicipio.Text;
                      var localidad = txtLocalidad.Text;
@@ -253,11 +260,9 @@ namespace PuntoDeVentaV2
                             return;
                         }
                     }*/
-
-
                 string[] datos = new string[]
                 {
-                    FormPrincipal.userID.ToString(), razon, comercial, rfc, usoCFDI.ToString(), pais, estado, municipio, localidad,
+                    FormPrincipal.userID.ToString(), razon, comercial, rfc, usoCFDI, pais, estado, municipio, localidad,
                     cp, colonia, calle, noExt, noInt, regimen.ToString(), email, telefono, formaPago, fechaOperacion, idCliente.ToString(),
                     tipoCliente, numeroCliente, verificado
                 };
@@ -809,7 +814,12 @@ namespace PuntoDeVentaV2
 
         private Boolean validar_usocfdi_regimen()
         {
+            if (string.IsNullOrEmpty(txtRFC.Text))
+            {
+                return true;
+            }
             bool r = true;
+
             string clave_regimen = cmb_bx_regimen.SelectedValue.ToString();
             string clave_uso_cfdi = cbUsoCFDI.SelectedValue.ToString();
 
