@@ -637,6 +637,7 @@ namespace PuntoDeVentaV2
                                 INNER JOIN Productos p ON subdetallesdeproducto.IDProducto = p.ID
                             WHERE
                                 subdetallesdeproducto.IDUsuario = '{FormPrincipal.userID}'
+                                AND detallesubdetalle.Estado = '1'
                                 AND subdetallesdeproducto.Activo = 1
                                 AND p.ID = '{idProducto}';
                         "))
@@ -1293,6 +1294,7 @@ namespace PuntoDeVentaV2
                             WHERE
                                 subdetallesdeproducto.IDUsuario = '{FormPrincipal.userID}'
                                 AND subdetallesdeproducto.Activo = 1
+                                AND detallesubdetalle.Estado = '1'
                                 AND p.ID = '{idProducto}';
                         "))
             {
