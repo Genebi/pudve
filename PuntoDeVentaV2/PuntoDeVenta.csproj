@@ -800,6 +800,7 @@
     <Compile Include="creditoVerificacion.Designer.cs">
       <DependentUpon>creditoVerificacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataGridViewCalendarCell.cs" />
     <Compile Include="DatosEncabezadoReportes.cs" />
     <Compile Include="datosExtraNvoProductos.cs">
       <SubType>Form</SubType>
