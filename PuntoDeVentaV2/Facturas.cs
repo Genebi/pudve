@@ -424,7 +424,11 @@ namespace PuntoDeVentaV2
                         ruta_archivo = @"C:\Archivos PUDVE\Facturas\" + nombre_xml + ".xml";
                     }
 
-                   
+                    if (ReadXmlFile(ruta_archivo)== "null")
+                    {
+                        MessageBox.Show("No se encontro el archivo XML en su equipo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
 
                     if (ReadXmlFile(ruta_archivo)=="3.3")
                     {
@@ -643,9 +647,17 @@ namespace PuntoDeVentaV2
                 // Create a new XmlDocument object.
                 XmlDocument xmlDocument = new XmlDocument();
 
-                // Load the XML file from the specified file path.
-                xmlDocument.Load(filePath);
 
+                try
+                {
+                    // Load the XML file from the specified file path.
+                    xmlDocument.Load(filePath);
+                }
+                catch (Exception)
+                {
+                    
+                    return "null";
+                }
                 // Get the root element of the XML document.
                 XmlElement rootElement = xmlDocument.DocumentElement;
 
@@ -658,7 +670,16 @@ namespace PuntoDeVentaV2
 
                 // Load the XML file
                 XmlDocument doc = new XmlDocument();
-                doc.Load(filePath);
+                try
+                {
+                    // Load the XML file from the specified file path.
+                    doc.Load(filePath);
+                }
+                catch (Exception)
+                {
+
+                    return "null";
+                }
 
                 // Get the root element
                 XmlElement root = doc.DocumentElement;
@@ -1305,6 +1326,13 @@ namespace PuntoDeVentaV2
             {
                 if (!File.Exists(ruta_archivos + ".pdf"))
                 {
+
+                    if (ReadXmlFile(ruta_archivos + ".xml") == "null")
+                    {
+                        MessageBox.Show("No se encontro el archivo XML en su equipo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+
                     //generar_PDF("XML_" + nombrexml, idf);
                     if (ReadXmlFile(ruta_archivos+".xml") == "3.3")
                     {

@@ -39,6 +39,7 @@ namespace PuntoDeVentaV2
         string cliente_Moneda = string.Empty;
         string cliente_TipoCambio = string.Empty;
         string subtotal = string.Empty;
+        string descuento = string.Empty;
         string tasa16 = string.Empty;
         string tasa = string.Empty;
         string total = string.Empty;
@@ -98,17 +99,31 @@ namespace PuntoDeVentaV2
                 total = totalTT.Rows[0]["total"].ToString();
             }
 
-            decimal subtotalValue, tasa16Value, totalValue;
+            using (DataTable totales = cn.CargarDatos($"select sum(descuento) as monosas from facturas_productos WHERE id_factura = {factura}"))
+            {
+                descuento = totales.Rows[0]["monosas"].ToString();
+            }
+
+            decimal subtotalValue, descuentoValue;
 
             if (decimal.TryParse(subtotal, out subtotalValue))
             {
                 subtotal = String.Format("{0:0.00}", subtotalValue);
             }
 
-            totalAlfa = oMoneda.Convertir(total, true, "PESOS");
-
             impuestos.Rows.Add("", "SubTotal", subtotal);
 
+            if (decimal.TryParse(descuento, out descuentoValue))
+            {
+                descuento = String.Format("{0:0.00}", descuentoValue);
+                if (descuentoValue>0)
+                {
+                    impuestos.Rows.Add("", "Descuento", descuento);
+                }
+            }
+
+            totalAlfa = oMoneda.Convertir(total, true, "PESOS");
+            
             using (DataTable aaaaa = cn.CargarDatos($"SELECT tasa_cuota,SUM(importe_iva) as importe FROM facturas_productos WHERE id_factura = {factura} GROUP BY tasa_cuota"))
             {
                 foreach (DataRow data in aaaaa.Rows)
