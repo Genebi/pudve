@@ -4660,7 +4660,7 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo2_Click(object sender, EventArgs e)
         {
-            tituloSeccion.Text = "Actualizar Inventario";
+            tituloSeccion.Text = "Actualizar Inventario(COMPRAS)";
             desdeRegresarProdcuto = 0;
             if (opcion2 == 0)
             {

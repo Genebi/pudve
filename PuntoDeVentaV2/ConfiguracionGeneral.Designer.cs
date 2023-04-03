@@ -138,9 +138,9 @@
             this.cbkMostrarIVA.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbkMostrarIVA.Location = new System.Drawing.Point(20, 84);
             this.cbkMostrarIVA.Name = "cbkMostrarIVA";
-            this.cbkMostrarIVA.Size = new System.Drawing.Size(154, 21);
+            this.cbkMostrarIVA.Size = new System.Drawing.Size(197, 21);
             this.cbkMostrarIVA.TabIndex = 135;
-            this.cbkMostrarIVA.Text = "Mostra IVA en ventas";
+            this.cbkMostrarIVA.Text = "Mostrar impuestos en ventas";
             this.cbkMostrarIVA.UseVisualStyleBackColor = true;
             this.cbkMostrarIVA.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbkMostrarIVA_MouseClick);
             // 
