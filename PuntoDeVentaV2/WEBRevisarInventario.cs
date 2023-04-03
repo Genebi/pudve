@@ -2305,9 +2305,14 @@ namespace PuntoDeVentaV2
                     {
                         if (dtReportesInventario.Rows.Count.Equals(0))
                         {
-                            var idEmp = buscarEmpleado(FormPrincipal.userNickName);
-                            var usr = cs.validarEmpleado(FormPrincipal.userNickName);
-                            cn.EjecutarConsulta($"INSERT INTO RevisarInventarioReportes (ID, NameUsr, IDAlmacen, Nombre, ClaveInterna, CodigoBarras, StockAlmacen, StockFisico, NoRevision, Fecha, Vendido, Diferencia, IDUsuario, Tipo, StatusRevision, StatusInventariado, PrecioProducto, IDComputadora, IDEmpleado, NumFolio, TipoRevision) VALUES ('{id}', '{idEmpleado.Split('@')[1]}', '{idAlmacen}','{nombre}','{claveInterna}','{codigoBarras}','{stockAlmacen}','{stockFisico}','{noRevision}','{date.ToString("yyyy-MM-dd hh:mm:ss")}','{vendido}','{diferencia}','{idUsuario}','{tipo}','{statusRevision}','{statusInventariado}','{precioProducto}','{idComputadora}', '{idEmp}', '{ultimoFolio}', '{tipoFiltro}')");
+                            
+                            string idEmp = buscarEmpleado(FormPrincipal.userNickName).ToString();
+
+                            if (idEmp.Contains('@'))
+                            {
+                                idEmpleado = idEmp.Split('@')[1];
+                            }
+                            cn.EjecutarConsulta($"INSERT INTO RevisarInventarioReportes (ID, NameUsr, IDAlmacen, Nombre, ClaveInterna, CodigoBarras, StockAlmacen, StockFisico, NoRevision, Fecha, Vendido, Diferencia, IDUsuario, Tipo, StatusRevision, StatusInventariado, PrecioProducto, IDComputadora, IDEmpleado, NumFolio, TipoRevision) VALUES ('{id}', '{idEmpleado}', '{idAlmacen}','{nombre}','{claveInterna}','{codigoBarras}','{stockAlmacen}','{stockFisico}','{noRevision}','{date.ToString("yyyy-MM-dd hh:mm:ss")}','{vendido}','{diferencia}','{idUsuario}','{tipo}','{statusRevision}','{statusInventariado}','{precioProducto}','{idComputadora}', '{idEmp}', '{ultimoFolio}', '{tipoFiltro}')");
                         }
                     }
                 }
