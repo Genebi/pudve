@@ -4031,7 +4031,13 @@ namespace PuntoDeVentaV2
             // Hora inicial y final
             dpHoraInicial.Text = Hora.ToString("HH:mm");
             dpHoraFinal.Text = "23:59";
+            
 
+        }
+
+        public void ActualizarFechaFinal()
+        {
+            dpFechaFinal.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
 
         //Se agrego para que no se abra la ventana nueva venta al cambiar el tamaño del form

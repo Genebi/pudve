@@ -46,7 +46,7 @@ namespace PuntoDeVentaV2
         int primer = 0;
         bool dioClickEnCredito = false;
 
-        
+
 
         public DetalleVenta(float total, string idCliente = "")
         {
@@ -434,7 +434,7 @@ namespace PuntoDeVentaV2
                     Ventas.statusVenta = "4";
                     Ventas.formaDePagoDeVenta = "Crédito";
                     credito = (float)Convert.ToDecimal(txtCredito.Text);
-                    if (pagado > credito && pagado == total )
+                    if (pagado > credito && pagado == total)
                     {
                         Ventas.SeHizoAbonoInicial = true;
                     }
@@ -588,22 +588,22 @@ namespace PuntoDeVentaV2
                 //idCliente = 0 ;
                 //nameClienteNameVenta = string.Empty;
                 Ventas.VentaRealizada = true;
-                        if (credito>0 && creditoMaster)
+                if (credito > 0 && creditoMaster)
                 {
                     using (DataTable dtBuscarConfiguracion = cn.CargarDatos($"SELECT * FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
                     {
                         using (DataTable dtIdVenta = cn.CargarDatos($"SELECT MAX(ID) FROM Ventas"))
                         {
-                            
+
                             string consulta = "INSERT INTO reglasCreditoVenta(IDVenta,IDHuella, FechaInteres, creditoHuella, creditoMoratorio, creditoPorcentajemoratorio, creditoAplicarpordefecto, creditoPorcentajeinteres, creditoAplicarpagoinicial, creditoPagoinicial, creditomodolimiteventas, creditolimiteventas, creditomodototalcredito, creditototalcredito, creditoperiodocobro, creditomodocobro, creditodiassincobro, creditoCantidadAbonos, creditoMinimoAbono, creditoPerdon, FechaApertura, FechaCierre, creditoMovil)";
-                            consulta += $"VALUES('{Int32.Parse(dtIdVenta.Rows[0]["MAX(ID)"].ToString())+1}', ";
+                            consulta += $"VALUES('{Int32.Parse(dtIdVenta.Rows[0]["MAX(ID)"].ToString()) + 1}', ";
                             if (!string.IsNullOrEmpty(idHuella))
                             {
                                 consulta += $"'{idHuella}', ";
                             }
                             else
                             {
-                                        consulta += $"null, ";
+                                consulta += $"null, ";
                             }
 
                             //consulta += $"'{proximoPago.ToString("yyyy-MM-dd")}', ";
@@ -611,8 +611,8 @@ namespace PuntoDeVentaV2
                             //proximoPago = DateTime.Now;
 
 
-                            
-                               
+
+
                             switch (dtBuscarConfiguracion.Rows[0]["creditoperiodocobro"].ToString())
                             {
                                 case "Semanal":
@@ -636,26 +636,26 @@ namespace PuntoDeVentaV2
                                     }
                                     //proximoPago = proximoPago.AddDays(15);
                                     //consulta += $"%{proximoPago.ToString("yyyy-MM-dd")}',";
-                                            break;
+                                    break;
                                 case "Mensual":
                                     proximoPago = dtpLaMeraFecha.Value.AddMonths(1);
                                     consulta += $"'{proximoPago.ToString("yyyy-MM-dd")}";
                                     switch (proximoPago.Day)
-                                        {               
-                                            case 31:
-                                                for (int i = 1; i < Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()); i++)
-                                                {
-                                                    //Tomaremos siempre el ultimo dia del mes
-                                                    proximoPago = proximoPago.AddMonths(1);
+                                    {
+                                        case 31:
+                                            for (int i = 1; i < Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()); i++)
+                                            {
+                                                //Tomaremos siempre el ultimo dia del mes
+                                                proximoPago = proximoPago.AddMonths(1);
                                                 double test = DateTime.DaysInMonth(proximoPago.Year, proximoPago.Month) - proximoPago.Day;
-                                                    proximoPago= proximoPago.AddDays(test);
-                                                    consulta += $"%{proximoPago.ToString("yyyy-MM-dd")}";
-                                                }
-                                                break;
-                                            case 30:
-                                                //Tomaremos siempre 30, caso especial por febrero https://i.imgur.com/11aJVQe.png
-                                                for (       int i = 1; i < Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()); i++)
-                                                {
+                                                proximoPago = proximoPago.AddDays(test);
+                                                consulta += $"%{proximoPago.ToString("yyyy-MM-dd")}";
+                                            }
+                                            break;
+                                        case 30:
+                                            //Tomaremos siempre 30, caso especial por febrero https://i.imgur.com/11aJVQe.png
+                                            for (int i = 1; i < Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()); i++)
+                                            {
 
                                                 switch (proximoPago.Day)
                                                 {
@@ -668,36 +668,36 @@ namespace PuntoDeVentaV2
                                                         proximoPago = proximoPago.AddDays(1);
                                                         break;
                                                     default:
-                                                                proximoPago = proximoPago.AddMonths(1);
-                                                                break;
+                                                        proximoPago = proximoPago.AddMonths(1);
+                                                        break;
                                                 }
                                                 consulta += $"%{proximoPago.ToString("yyyy-MM-dd")}";
-                                                }
-                                                break;
-                                            case 29:
-                                                for (int i = 1; i < Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()); i++)
-                                                        {
-                                                    //Tomaremos siempre 29, caso especial por febrero https://i.imgur.com/11aJVQe.png
+                                            }
+                                            break;
+                                        case 29:
+                                            for (int i = 1; i < Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()); i++)
+                                            {
+                                                //Tomaremos siempre 29, caso especial por febrero https://i.imgur.com/11aJVQe.png
 
-                                                    if (proximoPago.Day == 28)
-                                                    {
-                                                        proximoPago = proximoPago.AddMonths(1);
-                                                        proximoPago = proximoPago.AddDays(1);
+                                                if (proximoPago.Day == 28)
+                                                {
+                                                    proximoPago = proximoPago.AddMonths(1);
+                                                    proximoPago = proximoPago.AddDays(1);
                                                 }
                                                 else
                                                 {
-                                                    proximoPago = proximoPago.AddMonths(1);     
+                                                    proximoPago = proximoPago.AddMonths(1);
                                                 }
-                                                
-                                                    consulta += $"%{proximoPago.ToString("yyyy-MM-dd")}";
-                                                }
-                                                break;
-                                            default:
+
+                                                consulta += $"%{proximoPago.ToString("yyyy-MM-dd")}";
+                                            }
+                                            break;
+                                        default:
                                             for (int i = 1; i < Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()); i++)
                                             {
                                                 proximoPago = proximoPago.AddMonths(1);
                                                 consulta += $"%{proximoPago.ToString("yyyy-MM-dd")}";
-                                                    }
+                                            }
                                             break;
                                     }
                                     //proximoPago = proximoPago.AddMonths(1);
@@ -713,7 +713,7 @@ namespace PuntoDeVentaV2
                                 consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoMoratorio"].ToString()}', ";
                                 consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoPorcentajemoratorio"].ToString()}', ";
                                 consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoAplicarpordefecto"].ToString()}', ";
-                                if (dtBuscarConfiguracion.Rows[0]["creditoAplicarpordefecto"].ToString().Equals("0") && dtReglasCliente.Rows.Count>0)
+                                if (dtBuscarConfiguracion.Rows[0]["creditoAplicarpordefecto"].ToString().Equals("0") && dtReglasCliente.Rows.Count > 0)
                                 {
                                     consulta += $"'{dtReglasCliente.Rows[0]["interes"].ToString()}', ";
                                 }
@@ -761,7 +761,7 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-                
+
                 this.Hide();
                 this.Close();
             }
@@ -846,12 +846,12 @@ namespace PuntoDeVentaV2
             {
                 if (!string.IsNullOrEmpty(checador.idCliente))
                 {
-                    if (checador.idCliente==idCliente.ToString())
+                    if (checador.idCliente == idCliente.ToString())
                     {
                         idHuella = checador.idregistro;
                         coincidencia = true;
                     }
-                    
+
                 }
             };
             checador.ShowDialog();
@@ -1792,8 +1792,8 @@ namespace PuntoDeVentaV2
                     //lblfechacredito.Visible = false;
                     //if (creditoMaster)
                     //{
-                        lblFechaApertura.Visible = false;
-                        dtpLaMeraFecha.Visible = false;
+                    lblFechaApertura.Visible = false;
+                    dtpLaMeraFecha.Visible = false;
                     //}
                 }
                 else
