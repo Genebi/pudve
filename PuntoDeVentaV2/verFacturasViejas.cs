@@ -99,7 +99,7 @@ namespace PuntoDeVentaV2
                 total = totalTT.Rows[0]["total"].ToString();
             }
 
-            using (DataTable totales = cn.CargarDatos($"select sum(descuento) as monosas from facturas_productos WHERE id_factura = {factura}"))
+            using (DataTable totales = cn.CargarDatos($"select sum(((precio_u*cantidad)/100)*descuento) as monosas from facturas_productos WHERE id_factura = {factura}"))
             {
                 descuento = totales.Rows[0]["monosas"].ToString();
             }
