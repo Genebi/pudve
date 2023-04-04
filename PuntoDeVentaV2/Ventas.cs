@@ -3674,6 +3674,15 @@ namespace PuntoDeVentaV2
 
                                 ventaFinalizada = true;
                                 DatosVenta();
+                                ListadoVentas lstVentas = Application.OpenForms.OfType<ListadoVentas>().FirstOrDefault();
+
+                                if (lstVentas != null)
+                                {
+                                    lstVentas.cbTipoVentas.Text = "Ventas pagadas";
+                                    lstVentas.ActualizarFechaFinal();
+                                    lstVentas.CargarDatos();
+                                }
+
                                 botonAceptar = false;
                                 idCliente = string.Empty;
                                 DetalleVenta.idCliente = 0;

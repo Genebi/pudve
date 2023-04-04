@@ -64,7 +64,10 @@ namespace PuntoDeVentaV2
             {
                 cadenaConn = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
             }
-
+            if (tipoVenta == 0)
+            {
+                tipoVenta = 1;
+            }
             string queryVenta = cs.imprimirTicketRealizada(idVentaRealizada, tipoVenta);
 
             MySqlConnection conn = new MySqlConnection();
