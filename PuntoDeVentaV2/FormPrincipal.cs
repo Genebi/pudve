@@ -701,8 +701,8 @@ namespace PuntoDeVentaV2
             //Revision caducidad
             if (caducidad == 1) // apocosi bien pinche monosas
             {
-                caducosThread = new Thread(() => buscarCaducos());
-                caducosThread.Start();
+                //caducosThread = new Thread(() => buscarCaducos());
+                //caducosThread.Start();
             }
         }
 
