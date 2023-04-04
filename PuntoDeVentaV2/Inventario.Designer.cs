@@ -233,7 +233,7 @@
             this.btnMensajeVenta.Name = "btnMensajeVenta";
             this.btnMensajeVenta.Size = new System.Drawing.Size(209, 47);
             this.btnMensajeVenta.TabIndex = 106;
-            this.btnMensajeVenta.Text = "Regresar Producto";
+            this.btnMensajeVenta.Text = "Devolver Producto";
             this.btnMensajeVenta.TextColor = System.Drawing.Color.White;
             this.btnMensajeVenta.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnMensajeVenta.UseVisualStyleBackColor = false;

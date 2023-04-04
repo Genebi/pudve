@@ -4488,7 +4488,7 @@ namespace PuntoDeVentaV2
         {
             rbAumentarProducto.Checked = true;
             cargarDatos2();
-            tituloSeccion.Text = "Regresar Inventario";
+            tituloSeccion.Text = "Devolver Inventario";
         }
 
         public void cargarDatos2()
