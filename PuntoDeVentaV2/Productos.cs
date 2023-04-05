@@ -153,6 +153,8 @@ namespace PuntoDeVentaV2
 
         string savePath;
 
+        string imagestring;
+
         string queryFotos, queryGral;
 
         string ID_ProdSerPaq;
@@ -1318,27 +1320,27 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    // Imagen del Producto
-                    numfila = e.RowIndex;
-                    obtenerDatosDGVProductos(numfila);
+                    //// Imagen del Producto
+                    //numfila = e.RowIndex;
+                    //obtenerDatosDGVProductos(numfila);
 
-                    string pathString;
+                    ////string pathString;
 
-                    pathString = savePath;
+                    ////pathString = savePath;
 
-                    if (pathString != "")
-                    {
-                        mostrarFoto();
-                    }
-                    else if (pathString == "")
-                    {
-                        agregarFoto();
-                    }
+                    //if (imagestring != "")
+                    //{
+                    //    mostrarFoto();
+                    //}
+                    //else if (imagestring == "")
+                    //{
+                    //    agregarFoto();
+                    //}
 
-                    actualizarDatosDespuesDeAgregarProducto();
+                    //actualizarDatosDespuesDeAgregarProducto();
 
-                    pathString = string.Empty;
-                    savePath = string.Empty;
+                    //pathString = string.Empty;
+                    //savePath = string.Empty;
                 }
                 else if (e.ColumnIndex == 12)
                 {
@@ -1869,6 +1871,8 @@ namespace PuntoDeVentaV2
                 rfc_cnt_3ro = datosProducto[20];
                 cp_cnt_3ro = datosProducto[21];
                 regimen_cnt_3ro = datosProducto[22];
+
+                imagestring = datosProducto[23];
             }
         }
 

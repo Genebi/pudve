@@ -5740,9 +5740,9 @@ namespace PuntoDeVentaV2
                             else
                             {
                                 cn.insertImage(cs.guardarImgProducto(idEditarProducto.ToString()), imageData);
-                                if (cn.readImage(idEditarProducto) != null)
+                                if (cn.readImage(($"SELECT ImgNew from productos WHERE id = {idEditarProducto}")) != null)
                                 {
-                                    pictureBoxProducto.Image = cn.readImage(idEditarProducto);
+                                    pictureBoxProducto.Image = cn.readImage(($"SELECT ImgNew from productos WHERE id = {idEditarProducto}"));
                                 }
                             }
                             
@@ -10097,9 +10097,9 @@ namespace PuntoDeVentaV2
                         checkRenta.Checked = Convert.ToBoolean(detallesProductoTmp[18]);
                     }
 
-                    if (cn.readImage(idEditarProducto) != null)
+                    if (cn.readImage(($"SELECT ImgNew from productos WHERE id = {idEditarProducto}")) != null)
                     {
-                        pictureBoxProducto.Image = cn.readImage(idEditarProducto);
+                        pictureBoxProducto.Image = cn.readImage(($"SELECT ImgNew from productos WHERE id = {idEditarProducto}"));
                     }
                     //if (pictureBoxProducto.Image != null)
                     //{

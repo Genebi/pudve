@@ -199,13 +199,13 @@ namespace PuntoDeVentaV2
             return respuesta;
         }
 
-        public Image readImage(string idImg)
+        public Image readImage(string query)
         {
             Image image=null;
             if (sql_con.State == ConnectionState.Closed)
                 sql_con.Open();
             sql_cmd = sql_con.CreateCommand();
-            sql_cmd.CommandText = ($"SELECT ImgNew from productos WHERE id = {idImg}");
+            sql_cmd.CommandText = query;
             sql_cmd.ExecuteNonQuery();
             MySqlDataReader dr = sql_cmd.ExecuteReader();
             dr.Read();
@@ -361,6 +361,7 @@ namespace PuntoDeVentaV2
                 lista.Add(dr["rfc_ctercero"].ToString());       // 20
                 lista.Add(dr["cp_ctercero"].ToString());        // 21
                 lista.Add(dr["regimen_ctercero"].ToString());   // 22
+                lista.Add(dr["ImgNew"].ToString());             // 23
             }
 
             dr.Close();

@@ -2346,7 +2346,7 @@ namespace PuntoDeVentaV2
         private void cargarImagen(string id)
         {
             PBImagen.Image = null;
-            PBImagen.Image = cn.readImage(id);
+            PBImagen.Image = cn.readImage(($"SELECT ImgNew from productos WHERE id = {id}"));
         }
 
         private void CargarDescuento(decimal cantidad)
