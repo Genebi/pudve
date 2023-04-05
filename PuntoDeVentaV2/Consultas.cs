@@ -5328,6 +5328,20 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string guardarImgProducto(string pid)
+        {
+            if (pid.Equals(""))
+            {
+                return @"UPDATE productos
+                        SET ImgNew = @ImageData
+                        WHERE ID = (SELECT MAX(ID) FROM productos);";
+            }
+            else
+            {
+                return $"UPDATE productos SET ImgNew = @ImageData WHERE ID = {pid};"; 
+            }
+        }
+
         public string buscarHuellas()
         {
             var consulta = $"SELECT * FROM detalleschecadorempleados WHERE idUsuario = '{FormPrincipal.userID}'";

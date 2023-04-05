@@ -47,28 +47,28 @@ namespace PuntoDeVentaV2
 
         public void cargarDatos()
         {
-            var servidor = Properties.Settings.Default.Hosting;
-            
-            if (!string.IsNullOrWhiteSpace(servidor))
-            {
-                pathString = $@"\\{servidor}\pudve\Productos\";
-            }
-            else
-            {
-                pathString = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
-            }
-            
+            //var servidor = Properties.Settings.Default.Hosting;
+
+            //if (!string.IsNullOrWhiteSpace(servidor))
+            //{
+            //    pathString = $@"\\{servidor}\pudve\Productos\";
+            //}
+            //else
+            //{
+            //    pathString = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
+            //}
+
             DataTable dt;
 
-            NombreProdFinal = NombreProd;
-            if (StockProd.Equals("N/A"))
-            {
-                StockProdFinal = "0";
-            }
-            else
-            {
-                StockProdFinal = StockProd;
-            }
+            //NombreProdFinal = NombreProd;
+            //if (StockProd.Equals("N/A"))
+            //{
+            //    StockProdFinal = "0";
+            //}
+            //else
+            //{
+            //    StockProdFinal = StockProd;
+            //}
             PrecioProdFinal = PrecioProd;
             ClaveInternaFinal = ClaveInterna;
             CodigoBarrasFinal = CodigoBarras;
@@ -77,79 +77,79 @@ namespace PuntoDeVentaV2
             // que esta en la calse Consultas
             dt = cn.CargarDatos(buscar);
             idEditarProducto = dt.Rows[index]["ID"].ToString();
-            imgPath = dt.Rows[index]["ProdImage"].ToString();
+            //imgPath = dt.Rows[index]["ProdImage"].ToString();
             
 
-            if (System.IO.File.Exists(pathString + imgPath))
-            {
-                using (File = new FileStream(pathString + imgPath, FileMode.Open, FileAccess.Read))
-                {
-                    // cargamos la imagen en el PictureBox
-                    lblNombreProducto.Text = NombreProdFinal;
-                    pictureBoxProducto.Image = Image.FromStream(File);
-                }
-            }//En caso de que no exista la imagen por cualquier caso
-            else if (!System.IO.File.Exists(pathString + imgPath))
-            {
-                pictureBoxProducto.Image = null;
-                lblNombreProducto.Text = string.Empty;
-                btnImagen.Enabled = false;
-                MessageBox.Show("No se encontro la imagen para este producto\nfavor de agregarla desde editar","Aviso de sistema",MessageBoxButtons.OK, MessageBoxIcon.Information);
-                cn.EjecutarConsulta($"UPDATE productos SET ProdImage = '{string.Empty}' WHERE ID = {idEditarProducto}");
-                this.Close();
-            }
+            //if (System.IO.File.Exists(pathString + imgPath))
+            //{
+            //    using (File = new FileStream(pathString + imgPath, FileMode.Open, FileAccess.Read))
+            //    {
+            //        // cargamos la imagen en el PictureBox
+            //        lblNombreProducto.Text = NombreProdFinal;
+            //        pictureBoxProducto.Image = Image.FromStream(File);
+            //    }
+            //}//En caso de que no exista la imagen por cualquier caso
+            //else if (!System.IO.File.Exists(pathString + imgPath))
+            //{
+            //    pictureBoxProducto.Image = null;
+            //    lblNombreProducto.Text = string.Empty;
+            //    btnImagen.Enabled = false;
+            //    MessageBox.Show("No se encontro la imagen para este producto\nfavor de agregarla desde editar","Aviso de sistema",MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    cn.EjecutarConsulta($"UPDATE productos SET ProdImage = '{string.Empty}' WHERE ID = {idEditarProducto}");
+            //    this.Close();
+            //}
         }
 
-        private void btnImagen_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (!imgPath.Equals("") || !imgPath.Equals(null))
-                {
-                    btnImagen.Visible = true;
+        //private void btnImagen_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (!imgPath.Equals("") || !imgPath.Equals(null))
+        //        {
+        //            btnImagen.Visible = true;
 
-                    string path = string.Empty, 
-                           queryDeleteImageProd = string.Empty, 
-                           DeleteImage = string.Empty;
+        //            string path = string.Empty, 
+        //                   queryDeleteImageProd = string.Empty, 
+        //                   DeleteImage = string.Empty;
 
-                    // ponemos la direccion y nombre de la imagen
-                    path = pathString + imgPath;
+        //            // ponemos la direccion y nombre de la imagen
+        //            path = pathString + imgPath;
                     
-                    // Liberamos el pictureBox para poder borrar su imagen
-                    pictureBoxProducto.Image.Dispose();
+        //            // Liberamos el pictureBox para poder borrar su imagen
+        //            pictureBoxProducto.Image.Dispose();
                     
-                    // Establecemos a Nothing el valor de la propiedad Image
-                    // del control PictureBox
-                    pictureBoxProducto.Image = null;
+        //            // Establecemos a Nothing el valor de la propiedad Image
+        //            // del control PictureBox
+        //            pictureBoxProducto.Image = null;
                     
-                    // borramos el archivo de la imagen
-                    System.IO.File.Delete(path);
+        //            // borramos el archivo de la imagen
+        //            System.IO.File.Delete(path);
 
-                    //var idProducto = Convert.ToInt32(idEditarProducto);
-                    queryDeleteImageProd = $"UPDATE Productos SET ProdImage ='{DeleteImage}' WHERE ID = {idEditarProducto}";
-                    try
-                    {
-                        cn.EjecutarConsulta(queryDeleteImageProd);
-                        imgPath = string.Empty;
-                        this.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error al borrar el nombre de la imagen\nde la base de datos:\n" + ex.Message.ToString(), "información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
-                else if (imgPath.Equals("") || imgPath.Equals(null))
-                {
-                    btnImagen.Visible = false;
-                }
-            }
-            catch (Exception ex)
-            {
-                // si el nombre del archivo esta en blanco
-                // si no selecciona un archivo valido o ningun archivo muestra este mensaje
-                MessageBox.Show("selecciona una Imagen", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-        }
+        //            //var idProducto = Convert.ToInt32(idEditarProducto);
+        //            queryDeleteImageProd = $"UPDATE Productos SET ProdImage ='{DeleteImage}' WHERE ID = {idEditarProducto}";
+        //            try
+        //            {
+        //                cn.EjecutarConsulta(queryDeleteImageProd);
+        //                imgPath = string.Empty;
+        //                this.Close();
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                MessageBox.Show("Error al borrar el nombre de la imagen\nde la base de datos:\n" + ex.Message.ToString(), "información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //            }
+        //        }
+        //        else if (imgPath.Equals("") || imgPath.Equals(null))
+        //        {
+        //            btnImagen.Visible = false;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // si el nombre del archivo esta en blanco
+        //        // si no selecciona un archivo valido o ningun archivo muestra este mensaje
+        //        MessageBox.Show("selecciona una Imagen", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        //    }
+        //}
 
         private void photoShow_KeyDown(object sender, KeyEventArgs e)
         {

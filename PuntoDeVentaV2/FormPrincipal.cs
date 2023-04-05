@@ -499,10 +499,38 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void actualizarImagenes()
+        {
+            using (DataTable dt = cn.CargarDatos($"SELECT ID, ProdImage FROM productos WHERE ProdImage <> '' AND ImgNew IS NULL AND IDUsuario = {userID} ;"))
+            {
+                string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
+                foreach (DataRow dataRow in dt.Rows)
+                {
+                    if (System.IO.File.Exists(saveDirectoryImg + dataRow["ProdImage"].ToString()))
+                    {
+
+
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            using (Image image = Image.FromFile(saveDirectoryImg + dataRow["ProdImage"].ToString()))
+                            {
+                                image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                byte[] imageData = ms.ToArray();
+                                cn.insertImage(cs.guardarImgProducto(dataRow["ID"].ToString()), imageData);
+                            }
+                        }
+                    }               
+                }
+            }
+        }
+
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
             desdeCorteDeCaja = false;
             validacionDesdeCajaN = 0;
+
+            var servidor = Properties.Settings.Default.Hosting;
+
             
             //if (ApplicationDeployment.IsNetworkDeployed)
             //{
@@ -544,7 +572,6 @@ namespace PuntoDeVentaV2
             TempUserPass = TempPassUsr;
 
             ObtenerDatosUsuario(userID);
-            var servidor = Properties.Settings.Default.Hosting;
 
             if (string.IsNullOrWhiteSpace(servidor))
             {
@@ -703,6 +730,18 @@ namespace PuntoDeVentaV2
             {
                 //caducosThread = new Thread(() => buscarCaducos());
                 //caducosThread.Start();
+            }
+
+
+            if (!cn.CargarDatos($"SELECT ID, ProdImage FROM productos WHERE ProdImage <> '' AND ImgNew IS NULL AND IDUsuario = {userID};").Rows.Equals(0))
+            {
+                if (string.IsNullOrWhiteSpace(servidor))
+                {
+                    Task.Run(() =>
+                    {
+                        actualizarImagenes();
+                    });
+                }
             }
         }
 

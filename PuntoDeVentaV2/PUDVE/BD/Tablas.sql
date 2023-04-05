@@ -2438,3 +2438,7 @@ CREATE INDEX IF NOT EXISTS idx_compuesto3 ON historialstock(TipoDeMovimiento(30)
 
 ALTER TABLE permisosconfiguracion  ADD COLUMN IF NOT EXISTS PermisoDeshabilitarProdStockPositivo INT DEFAULT 1;
 ALTER TABLE Configuracion  ADD COLUMN IF NOT EXISTS DeshabilitarProdStockPositivo INT DEFAULT 1;
+
+ALTER TABLE Productos ADD COLUMN IF NOT EXISTS ImgNew LONGBLOB;
+
+ALTER TABLE detallegeneral ADD COLUMN IF NOT EXISTS ImgNew LONGBLOB;

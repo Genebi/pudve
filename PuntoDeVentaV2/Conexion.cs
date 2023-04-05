@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using System.IO;
 using System.Collections.Specialized;
 using MySql.Data.MySqlClient;
+using System.Drawing;
 
 namespace PuntoDeVentaV2
 {
@@ -198,6 +199,28 @@ namespace PuntoDeVentaV2
             return respuesta;
         }
 
+        public Image readImage(string query)
+        {
+            Image image=null;
+            if (sql_con.State == ConnectionState.Closed)
+                sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = query;
+            sql_cmd.ExecuteNonQuery();
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
+            dr.Read();
+            if (!DBNull.Value.Equals(dr["ImgNew"]))
+            {
+                byte[] image_bytes = (byte[])dr["ImgNew"];
+                MemoryStream ms = new MemoryStream(image_bytes);
+                image = Image.FromStream(ms);
+            }
+
+            dr.Close();
+            if (sql_con.State == ConnectionState.Open)
+                sql_con.Close();
+            return image;
+        }
         //public DataTable CargarDatos(string consulta)
         //{
         //    DataTable db = new DataTable();
@@ -338,6 +361,7 @@ namespace PuntoDeVentaV2
                 lista.Add(dr["rfc_ctercero"].ToString());       // 20
                 lista.Add(dr["cp_ctercero"].ToString());        // 21
                 lista.Add(dr["regimen_ctercero"].ToString());   // 22
+                lista.Add(dr["ImgNew"].ToString());             // 23
             }
 
             dr.Close();
@@ -1064,6 +1088,18 @@ namespace PuntoDeVentaV2
             sql_cmd.Parameters.Add("IDCliente", MySqlDbType.String).Value = FormPrincipal.userNickName.Split('@')[0];
             sql_cmd.Parameters.Add("Datos", MySqlDbType.LongText).Value = datos;
             sql_cmd.Parameters.Add("Fecha", MySqlDbType.DateTime).Value = fecha.ToString("yyyy-MM-dd HH:mm:ss");
+            sql_cmd.ExecuteNonQuery();
+            sql_con.Close();
+        }
+
+
+        public void insertImage(string consulta, byte[] imageData)
+        {
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = consulta;
+            sql_cmd.Parameters.Add("ImageData", MySqlDbType.VarBinary, 65000).Value = imageData;
             sql_cmd.ExecuteNonQuery();
             sql_con.Close();
         }

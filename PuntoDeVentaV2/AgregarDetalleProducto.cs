@@ -839,11 +839,21 @@ namespace PuntoDeVentaV2
                     // Iniciamos la Etiqueta Nombre
                     Label lblNombreDetalleGral = new Label();
                     lblNombreDetalleGral.Name = "lblNombre" + name;
-                    lblNombreDetalleGral.Width = 580;
+                    lblNombreDetalleGral.Width = 490;
                     lblNombreDetalleGral.Height = 20;
-                    lblNombreDetalleGral.Location = new Point(XcbProv - (lblNombreDetalleGral.Width / 2), 32);
+                    lblNombreDetalleGral.Location = new Point(3, 32);
                     lblNombreDetalleGral.TextAlign = ContentAlignment.MiddleCenter;
                     lblNombreDetalleGral.BackColor = Color.White;
+
+                    // Damos Caracteristicas al Label RFC Proveedor
+                    Button BTN_Img = new Button();
+                    BTN_Img.Name = "BT_" + name;
+                    BTN_Img.Width = 60;
+                    BTN_Img.Height = 25;
+                    BTN_Img.Location = new Point(515, 30);
+                    BTN_Img.TextAlign = ContentAlignment.MiddleCenter;
+                    BTN_Img.Text = "Imagen";
+                    BTN_Img.Click += new EventHandler(BTN_Img_Click);
 
                     // Llamamos al metodo Cargar Detalles Generales
                     // Para obtener una lista de ellos
@@ -877,6 +887,7 @@ namespace PuntoDeVentaV2
                     // Agregamos al Panel Principal de la Interfaz
                     panelContenido.Controls.Add(cbDetalleGral);
                     panelContenido.Controls.Add(lblNombreDetalleGral);
+                    panelContenido.Controls.Add(BTN_Img);
                     panelContenedor.Controls.Add(panelContenido);
                     fLPCentralDetalle.Controls.Add(panelContenedor);
 
@@ -1025,6 +1036,54 @@ namespace PuntoDeVentaV2
             //{
             //    saveConfigIntoDB();
             //}
+        }
+
+        private void BTN_Img_Click(object sender, EventArgs e)
+        {
+            Button clickedButton = sender as Button;
+            string prefix = "BT_";
+            int index = clickedButton.Name.IndexOf(prefix) + prefix.Length;
+            string value = clickedButton.Name.Substring(index);
+            string comboBoxName = "cb" + value;
+
+            Control parentContainer = clickedButton.Parent;
+
+            if (parentContainer.Controls.ContainsKey(comboBoxName))
+            {
+                ComboBox comboBox = parentContainer.Controls[comboBoxName] as ComboBox;
+                if (comboBox != null)
+                {
+                    if (!comboBox.SelectedValue.ToString().Equals("0"))
+                    {
+                        using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                        {
+                            openFileDialog.Filter = "Image Files (*.bmp;*.jpg;*.jpeg,*.png)|*.BMP;*.JPG;*.JPEG;*.PNG";
+                            if (openFileDialog.ShowDialog() == DialogResult.OK)
+                            {
+                                using (MemoryStream ms = new MemoryStream())
+                                {
+                                    using (Image image = Image.FromFile(openFileDialog.FileName))
+                                    {
+                                        image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                        byte[] imageData = ms.ToArray();
+                                        string query = $@"UPDATE detallegeneral
+                                                           SET ImgNew = @ImageData
+                                                           WHERE ChckName = (SELECT ChckName FROM detallegeneral WHERE ID = {comboBox.SelectedValue.ToString()})
+                                                           AND Descripcion = (SELECT Descripcion FROM detallegeneral WHERE ID = {comboBox.SelectedValue.ToString()});";
+                                        cn.insertImage(query, imageData);
+                                    }
+
+                                }
+                            }
+
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selecciona una especificación para asignarle una imagen.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
         }
 
         private void ComboBox_Quitar_MouseWheel(object sender, MouseEventArgs e)

@@ -8,6 +8,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -24,6 +25,7 @@ namespace PuntoDeVentaV2
         string filtro = string.Empty;
         public static bool AcepOCanc = false;
         public DataTable ayylmao = new DataTable();
+        List<CategoryCellData> cellDataList = new List<CategoryCellData>();
 
         public ConsultarProductosVentaFacil()
         {
@@ -49,39 +51,70 @@ namespace PuntoDeVentaV2
 
             CBTipo.SelectedIndex = 0;
             this.Focus();
-            using (DataTable lmao = cn.CargarDatos($"SELECT COUNT(ID) FROM detallegeneral WHERE IDUsuario = {FormPrincipal.userID} AND ChckName = 'Venta_fácil' AND Mostrar = 1"))
+            using (DataTable lmao = cn.CargarDatos($"SELECT COUNT(ID) FROM detallegeneral WHERE IDUsuario = {FormPrincipal.userID} AND ChckName = 'venta_facil_' AND Mostrar = 1"))
             {
                 decimal ayy;
                 ayy = decimal.Parse(lmao.Rows[0][0].ToString());
                 dgvOpciones.RowTemplate.Height = 100;
                 DataTable mosaicos = new DataTable();
                 mosaicos.Columns.Add("Cat1", typeof(string));
+                mosaicos.Columns.Add("Cat1Img", typeof(Image));
                 mosaicos.Columns.Add("Cat2", typeof(string));
+                mosaicos.Columns.Add("Cat2Img", typeof(Image));
                 mosaicos.Columns.Add("Cat3", typeof(string));
+                mosaicos.Columns.Add("Cat3Img", typeof(Image));
                 mosaicos.Columns.Add("Cat4", typeof(string));
+                mosaicos.Columns.Add("Cat4Img", typeof(Image));
                 if (!ayy.Equals(0))
                 {
-                    DataTable cols = cn.CargarDatos($"SELECT Descripcion from detallegeneral WHERE ChckName = 'Venta_fácil' AND IDUsuario={FormPrincipal.userID} AND Mostrar = 1");
+                    DataTable cols = cn.CargarDatos($"SELECT Descripcion,ID from detallegeneral WHERE ChckName = 'venta_facil_' AND IDUsuario={FormPrincipal.userID} AND Mostrar = 1");
 
                     int l = 0;
 
                     while (l < cols.Rows.Count)
                     {
                             DataRow dr = mosaicos.NewRow();
-                            dr["Cat1"] = cols.Rows[l][0].ToString();
-                            l++;
+
+                        dr["Cat1Img"] = Image.FromFile(getFile("naiden.png"));
+                        dr["Cat2Img"] = Image.FromFile(getFile("naiden.png"));
+                        dr["Cat3Img"] = Image.FromFile(getFile("naiden.png"));
+                        dr["Cat4Img"] = Image.FromFile(getFile("naiden.png"));
+
+                        dr["Cat1"] = cols.Rows[l][0].ToString();
+                        dr["Cat1Img"] = cn.readImage(($"SELECT ImgNew from detallegeneral WHERE id = {cols.Rows[l][1].ToString()}"));
+                        if (cn.readImage(($"SELECT ImgNew from detallegeneral WHERE id = {cols.Rows[l][1].ToString()}")) == null)
+                        {
+                            dr["Cat1Img"] = Image.FromFile(getFile("no-image.png"));
+                        }
+                        l++;
                             if (l<cols.Rows.Count)
                             {
                                 dr["Cat2"] = cols.Rows[l][0].ToString();
-                                l++;
+                            dr["Cat2Img"] = cn.readImage(($"SELECT ImgNew from detallegeneral WHERE id = {cols.Rows[l][1].ToString()}"));
+
+                            if (cn.readImage(($"SELECT ImgNew from detallegeneral WHERE id = {cols.Rows[l][1].ToString()}"))==null)
+                            {
+                                dr["Cat2Img"] = Image.FromFile(getFile("no-image.png"));
+                            }
+                            l++;
                                 if (l < cols.Rows.Count)
                                 {
                                     dr["Cat3"] = cols.Rows[l][0].ToString();
-                                    l++;
+                                dr["Cat3Img"] = cn.readImage(($"SELECT ImgNew from detallegeneral WHERE id = {cols.Rows[l][1].ToString()}"));
+                                if (cn.readImage(($"SELECT ImgNew from detallegeneral WHERE id = {cols.Rows[l][1].ToString()}")) == null)
+                                {
+                                    dr["Cat3Img"] = Image.FromFile(getFile("no-image.png"));
+                                }
+                                l++;
                                     if (l < cols.Rows.Count)
                                     {
                                         dr["Cat4"] = cols.Rows[l][0].ToString();
-                                        l++;
+                                    dr["Cat4Img"] = cn.readImage(($"SELECT ImgNew from detallegeneral WHERE id = {cols.Rows[l][1].ToString()}"));
+                                    if (cn.readImage(($"SELECT ImgNew from detallegeneral WHERE id = {cols.Rows[l][1].ToString()}")) == null)
+                                    {
+                                        dr["Cat4Img"] = Image.FromFile(getFile("no-image.png"));
+                                    }
+                                    l++;
                                     }
                                 }                               
                             }
@@ -104,14 +137,14 @@ namespace PuntoDeVentaV2
             while (i <rows)
             {
                 DataRow dr = oachango.NewRow();
-                Image img1;
-                if (string.IsNullOrEmpty(monosas4.Rows[i][1].ToString()))
+                Image img1 = Image.FromFile(getFile("naiden.png"));
+                if (cn.readImage(($"SELECT ImgNew from productos WHERE id = {monosas4.Rows[i][0].ToString()}"))!=null)
                 {
-                    img1 = Image.FromFile(getFile("no-image.png"));
+                    img1 = cn.readImage(($"SELECT ImgNew from productos WHERE id = {monosas4.Rows[i][0].ToString()}"));
                 }
                 else
                 {
-                    img1 = Image.FromFile(getFile(monosas4.Rows[i][1].ToString()));
+                    img1 = Image.FromFile(getFile("no-image.png"));
                 }
 
                 dr["Name1"] = monosas4.Rows[i][2].ToString();
@@ -120,14 +153,14 @@ namespace PuntoDeVentaV2
                 i++;
                 if (i<rows)
                 {
-                    Image img2;
-                    if (string.IsNullOrEmpty(monosas4.Rows[i][1].ToString()))
+                    Image img2 = Image.FromFile(getFile("naiden.png"));
+                    if (cn.readImage(($"SELECT ImgNew from productos WHERE id = {monosas4.Rows[i][0].ToString()}")) != null)
                     {
-                        img2 = Image.FromFile(getFile("no-image.png"));
+                        img2 = cn.readImage(($"SELECT ImgNew from productos WHERE id = {monosas4.Rows[i][0].ToString()}"));
                     }
                     else
                     {
-                        img2 = Image.FromFile(getFile(monosas4.Rows[i][1].ToString()));
+                        img2 = Image.FromFile(getFile("no-image.png"));
                     }
 
                     dr["Name2"] = monosas4.Rows[i][2].ToString();
@@ -137,14 +170,14 @@ namespace PuntoDeVentaV2
 
                     if (i < rows)
                     {
-                        Image img3;
-                        if (string.IsNullOrEmpty(monosas4.Rows[i][1].ToString()))
+                        Image img3 = Image.FromFile(getFile("naiden.png"));
+                        if (cn.readImage(($"SELECT ImgNew from productos WHERE id = {monosas4.Rows[i][0].ToString()}")) != null)
                         {
-                            img3 = Image.FromFile(getFile("no-image.png"));
+                            img3 = cn.readImage(($"SELECT ImgNew from productos WHERE id = {monosas4.Rows[i][0].ToString()}"));
                         }
                         else
                         {
-                            img3 = Image.FromFile(getFile(monosas4.Rows[i][1].ToString()));
+                            img3 = Image.FromFile(getFile("no-image.png"));
                         }
 
                         dr["Name3"] = monosas4.Rows[i][2].ToString();
@@ -153,14 +186,14 @@ namespace PuntoDeVentaV2
                         i++;
                         if (i < rows)
                         {
-                            Image img4;
-                            if (string.IsNullOrEmpty(monosas4.Rows[i][1].ToString()))
+                            Image img4 = Image.FromFile(getFile("naiden.png"));
+                            if (cn.readImage(($"SELECT ImgNew from productos WHERE id = {monosas4.Rows[i][0].ToString()}")) != null)
                             {
-                                img4 = Image.FromFile(getFile("no-image.png"));
+                                img4 = cn.readImage(($"SELECT ImgNew from productos WHERE id = {monosas4.Rows[i][0].ToString()}"));
                             }
                             else
                             {
-                                img4 = Image.FromFile(getFile(monosas4.Rows[i][1].ToString()));
+                                img4 = Image.FromFile(getFile("no-image.png"));
                             }
 
                             dr["Name4"] = monosas4.Rows[i][2].ToString();
@@ -216,15 +249,35 @@ namespace PuntoDeVentaV2
 
         private void dgvFast_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            e.PaintBackground(e.ClipBounds, true);
-            e.PaintContent(e.ClipBounds);
-            StringFormat stringFormat = new StringFormat();
-            stringFormat.Alignment = StringAlignment.Center;
-            stringFormat.LineAlignment = StringAlignment.Center;
-            Font font = new Font("Microsoft Sans Serif", 8.0f, FontStyle.Bold);
-            e.Graphics.DrawString(dgvFast.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString(), font, Brushes.Black,
-                                            e.CellBounds.X+e.CellBounds.Width/2, e.CellBounds.Y+10,stringFormat);
-            e.Handled = true;
+            if (!string.IsNullOrEmpty(dgvFast.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString()))
+            {
+                e.PaintBackground(e.ClipBounds, true);
+                e.PaintContent(e.ClipBounds);
+
+                StringFormat stringFormat = new StringFormat();
+                stringFormat.Alignment = StringAlignment.Center;
+                stringFormat.LineAlignment = StringAlignment.Center;
+                Font font = new Font("Microsoft Sans Serif", 8.0f, FontStyle.Bold);
+
+                // Get the text to be displayed and limit the length if necessary
+                string text = dgvFast.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString();
+                if (text.Length > 18) // set a limit of 10 characters
+                {
+                    text = text.Substring(0, 18);
+                }
+
+                // Create a white rectangle behind the text
+                RectangleF rect = new RectangleF(e.CellBounds.X + 10, e.CellBounds.Y + 5, e.CellBounds.Width - 20, 15);
+                e.Graphics.FillRectangle(Brushes.White, rect);
+
+                // Draw a black border around the rectangle
+                Pen pen = new Pen(Brushes.Black);
+                e.Graphics.DrawRectangle(pen, rect.X, rect.Y, rect.Width, rect.Height);
+
+                // Draw the text on top of the rectangle
+                e.Graphics.DrawString(text, font, Brushes.Black, rect, stringFormat);
+                e.Handled = true;
+            }
         }
 
         private void CBTipo_SelectedIndexChanged(object sender, EventArgs e)
@@ -275,11 +328,17 @@ namespace PuntoDeVentaV2
 
         private void dgvOpciones_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (!string.IsNullOrEmpty(dgvOpciones.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()))
+            if (!string.IsNullOrEmpty(dgvOpciones.Rows[e.RowIndex].Cells[e.ColumnIndex-1].Value.ToString()))
             {
-                cargarDatos(dgvOpciones.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                cargarDatos(dgvOpciones.Rows[e.RowIndex].Cells[e.ColumnIndex-1].Value.ToString());
                 dgvOpciones.Visible = false;
                 btnCerrar.Text = "Atras";
+                // Disable all controls on the form
+                this.Enabled = false;
+                Thread.Sleep(400);
+
+                // Enable all controls on the form
+                this.Enabled = true;
             }
         }
 
@@ -309,5 +368,44 @@ namespace PuntoDeVentaV2
                 cant.ShowDialog();
             }
         }
+
+        private void dgvOpciones_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(dgvOpciones.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString()))
+            {
+                e.PaintBackground(e.ClipBounds, true);
+                e.PaintContent(e.ClipBounds);
+
+                StringFormat stringFormat = new StringFormat();
+                stringFormat.Alignment = StringAlignment.Center;
+                stringFormat.LineAlignment = StringAlignment.Center;
+                Font font = new Font("Microsoft Sans Serif", 8.0f, FontStyle.Bold);
+
+                // Get the text to be displayed and limit the length if necessary
+                string text = dgvOpciones.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString();
+                if (text.Length > 18) // set a limit of 10 characters
+                {
+                    text = text.Substring(0, 10);
+                }
+
+                // Create a white rectangle behind the text
+                RectangleF rect = new RectangleF(e.CellBounds.X + 10, e.CellBounds.Y + 5, e.CellBounds.Width - 20, 15);
+                e.Graphics.FillRectangle(Brushes.White, rect);
+
+                // Draw a black border around the rectangle
+                Pen pen = new Pen(Brushes.Black);
+                e.Graphics.DrawRectangle(pen, rect.X, rect.Y, rect.Width, rect.Height);
+
+                // Draw the text on top of the rectangle
+                e.Graphics.DrawString(text, font, Brushes.Black, rect, stringFormat);
+                e.Handled = true;
+            }
+        }
+    }
+
+    public class CategoryCellData
+    {
+        public Image Image { get; set; }
+        public string CategoryName { get; set; }
     }
 }

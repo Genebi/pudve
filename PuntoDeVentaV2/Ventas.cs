@@ -1097,19 +1097,19 @@ namespace PuntoDeVentaV2
 
                             if (File.Exists(rutaImagen))
                             {
-                                PBImagen.Image = System.Drawing.Image.FromFile(rutaImagen);
-                                timer_img_producto.Start();
+                                //PBImagen.Image = System.Drawing.Image.FromFile(rutaImagen);
+                                //timer_img_producto.Start();
                             }
                             else
                             {
-                                PBImagen.Image = null;
-                                PBImagen.Refresh();
+                                //PBImagen.Image = null;
+                                //PBImagen.Refresh();
                             }
                         }
                         else
                         {
-                            PBImagen.Image = null;
-                            PBImagen.Refresh();
+                            //PBImagen.Image = null;
+                            //PBImagen.Refresh();
                         }
 
                         fila.Cells["NumeroColumna"].Value = indiceColumna;
@@ -1289,19 +1289,19 @@ namespace PuntoDeVentaV2
 
                     if (File.Exists(rutaImagen))
                     {
-                        PBImagen.Image = System.Drawing.Image.FromFile(rutaImagen);
+                        //PBImagen.Image = System.Drawing.Image.FromFile(rutaImagen);
                         //timer_img_producto.Start();
                     }
                     else
                     {
-                        PBImagen.Image = null;
-                        PBImagen.Refresh();
+                        //PBImagen.Image = null;
+                        //PBImagen.Refresh();
                     }
                 }
                 else
                 {
-                    PBImagen.Image = null;
-                    PBImagen.Refresh();
+                    //PBImagen.Image = null;
+                    //PBImagen.Refresh();
                 }
 
                 //row.Cells["Importe"].Value = datosProducto[2];
@@ -1453,8 +1453,11 @@ namespace PuntoDeVentaV2
 
         private void DGVentas_CellClick(object sender, DataGridViewCellEventArgs e)
         { //consultarListaRelacionados 356 (por si no jala)
+
+
             if (e.RowIndex >= 0)
             {
+                cargarImagen(DGVentas.Rows[e.RowIndex].Cells["IDProducto"].Value.ToString());
                 var noSeBorroFila = true;
                 celdaCellClick = DGVentas.CurrentCell.RowIndex;
                 columnaCellClick = DGVentas.CurrentCell.ColumnIndex;
@@ -1482,19 +1485,19 @@ namespace PuntoDeVentaV2
 
                     if (File.Exists(rutaImagen))
                     {
-                        PBImagen.Image = System.Drawing.Image.FromFile(rutaImagen);
+                        //PBImagen.Image = System.Drawing.Image.FromFile(rutaImagen);
                         //timer_img_producto.Start();
                     }
                     else
                     {
-                        PBImagen.Image = null;
-                        PBImagen.Refresh();
+                        //PBImagen.Image = null;
+                        //PBImagen.Refresh();
                     }
                 }
                 else
                 {
-                    PBImagen.Image = null;
-                    PBImagen.Refresh();
+                    //PBImagen.Image = null;
+                    //PBImagen.Refresh();
                 }
 
                 // Cantidad
@@ -2338,6 +2341,12 @@ namespace PuntoDeVentaV2
                 //CantidadesFinalesVenta();
                 listaProductosVenta();
             }
+        }
+
+        private void cargarImagen(string id)
+        {
+            PBImagen.Image = null;
+            PBImagen.Image = cn.readImage(($"SELECT ImgNew from productos WHERE id = {id}"));
         }
 
         private void CargarDescuento(decimal cantidad)
@@ -9356,9 +9365,9 @@ namespace PuntoDeVentaV2
 
         private void limpiarImagenDelProducto()
         {
-            PBImagen.Image = null;
-            PBImagen.Refresh();
-            DGVentas.ClearSelection();
+            //PBImagen.Image = null;
+            //PBImagen.Refresh();
+            //DGVentas.ClearSelection();
         }
 
         private void panel1_Click(object sender, EventArgs e)
@@ -9647,6 +9656,7 @@ namespace PuntoDeVentaV2
             }
             txtBuscadorProducto.Clear();
             txtBuscadorProducto.Focus();
+            cargarImagen(DGVentas.Rows[0].Cells["IDProducto"].Value.ToString());
         }
 
         private void btnCancelarVenta_Enter(object sender, EventArgs e)
@@ -10399,9 +10409,9 @@ namespace PuntoDeVentaV2
 
         private void timer_img_producto_Tick(object sender, EventArgs e)
         {
-            PBImagen.Image = null;
-            PBImagen.Refresh();
-            timer_img_producto.Stop();
+            //PBImagen.Image = null;
+            //PBImagen.Refresh();
+            //timer_img_producto.Stop();
         }
 
         private void DGVentas_SelectionChanged(object sender, EventArgs e)
