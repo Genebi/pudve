@@ -146,6 +146,13 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            
+            if (Ventas.tipoDescuentoAplicado != 2)
+            {
+
+            }
+            Ventas.tipoDescuentoAplicado = 2;
+
             if (string.IsNullOrWhiteSpace(txtPorcentaje.Text) && string.IsNullOrWhiteSpace(txtCantidad.Text))
             {
                 MessageBox.Show("No se aplicara ningun descuento", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -183,6 +190,7 @@ namespace PuntoDeVentaV2
                 }
                
             }
+           
             this.Close();
         }
 

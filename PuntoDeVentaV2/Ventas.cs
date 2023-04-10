@@ -111,6 +111,9 @@ namespace PuntoDeVentaV2
         public static string codBarras;
         public static string consutlaCredito = string.Empty;
 
+        public static int tipoDescuentoAplicado;
+        public static string descuentoActual;
+
 
         // Para saber con que boton se cerro el form DetalleVenta.cs, en este caso saber si se cerro con el boton aceptar (terminar)
         public static bool botonAceptar = false;
@@ -1500,6 +1503,7 @@ namespace PuntoDeVentaV2
                 // Cantidad
                 if (columnaCellClick.Equals(5))
                 {
+                    
                     if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                     {
                         cambioCantidadProd = 1;
@@ -2458,7 +2462,7 @@ namespace PuntoDeVentaV2
                 if (tipo == 2)
                 {
                     decimal totalImporte = 0;
-
+                    descuentoCliente = 0;
                     // Esta variable almace el ultimo checkbox al que se le marco casilla en el descuento
                     var ultimoCheckbox = string.Empty;
 
@@ -2510,7 +2514,7 @@ namespace PuntoDeVentaV2
                             cantidad = cantidad - diferencia;
                         }
 
-                        if (cantidad >= Convert.ToDecimal(descIndividual[0]) && descIndividual[3] == "1")
+                        if (cantidad >= Convert.ToDecimal(descIndividual[0]) && descIndividual[3] == "1")  //Posible lugar donde validar el descuento del cliente = 0   
                         {
                             var datosUltimoCheck = ultimoCheck.Split('-');
 
@@ -2539,6 +2543,10 @@ namespace PuntoDeVentaV2
                     if (descuentoFinal < 0)
                     {
                         descuentoFinal = 0;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Test");
                     }
 
                     DGVentas.Rows[fila].Cells["Descuento"].Value = descuentoFinal.ToString("0.00");
@@ -8504,8 +8512,9 @@ namespace PuntoDeVentaV2
         private void lbEliminarCliente_Click(object sender, EventArgs e)
         {
             descuentoCliente = 0;
+            tipoDescuentoAplicado = 0;
 
-            foreach(DataGridViewRow fila in DGVentas.Rows)
+            foreach (DataGridViewRow fila in DGVentas.Rows)
             {
                 fila.Cells["Descuento"].Value = string.Empty;
             }
@@ -8671,7 +8680,7 @@ namespace PuntoDeVentaV2
                             // Se reinicia a los valores por defecto el descuento general
                             porcentajeGeneral = 0;
                             txtDescuentoGeneral.Text = "% descuento";
-
+                            Ventas.tipoDescuentoAplicado = 4;
                             CantidadesFinalesVenta();
                         }
                     }
@@ -9338,6 +9347,7 @@ namespace PuntoDeVentaV2
                 reproducirProductoAgregado();
                 contador++;
             }
+            tipoDescuentoAplicado = 3;
         }
 
         private void Ventas_Click(object sender, EventArgs e)
