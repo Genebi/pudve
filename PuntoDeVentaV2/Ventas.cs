@@ -61,6 +61,7 @@ namespace PuntoDeVentaV2
         string ClienteConDescuentoNombre, IDClienteConDescuento;
         public static bool AutorizacionConfirmada = false;
         public static bool VentaRealizada = false;
+        public static int sinBasculaConectada = 0;
 
         public static string cantidadAPedir = string.Empty;
         public static List<string> listProductos = new List<string>();
@@ -10353,7 +10354,10 @@ namespace PuntoDeVentaV2
                     //MessageBox.Show(elmeropesoxd.ToString());
                     DGVentas.Rows[0].Cells[5].Value = elmeropesoxd;
                     var id = DGVentas.Rows[0].Cells[0].Value.ToString();
-                    cn.EjecutarConsulta($"UPDATE productos SET FormatoDeVenta = '2' WHERE ID = '{id}' AND `Status` = '1' and IDUsuario = {FormPrincipal.userID}");
+                    if (sinBasculaConectada == 0)
+                    {
+                        cn.EjecutarConsulta($"UPDATE productos SET FormatoDeVenta = '2' WHERE ID = '{id}' AND `Status` = '1' and IDUsuario = {FormPrincipal.userID}");
+                    }
                     timer.Interval = 2000; // here time in milliseconds
                     timer.Tick += timer_Tick;
                     timer.Start();

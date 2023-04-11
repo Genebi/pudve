@@ -92,6 +92,7 @@ namespace PuntoDeVentaV2
                         MessageBox.Show("Error de conexión con el dispositivo (Bascula)...\n\n" + error.Message.ToString() + "\n\nFavor de revisar los parametros de su bascula para configurarlos correctamente", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         peso = decimal.Parse("1");
                         this.Close();
+                        Ventas.sinBasculaConectada = 1;
                     }
                 }
                 else
