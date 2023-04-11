@@ -33,6 +33,7 @@ namespace PuntoDeVentaV2
 
         private void AgregarDescuentoDirecto_Load(object sender, EventArgs e)
         {
+            
             lbTotalFinal.Text = precioProducto.ToString("0.00");
             lbProducto.Text = nombreProducto;
             lbPrecio.Text = "Precio: $" + precioProducto.ToString("0.00");
@@ -119,6 +120,15 @@ namespace PuntoDeVentaV2
                 this.TotalDescuento = lbTotalDescuento.Text + porcentaje;
                 this.TipoDescuento = tipo;
                 this.DialogResult = DialogResult.OK;
+                txtCantidad.Clear();
+                txtPorcentaje.Clear();
+                Ventas.descuentosDirectos.Clear();
+                
+                
+                
+                
+                
+                Ventas.tipoDescuentoAplicado = 1;
                 this.Close();
             }
             
