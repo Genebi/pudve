@@ -190,7 +190,8 @@ namespace PuntoDeVentaV2
                 }
                
             }
-           
+            txtPorcentaje.Clear();
+            txtCantidad.Clear();
             this.Close();
         }
 
@@ -281,18 +282,18 @@ namespace PuntoDeVentaV2
         {
             lbPrecio.Text = "Precio Total: $" + Total.ToString();
             lbTotalFinal.Text = Total.ToString();
-            if (!string.IsNullOrWhiteSpace(Ventas.AplicarPorcentaje))
-            {
-                txtPorcentaje.Text = Ventas.AplicarPorcentaje;
-                txtPorcentaje.SelectAll();
-                txtPorcentaje.Focus();
-            }
-            else if (!string.IsNullOrWhiteSpace(Ventas.AplicarCantidad))
-            {
-                txtCantidad.Text = Ventas.AplicarCantidad;
-                txtCantidad.SelectAll();
-                txtCantidad.Focus();
-            }
+            //if (!string.IsNullOrWhiteSpace(Ventas.AplicarPorcentaje))
+            //{
+            //    txtPorcentaje.Text = Ventas.AplicarPorcentaje;
+            //    txtPorcentaje.SelectAll();
+            //    txtPorcentaje.Focus();
+            //}
+            //else if (!string.IsNullOrWhiteSpace(Ventas.AplicarCantidad))
+            //{
+            //    txtCantidad.Text = Ventas.AplicarCantidad;
+            //    txtCantidad.SelectAll();
+            //    txtCantidad.Focus();
+            //}
         }
     }
 }

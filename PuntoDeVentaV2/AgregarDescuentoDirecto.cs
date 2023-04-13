@@ -75,6 +75,10 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            
+            
+            
+            
             var descuento = Convert.ToDouble(lbTotalDescuento.Text);
 
             // Esto es para guardar cual campo es el que aplico el descuento y la cantidad

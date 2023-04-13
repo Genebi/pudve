@@ -1234,7 +1234,7 @@ namespace PuntoDeVentaV2
                 row.Cells["Descripcion"].Value = datosProducto[1];
                 listProductos.Add(datosProducto[0] + "|" + cantidadTmp.ToString());//ID producto
 
-                if (desdeVentaGuardada.Equals(1))
+                 if (desdeVentaGuardada.Equals(1))
                 {
                     if ((datosProducto.Length - 1) == 14)
                     {
@@ -8561,6 +8561,7 @@ namespace PuntoDeVentaV2
                 {
                     foreach (DataGridViewRow fila in DGVentas.Rows)
                     {
+                        btnEliminarDescuentos.PerformClick();
                         fila.Cells["Descuento"].Value = "0.00";
                     }
                 }
