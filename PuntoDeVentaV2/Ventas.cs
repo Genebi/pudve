@@ -1162,7 +1162,7 @@ namespace PuntoDeVentaV2
 
             if (cantidad.ToString().Contains('-'))
             {
-                //MessageBox.Show("Uno de los productos a disminuir es menor a la                 cantidad indicada", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Uno de los productos a disminuir es menor a la cantidad indicada", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             // Se agrega la nueva fila y se obtiene el ID que tendrá
@@ -1232,6 +1232,7 @@ namespace PuntoDeVentaV2
                 row.Cells["Cantidad"].Value = cantidad;
                 row.Cells["Precio"].Value = datosProducto[2];
                 row.Cells["Descripcion"].Value = datosProducto[1];
+                row.Cells["Descuento"].Value = datosProducto[24];
                 listProductos.Add(datosProducto[0] + "|" + cantidadTmp.ToString());//ID producto
 
                  if (desdeVentaGuardada.Equals(1))
@@ -1248,8 +1249,8 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        row.Cells["Descuento"].Value = "0.00";
-                        row.Cells["TipoDescuento"].Value = "0";
+                        //row.Cells["Descuento"].Value = "0.00";
+                        //row.Cells["TipoDescuento"].Value = "0";
                     }
                 }
                 else
@@ -5775,6 +5776,7 @@ namespace PuntoDeVentaV2
             cTotal.Text = datos[2];
             cDescuento.Text = datos[3];
             folioVentaGuardada = datos[5];
+            var idCliente = datos[10];
 
             string[] datosAnticipo = cn.BuscarAnticipo(mostrarVenta, FormPrincipal.userID);
 
@@ -5821,6 +5823,10 @@ namespace PuntoDeVentaV2
             {
                 if (!ventaCancelada)
                 {
+                    var datos2 = cn.CargarDatos($"SELECT NumeroCliente FROM clientes WHERE IDUsuario = {FormPrincipal.userID} AND ID = {idCliente}");
+                    string numeroCliente = datos2.Rows[0]["NumeroCliente"].ToString();
+                    nombreCliente = $"Cliente: {nombreCliente}";
+                    nombreCliente += $" --- No. {numeroCliente}";
                     lbDatosCliente.Text = nombreCliente;
                     lbDatosCliente.Visible = true;
                     lbEliminarCliente.Visible = true;
