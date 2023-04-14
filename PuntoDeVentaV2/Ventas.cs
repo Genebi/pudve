@@ -1232,7 +1232,7 @@ namespace PuntoDeVentaV2
                 row.Cells["Cantidad"].Value = cantidad;
                 row.Cells["Precio"].Value = datosProducto[2];
                 row.Cells["Descripcion"].Value = datosProducto[1];
-                row.Cells["Descuento"].Value = datosProducto[24];
+                
                 listProductos.Add(datosProducto[0] + "|" + cantidadTmp.ToString());//ID producto
 
                  if (desdeVentaGuardada.Equals(1))
@@ -1249,6 +1249,7 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
+                        row.Cells["Descuento"].Value = datosProducto[24];
                         //row.Cells["Descuento"].Value = "0.00";
                         //row.Cells["TipoDescuento"].Value = "0";
                     }
