@@ -1687,6 +1687,11 @@ namespace PuntoDeVentaV2
         private void AgregarDetalleFacturacionProducto_FormClosing(object sender, FormClosingEventArgs e)
         {
             limpiarCampos();
+            if (this.Visible==true)
+            {
+                e.Cancel = true;
+            }
+            btnCancelarDetalle.PerformClick();
         }
 
         private void btnKeyWordSearch_Click(object sender, EventArgs e)
