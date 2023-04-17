@@ -7574,7 +7574,7 @@ namespace PuntoDeVentaV2
             {
                 btnAplicarDescuento.PerformClick();
             }
-            else if (e.KeyCode == Keys.V && (e.Control))//Boton Venta facil
+            else if (e.KeyCode == Keys.F && (e.Control))//Boton Venta facil
             {
                 using (DataTable dt = cn.CargarDatos($"SELECT ventaFacil FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
                 {

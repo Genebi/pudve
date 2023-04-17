@@ -1304,7 +1304,7 @@
             this.btnVentaFacil.Name = "btnVentaFacil";
             this.btnVentaFacil.Size = new System.Drawing.Size(105, 40);
             this.btnVentaFacil.TabIndex = 50;
-            this.btnVentaFacil.Text = "Venta Fácil\r\nCtrl + V";
+            this.btnVentaFacil.Text = "Venta Fácil\r\nCtrl + F";
             this.btnVentaFacil.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnVentaFacil.UseVisualStyleBackColor = true;
             this.btnVentaFacil.Visible = false;
