@@ -120,14 +120,14 @@ namespace PuntoDeVentaV2
             this.Focus();
         }
 
-        public void cargar_lista_facturas(int tipo= 0, int opc_tipo_f=0)
+        public void cargar_lista_facturas(int tipo = 0, int opc_tipo_f = 0)
         {
             int opc_tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
             var fecha_inicial = datetp_fecha_inicial.Value.ToString("yyyy-MM-dd");
             var fecha_final = datetp_fecha_final.Value.ToString("yyyy-MM-dd");
             var buscar_por = txt_buscar_por.Text.Trim();
 
-            if(opc_tipo_f == 2)
+            if (opc_tipo_f == 2)
             {
                 opc_tipo_factura = opc_tipo_f;
             }
@@ -138,7 +138,7 @@ namespace PuntoDeVentaV2
                 string condicional_fecha_i_f = "";
                 string condicional_xempleado = "";
                 string condicional_buscarpor = "";
-                                
+
                 // Comprueba si la sesión esta activa por un empleado o no
 
                 if (id_empleado != 0)
@@ -174,13 +174,13 @@ namespace PuntoDeVentaV2
                 if (opc_tipo_factura == 2)
                 {
                     cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND ( (metodo_pago='PUE' AND forma_pago!='99') OR (resta_cpago=0 AND (metodo_pago='PPD' OR forma_pago='99')) ) " + condicional_fecha_i_f + condicional_buscarpor + " ORDER BY ID DESC";
-                } 
+                }
                 // Canceladas
                 if (opc_tipo_factura == 3)
                 {
                     cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND timbrada=1 AND cancelada=1 " + condicional_fecha_i_f + condicional_buscarpor + " ORDER BY ID DESC";
                 }
-                
+
                 FiltroAvanzado = cons;
 
                 p = new Paginar(FiltroAvanzado, DataMemberDGV, maximo_x_pagina);
@@ -190,7 +190,7 @@ namespace PuntoDeVentaV2
 
             DataSet datos = p.cargar();
             DataTable d_facturas = datos.Tables[0];
-            
+
 
             if (d_facturas.Rows.Count > 0)
             {
@@ -245,10 +245,10 @@ namespace PuntoDeVentaV2
 
                     Image img_cpago = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black\blanco.png");
 
-                    if (opc_tipo_factura == 1 | (opc_tipo_factura == 2 & (r_facturas["metodo_pago"].ToString() == "PPD" | r_facturas["forma_pago"].ToString() == "99")) )
+                    if (opc_tipo_factura == 1 | (opc_tipo_factura == 2 & (r_facturas["metodo_pago"].ToString() == "PPD" | r_facturas["forma_pago"].ToString() == "99")))
                     {
                         img_cpago = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\eye.png");
-                        
+
 
                         if (opc_tipo_factura == 2 & (r_facturas["metodo_pago"].ToString() == "PPD" | r_facturas["forma_pago"].ToString() == "99"))
                         {
@@ -270,7 +270,7 @@ namespace PuntoDeVentaV2
                         this.datagv_facturas.Columns["col_cpago"].Visible = true;
                         fila.Cells["col_cpago"].Value = img_cpago;
                     }
-                    
+
                     fila.Cells["col_pdf"].Value = img_pdf;
                     fila.Cells["col_descargar"].Value = img_descargar;
                     fila.Cells["col_cancelar"].Value = img_cancelar;
@@ -287,7 +287,7 @@ namespace PuntoDeVentaV2
             header_checkb.Name = "cbox_seleccionar_todo";
             header_checkb.Size = new Size(15, 15);
             header_checkb.Location = new Point(12, 6);
-            header_checkb.CheckedChanged += new EventHandler(des_activa_t_checkbox); 
+            header_checkb.CheckedChanged += new EventHandler(des_activa_t_checkbox);
             datagv_facturas.Controls.Add(header_checkb);
         }
 
@@ -331,7 +331,7 @@ namespace PuntoDeVentaV2
 
         private void click_en_icono(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.RowIndex >= 0)
+            if (e.RowIndex >= 0)
             {
                 int id_factura = Convert.ToInt16(datagv_facturas.Rows[e.RowIndex].Cells["col_id"].Value);
                 int opc_tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
@@ -392,7 +392,7 @@ namespace PuntoDeVentaV2
                         return;
                     }
 
-                    
+
 
 
 
@@ -424,20 +424,20 @@ namespace PuntoDeVentaV2
                         ruta_archivo = @"C:\Archivos PUDVE\Facturas\" + nombre_xml + ".xml";
                     }
 
-                    if (ReadXmlFile(ruta_archivo)== "null")
+                    if (ReadXmlFile(ruta_archivo) == "null")
                     {
                         MessageBox.Show("No se encontro el archivo XML en su equipo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
-                    if (ReadXmlFile(ruta_archivo)=="3.3")
+                    if (ReadXmlFile(ruta_archivo) == "3.3")
                     {
-                        verFacturasViejas verfacvieja = new verFacturasViejas(id_factura,ReadXmlFile(ruta_archivo, "NoCertificadoSAT"));
+                        verFacturasViejas verfacvieja = new verFacturasViejas(id_factura, ReadXmlFile(ruta_archivo, "NoCertificadoSAT"));
                         verfacvieja.ShowDialog();
                     }
                     else
                     {
-                        verFacturasViejas verfacNueva = new verFacturasViejas(id_factura, ReadXmlFile(ruta_archivo, "NoCertificadoSAT"),true);
+                        verFacturasViejas verfacNueva = new verFacturasViejas(id_factura, ReadXmlFile(ruta_archivo, "NoCertificadoSAT"), true);
                         verfacNueva.ShowDialog();
                     }
                     //// Verifica si el archivo pdf ya esta creado, de no ser así lo crea
@@ -502,12 +502,12 @@ namespace PuntoDeVentaV2
                     {
                         tipo = "PAGO_";
                     }
-                    if(opc_tipo_factura == 3)
+                    if (opc_tipo_factura == 3)
                     {
                         estatus = "ACUSE_";
                     }
 
-                    
+
                     // Elige carpeta donde guardar el comprimido
                     if (elegir_carpeta_descarga.ShowDialog() == DialogResult.OK)
                     {
@@ -561,7 +561,7 @@ namespace PuntoDeVentaV2
                                     {
                                         // Abre ventana para definir el motivo de cancelación 
 
-                                        string [][] arr_id_cmult = new string[1][];
+                                        string[][] arr_id_cmult = new string[1][];
                                         arr_id_cmult[0] = new string[4];
 
                                         arr_id_cmult[0][0] = id_factura.ToString();
@@ -618,7 +618,7 @@ namespace PuntoDeVentaV2
                 }
 
                 // Información empleado
-                if(e.ColumnIndex == 12)
+                if (e.ColumnIndex == 12)
                 {
                     Empleado_muestra_acciones_factura vnt = new Empleado_muestra_acciones_factura(id_factura, opc_tipo_factura);
                     vnt.ShowDialog();
@@ -640,9 +640,9 @@ namespace PuntoDeVentaV2
         }
 
         //Claramente yo hise este codigo, desde luego no me lo pepene de internet 8)
-        public static string ReadXmlFile(string filePath, string attribute= "Version")
+        public static string ReadXmlFile(string filePath, string attribute = "Version")
         {
-            if (attribute=="Version")
+            if (attribute == "Version")
             {
                 // Create a new XmlDocument object.
                 XmlDocument xmlDocument = new XmlDocument();
@@ -655,7 +655,7 @@ namespace PuntoDeVentaV2
                 }
                 catch (Exception)
                 {
-                    
+
                     return "null";
                 }
                 // Get the root element of the XML document.
@@ -689,12 +689,12 @@ namespace PuntoDeVentaV2
                 return noCertificadoSAT;
             }
 
-           
+
         }
 
         private void cursor_en_icono(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.RowIndex >= 0 & e.ColumnIndex >= 8)
+            if (e.RowIndex >= 0 & e.ColumnIndex >= 8)
             {
                 datagv_facturas.Cursor = Cursors.Hand;
 
@@ -712,7 +712,7 @@ namespace PuntoDeVentaV2
 
                     int opc_tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
 
-                    if(opc_tipo_factura == 0 | opc_tipo_factura == 3)
+                    if (opc_tipo_factura == 0 | opc_tipo_factura == 3)
                     {
                         permitir = false;
                     }
@@ -778,7 +778,7 @@ namespace PuntoDeVentaV2
                 }
 
 
-                if(FormPrincipal.userNickName == "MIRI3" | FormPrincipal.userNickName == "SOLRAC")
+                if (FormPrincipal.userNickName == "MIRI3" | FormPrincipal.userNickName == "SOLRAC")
                 {
                     foreach (DataGridViewRow row in datagv_facturas.Rows)
                     {
@@ -840,7 +840,7 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show("Acción no disponible.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                
+
             }
 
             // Obtenemos la cantidad de timbres
@@ -1038,9 +1038,9 @@ namespace PuntoDeVentaV2
                 {
                     comprobante.Motivoc = r_factura["motivo_canc"].ToString();
                 }
-                
 
-                if(r_factura["motivo_canc"].ToString() == "01")
+
+                if (r_factura["motivo_canc"].ToString() == "01")
                 {
                     comprobante.FoliosustSpecified = true;
                     comprobante.Foliosust = r_factura["uuid_sust"].ToString();
@@ -1225,15 +1225,15 @@ namespace PuntoDeVentaV2
 
             // Obtener el id de la factura a enviar
 
-            if(cont > 0)
+            if (cont > 0)
             {
                 arr_id_env = new string[cont][];
 
-                foreach(DataGridViewRow row in datagv_facturas.Rows)
+                foreach (DataGridViewRow row in datagv_facturas.Rows)
                 {
                     bool estado = (bool)row.Cells["col_checkbox"].Value;
 
-                    if(estado == true)
+                    if (estado == true)
                     {
                         arr_id_env[en] = new string[2];
 
@@ -1244,14 +1244,14 @@ namespace PuntoDeVentaV2
                 }
 
                 // Formulario envío de correo
-                           
+
                 Enviar_correo correo = new Enviar_correo(arr_id_env, "factura", opc_tipo_factura);
 
                 correo.FormClosed += delegate
                  {
-                     
+
                  };
-                correo.ShowDialog();                
+                correo.ShowDialog();
             }
             else
             {
@@ -1277,7 +1277,7 @@ namespace PuntoDeVentaV2
         private bool descargar_factura(string tipo, int idf, string estatus, int opc, string carpeta_elegida)
         {
             string nombrexml = tipo + idf;
-            string n_user = Environment.UserName; 
+            string n_user = Environment.UserName;
             string ruta_archivos = @"C:\Archivos PUDVE\Facturas\XML_" + nombrexml;
             string ruta_new_carpeta = @"C:\Archivos PUDVE\Facturas\XML_" + nombrexml;
             int opc_tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
@@ -1308,7 +1308,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    if(opc_tipo_factura == 3)
+                    if (opc_tipo_factura == 3)
                     {
                         DirectoryInfo dir_arch = new DirectoryInfo(ruta_new_carpeta);
 
@@ -1334,7 +1334,7 @@ namespace PuntoDeVentaV2
                     }
 
                     //generar_PDF("XML_" + nombrexml, idf);
-                    if (ReadXmlFile(ruta_archivos+".xml") == "3.3")
+                    if (ReadXmlFile(ruta_archivos + ".xml") == "3.3")
                     {
                         verFacturasViejas descargarFac = new verFacturasViejas(idf, ReadXmlFile(ruta_archivos + ".xml", "NoCertificadoSAT"), false, true, ruta_archivos + ".pdf");
                         descargarFac.ShowDialog();
@@ -1345,7 +1345,7 @@ namespace PuntoDeVentaV2
                         verfacNueva.ShowDialog();
                     }
 
-                    
+
                 }
             }
 
@@ -1353,7 +1353,7 @@ namespace PuntoDeVentaV2
 
             if (opc == 5)
             {
-                if(opc_tipo_factura < 3)
+                if (opc_tipo_factura < 3)
                 {
                     if (!File.Exists(ruta_new_carpeta + "\\XML_" + nombrexml + ".pdf"))
                     {
@@ -1375,27 +1375,27 @@ namespace PuntoDeVentaV2
 
             // Comprimir carpeta
 
-            if(opc == 6)
+            if (opc == 6)
             {
                 DateTime fecha_actual = DateTime.UtcNow;
                 string fech = fecha_actual.ToString("yyyyMMddhhmmss");
 
                 //string ruta_carpet_comprimida = "C:\\Users\\" + n_user + "\\Desktop\\" + nombrexml + "_" + fech + ".zip";
                 string ruta_carpet_comprimida = $@"{carpeta_elegida}\" + nombrexml + "_" + fech + ".zip";
-                
+
 
                 ZipFile.CreateFromDirectory(ruta_new_carpeta, ruta_carpet_comprimida);
             }
-            
+
 
             return true;
         }
-        
+
         public void inicia_descargaf(string tipo, int idf, string estatus, string carpeta_elegida)
         {
-            pBar1.Visible = true; 
+            pBar1.Visible = true;
             lb_texto_descarga.Visible = true;
-            
+
             pBar1.Minimum = 1;
             pBar1.Maximum = 6;
             pBar1.Value = 2; // Valor inicial
@@ -1406,12 +1406,12 @@ namespace PuntoDeVentaV2
                 if (descargar_factura(tipo, idf, estatus, x, carpeta_elegida) == true)
                 {
                     // Incrementa la barra
-                    pBar1.PerformStep(); 
+                    pBar1.PerformStep();
                 }
             }
 
             ban = false;
-            
+
             MessageBox.Show("La factura ha sido descargada.", "Mensaje del sistema", MessageBoxButtons.OK);
 
             pBar1.Visible = false;
@@ -1453,7 +1453,7 @@ namespace PuntoDeVentaV2
             actualizar();
             clickBoton = 0;
         }
-        
+
         private void linklb_pag_anterior_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             p.atras();
@@ -1534,7 +1534,7 @@ namespace PuntoDeVentaV2
             int opc_tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
             int tiene_complementos = 0;
 
-            if(opc_tipo_factura == 3)
+            if (opc_tipo_factura == 3)
             {
                 MessageBox.Show("La factura ya ha sido cancelada con anterioridad.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -1548,122 +1548,121 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("No cuenta con timbres para cancelar el documento. Le sugerimos realizar una compra de timbres.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-
-
-                var resp = MessageBox.Show("La cancelación tardará unos segundos. Un momento por favor. \n\n ¿Esta seguro que desea cancelar las facturas?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-
-                if (resp == DialogResult.Yes)
+                foreach (DataGridViewRow row in datagv_facturas.Rows)
                 {
+                    bool estado = (bool)row.Cells["col_checkbox"].Value;
 
-                    foreach (DataGridViewRow row in datagv_facturas.Rows)
+                    if (estado == true)
                     {
-                        bool estado = (bool)row.Cells["col_checkbox"].Value;
+                        var resp = MessageBox.Show("La cancelación tardará unos segundos. Un momento por favor. \n\n ¿Esta seguro que desea cancelar las facturas?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
 
-                        if (estado == true)
+                        if (resp == DialogResult.No)
                         {
-                            cont++;
+                            return;
+                        }
+                        cont++;
 
-                            // Comprueba que la factura no tenga complementos de pago
+                        // Comprueba que la factura no tenga complementos de pago
 
-                            if (opc_tipo_factura == 1)
+                        if (opc_tipo_factura == 1)
+                        {
+                            var uuidf = cn.EjecutarSelect($"SELECT UUID FROM Facturas WHERE ID='{row.Cells["col_id"].Value}'", 13);
+
+                            var existe_complemento = cn.EjecutarSelect($"SELECT * FROM Facturas_complemento_pago WHERE uuid='{uuidf}' AND timbrada=1 AND cancelada=0");
+
+
+                            if (Convert.ToBoolean(existe_complemento) == true)
                             {
-                                var uuidf = cn.EjecutarSelect($"SELECT UUID FROM Facturas WHERE ID='{row.Cells["col_id"].Value}'", 13);
-
-                                var existe_complemento = cn.EjecutarSelect($"SELECT * FROM Facturas_complemento_pago WHERE uuid='{uuidf}' AND timbrada=1 AND cancelada=0");
-
-
-                                if (Convert.ToBoolean(existe_complemento) == true)
-                                {
-                                    tiene_complementos = 1;
-                                }
+                                tiene_complementos = 1;
                             }
                         }
-                        else
-                        {
-                            mnsj_error = "No ha seleccionado alguna factura para cancelar.";
-                        }
                     }
-
-                    if (cont == 0)
+                    else
                     {
-                        MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
+                        mnsj_error = "No ha seleccionado alguna factura para cancelar.";
                     }
-                    if (tiene_complementos == 1)
+                }
+
+                if (cont == 0)
+                {
+                    MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (tiene_complementos == 1)
+                {
+                    MessageBox.Show("Alguna de las facturas no puede ser cancelada porque tiene complementos de pago timbrados. Para continuar por favor desmarque las facturas con complementos de pagos vigentes.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+
+                // Obtener el id de la factura a enviar
+
+                arr_id_cmult = new string[cont][];
+
+                foreach (DataGridViewRow row in datagv_facturas.Rows)
+                {
+                    bool estado = (bool)row.Cells["col_checkbox"].Value;
+
+                    if (estado == true)
                     {
-                        MessageBox.Show("Alguna de las facturas no puede ser cancelada porque tiene complementos de pago timbrados. Para continuar por favor desmarque las facturas con complementos de pagos vigentes.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
+
+                        arr_id_cmult[c] = new string[5];
+
+                        arr_id_cmult[c][0] = Convert.ToString(row.Cells["col_id"].Value);
+                        arr_id_cmult[c][1] = Convert.ToString(row.Cells["col_t_comprobante"].Value);
+                        arr_id_cmult[c][2] = Convert.ToString(row.Cells["col_folio"].Value);
+                        c++;
                     }
+                }
 
 
-                    // Obtener el id de la factura a enviar
+                // Abre ventana para definir el motivo de cancelación 
 
-                    arr_id_cmult = new string[cont][];
+                Ventana_motivo_cancelacion vnt_motivo_canc = new Ventana_motivo_cancelacion(1, arr_id_cmult);
 
-                    foreach (DataGridViewRow row in datagv_facturas.Rows)
-                    {
-                        bool estado = (bool)row.Cells["col_checkbox"].Value;
-
-                        if (estado == true)
-                        {
-
-                            arr_id_cmult[c] = new string[5];
-
-                            arr_id_cmult[c][0] = Convert.ToString(row.Cells["col_id"].Value);
-                            arr_id_cmult[c][1] = Convert.ToString(row.Cells["col_t_comprobante"].Value);
-                            arr_id_cmult[c][2] = Convert.ToString(row.Cells["col_folio"].Value);
-                            c++;
-                        }
-                    }
-
-
-                    // Abre ventana para definir el motivo de cancelación 
-
-                    Ventana_motivo_cancelacion vnt_motivo_canc = new Ventana_motivo_cancelacion(1, arr_id_cmult);
-
-                    vnt_motivo_canc.FormClosed += delegate
-                    {
+                vnt_motivo_canc.FormClosed += delegate
+                {
                         // Cargar consulta
                         cargar_lista_facturas(opc_tipo_factura);
 
                         // Obtenemos la cantidad de timbres
                         actualizar_timbres();
-                    };
+                };
 
-                    vnt_motivo_canc.ShowDialog();
+                vnt_motivo_canc.ShowDialog();
 
-                    // Mandar a cancelar
+                // Mandar a cancelar
 
-                    /*for (var z=0; z<arr_id_cmult.Length; z++)
+                /*for (var z=0; z<arr_id_cmult.Length; z++)
+                {
+                    string[] respuesta = cancela.cancelar(Convert.ToInt32(arr_id_cmult[z][0]), arr_id_cmult[z][1]);
+
+                    if (respuesta[1] == "201" | respuesta[1] == "202")
                     {
-                        string[] respuesta = cancela.cancelar(Convert.ToInt32(arr_id_cmult[z][0]), arr_id_cmult[z][1]);
-
-                        if (respuesta[1] == "201" | respuesta[1] == "202")
-                        {
-                            // Cambiar a canceladas
-                            cn.EjecutarConsulta($"UPDATE Facturas SET cancelada=1, id_emp_cancela='{id_empleado}' WHERE ID='{arr_id_cmult[z][0]}'");
-                        }
-
-                        arr_id_cmult[z][3] = respuesta[0];
-                        arr_id_cmult[z][4] = respuesta[1];
+                        // Cambiar a canceladas
+                        cn.EjecutarConsulta($"UPDATE Facturas SET cancelada=1, id_emp_cancela='{id_empleado}' WHERE ID='{arr_id_cmult[z][0]}'");
                     }
 
-
-                    // Muestra resultados 
-
-                    Cancelar_XML_mensajes canc_mensaje = new Cancelar_XML_mensajes(arr_id_cmult);
-
-                    canc_mensaje.FormClosed += delegate
-                    {
-                        // Cargar consulta
-                        cargar_lista_facturas(opc_tipo_factura);
-                    };
-
-                    canc_mensaje.ShowDialog();
-
-                    // Obtenemos la cantidad de timbres
-                    actualizar_timbres();*/
+                    arr_id_cmult[z][3] = respuesta[0];
+                    arr_id_cmult[z][4] = respuesta[1];
                 }
+
+
+                // Muestra resultados 
+
+                Cancelar_XML_mensajes canc_mensaje = new Cancelar_XML_mensajes(arr_id_cmult);
+
+                canc_mensaje.FormClosed += delegate
+                {
+                    // Cargar consulta
+                    cargar_lista_facturas(opc_tipo_factura);
+                };
+
+                canc_mensaje.ShowDialog();
+
+                // Obtenemos la cantidad de timbres
+                actualizar_timbres();*/
+
             }
         }
 
@@ -2004,14 +2003,14 @@ namespace PuntoDeVentaV2
             //        {
             //            listaCheckBox.Add(idFactura);
             //        }
-                  
+
             //    }
             //    catch (Exception ex)
             //    {
 
             //    }
             //}
-             //Recorre la lista y agregar todo en una sola cadena para la consulta
+            //Recorre la lista y agregar todo en una sola cadena para la consulta
             var cadenaCompleta = string.Empty;
             foreach (KeyValuePair<int, string> item in facturasD)
             {
