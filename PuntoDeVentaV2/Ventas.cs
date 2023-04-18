@@ -35,6 +35,8 @@ namespace PuntoDeVentaV2
 
         // status 11 = Orden
 
+        private bool _preventRowPostPaint = false;
+
         public static double pasarSumaImportes { get; set; }
         public static double pasarTotalAnticipos { get; set; }
         private bool aplicarDescuentoG { get; set; }
@@ -1464,6 +1466,7 @@ namespace PuntoDeVentaV2
             if (e.RowIndex >= 0)
             {
                 cargarImagen(DGVentas.Rows[e.RowIndex].Cells["IDProducto"].Value.ToString());
+                _preventRowPostPaint = true;
                 var noSeBorroFila = true;
                 celdaCellClick = DGVentas.CurrentCell.RowIndex;
                 columnaCellClick = DGVentas.CurrentCell.ColumnIndex;
@@ -9687,6 +9690,11 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void DGVentas_MouseLeave(object sender, EventArgs e)
+        {
+            _preventRowPostPaint = false;
+        }
+
         private void DGVentas_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             var celda = e.RowIndex;
@@ -9740,7 +9748,17 @@ namespace PuntoDeVentaV2
             }
             txtBuscadorProducto.Clear();
             txtBuscadorProducto.Focus();
-            cargarImagen(DGVentas.Rows[0].Cells["IDProducto"].Value.ToString());
+
+            if (!_preventRowPostPaint)
+            {
+                cargarImagen(DGVentas.Rows[0].Cells["IDProducto"].Value.ToString());
+            }
+        }
+
+
+        private void DGVentas_LostFocus(object sender, EventArgs e)
+        {
+            _preventRowPostPaint = false;
         }
 
         private void btnCancelarVenta_Enter(object sender, EventArgs e)

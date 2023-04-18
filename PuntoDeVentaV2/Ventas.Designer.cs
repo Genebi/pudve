@@ -251,6 +251,7 @@
             this.DGVentas.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.DGVentas_RowsAdded);
             this.DGVentas.SelectionChanged += new System.EventHandler(this.DGVentas_SelectionChanged);
             this.DGVentas.Enter += new System.EventHandler(this.DGVentas_Enter);
+            this.DGVentas.MouseLeave += new System.EventHandler(this.DGVentas_MouseLeave);
             this.DGVentas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DGVentas_MouseUp);
             // 
             // IDProducto
