@@ -499,29 +499,61 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void actualizarImagenes()
+        private void actualizarImagenes(int tipo)
         {
-            using (DataTable dt = cn.CargarDatos($"SELECT ID, ProdImage FROM productos WHERE ProdImage <> '' AND ImgNew IS NULL AND IDUsuario = {userID} ;"))
+            switch (tipo)
             {
-                string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
-                foreach (DataRow dataRow in dt.Rows)
-                {
-                    if (System.IO.File.Exists(saveDirectoryImg + dataRow["ProdImage"].ToString()))
+                case 1:
+                    using (DataTable dt = cn.CargarDatos($"SELECT ID, ProdImage FROM productos WHERE ProdImage <> '' AND ImgNew IS NULL AND IDUsuario = {userID} ;"))
                     {
-
-
-                        using (MemoryStream ms = new MemoryStream())
+                        string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
+                        foreach (DataRow dataRow in dt.Rows)
                         {
-                            using (Image image = Image.FromFile(saveDirectoryImg + dataRow["ProdImage"].ToString()))
+                            if (System.IO.File.Exists(saveDirectoryImg + dataRow["ProdImage"].ToString()))
                             {
-                                image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                                byte[] imageData = ms.ToArray();
-                                cn.insertImage(cs.guardarImgProducto(dataRow["ID"].ToString()), imageData);
+
+
+                                using (MemoryStream ms = new MemoryStream())
+                                {
+                                    using (Image image = Image.FromFile(saveDirectoryImg + dataRow["ProdImage"].ToString()))
+                                    {
+                                        image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                        byte[] imageData = ms.ToArray();
+                                        cn.insertImage(cs.guardarImgProducto(dataRow["ID"].ToString()), imageData);
+                                    }
+                                }
                             }
                         }
-                    }               
-                }
+                    }
+                    break;
+                case 2:
+                    using (DataTable dt = cn.CargarDatos($"SELECT LogoTipo FROM usuarios WHERE LogoTipo <> '' AND ImgNew IS NULL AND IDUsuario = {userID} ;"))
+                    {
+                        string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\MisDatos\Usuarios";
+                        foreach (DataRow dataRow in dt.Rows)
+                        {
+                            if (System.IO.File.Exists(saveDirectoryImg + dataRow["LogoTipo"].ToString()))
+                            {
+                                using (MemoryStream ms = new MemoryStream())
+                                {
+                                    using (Image image = Image.FromFile(saveDirectoryImg + dataRow["LogoTipo"].ToString()))
+                                    {
+                                        image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                        byte[] imageData = ms.ToArray();
+                                        string query = $@"UPDATE usuarios
+                                             SET ImgNew = @ImageData
+                                             WHERE ID = {FormPrincipal.userID};";
+                                        cn.insertImage(query, imageData);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    break;
             }
+            
         }
 
         private void FormPrincipal_Load(object sender, EventArgs e)
@@ -739,10 +771,21 @@ namespace PuntoDeVentaV2
                 {
                     Task.Run(() =>
                     {
-                        actualizarImagenes();
+                        actualizarImagenes(1);
                     });
                 }
             }
+
+            //if (!cn.CargarDatos($"SELECT LogoTipo FROM usuarios WHERE LogoTipo <> '' AND ImgNew IS NULL AND ID = {userID};").Rows.Equals(0))
+            //{
+            //    if (string.IsNullOrWhiteSpace(servidor))
+            //    {
+            //        Task.Run(() =>
+            //        {
+            //            actualizarImagenes(2);
+            //        });
+            //    }
+            //}
         }
 
         private void buscarCaducos()

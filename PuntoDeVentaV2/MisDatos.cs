@@ -68,7 +68,7 @@ namespace PuntoDeVentaV2
         string ruta_carpetas_csd = @"C:\Archivos PUDVE\MisDatos\";
 
         // objeto para el manejo de las imagenes
-        FileStream File,File1;
+        FileStream File, File1;
         FileInfo info;
 
         // nombre de archivo
@@ -132,9 +132,9 @@ namespace PuntoDeVentaV2
             telefono = dt.Rows[index]["Telefono"].ToString();
             regimen = dt.Rows[index]["Regimen"].ToString();
             tipoPersona = dt.Rows[index]["TipoPersona"].ToString();
-            logoTipo = dt.Rows[index]["LogoTipo"].ToString();
+            logoTipo = dt.Rows[index]["ImgNew"].ToString();
             nombre_comercial = dt.Rows[index]["nombre_comercial"].ToString();
-            correo_anterior= dt.Rows[index]["Email"].ToString();
+            correo_anterior = dt.Rows[index]["Email"].ToString();
 
             /****************************************
             *   ponemos los datos en los TxtBox     *
@@ -145,7 +145,7 @@ namespace PuntoDeVentaV2
             txtRFC.Text = rfc;
             txtCalle.Text = string.IsNullOrWhiteSpace(calle) ? txtCalle.Text : calle;
             txtNoExt.Text = string.IsNullOrWhiteSpace(numExt) ? txtNoExt.Text : numExt;
-            txtNoInt.Text = string.IsNullOrWhiteSpace(numInt) ?  txtNoInt.Text : numInt;
+            txtNoInt.Text = string.IsNullOrWhiteSpace(numInt) ? txtNoInt.Text : numInt;
             txtColonia.Text = string.IsNullOrWhiteSpace(colonia) ? txtColonia.Text : colonia;
             txtMpio.Text = string.IsNullOrWhiteSpace(mpio) ? txtMpio.Text : mpio;
             txtEstado.Text = string.IsNullOrWhiteSpace(estado) ? txtEstado.Text : estado;
@@ -160,25 +160,26 @@ namespace PuntoDeVentaV2
             // si el campo de la base de datos es difrente a null
             if (logoTipo != "")
             {
-                btnSubirArchivo.Visible = false;
-                btnBorrarImg.Visible = true;
+                pictureBox1.Image = cn.readImage(($"SELECT ImgNew from usuarios WHERE id = {FormPrincipal.userID}"));
+                //btnSubirArchivo.Visible = false;
+                //btnBorrarImg.Visible = true;
 
-                if (System.IO.File.Exists(saveDirectoryImg + logoTipo))
-                {
-                    // usamos temporalmente el objeto File
-                    using (File = new FileStream(saveDirectoryImg + logoTipo, FileMode.Open, FileAccess.Read))
-                    {
-                        // asignamos la imagen al PictureBox
-                        pictureBox1.Image = Image.FromStream(File);
-                        // destruimos o desactivamos el bjeto File
-                        File.Dispose();
-                    }
-                }
-                else
-                {
-                    pictureBox1.Image = null;
-                }
-            
+                //if (System.IO.File.Exists(saveDirectoryImg + logoTipo))
+                //{
+                //    // usamos temporalmente el objeto File
+                //    using (File = new FileStream(saveDirectoryImg + logoTipo, FileMode.Open, FileAccess.Read))
+                //    {
+                //        // asignamos la imagen al PictureBox
+                //        pictureBox1.Image = Image.FromStream(File);
+                //        // destruimos o desactivamos el bjeto File
+                //        File.Dispose();
+                //    }
+                //}
+                //else
+                //{
+                //    pictureBox1.Image = null;
+                //}
+
             } else
             {
                 btnSubirArchivo.Visible = true;
@@ -245,8 +246,8 @@ namespace PuntoDeVentaV2
             cbRegimen.Items.Clear();
 
             // insertamos en el campo del index 0 el texto Selecciona un Regimen
-            cbRegimen.Items.Insert(0,"Selecciona un Regimen");
-            
+            cbRegimen.Items.Insert(0, "Selecciona un Regimen");
+
             /********************************
             *   Relleno de los RadioButton  *
             ********************************/
@@ -313,7 +314,7 @@ namespace PuntoDeVentaV2
                 cbRegimen.Text = LblRegimenActual.Text;
             }
         }
-    
+
         public void actualizarVariables()
         {
             // actualizamos los valores de la variables con los
@@ -336,7 +337,7 @@ namespace PuntoDeVentaV2
             {
                 // si el registro de la base de datos esta en blanco
                 // se deja igual en blanco
-                if (regimen=="")
+                if (regimen == "")
                 {
                     regimen = "";
                 }
@@ -453,10 +454,10 @@ namespace PuntoDeVentaV2
 
         private void btnActualizarDatos_Click(object sender, EventArgs e)
         {
-            bool result = false; 
+            bool result = false;
             bool respuesta = false;
             seGuarda = true;
-            
+
             if (opcion1 == 0 || opcion4 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -775,7 +776,7 @@ namespace PuntoDeVentaV2
                 {
                     rbPersonaFisica.PerformClick();
                 }
-                
+
                 //Moral
                 if (longitud == 12)
                 {
@@ -866,9 +867,9 @@ namespace PuntoDeVentaV2
                             };
 
                             cn.EjecutarConsulta(cs.archivos_digitales(datos, 1));
-                            
+
                         }
-                        
+
                     };
 
                     if (!string.IsNullOrWhiteSpace(txtRFC.Text))
@@ -882,7 +883,7 @@ namespace PuntoDeVentaV2
                         txtRFC.SelectAll();
                         txtRFC.Focus();
                     }
-                } 
+                }
             }
         }
 
@@ -1087,9 +1088,9 @@ namespace PuntoDeVentaV2
 
         private void txt_llave_KeyDown(object sender, KeyEventArgs e)
         {
-            
+
         }
-                
+
         private void btnSubirArchivo_Click(object sender, EventArgs e)
         {
             if (opcion2 == 0)
@@ -1097,123 +1098,149 @@ namespace PuntoDeVentaV2
                 Utilidades.MensajePermiso();
                 return;
             }
-
-            actualizarVariablesDePathDeInstalacionLocalRed();
-
-            using (f = new OpenFileDialog())	// abrimos el opneDialog para seleccionar la imagen
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                // le aplicamos un filtro para solo ver 
-                // imagenes de tipo *.jpg en el openDialog
-                f.Filter = "JPG (*.JPG)|*.jpg";
-                if (f.ShowDialog() == DialogResult.OK)		// si se abrio correctamente el openDialog
+                openFileDialog.Filter = "Image Files (*.bmp;*.jpg;*.jpeg,*.png)|*.BMP;*.JPG;*.JPEG;*.PNG";
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    /************************************************
-                    *   usamos el objeto File para almacenar las    *
-                    *   propiedades de la imagen                    * 
-                    ************************************************/
-                    using (File = new FileStream(f.FileName, FileMode.Open, FileAccess.Read))
+                    using (MemoryStream ms = new MemoryStream())
                     {
-                        pictureBox1.Image = Image.FromStream(File);		// carrgamos la imagen en el PictureBox
-                        info = new FileInfo(f.FileName);				// obtenemos toda la informacion de la imagen
-                        fileName = Path.GetFileName(f.FileName);		// obtenemos el nombre de la imagen
-                        oldDirectory = info.DirectoryName;				// obtenemos el directorio origen de la imagen
-                        File.Dispose();									// liberamos el objeto File
-                    }
-
-                    btnSubirArchivo.Visible = false;
-                    btnBorrarImg.Visible = true;
-                }
-            }
-
-            if (!Directory.Exists(saveDirectoryImg))	// verificamos que si no existe el directorio
-            {
-                Directory.CreateDirectory(saveDirectoryImg);	// lo crea para poder almacenar la imagen
-            }
-
-            if (f.CheckFileExists)		// si el archivo existe
-            {
-                try 	// hacemos el intento de realizar la actualizacion de la imagen
-                {
-                    if (File != null)	// si el usuario selecciona un archivo valido
-                    {
-                        // obtenemos el nuevo nombre de la imagen con la 
-                        // se va hacer la copia de la imagen
-                        NvoFileName = userName + rfc + ".jpg";
-                        TxtBoxNombreArchivo.Text = NvoFileName;		// ponemos en el TxtBox el nombre con el cual se va guardar el archivo
-                        var source = TxtBoxNombreArchivo.Text;
-                        var replacement = source.Replace('/', '_').Replace('\\', '_').Replace(':', '_').Replace('*', '_').Replace('?', '_').Replace('\"', '_').Replace('<', '_').Replace('>', '_').Replace('|', '_').Replace('-', '_').Replace(' ', '_');
-                        NvoFileName = replacement;
-                        TxtBoxNombreArchivo.Text = NvoFileName;		// ponemos en el TxtBox el nombre con el cual se va guardar el archivo
-                        if (logoTipo != "")		// si el valor de la vairable es diferente a Null o de ""
+                        using (Image image = Image.FromFile(openFileDialog.FileName))
                         {
-                            string insertImagen = string.Empty;
-                            if (File1 != null)		// si file1 es igual a null
+                            image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                            byte[] imageData = ms.ToArray();
+                            string query = $@"UPDATE usuarios
+                                   SET ImgNew = @ImageData
+                                   WHERE ID = {FormPrincipal.userID};";
+                            cn.insertImage(query, imageData);
+                            if (cn.readImage(($"SELECT ImgNew from usuarios WHERE id = {FormPrincipal.userID}")) != null)
                             {
-                                File1.Dispose();    // Dasactivamos el objeto File1
-                                // hacemos la nueva cadena de consulta para hacer el update
-                                insertImagen = $"UPDATE Usuarios SET LogoTipo = '{NvoFileName}' WHERE ID = '{id}'";
-                                cn.EjecutarConsulta(insertImagen);		// hacemos que se ejecute la consulta
-                                actualizarVariables();		// actualizamos las variables
-                                cargarComboBox();		// cargamos los datos de nuevo
-                                if (pictureBox1.Image != null)	// vereficamos si el pictureBox es Null
-                                {
-                                    pictureBox1.Image.Dispose();	// Liberamos el pictureBox para poder borrar su imagen                                    
-                                    System.IO.File.Delete(logoTipo);  // borramos el archivo de la imagen
-                                    // realizamos la copia de la imagen origen hacia el nuevo destino
-                                    System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
-                                    logoTipo = saveDirectoryImg + NvoFileName;      // obtenemos el nuevo path
-                                    // leemos el archivo de imagen y lo ponemos el pictureBox
-                                    using (File = new FileStream(logoTipo, FileMode.Open, FileAccess.Read))
-                                    {
-                                        pictureBox1.Image = Image.FromStream(File);		// carrgamos la imagen en el PictureBox
-                                    }
-                                }
-                                // hacemos la nueva cadena de consulta para hacer el update
-                                insertImagen = $"UPDATE Usuarios SET LogoTipo = '{NvoFileName}' WHERE ID = '{id}'";
-                                cn.EjecutarConsulta(insertImagen);		// hacemos que se ejecute la consulta
-                            }
-                            else	// si es que file1 es igual a null
-                            {
-                                // realizamos la copia de la imagen origen hacia el nuevo destino
-                                System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
-                                // hacemos la nueva cadena de consulta para hacer el update
-                                insertImagen = $"UPDATE Usuarios SET LogoTipo = '{NvoFileName}' WHERE ID = '{id}'";
-                                cn.EjecutarConsulta(insertImagen);		// hacemos que se ejecute la consulta
-                                logoTipo = saveDirectoryImg + NvoFileName;		// obtenemos el nuevo path
+                                pictureBox1.Image = cn.readImage(($"SELECT ImgNew from usuarios WHERE id = {FormPrincipal.userID}"));
                             }
                         }
-                        if (logoTipo == "" || logoTipo == null)		// si el valor de la variable es Null o esta ""
-                        {
 
-                            pictureBox1.Image.Dispose();	// Liberamos el pictureBox para poder borrar su imagen
-                            // agregamos el nombre de archivo con toda la ruta para ver si se esta haciendo el proceso
-                            TxtBoxNombreArchivo.Text = NvoFileName;
-                            // realizamos la copia de la imagen origen hacia el nuevo destino
-                            System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
-                            logoTipo = saveDirectoryImg + NvoFileName;		// obtenemos el nuevo path
-                            // hacemos la nueva cadena de consulta para hacer el update
-                            string insertImagen = $"UPDATE Usuarios SET LogoTipo = '{NvoFileName}' WHERE ID = '{id}'";
-                            cn.EjecutarConsulta(insertImagen);      // hacemos que se ejecute la consulta
-                            // leemos el archivo de imagen y lo ponemos el pictureBox
-                            using (File = new FileStream(logoTipo, FileMode.Open, FileAccess.Read))
-                            {
-                                pictureBox1.Image = Image.FromStream(File);		// carrgamos la imagen en el PictureBox
-                            }
-                        }
                     }
                 }
-                catch (IOException ex)	// si no se puede hacer el proceso
-                {
-                    // si no se borra el archivo muestra este mensaje
-                    MessageBox.Show("Error al hacer el borrado No: " + ex);
-                }
-            }
-            else if (f.FileName == "")	// si el nombre del archivo esta en blanco
-            {
-                // si no selecciona un archivo valido o ningun archivo muestra este mensaje
-                MessageBox.Show("selecciona una Imagen", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
             }
         }
+
+        //actualizarVariablesDePathDeInstalacionLocalRed();
+
+        //using (f = new OpenFileDialog())	// abrimos el opneDialog para seleccionar la imagen
+        //{
+        //    // le aplicamos un filtro para solo ver 
+        //    // imagenes de tipo *.jpg en el openDialog
+        //    f.Filter = "JPG (*.JPG)|*.jpg";
+        //    if (f.ShowDialog() == DialogResult.OK)		// si se abrio correctamente el openDialog
+        //    {
+        //        /************************************************
+        //        *   usamos el objeto File para almacenar las    *
+        //        *   propiedades de la imagen                    * 
+        //        ************************************************/
+        //        using (File = new FileStream(f.FileName, FileMode.Open, FileAccess.Read))
+        //        {
+        //            pictureBox1.Image = Image.FromStream(File);		// carrgamos la imagen en el PictureBox
+        //            info = new FileInfo(f.FileName);				// obtenemos toda la informacion de la imagen
+        //            fileName = Path.GetFileName(f.FileName);		// obtenemos el nombre de la imagen
+        //            oldDirectory = info.DirectoryName;				// obtenemos el directorio origen de la imagen
+        //            File.Dispose();									// liberamos el objeto File
+        //        }
+
+        //        btnSubirArchivo.Visible = false;
+        //        btnBorrarImg.Visible = true;
+        //    }
+        //}
+
+        //if (!Directory.Exists(saveDirectoryImg))	// verificamos que si no existe el directorio
+        //{
+        //    Directory.CreateDirectory(saveDirectoryImg);	// lo crea para poder almacenar la imagen
+        //}
+
+        //if (f.CheckFileExists)		// si el archivo existe
+        //{
+        //    try 	// hacemos el intento de realizar la actualizacion de la imagen
+        //    {
+        //        if (File != null)	// si el usuario selecciona un archivo valido
+        //        {
+        //            // obtenemos el nuevo nombre de la imagen con la 
+        //            // se va hacer la copia de la imagen
+        //            NvoFileName = userName + rfc + ".jpg";
+        //            TxtBoxNombreArchivo.Text = NvoFileName;		// ponemos en el TxtBox el nombre con el cual se va guardar el archivo
+        //            var source = TxtBoxNombreArchivo.Text;
+        //            var replacement = source.Replace('/', '_').Replace('\\', '_').Replace(':', '_').Replace('*', '_').Replace('?', '_').Replace('\"', '_').Replace('<', '_').Replace('>', '_').Replace('|', '_').Replace('-', '_').Replace(' ', '_');
+        //            NvoFileName = replacement;
+        //            TxtBoxNombreArchivo.Text = NvoFileName;		// ponemos en el TxtBox el nombre con el cual se va guardar el archivo
+        //            if (logoTipo != "")		// si el valor de la vairable es diferente a Null o de ""
+        //            {
+        //                string insertImagen = string.Empty;
+        //                if (File1 != null)		// si file1 es igual a null
+        //                {
+        //                    File1.Dispose();    // Dasactivamos el objeto File1
+        //                    // hacemos la nueva cadena de consulta para hacer el update
+        //                    insertImagen = $"UPDATE Usuarios SET LogoTipo = '{NvoFileName}' WHERE ID = '{id}'";
+        //                    cn.EjecutarConsulta(insertImagen);		// hacemos que se ejecute la consulta
+        //                    actualizarVariables();		// actualizamos las variables
+        //                    cargarComboBox();		// cargamos los datos de nuevo
+        //                    if (pictureBox1.Image != null)	// vereficamos si el pictureBox es Null
+        //                    {
+        //                        pictureBox1.Image.Dispose();	// Liberamos el pictureBox para poder borrar su imagen                                    
+        //                        System.IO.File.Delete(logoTipo);  // borramos el archivo de la imagen
+        //                        // realizamos la copia de la imagen origen hacia el nuevo destino
+        //                        System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
+        //                        logoTipo = saveDirectoryImg + NvoFileName;      // obtenemos el nuevo path
+        //                        // leemos el archivo de imagen y lo ponemos el pictureBox
+        //                        using (File = new FileStream(logoTipo, FileMode.Open, FileAccess.Read))
+        //                        {
+        //                            pictureBox1.Image = Image.FromStream(File);		// carrgamos la imagen en el PictureBox
+        //                        }
+        //                    }
+        //                    // hacemos la nueva cadena de consulta para hacer el update
+        //                    insertImagen = $"UPDATE Usuarios SET LogoTipo = '{NvoFileName}' WHERE ID = '{id}'";
+        //                    cn.EjecutarConsulta(insertImagen);		// hacemos que se ejecute la consulta
+        //                }
+        //                else	// si es que file1 es igual a null
+        //                {
+        //                    // realizamos la copia de la imagen origen hacia el nuevo destino
+        //                    System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
+        //                    // hacemos la nueva cadena de consulta para hacer el update
+        //                    insertImagen = $"UPDATE Usuarios SET LogoTipo = '{NvoFileName}' WHERE ID = '{id}'";
+        //                    cn.EjecutarConsulta(insertImagen);		// hacemos que se ejecute la consulta
+        //                    logoTipo = saveDirectoryImg + NvoFileName;		// obtenemos el nuevo path
+        //                }
+        //            }
+        //            if (logoTipo == "" || logoTipo == null)		// si el valor de la variable es Null o esta ""
+        //            {
+
+        //                pictureBox1.Image.Dispose();	// Liberamos el pictureBox para poder borrar su imagen
+        //                // agregamos el nombre de archivo con toda la ruta para ver si se esta haciendo el proceso
+        //                TxtBoxNombreArchivo.Text = NvoFileName;
+        //                // realizamos la copia de la imagen origen hacia el nuevo destino
+        //                System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
+        //                logoTipo = saveDirectoryImg + NvoFileName;		// obtenemos el nuevo path
+        //                // hacemos la nueva cadena de consulta para hacer el update
+        //                string insertImagen = $"UPDATE Usuarios SET LogoTipo = '{NvoFileName}' WHERE ID = '{id}'";
+        //                cn.EjecutarConsulta(insertImagen);      // hacemos que se ejecute la consulta
+        //                // leemos el archivo de imagen y lo ponemos el pictureBox
+        //                using (File = new FileStream(logoTipo, FileMode.Open, FileAccess.Read))
+        //                {
+        //                    pictureBox1.Image = Image.FromStream(File);		// carrgamos la imagen en el PictureBox
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (IOException ex)	// si no se puede hacer el proceso
+        //    {
+        //        // si no se borra el archivo muestra este mensaje
+        //        MessageBox.Show("Error al hacer el borrado No: " + ex);
+        //    }
+        //}
+        //else if (f.FileName == "")	// si el nombre del archivo esta en blanco
+        //{
+        //    // si no selecciona un archivo valido o ningun archivo muestra este mensaje
+        //    MessageBox.Show("selecciona una Imagen", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        //}
+    
 
         private void cbRegimen_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1262,12 +1289,12 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(logoTipo))
             {
-                // borramos el archivo de la imagen
-                System.IO.File.Delete(logoTipo);
-                // ponemos la ruta del logoTipo en null
-                logoTipo = null; 
+                //// borramos el archivo de la imagen
+                //System.IO.File.Delete(logoTipo);
+                //// ponemos la ruta del logoTipo en null
+                //logoTipo = null; 
                 // hacemos la nueva cadena de consulta para hacer el update
-                string consultaUpdate = $"UPDATE Usuarios SET LogoTipo = '{logoTipo}' WHERE ID = '{id}'";
+                string consultaUpdate = $"UPDATE Usuarios SET ImgNew = Null WHERE ID = '{id}'";
                 // hacemos que se ejecute la consulta
                 cn.EjecutarConsulta(consultaUpdate);
                 //ponemos la imagen en limpio
