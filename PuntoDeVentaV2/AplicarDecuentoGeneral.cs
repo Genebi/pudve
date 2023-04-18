@@ -294,6 +294,11 @@ namespace PuntoDeVentaV2
             //    txtCantidad.SelectAll();
             //    txtCantidad.Focus();
             //}
+            if (ListaClientes.preguntaDescuento == 1)
+            {
+                txtPorcentaje.Text = Total.ToString();
+                btnAceptar.PerformClick();
+            }
         }
     }
 }

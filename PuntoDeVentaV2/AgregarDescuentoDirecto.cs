@@ -127,11 +127,6 @@ namespace PuntoDeVentaV2
                 txtCantidad.Clear();
                 txtPorcentaje.Clear();
                 Ventas.descuentosDirectos.Clear();
-                
-                
-                
-                
-                
                 Ventas.tipoDescuentoAplicado = 1;
                 this.Close();
             }

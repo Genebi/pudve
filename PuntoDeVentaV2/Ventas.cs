@@ -115,6 +115,7 @@ namespace PuntoDeVentaV2
         public static int tipoDescuentoAplicado;
         public static string descuentoActual;
 
+        public static int tieneDescuento2 = 0;
 
         // Para saber con que boton se cerro el form DetalleVenta.cs, en este caso saber si se cerro con el boton aceptar (terminar)
         public static bool botonAceptar = false;
@@ -247,6 +248,8 @@ namespace PuntoDeVentaV2
         public static string AplicarCantidad;
         public static bool HizoUnaAccion = false;
         public static bool SeCambioCantidad = false;
+
+        public static int desdeGuardadoVenta = 0;
 
         // Variables para las Ordenes
         public static string tiempoElaboracion { get; set; }
@@ -8803,6 +8806,16 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
+                tieneDescuento2 = 0;
+                foreach (DataGridViewRow row in DGVentas.Rows)
+                {
+                    string descuento = row.Cells["Descuento"].Value.ToString();
+
+                    if (descuento != "0.00")
+                    {
+                        tieneDescuento2 = 1;
+                    }
+                }
 
                 ListaClientes cliente = new ListaClientes();
 
@@ -8824,8 +8837,7 @@ namespace PuntoDeVentaV2
                         ventaGuardada = false;
                         DetalleVenta.idCliente = 0;
                         DetalleVenta.cliente = string.Empty;
-                        DetalleVenta.nameClienteNameVenta = string.Empty;
-
+                        DetalleVenta.nameClienteNameVenta = string.Empty; 
                     }
                 };
 
@@ -8835,6 +8847,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No hay productos agregados a la lista", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            desdeGuardadoVenta = 0;
         }
 
         private void botonRedondo5_Click(object sender, EventArgs e)

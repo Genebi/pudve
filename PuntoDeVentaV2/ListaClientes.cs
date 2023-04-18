@@ -28,6 +28,8 @@ namespace PuntoDeVentaV2
         
         int idClienteGlobal = 0;
 
+        public static int preguntaDescuento = 0;
+
         // Tipo: 0 = Por defecto
         // Tipo: 1 = Por parte de la ventana Venta
         // Tipo: 2 = Por parte de la ventana DetalleVenta
@@ -211,7 +213,23 @@ namespace PuntoDeVentaV2
                         Ventas.ventaGuardada = false;
                     }
 
-                    this.Close();
+                    var datos = cn.CargarDatos($"SELECT TipoCliente FROM CLIENTES WHERE IDUsuario = {FormPrincipal.userID} AND ID = {idCliente}");
+                    var tipoDescuentocliente = datos.Rows[0]["TipoCliente"].ToString();
+
+                    var datos2 = cn.CargarDatos($"SELECT DescuentoPorcentaje FROM tipoclientes WHERE IDUsuario = {FormPrincipal.userID} AND ID = {tipoDescuentocliente}");
+                    var descuentoPorcentajeCliente = datos2.Rows[0]["DescuentoPorcentaje"].ToString();
+
+                    if (Ventas.tieneDescuento2 == 1 && !tipoDescuentocliente.Equals("0"))
+                    {
+                        DialogResult result = MessageBox.Show("Este cliente cuenta con un descuento por cliente, ¿deseas aplicarlo y reemplazar el descuento actual?", "Confirmación de descuento", MessageBoxButtons.YesNo);
+                        if (result == DialogResult.Yes)
+                        {
+                            preguntaDescuento = 1;
+                            AplicarDecuentoGeneral desc = new AplicarDecuentoGeneral(descuentoPorcentajeCliente);
+                            desc.Show();
+                        }
+                    }
+                    //this.Close();
                 }
             }
         }
@@ -594,6 +612,11 @@ namespace PuntoDeVentaV2
                 txtBuscador.Text = producto;
                 txtBuscador.Select(txtBuscador.Text.Length, 0);
             }
+        }
+
+        private void btnAceptar2_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
