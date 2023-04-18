@@ -1068,6 +1068,7 @@ namespace PuntoDeVentaV2
                     }
 
                     //dpFechaFinal.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    dpFechaFinal.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd HH:mm:ss");
 
                     if (FormPrincipal.userNickName.Contains("@"))
@@ -6088,7 +6089,7 @@ namespace PuntoDeVentaV2
             tipoVenta = cbTipoVentas.SelectedIndex;
             var opcion = cbTipoRentas.SelectedValue.ToString();
             clickBoton = 0;
-
+            dpFechaFinal.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             // Desactivar checkbox al cambios tipos de ventas
             chTodos.Checked = false;
             chkHDAutlan.Checked = false;
@@ -6110,6 +6111,7 @@ namespace PuntoDeVentaV2
             if (opcion == "RCC") { CargarDatos(9); }
             //Rentas globales
             if (opcion == "RGG") { CargarDatos(10); }
+
         }
 
         private void cbTipoRentas_KeyDown(object sender, KeyEventArgs e)
