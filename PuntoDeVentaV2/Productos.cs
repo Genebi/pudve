@@ -111,7 +111,7 @@ namespace PuntoDeVentaV2
         public AgregarStockXML FormXML = new AgregarStockXML();
         public RecordViewProduct ProductoRecord = new RecordViewProduct();
         public CodeBarMake MakeBarCode = new CodeBarMake();
-        public photoShow VentanaMostrarFoto = new photoShow();
+        //public photoShow VentanaMostrarFoto = new photoShow();
         public TagMake MakeTagProd = new TagMake();
         public VentanaDetalleFotoProducto ProductoDetalle = new VentanaDetalleFotoProducto();
         public DetalleDescripcion Descripcion = new DetalleDescripcion();
@@ -379,12 +379,12 @@ namespace PuntoDeVentaV2
         {
             if (dato < 2)
             {
-                queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND Status = '{dato}'";
+                queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status, ImgNew FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND Status = '{dato}'";
                 fotos = cn.CargarDatos(queryFotos);
             }
             else
             {
-                queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}'";
+                queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status, ImgNew FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}'";
                 fotos = cn.CargarDatos(queryFotos);
             }
         }
@@ -749,6 +749,7 @@ namespace PuntoDeVentaV2
 
         private void photoShow()
         {
+            //Si alguien ve este codigo GARRA, es de kevin originalmente a mi no me reclamen X.X
             fLPShowPhoto.Controls.Clear();
             foreach (DataRow row in fotos.Rows)
             {
@@ -757,8 +758,8 @@ namespace PuntoDeVentaV2
                 btn.Size = new System.Drawing.Size(150, 150);
                 btn.Font = new System.Drawing.Font("Tahoma", 14, FontStyle.Bold | FontStyle.Italic);
                 btn.TextAlign = ContentAlignment.TopCenter;
-                var x = row["ProdImage"].ToString();
-                if (row["ProdImage"].ToString() == "" || row["ProdImage"].ToString() == null)
+                var x = row["ImgNew"].ToString();
+                if (row["ImgNew"].ToString() == "" || row["ImgNew"].ToString() == null)
                 {
                     btn.ForeColor = Color.Red;
                     using (fs = new FileStream(fileSavePath + @"\no-image.png", FileMode.Open))
@@ -767,16 +768,18 @@ namespace PuntoDeVentaV2
                         btn.Image = new Bitmap(btn.Image, btn.Size);
                     }
                 }
-                else if (row["ProdImage"].ToString() != "" || row["ProdImage"].ToString() != null)
+                else if (row["ImgNew"].ToString() != "" || row["ImgNew"].ToString() != null)
                 {
                     try
                     {
                         btn.ForeColor = Color.Red;
-                        using (fs = new FileStream(fileSavePath + row["ProdImage"].ToString(), FileMode.Open))
-                        {
-                            btn.Image = System.Drawing.Image.FromStream(fs);
-                            btn.Image = new Bitmap(btn.Image, btn.Size);
-                        }
+                        //using (fs = new FileStream(fileSavePath + row["ProdImage"].ToString(), FileMode.Open))
+                        //{
+                        //    btn.Image = System.Drawing.Image.FromStream(fs);
+                        //    btn.Image = new Bitmap(btn.Image, btn.Size);
+                        //}
+
+                        btn.Image = cn.readImage(($"SELECT ImgNew from productos WHERE id = { row["ID"]}"));
                     }
                     catch
                     {
@@ -1321,17 +1324,19 @@ namespace PuntoDeVentaV2
                     }
 
                     //// Imagen del Producto
-                    //numfila = e.RowIndex;
-                    //obtenerDatosDGVProductos(numfila);
+                    numfila = e.RowIndex;
+                    obtenerDatosDGVProductos(numfila);
 
-                    ////string pathString;
+                    //string pathString;
 
-                    ////pathString = savePath;
+                    //pathString = savePath;
 
-                    //if (imagestring != "")
-                    //{
-                    //    mostrarFoto();
-                    //}
+                    if (imagestring != "")
+                    {
+                        photoShow oachango = new photoShow(idProductoEditar);
+                        oachango.ShowDialog();
+                        //mostrarFoto();
+                    }
                     //else if (imagestring == "")
                     //{
                     //    agregarFoto();
@@ -6520,32 +6525,32 @@ namespace PuntoDeVentaV2
             }
         }
 
-        public void mostrarFoto()
-        {
-            VentanaMostrarFoto.FormClosed += delegate
-            {
-                //CargarDatos();
-                actualizarDatosDespuesDeAgregarProducto();
-            };
-            if (!VentanaMostrarFoto.Visible)
-            {
-                VentanaMostrarFoto.NombreProd = Nombre;
-                VentanaMostrarFoto.StockProd = Stock;
-                VentanaMostrarFoto.PrecioProd = Precio;
-                VentanaMostrarFoto.ClaveInterna = ClaveInterna;
-                VentanaMostrarFoto.CodigoBarras = CodigoBarras;
-                VentanaMostrarFoto.ShowDialog();
-            }
-            else
-            {
-                VentanaMostrarFoto.NombreProd = Nombre;
-                VentanaMostrarFoto.StockProd = Stock;
-                VentanaMostrarFoto.PrecioProd = Precio;
-                VentanaMostrarFoto.ClaveInterna = ClaveInterna;
-                VentanaMostrarFoto.CodigoBarras = CodigoBarras;
-                VentanaMostrarFoto.BringToFront();
-            }
-        }
+        //public void mostrarFoto()
+        //{
+        //    VentanaMostrarFoto.FormClosed += delegate
+        //    {
+        //        //CargarDatos();
+        //        actualizarDatosDespuesDeAgregarProducto();
+        //    };
+        //    if (!VentanaMostrarFoto.Visible)
+        //    {
+        //        VentanaMostrarFoto.NombreProd = Nombre;
+        //        VentanaMostrarFoto.StockProd = Stock;
+        //        VentanaMostrarFoto.PrecioProd = Precio;
+        //        VentanaMostrarFoto.ClaveInterna = ClaveInterna;
+        //        VentanaMostrarFoto.CodigoBarras = CodigoBarras;
+        //        VentanaMostrarFoto.ShowDialog();
+        //    }
+        //    else
+        //    {
+        //        VentanaMostrarFoto.NombreProd = Nombre;
+        //        VentanaMostrarFoto.StockProd = Stock;
+        //        VentanaMostrarFoto.PrecioProd = Precio;
+        //        VentanaMostrarFoto.ClaveInterna = ClaveInterna;
+        //        VentanaMostrarFoto.CodigoBarras = CodigoBarras;
+        //        VentanaMostrarFoto.BringToFront();
+        //    }
+        //}
 
         private void btnAgregarXML_Click(object sender, EventArgs e)
         {

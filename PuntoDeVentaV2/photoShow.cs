@@ -13,40 +13,51 @@ namespace PuntoDeVentaV2
 {
     public partial class photoShow : Form
     {
-        Conexion cn = new Conexion();
+        //Conexion cn = new Conexion();
 
-        FileStream File;
+        //FileStream File;
 
-        public string NombreProd { get; set; }
-        public string StockProd { get; set; }
-        public string PrecioProd { get; set; }
-        public string ClaveInterna { get; set; }
-        public string CodigoBarras { get; set; }
+        //public string NombreProd { get; set; }
+        //public string StockProd { get; set; }
+        //public string PrecioProd { get; set; }
+        //public string ClaveInterna { get; set; }
+        //public string CodigoBarras { get; set; }
 
-        public static string NombreProdFinal;
-        public static string StockProdFinal;
-        public static string PrecioProdFinal;
-        public static string ClaveInternaFinal;
-        public static string CodigoBarrasFinal;
+        //public static string NombreProdFinal;
+        //public static string StockProdFinal;
+        //public static string PrecioProdFinal;
+        //public static string ClaveInternaFinal;
+        //public static string CodigoBarrasFinal;
 
-        int index = 0;
-        string buscar;
-        string imgPath;
-        string pathString = string.Empty;
-        string idEditarProducto = string.Empty;
+        //int index = 0;
+        //string buscar;
+        //string imgPath;
+        //string pathString = string.Empty;
+        //string idEditarProducto = string.Empty;
 
-        public photoShow()
+        string idProducto;
+
+        public photoShow(string id)
         {
             InitializeComponent();
+            idProducto = id;
         }
 
         private void photoShow_Load(object sender, EventArgs e)
         {
-            cargarDatos();
+            cargarImagen();
+        }
+
+        private void cargarImagen()
+        {
+            PBImagen.Image = null;
+            Conexion cn = new Conexion();
+            PBImagen.Image = cn.readImage(($"SELECT ImgNew from productos WHERE id = {idProducto}"));
         }
 
         public void cargarDatos()
         {
+
             //var servidor = Properties.Settings.Default.Hosting;
 
             //if (!string.IsNullOrWhiteSpace(servidor))
@@ -58,7 +69,7 @@ namespace PuntoDeVentaV2
             //    pathString = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
             //}
 
-            DataTable dt;
+            //DataTable dt;
 
             //NombreProdFinal = NombreProd;
             //if (StockProd.Equals("N/A"))
@@ -69,14 +80,14 @@ namespace PuntoDeVentaV2
             //{
             //    StockProdFinal = StockProd;
             //}
-            PrecioProdFinal = PrecioProd;
-            ClaveInternaFinal = ClaveInterna;
-            CodigoBarrasFinal = CodigoBarras;
-            buscar = $"SELECT * FROM Productos WHERE Nombre = '{NombreProdFinal}' AND Stock = '{StockProdFinal}' AND Precio = '{PrecioProdFinal}' AND ClaveInterna = '{ClaveInternaFinal}' AND CodigoBarras = '{CodigoBarrasFinal}'";
+            //PrecioProdFinal = PrecioProd;
+            //ClaveInternaFinal = ClaveInterna;
+            //CodigoBarrasFinal = CodigoBarras;
+            //buscar = $"SELECT * FROM Productos WHERE Nombre = '{NombreProdFinal}' AND Stock = '{StockProdFinal}' AND Precio = '{PrecioProdFinal}' AND ClaveInterna = '{ClaveInternaFinal}' AND CodigoBarras = '{CodigoBarrasFinal}'";
             // almacenamos el resultado de la Funcion CargarDatos
             // que esta en la calse Consultas
-            dt = cn.CargarDatos(buscar);
-            idEditarProducto = dt.Rows[index]["ID"].ToString();
+            //dt = cn.CargarDatos(buscar);
+            //idEditarProducto = dt.Rows[index]["ID"].ToString();
             //imgPath = dt.Rows[index]["ProdImage"].ToString();
             
 
