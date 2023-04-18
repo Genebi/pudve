@@ -4125,6 +4125,16 @@ namespace PuntoDeVentaV2
                 impuestosRetenidos = lb_cant_impuestos_retenidos.Text;
             }
 
+            if (otrosImpuestos.Contains(','))
+            {
+                otrosImpuestos = otrosImpuestos.Replace(",", "");
+            }
+
+            if (impuestosRetenidos.Contains(','))
+            {
+                impuestosRetenidos = impuestosRetenidos.Replace(",", "");
+            }
+
             var guardar = new string[] {
                 IdEmpresa, idClienteTmp, IdEmpresa, Subtotal, IVA16, Total, Descuento,
                 DescuentoGeneral, Anticipo, Folio, Serie, statusVenta, FechaOperacion,

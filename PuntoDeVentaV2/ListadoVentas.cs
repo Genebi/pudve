@@ -6072,16 +6072,20 @@ namespace PuntoDeVentaV2
 
         private void rbRentas_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbRentas.Checked)
+            if (cbTipoRentas.SelectedIndex >= 0)
             {
-                tituloSeccion.Text = "RENTAS (ARRENDAMIENTO)";
-                btnNuevaVenta.Text = "Nueva renta";
-                cbTipoVentas.Visible = false;
-                cbTipoRentas.Visible = true;
-                cbTipoRentas.SelectedIndex = 0;
+                if (rbRentas.Checked)
+                {
+                    tituloSeccion.Text = "RENTAS (ARRENDAMIENTO)";
+                    btnNuevaVenta.Text = "Nueva renta";
+                    cbTipoVentas.Visible = false;
+                    cbTipoRentas.Visible = true;
+                    cbTipoRentas.SelectedIndex = 0;
 
-                CargarDatos(6);
+                    CargarDatos(6);
+                }
             }
+          
         }
 
         private void cbTipoRentas_SelectedIndexChanged(object sender, EventArgs e)
