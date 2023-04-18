@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.lblNombreProducto = new System.Windows.Forms.Label();
+            this.PBImagen = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).BeginInit();
             this.SuspendLayout();
             // 
             // lblNombreProducto
@@ -40,13 +42,25 @@
             this.lblNombreProducto.TabIndex = 1;
             this.lblNombreProducto.Text = "label1";
             this.lblNombreProducto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblNombreProducto.Visible = false;
+            // 
+            // PBImagen
+            // 
+            this.PBImagen.Location = new System.Drawing.Point(23, 17);
+            this.PBImagen.Name = "PBImagen";
+            this.PBImagen.Size = new System.Drawing.Size(316, 319);
+            this.PBImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PBImagen.TabIndex = 2;
+            this.PBImagen.TabStop = false;
             // 
             // photoShow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(361, 380);
+            this.ClientSize = new System.Drawing.Size(361, 365);
+            this.Controls.Add(this.PBImagen);
             this.Controls.Add(this.lblNombreProducto);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
@@ -57,11 +71,13 @@
             this.Text = "Imagen  de Producto";
             this.Load += new System.EventHandler(this.photoShow_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.photoShow_KeyDown);
+            ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private System.Windows.Forms.Label lblNombreProducto;
+        private System.Windows.Forms.PictureBox PBImagen;
     }
 }

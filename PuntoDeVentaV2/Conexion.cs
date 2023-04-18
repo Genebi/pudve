@@ -201,21 +201,22 @@ namespace PuntoDeVentaV2
 
         public Image readImage(string query)
         {
-            Image image=null;
+            Conectarse();
+            Image image = null;
             if (sql_con.State == ConnectionState.Closed)
                 sql_con.Open();
             sql_cmd = sql_con.CreateCommand();
             sql_cmd.CommandText = query;
-            sql_cmd.ExecuteNonQuery();
             MySqlDataReader dr = sql_cmd.ExecuteReader();
-            dr.Read();
-            if (!DBNull.Value.Equals(dr["ImgNew"]))
+            if (dr.Read())
             {
-                byte[] image_bytes = (byte[])dr["ImgNew"];
-                MemoryStream ms = new MemoryStream(image_bytes);
-                image = Image.FromStream(ms);
+                if (!DBNull.Value.Equals(dr["ImgNew"]))
+                {
+                    byte[] image_bytes = (byte[])dr["ImgNew"];
+                    MemoryStream ms = new MemoryStream(image_bytes);
+                    image = Image.FromStream(ms);
+                }
             }
-
             dr.Close();
             if (sql_con.State == ConnectionState.Open)
                 sql_con.Close();
