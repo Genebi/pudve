@@ -2244,7 +2244,7 @@ namespace PuntoDeVentaV2
                                         return;
                                     }
                                 }
-                                else
+                                else if(!tipoDeVenta.Equals("2"))
                                 {
                                     if (Dinero > totalActualEfectivoEnCaja)
                                     {
