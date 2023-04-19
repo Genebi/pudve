@@ -5601,15 +5601,27 @@ namespace PuntoDeVentaV2
 
                 row.Cells["Column10"].Value = generar;
 
-                string ImgPath = filaDatos["ProdImage"].ToString();
+                //string ImgPath = filaDatos["ProdImage"].ToString();
 
-                if (ImgPath == "" || ImgPath == null)
+                //if (ImgPath == "" || ImgPath == null)
+                //{
+                //    row.Cells["Column11"].Value = imagen1;
+                //}
+                //else if (ImgPath != "" || ImgPath != null)
+                //{
+                //    row.Cells["Column11"].Value = imagen2;
+                //}
+
+                using (DataTable aiImagen = cn.CargarDatos($"SELECT ImgNew FROM productos WHERE ID = {filaDatos["ID"].ToString()}"))
                 {
-                    row.Cells["Column11"].Value = imagen1;
-                }
-                else if (ImgPath != "" || ImgPath != null)
-                {
-                    row.Cells["Column11"].Value = imagen2;
+                    if (string.IsNullOrEmpty(aiImagen.Rows[0][0].ToString()))
+                    {
+                        row.Cells["Column11"].Value = imagen1;
+                    }
+                    else
+                    {
+                        row.Cells["Column11"].Value = imagen2;
+                    }
                 }
 
                 row.Cells["Column12"].Value = etiqueta;
