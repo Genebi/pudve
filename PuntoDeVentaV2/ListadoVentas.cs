@@ -2235,24 +2235,25 @@ namespace PuntoDeVentaV2
                                 decimal totalActualEfectivoEnCaja = (totalEfectivonCaja + abonosEnCaja) - RetiradoEfectivoCaja;
                                 decimal Dinero = Convert.ToDecimal(DtTotal.Rows[0]["Total"]);
                                 var tipoDeVenta = DtTotal.Rows[0]["Status"].ToString();
-
-                                if (tipoDeVenta == "4")
+                                if (rbVentas.Checked.Equals(true))
                                 {
-                                    if (abonosEnCaja > totalEfectivonCaja + abonosEfectivoEnCaja)
+                                    if (tipoDeVenta == "4")
                                     {
-                                        MessageBox.Show("No se cuenta con suficiente Efectivo en caja", "Avido del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                        return;
+                                        if (abonosEnCaja > totalEfectivonCaja + abonosEfectivoEnCaja)
+                                        {
+                                            MessageBox.Show("No se cuenta con suficiente Efectivo en caja", "Avido del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            return;
+                                        }
+                                    }
+                                    else if (!tipoDeVenta.Equals("2"))
+                                    {
+                                        if (Dinero > totalActualEfectivoEnCaja)
+                                        {
+                                            MessageBox.Show("No se cuenta con suficiente Efectivo en caja", "Avido del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            return;
+                                        }
                                     }
                                 }
-                                else if(!tipoDeVenta.Equals("2"))
-                                {
-                                    if (Dinero > totalActualEfectivoEnCaja)
-                                    {
-                                        MessageBox.Show("No se cuenta con suficiente Efectivo en caja", "Avido del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                        return;
-                                    }
-                                }
-
                             }
 
                             var statusVentaParaCancelar = 0;
