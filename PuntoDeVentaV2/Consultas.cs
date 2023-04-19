@@ -4509,7 +4509,7 @@ namespace PuntoDeVentaV2
 
         public string BuscarAnticiposPorTexto(string Filtro)
         {
-            var consulta = $"SELECT * FROM anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Cliente LIKE '%{Filtro}%' OR IDUsuario = {FormPrincipal.userID} AND Concepto LIKE '%{Filtro}%' ORDER BY ID DESC";
+            var consulta = $"SELECT * FROM anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Cliente LIKE '%{Filtro}%' OR IDUsuario = {FormPrincipal.userID} AND (Status = 1 OR Status = 5) AND Concepto LIKE '%{Filtro}%' ORDER BY ID DESC";
 
             return consulta;
         }
