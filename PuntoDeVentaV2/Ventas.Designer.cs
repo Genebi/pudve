@@ -643,6 +643,7 @@
             this.checkRenta.TabIndex = 66;
             this.checkRenta.Text = "ES RENTA (ARRENDAMIENTO)";
             this.checkRenta.UseVisualStyleBackColor = true;
+            this.checkRenta.CheckedChanged += new System.EventHandler(this.checkRenta_CheckedChanged);
             // 
             // CBTipo
             // 

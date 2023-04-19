@@ -1416,7 +1416,7 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
-        public Dictionary<int, string> BusquedaCoincidenciasVentas(string frase, string filtro, int mPrecio = 0, int mCB = 0, int soloRenta = 0)
+        public Dictionary<int, string> BusquedaCoincidenciasVentas(string frase, string filtro, int mPrecio = 0, int mCB = 0, int soloRenta = 0,bool EsRenta = false)
         {
             var lista = new Dictionary<int, string>();
 
@@ -1426,7 +1426,7 @@ namespace PuntoDeVentaV2
 
             var extraRenta = "AND SoloRenta = 0";
 
-            if (soloRenta == 1)
+            if (soloRenta == 1 && EsRenta == false)
             {
                 extraRenta = "AND (SoloRenta = 0 OR SoloRenta = 1)";
             }

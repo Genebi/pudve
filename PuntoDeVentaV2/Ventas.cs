@@ -7641,12 +7641,20 @@ namespace PuntoDeVentaV2
                 // Regresa un diccionario
                 //var resultados = mb.BuscarProducto(txtBuscadorProducto.Text);
                 var resultados = new Dictionary<int, string>();
-
-                var coincidenciaExacta = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND STATUS = 1 AND CodigoBarras = '{txtBuscadorProducto.Text.Trim()}'");
+                DataTable coincidenciaExacta = new DataTable();
+                if (checkRenta.Checked.Equals(false))
+                {
+                    coincidenciaExacta = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND STATUS = 1 AND CodigoBarras = '{txtBuscadorProducto.Text.Trim()}' AND SoloRenta = 0");
+                }
+                else
+                {
+                     coincidenciaExacta = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND STATUS = 1 AND CodigoBarras = '{txtBuscadorProducto.Text.Trim()}'");
+                }
+                
 
                 if (coincidenciaExacta.Rows.Count.Equals(0))
                 {
-                    resultados = mb.BusquedaCoincidenciasVentas(txtBuscadorProducto.Text.Trim(), filtro, mostrarPrecioProducto, mostrarCBProducto, aceptaRenta);
+                    resultados = mb.BusquedaCoincidenciasVentas(txtBuscadorProducto.Text.Trim(), filtro, mostrarPrecioProducto, mostrarCBProducto, aceptaRenta, true);
                 }
                 else
                 {
@@ -9703,6 +9711,174 @@ namespace PuntoDeVentaV2
         private void DGVentas_MouseLeave(object sender, EventArgs e)
         {
             _preventRowPostPaint = false;
+        }
+
+        private void checkRenta_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!DGVentas.Rows.Count.Equals(0))
+            {
+                if (checkRenta.Checked.Equals(false))
+                {
+                    string IDs = "";
+                    foreach (DataGridViewRow item in DGVentas.Rows)
+                    {
+                        IDs += item.Cells["IDProducto"].Value.ToString() + ",";
+                    }
+                    IDs = IDs.TrimEnd(',');
+
+
+                    string IDSConRenta = "";
+                    using (var dt = cn.CargarDatos($"SELECT ID FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND STATUS = 1 AND SoloRenta = 1 AND ID IN ({IDs})"))
+                    {
+                        if (!dt.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dt.Rows)
+                            {
+                                IDSConRenta += item["ID"].ToString() + ",";
+                            }
+
+                            IDSConRenta = IDSConRenta.TrimEnd(',');
+                        }
+                    }
+
+                    if (DGVentas.Rows.Count.Equals(1))
+                    {
+                        PorcentajeDescuento = "";
+                        AplicarCantidad = "";
+                        AplicarPorcentaje = "";
+                    }
+                    if (!string.IsNullOrWhiteSpace(IDSConRenta))
+                    {
+                        var algo = IDSConRenta.Split(',');
+                        foreach (var item in algo)
+                        {
+                            if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
+                            {
+                                var idProducto = Convert.ToInt32(item);
+
+                                listaMensajesEnviados.Remove(idProducto);
+
+                                fechaSistema = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+
+                                if (primerClickEliminarIndividual.Equals(false))
+                                {
+                                    productoEliminado.Add(DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Importe"].Value.ToString());
+                                    primerClickEliminarIndividual = true;
+
+                                    var datosConfig = mb.ComprobarConfiguracion();
+
+                                    if (datosConfig.Count > 0)
+                                    {
+                                        if (Convert.ToInt32(datosConfig[19]).Equals(1))
+                                        {
+                                            string precio = DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString();
+                                            string productoEliminadoCorreo = DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Importe"].Value.ToString();
+                                            Thread EliminarProducto = new Thread(
+                                                () => Utilidades.CorreoElimitarVentasConLaX(productoEliminadoCorreo, fechaSistema, precio, FormPrincipal.datosUsuario));
+                                            EliminarProducto.Start();
+                                        }
+                                    }
+
+                                    //string precio = DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString();
+                                    //string productoEliminadoCorreo = DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Importe"].Value.ToString();
+                                    //Thread EliminarProducto = new Thread(
+                                    //    () => Utilidades.CorreoElimitarVentasConLaX(productoEliminadoCorreo, fechaSistema, precio, FormPrincipal.datosUsuario));
+                                    //EliminarProducto.Start();
+                                }
+                                else
+                                {
+                                    string[] word;
+                                    string palabra = string.Empty;
+                                    bool descripcionEncontrada = false;
+                                    palabra = DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString();
+
+                                    for (int i = 0; i < productoEliminado.Count; i++)
+                                    {
+                                        word = productoEliminado[i].Split('|');
+                                        descripcionEncontrada = Array.Exists(word, element => element == palabra);
+                                        if (descripcionEncontrada)
+                                        {
+                                            var count = Convert.ToDecimal(DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString());
+                                            count++;
+                                            productoEliminado[i] = count + "|" + DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString())) - Convert.ToDecimal("0.00"));
+                                            break;
+                                        }
+                                    }
+
+
+                                    if (!descripcionEncontrada)
+                                    {
+                                        var count = Decimal.Parse(DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString(), NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint);
+                                        //var count = Convert.ToDecimal(DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString());
+
+                                        // MIRI.
+                                        // Primero debe eliminar de la cadena el porcentaje del descuento para que no de error al momento de convertirlo a decimal.
+                                        var cad_descuento = DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString();
+                                        var res = cad_descuento.IndexOf("-");
+                                        decimal descuento_conv = 0;
+
+                                        if (res >= 0)
+                                        {
+                                            var d = cad_descuento.Split('-');
+                                            descuento_conv = Convert.ToDecimal(d[0]);
+                                        }
+                                        else
+                                        {
+                                            descuento_conv = Convert.ToDecimal(DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString());
+                                        }
+
+                                        productoEliminado.Add(count + "|" + DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString())) - descuento_conv));
+                                        //productoEliminado.Add(count + "|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString())));
+
+                                    }
+
+                                    var datosConfig = mb.ComprobarConfiguracion();
+
+                                    if (datosConfig.Count > 0)
+                                    {
+                                        if (Convert.ToInt32(datosConfig[19]).Equals(1))
+                                        {
+                                            string precio = DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString();
+                                            string productoEliminadoCorreo = DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Importe"].Value.ToString();
+                                            Thread EliminarProducto = new Thread(
+                                                () => Utilidades.CorreoElimitarVentasConLaX(productoEliminadoCorreo, fechaSistema, precio, FormPrincipal.datosUsuario));
+                                            EliminarProducto.Start();
+                                        }
+                                    }
+
+                                    //string precio = DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString();
+                                    //string productoEliminadoCorreo = DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Importe"].Value.ToString();
+                                    //Thread EliminarProducto = new Thread(() =>
+                                    //Utilidades.CorreoElimitarVentasConLaX(productoEliminadoCorreo, fechaSistema, precio, FormPrincipal.datosUsuario));
+                                    //EliminarProducto.Start();
+                                }
+
+                                DGVentas.Rows.RemoveAt(celdaCellClick);
+
+
+                                if (productosDescuentoG.ContainsKey(idProducto))
+                                {
+                                    productosDescuentoG.Remove(idProducto);
+                                }
+
+                                if (descuentosDirectos.ContainsKey(idProducto))
+                                {
+                                    descuentosDirectos.Remove(idProducto);
+                                }
+                            }
+                            
+                            if (DGVentas.Rows.Count == 0)
+                            {
+                                btnCSV.Enabled = true;
+                            }
+                            txtBuscadorProducto.Focus();
+                        }
+                        CantidadesFinalesVenta();
+                    }
+
+                }
+            }
+          
         }
 
         private void DGVentas_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
