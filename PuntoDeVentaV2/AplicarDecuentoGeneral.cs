@@ -282,6 +282,12 @@ namespace PuntoDeVentaV2
         {
             lbPrecio.Text = "Precio Total: $" + Total.ToString();
             lbTotalFinal.Text = Total.ToString();
+
+            if (!Ventas.DescuentoClienteVentaGuardada.Equals(0))
+            {
+                txtPorcentaje.Text = Ventas.DescuentoClienteVentaGuardada.ToString();
+                btnAceptar.PerformClick();
+            }
             //if (!string.IsNullOrWhiteSpace(Ventas.AplicarPorcentaje))
             //{
             //    txtPorcentaje.Text = Ventas.AplicarPorcentaje;

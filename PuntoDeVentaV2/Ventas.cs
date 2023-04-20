@@ -265,6 +265,8 @@ namespace PuntoDeVentaV2
         bool QueLoLimipie = false;
         bool SiExisteProducto = false;
         public static bool SeHizoAbonoInicial = false;
+
+        public static decimal DescuentoClienteVentaGuardada = 0;
         #region Proceso de Bascula
         // Constructores
         private SerialPort BasculaCom = new SerialPort();       // Puerto conectado a la báscula
@@ -513,7 +515,7 @@ namespace PuntoDeVentaV2
 
         private void ocultarResultados()
         {
-            
+
             listaProductos.Visible = false;
         }
 
@@ -949,7 +951,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            
+
             return existe;
         }
 
@@ -1234,10 +1236,10 @@ namespace PuntoDeVentaV2
                 row.Cells["Cantidad"].Value = cantidad;
                 row.Cells["Precio"].Value = datosProducto[2];
                 row.Cells["Descripcion"].Value = datosProducto[1];
-                
+
                 listProductos.Add(datosProducto[0] + "|" + cantidadTmp.ToString());//ID producto
 
-                 if (desdeVentaGuardada.Equals(1))
+                if (desdeVentaGuardada.Equals(1))
                 {
                     if ((datosProducto.Length - 1) == 14)
                     {
@@ -1512,7 +1514,7 @@ namespace PuntoDeVentaV2
                 // Cantidad
                 if (columnaCellClick.Equals(5))
                 {
-                    
+
                     if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                     {
                         cambioCantidadProd = 1;
@@ -2477,7 +2479,7 @@ namespace PuntoDeVentaV2
                 if (tipo == 2)
                 {
                     decimal totalImporte = 0;
-                    
+
                     // Esta variable almace el ultimo checkbox al que se le marco casilla en el descuento
                     var ultimoCheckbox = string.Empty;
 
@@ -2559,7 +2561,7 @@ namespace PuntoDeVentaV2
                     {
                         descuentoFinal = 0;
                     }
-                    else if(descuentoFinal != 0)
+                    else if (descuentoFinal != 0)
                     {
                         descuentoCliente = 0;
                     }
@@ -3194,7 +3196,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-    
+
 
             cOtrosImpuestos.Text = totalOtrosImpuestos.ToString("N");
             lb_cant_impuestos_retenidos.Text = total_impuestos_retenidos.ToString("N");
@@ -3818,7 +3820,7 @@ namespace PuntoDeVentaV2
 
         private bool verificarSubDetalles()
         {
-            bool registroCorrectoDeSubdetalles = true ;
+            bool registroCorrectoDeSubdetalles = true;
             foreach (DataGridViewRow producto in DGVentas.Rows)
             {
                 if (!registroCorrectoDeSubdetalles)
@@ -3936,7 +3938,7 @@ namespace PuntoDeVentaV2
                 if (decimal.Parse(info[2]) > 0)
                 {
                     efectivo = info[2];
-                    total += decimal.Parse(efectivo);       
+                    total += decimal.Parse(efectivo);
                 }
                 if (decimal.Parse(info[3]) > 0)
                 {
@@ -3961,9 +3963,9 @@ namespace PuntoDeVentaV2
                 string[] todoCredito = new string[] {
                 IDVenta, FormPrincipal.userID.ToString(), "0",  "0",  "0",
                  "0",  "0", (total+decimal.Parse(credito)).ToString(), referencia, idCliente, cliente
-            };      
+            };
                 cn.EjecutarConsulta(cs.GuardarDetallesVenta(todoCredito));
-            }       
+            }
             else
             {
 
@@ -4091,7 +4093,7 @@ namespace PuntoDeVentaV2
             {
                 aumentoFolio();
             }
-            
+
             Folio = Contenido;
             FolioVentaCorreo = Folio;
 
@@ -4117,7 +4119,7 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(cOtrosImpuestos.Text) && !cOtrosImpuestos.Text.Equals("0.00"))
             {
-                otrosImpuestos =cOtrosImpuestos.Text;
+                otrosImpuestos = cOtrosImpuestos.Text;
             }
 
             if (!string.IsNullOrWhiteSpace(lb_cant_impuestos_retenidos.Text) && !lb_cant_impuestos_retenidos.Text.Equals("0.00"))
@@ -4272,9 +4274,9 @@ namespace PuntoDeVentaV2
                         }
                     }
                     else
-                    {       
+                    {
                         mostrarVenta = 0;
-                                respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta, idAnticipoVentas, gananciaTotalPorVenta));
+                        respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta, idAnticipoVentas, gananciaTotalPorVenta));
                         if (!consutlaCredito.Equals(string.Empty))
                         {
                             cn.EjecutarConsulta(consutlaCredito);
@@ -4282,7 +4284,7 @@ namespace PuntoDeVentaV2
                         }
                         //Venta normal
                     }
-                }       
+                }
 
                 if (respuesta > 0)
                 {
@@ -5320,7 +5322,7 @@ namespace PuntoDeVentaV2
                         {
                             cn.EjecutarConsulta($"{subdetalle}{idVenta})");
                         }
-                                foreach (string updateStockSubdetalle in ListaUpdatesSubDetallesProdutos)
+                        foreach (string updateStockSubdetalle in ListaUpdatesSubDetallesProdutos)
                         {
                             cn.EjecutarConsulta(updateStockSubdetalle);
                         }
@@ -5361,7 +5363,7 @@ namespace PuntoDeVentaV2
                     //    }
                     //}                
                 }
-                
+
 
                 LimpiarVariables();
 
@@ -5407,7 +5409,7 @@ namespace PuntoDeVentaV2
                 if (decimal.Parse(info[4]) > 0)
                 {
                     vales = info[4];
-                    total += decimal.Parse(vales);      
+                    total += decimal.Parse(vales);
                     haylana = true;
                 }
                 if (decimal.Parse(info[5]) > 0)
@@ -7198,7 +7200,7 @@ namespace PuntoDeVentaV2
                         return txtBuscadorProducto.Text;
                     }
                 }
-               
+
             }
             else if (terceraCoincidencia.Success)
             {
@@ -7596,7 +7598,7 @@ namespace PuntoDeVentaV2
                         btnVentaFacil.PerformClick();
                     }
                 }
-                
+
             }
 
         }
@@ -7648,9 +7650,9 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                     coincidenciaExacta = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND STATUS = 1 AND CodigoBarras = '{txtBuscadorProducto.Text.Trim()}'");
+                    coincidenciaExacta = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND STATUS = 1 AND CodigoBarras = '{txtBuscadorProducto.Text.Trim()}'");
                 }
-                
+
 
                 if (coincidenciaExacta.Rows.Count.Equals(0))
                 {
@@ -8571,7 +8573,7 @@ namespace PuntoDeVentaV2
                 string[] partes = datosCliente.Split(new[] { "--- No. " }, StringSplitOptions.None);
                 string numeros = partes[1];
                 numCliente = numeros;
-                
+
                 int inicio = datosCliente.IndexOf("Cliente:") + "Cliente:".Length;
                 int fin = datosCliente.IndexOf("---") - inicio;
                 nombreCliente = datosCliente.Substring(inicio, fin).Trim();
@@ -8597,7 +8599,7 @@ namespace PuntoDeVentaV2
                 {
                     return;
                 }
-               
+
             }
 
 
@@ -8749,7 +8751,7 @@ namespace PuntoDeVentaV2
                     {
                         idClienteDescuento = Convert.ToInt32(datos[18]);
                     }
-                   
+
                     ClienteConDescuentoNombre = datos[0].ToString();
                     IDClienteConDescuento = idCliente;
                     int validarDescuento = 0;
@@ -8781,7 +8783,7 @@ namespace PuntoDeVentaV2
                         }
 
                     }
-                    
+
 
                     if (idTipoCliente > 0)
                     {
@@ -8838,6 +8840,77 @@ namespace PuntoDeVentaV2
                             orden.ShowDialog();
                         }
 
+                    }
+                };
+
+                cliente.ShowDialog();
+                using (var dt = cn.CargarDatos($"SELECT TipoCliente, DescuentoPorcentaje FROM clientes c INNER JOIN tipoclientes tc ON c.TipoCliente = tc.ID WHERE c.ID = {idCliente} AND C.IDUsuario = {FormPrincipal.userID};"))
+                {
+                    if (!dt.Rows.Count.Equals(0))
+                    {
+                        if (!dt.Rows[0]["TipoCliente"].Equals(0))
+                        {
+                            int validarDescuento = 0;
+
+                            foreach (DataGridViewRow row in DGVentas.Rows)
+                            {
+                                string descuento = row.Cells["Descuento"].Value.ToString();
+
+                                if (descuento != "0.00")
+                                {
+                                    validarDescuento = 1;
+                                }
+                            }
+
+                            if (validarDescuento != 0)
+                            {
+                                DialogResult resultado = MessageBox.Show("El cliente seleccionado  cuenta con un tipo de descuento, ¿desea remplazarlos descuentos actuales?", "Advertencia", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                                if (resultado == DialogResult.OK)
+                                {
+                                    DescuentoClienteVentaGuardada = Convert.ToDecimal(dt.Rows[0][1]);
+                                    txtDescuentoGeneral.Focus();
+                                    DatosVenta();
+                                    liststock2.Clear();
+                                    idCliente = string.Empty;
+                                    statusVenta = string.Empty;
+                                    ventaGuardada = false;
+                                    DetalleVenta.idCliente = 0;
+                                    DetalleVenta.cliente = string.Empty;
+                                    DetalleVenta.nameClienteNameVenta = string.Empty;
+                                    DescuentoClienteVentaGuardada = 0;
+                                }
+                                else
+                                {
+                                    DatosVenta();
+                                    liststock2.Clear();
+                                    idCliente = string.Empty;
+                                    statusVenta = string.Empty;
+                                    ventaGuardada = false;
+                                    DetalleVenta.idCliente = 0;
+                                    DetalleVenta.cliente = string.Empty;
+                                    DetalleVenta.nameClienteNameVenta = string.Empty;
+                                }
+                            }
+                            else if (!dt.Rows[0]["TipoCliente"].Equals(0))
+                            {
+                                DescuentoClienteVentaGuardada = Convert.ToDecimal(dt.Rows[0][1]);
+                                txtDescuentoGeneral.Focus();
+                                DatosVenta();
+                                liststock2.Clear();
+                                idCliente = string.Empty;
+                                statusVenta = string.Empty;
+                                ventaGuardada = false;
+                                DetalleVenta.idCliente = 0;
+                                DetalleVenta.cliente = string.Empty;
+                                DetalleVenta.nameClienteNameVenta = string.Empty;
+                                DescuentoClienteVentaGuardada = 0;
+                            }
+                            
+                        }
+                    }
+                    else
+                    {
                         DatosVenta();
                         liststock2.Clear();
                         idCliente = string.Empty;
@@ -8846,16 +8919,17 @@ namespace PuntoDeVentaV2
                         DetalleVenta.idCliente = 0;
                         DetalleVenta.cliente = string.Empty;
                         DetalleVenta.nameClienteNameVenta = string.Empty;
-
                     }
-                };
+                }
 
-                cliente.ShowDialog();
+                DescuentoClienteVentaGuardada = 0;
             }
             else
             {
                 MessageBox.Show("No hay productos agregados a la lista", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
+
         }
 
         private void botonRedondo5_Click(object sender, EventArgs e)
@@ -9685,9 +9759,9 @@ namespace PuntoDeVentaV2
                 foreach (DataRow dataRow in consul.ayylmao.Rows)
                 {
                     string[] datosProducto = cn.BuscarProducto(Int32.Parse(dataRow[0].ToString()), FormPrincipal.userID);
-                    AgregarProducto(datosProducto,decimal.Parse(dataRow[1].ToString()));
+                    AgregarProducto(datosProducto, decimal.Parse(dataRow[1].ToString()));
                 }
-                
+
             };
             consul.ShowDialog();
         }
@@ -9866,7 +9940,7 @@ namespace PuntoDeVentaV2
                                     descuentosDirectos.Remove(idProducto);
                                 }
                             }
-                            
+
                             if (DGVentas.Rows.Count == 0)
                             {
                                 btnCSV.Enabled = true;
@@ -9878,7 +9952,7 @@ namespace PuntoDeVentaV2
 
                 }
             }
-          
+
         }
 
         private void DGVentas_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
