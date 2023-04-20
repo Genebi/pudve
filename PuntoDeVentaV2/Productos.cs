@@ -762,7 +762,9 @@ namespace PuntoDeVentaV2
                 if (row["ImgNew"].ToString() == "" || row["ImgNew"].ToString() == null)
                 {
                     btn.ForeColor = Color.Red;
-                    using (fs = new FileStream(@"C:\pudve\PuntoDeVentaV2\PUDVE\Productos" + @"\no-image.png", FileMode.Open))
+                    string ubicacionDeInstalacion = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                    string rutaInstalacion = ubicacionDeInstalacion.Replace(@"bin\Debug\PuntoDeVentaV2.exe","");
+                    using (fs = new FileStream(rutaInstalacion + @"PUDVE\Productos" + @"\no-image.png", FileMode.Open))
                     {
                         btn.Image = System.Drawing.Image.FromStream(fs);
                         btn.Image = new Bitmap(btn.Image, btn.Size);
