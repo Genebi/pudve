@@ -1664,6 +1664,7 @@ namespace PuntoDeVentaV2
                         SendKeys.Send("{ENTER}");
                         SendKeys.Send("{ENTER}");
                     }
+                    CantidadesFinalesVenta();
                 }
                 // Agregar multiple
                 if (columnaCellClick.Equals(10))
