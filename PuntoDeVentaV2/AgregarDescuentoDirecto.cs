@@ -120,7 +120,7 @@ namespace PuntoDeVentaV2
                 this.TotalDescuento = lbTotalDescuento.Text + porcentaje;
                 this.TipoDescuento = tipo;
                 this.DialogResult = DialogResult.OK;
-                Ventas.descuentosDirectos.Clear();
+                //Ventas.descuentosDirectos.Clear(); 
                 Ventas.tipoDescuentoAplicado = 1;
                 this.Close();
             }
