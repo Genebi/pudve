@@ -792,7 +792,7 @@
             this.linkFirst.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkFirst.Location = new System.Drawing.Point(451, 28);
             this.linkFirst.Name = "linkFirst";
-            this.linkFirst.Size = new System.Drawing.Size(23, 16);
+            this.linkFirst.Size = new System.Drawing.Size(24, 16);
             this.linkFirst.TabIndex = 24;
             this.linkFirst.TabStop = true;
             this.linkFirst.Text = "1...";
@@ -807,7 +807,7 @@
             this.linkLast.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLast.Location = new System.Drawing.Point(545, 28);
             this.linkLast.Name = "linkLast";
-            this.linkLast.Size = new System.Drawing.Size(23, 16);
+            this.linkLast.Size = new System.Drawing.Size(24, 16);
             this.linkLast.TabIndex = 24;
             this.linkLast.TabStop = true;
             this.linkLast.Text = "...4";
@@ -822,7 +822,7 @@
             this.linkLblPaginaSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(526, 28);
             this.linkLblPaginaSiguiente.Name = "linkLblPaginaSiguiente";
-            this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(14, 16);
+            this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaSiguiente.TabIndex = 24;
             this.linkLblPaginaSiguiente.TabStop = true;
             this.linkLblPaginaSiguiente.Text = "3";
@@ -836,7 +836,7 @@
             this.linkLblPaginaActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaActual.Location = new System.Drawing.Point(502, 28);
             this.linkLblPaginaActual.Name = "linkLblPaginaActual";
-            this.linkLblPaginaActual.Size = new System.Drawing.Size(14, 16);
+            this.linkLblPaginaActual.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaActual.TabIndex = 23;
             this.linkLblPaginaActual.TabStop = true;
             this.linkLblPaginaActual.Text = "2";
@@ -850,7 +850,7 @@
             this.linkLblPaginaAnterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaAnterior.Location = new System.Drawing.Point(478, 28);
             this.linkLblPaginaAnterior.Name = "linkLblPaginaAnterior";
-            this.linkLblPaginaAnterior.Size = new System.Drawing.Size(14, 16);
+            this.linkLblPaginaAnterior.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaAnterior.TabIndex = 22;
             this.linkLblPaginaAnterior.TabStop = true;
             this.linkLblPaginaAnterior.Text = "1";

@@ -6059,6 +6059,9 @@ namespace PuntoDeVentaV2
 
         private void rbVentas_CheckedChanged(object sender, EventArgs e)
         {
+            btnBuscarPorHuella.Visible = false;
+            btnVencidas.Visible = false;
+            btnPorVencer.Visible = false;
             if (rbVentas.Checked)
             {
                 tituloSeccion.Text = "VENTAS";
@@ -6073,6 +6076,9 @@ namespace PuntoDeVentaV2
 
         private void rbRentas_CheckedChanged(object sender, EventArgs e)
         {
+            btnBuscarPorHuella.Visible = false;
+            btnVencidas.Visible = false;
+            btnPorVencer.Visible = false;
             if (cbTipoRentas.SelectedIndex >= 0)
             {
                 if (rbRentas.Checked)
@@ -6098,7 +6104,18 @@ namespace PuntoDeVentaV2
             // Desactivar checkbox al cambios tipos de ventas
             chTodos.Checked = false;
             chkHDAutlan.Checked = false;
-
+            if (cbTipoRentas.SelectedIndex == 3)
+            {
+                btnBuscarPorHuella.Visible = true;
+                btnVencidas.Visible = true;
+                btnPorVencer.Visible = true;
+            }
+            else
+            {
+                btnBuscarPorHuella.Visible = false;
+                btnVencidas.Visible = false;
+                btnPorVencer.Visible = false;
+            }
             if (DGVListadoVentas.Controls.Find("checkBoxMaster", true).Length > 0)
             {
                 CheckBox headerBox = (CheckBox)DGVListadoVentas.Controls.Find("checkBoxMaster", true)[0];
