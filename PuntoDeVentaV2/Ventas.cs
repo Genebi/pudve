@@ -1255,7 +1255,7 @@ namespace PuntoDeVentaV2
                     {
                         row.Cells["Descuento"].Value = datosProducto[24];
                         //row.Cells["Descuento"].Value = "0.00";
-                        //row.Cells["TipoDescuento"].Value = "0";
+                        row.Cells["TipoDescuento"].Value = "0";
                     }
                 }
                 else
@@ -1550,6 +1550,7 @@ namespace PuntoDeVentaV2
                         //    SendKeys.Send("{ENTER}");
                         //    listaProductos.Visible = false;
                         //}
+                    
                     }
                     SendKeys.Send("{BACKSPACE}");
                     cambioCantidadProd = 0;
