@@ -19,15 +19,17 @@ namespace PuntoDeVentaV2
         string validPunto = string.Empty;
         int conteoPunto, conteoGuion;
         int calcu = 0;
+        decimal cantidadP;
         public string cantidad = string.Empty;
         public static string cantidadMayoraStock = string.Empty;
 
-        public canditadPVF(string _Prompt, string _Title, string _DefaultResponse)
+        public canditadPVF(string _Prompt, string _Title, string _DefaultResponse, decimal cantidadProducto = 1)
         {
             InitializeComponent();
             this.promptMsg = _Prompt;
             this.titleWindow = _Title;
             this.strDefaultResponse = _DefaultResponse;
+            this.cantidadP = cantidadProducto;
         } 
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -81,6 +83,7 @@ namespace PuntoDeVentaV2
 
         private void cargarValores()
         {
+            num1.Value = cantidadP;
             lblPrompt.Text = promptMsg;
             this.Text = titleWindow;
             num1.Focus();
