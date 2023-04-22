@@ -2060,7 +2060,7 @@ namespace PuntoDeVentaV2
             {
                 if (!string.IsNullOrWhiteSpace(tb.Text))
                 {
-                    if (Convert.ToInt32(tb.Text)>=100)
+                    if (Convert.ToDecimal(tb.Text)>=100)
                     {
                         tb.Text = "99";
                     }

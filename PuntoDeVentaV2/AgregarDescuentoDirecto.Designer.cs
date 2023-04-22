@@ -88,6 +88,7 @@
             this.txtPorcentaje.Size = new System.Drawing.Size(132, 23);
             this.txtPorcentaje.TabIndex = 4;
             this.txtPorcentaje.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtPorcentaje.TextChanged += new System.EventHandler(this.txtPorcentaje_TextChanged);
             this.txtPorcentaje.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPorcentaje_KeyDown);
             this.txtPorcentaje.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPorcentaje_KeyPress);
             this.txtPorcentaje.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtPorcentaje_KeyUp);
