@@ -64,7 +64,7 @@ namespace PuntoDeVentaV2
             if (accion=="Venta" || accion == "Inventario")
             {
                 groupBox1.Visible = false;
-                if (stockTot < 0)
+                if (Inventario.AumentarDisminuir == 1 || Inventario.desdeRegresarProdcuto == 1)
                 {
                     restando = true;
                     stockTot *= -1;
