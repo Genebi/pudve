@@ -55,6 +55,8 @@ namespace PuntoDeVentaV2
         static public List<string> idProductoDelCombo;
         static public List<string> productosAumentoDecremento = new List<string>();
 
+        public static string devolucion = "";
+
         public int GetNumRevActive { get; set; }
 
         bool Aumentar = true;
@@ -4489,6 +4491,7 @@ namespace PuntoDeVentaV2
             rbAumentarProducto.Checked = true;
             cargarDatos2();
             tituloSeccion.Text = "Devolver Inventario";
+            devolucion = "Devolver Inventario";
         }
 
         public void cargarDatos2()
