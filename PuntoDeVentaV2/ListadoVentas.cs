@@ -2143,41 +2143,7 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    using (DataTable dtVentaConAnticipo = cn.CargarDatos(cs.verificarLaVentaSiTieneAnticiposAplicados(idVenta)))
-                    {
-                        if (!dtVentaConAnticipo.Rows.Count.Equals(0))
-                        {
-                            //MessageBox.Show("Por el momento no se puede realizar la cancelación\nde ventas con anticipos; nos encontramos trabajando en ello,\na la brevedad posible se implementará la mejora.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                            //return;
-
-                            var importeOriginal = Convert.ToDecimal(dtVentaConAnticipo.Rows[0]["ImporteOriginal"]);
-                            var anticipoAplicado = Convert.ToDecimal(dtVentaConAnticipo.Rows[0]["AnticipoAplicado"]);
-                            var formaPago = dtVentaConAnticipo.Rows[0]["FormaPago"].ToString();
-
-                            var columnaFormaPago = string.Empty;
-
-                            if (formaPago.Equals("01")) { columnaFormaPago = "Efectivo"; }
-                            if (formaPago.Equals("02")) { columnaFormaPago = "Cheque"; }
-                            if (formaPago.Equals("03")) { columnaFormaPago = "Transferencia"; }
-                            if (formaPago.Equals("04")) { columnaFormaPago = "Tarjeta"; }
-                            if (formaPago.Equals("05")) { columnaFormaPago = "Efectivo"; }
-                            if (formaPago.Equals("08")) { columnaFormaPago = "Vales"; }
-
-
-                            if (importeOriginal.Equals(anticipoAplicado))       
-                            {
-                                cn.EjecutarConsulta($"UPDATE Anticipos SET Importe = {importeOriginal}, Status = 4 WHERE IDVenta = {idVenta}");
-                            }
-
-                            importeOriginal *= -1;
-                            //anticipoAplicado *= -1;
-
-                            cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, FechaOperacion, IDUsuario, Anticipo) VALUES ('venta', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{anticipoAplicado * -1}')");
-                            //cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, FechaOperacion, IDUsuario, {columnaFormaPago}) VALUES ('anticipo', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{importeOriginal}')");
-                            cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, FechaOperacion, IDUsuario, {columnaFormaPago}) VALUES ('retiro', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{anticipoAplicado}')");
-                        }
-                    }
+                    
 
                     var ultimaFechaCorte = mb.ObtenerFechaUltimoCorte();        
                     var fechaVenta = mb.ObtenerFechaVenta(idVenta);
@@ -2212,7 +2178,7 @@ namespace PuntoDeVentaV2
 
                         if (mensaje == DialogResult.Yes)
                         {
-                            using (var DtTotal = cn.CargarDatos($"SELECT Total, Status FROM Ventas WHERE IDusuario = '{FormPrincipal.userID}' AND ID = '{idVenta}'"))
+                            using (var DtTotal = cn.CargarDatos($"SELECT Total,`Status`,Anticipo FROM Ventas WHERE IDusuario = '{FormPrincipal.userID}' AND ID = '{idVenta}'"))
                             {
                                 var fecha = cn.CargarDatos(cs.ultimaFechaDeCorte());
                                 var fechaDelCorte = Convert.ToDateTime(fecha.Rows[0]["FechaOperacion"]).ToString("yyyy/MM/dd HH:mm:ss");
@@ -2234,6 +2200,8 @@ namespace PuntoDeVentaV2
                                 decimal RetiradoEfectivoCaja = Convert.ToDecimal(TotalEfectivoRetirado.Rows[0]["Efectivo"].ToString());
                                 decimal totalActualEfectivoEnCaja = (totalEfectivonCaja + abonosEnCaja) - RetiradoEfectivoCaja;
                                 decimal Dinero = Convert.ToDecimal(DtTotal.Rows[0]["Total"]);
+                                decimal Anticipo = Convert.ToDecimal(DtTotal.Rows[0]["Anticipo"]);
+                                Dinero = Dinero + Anticipo;
                                 var tipoDeVenta = DtTotal.Rows[0]["Status"].ToString();
                                 if (rbVentas.Checked.Equals(true))
                                 {
@@ -2253,6 +2221,42 @@ namespace PuntoDeVentaV2
                                             return;
                                         }
                                     }
+                                }
+                            }
+
+                            using (DataTable dtVentaConAnticipo = cn.CargarDatos(cs.verificarLaVentaSiTieneAnticiposAplicados(idVenta)))
+                            {
+                                if (!dtVentaConAnticipo.Rows.Count.Equals(0))
+                                {
+                                    //MessageBox.Show("Por el momento no se puede realizar la cancelación\nde ventas con anticipos; nos encontramos trabajando en ello,\na la brevedad posible se implementará la mejora.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                                    //return;
+
+                                    var importeOriginal = Convert.ToDecimal(dtVentaConAnticipo.Rows[0]["ImporteOriginal"]);
+                                    var anticipoAplicado = Convert.ToDecimal(dtVentaConAnticipo.Rows[0]["AnticipoAplicado"]);
+                                    var formaPago = dtVentaConAnticipo.Rows[0]["FormaPago"].ToString();
+
+                                    var columnaFormaPago = string.Empty;
+
+                                    if (formaPago.Equals("01")) { columnaFormaPago = "Efectivo"; }
+                                    if (formaPago.Equals("02")) { columnaFormaPago = "Cheque"; }
+                                    if (formaPago.Equals("03")) { columnaFormaPago = "Transferencia"; }
+                                    if (formaPago.Equals("04")) { columnaFormaPago = "Tarjeta"; }
+                                    if (formaPago.Equals("05")) { columnaFormaPago = "Efectivo"; }
+                                    if (formaPago.Equals("08")) { columnaFormaPago = "Vales"; }
+
+
+                                    if (importeOriginal.Equals(anticipoAplicado))
+                                    {
+                                        cn.EjecutarConsulta($"UPDATE Anticipos SET Importe = {importeOriginal}, Status = 4 WHERE IDVenta = {idVenta}");
+                                    }
+
+                                    importeOriginal *= -1;
+                                    //anticipoAplicado *= -1;
+
+                                    cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, FechaOperacion, IDUsuario, Anticipo) VALUES ('venta', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{anticipoAplicado * -1}')");
+                                    //cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, FechaOperacion, IDUsuario, {columnaFormaPago}) VALUES ('anticipo', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{importeOriginal}')");
+                                    cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, FechaOperacion, IDUsuario, {columnaFormaPago}) VALUES ('retiro', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{anticipoAplicado}')");
                                 }
                             }
 
