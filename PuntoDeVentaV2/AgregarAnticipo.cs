@@ -35,12 +35,24 @@ namespace PuntoDeVentaV2
             cbFormaPago.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             //ComboBox Formas de pago
             Dictionary<string, string> pagos = new Dictionary<string, string>();
-            pagos.Add("01", "01 - Efectivo");
-            pagos.Add("02", "02 - Cheque nominativo");
-            pagos.Add("03", "03 - Transferencia electrónica de fondos");
-            pagos.Add("04", "04 - Tarjeta de crédito");
-            pagos.Add("05", "05 - Devolucion de Producto");
-            pagos.Add("08", "08 - Vales de despensa");
+            if (Inventario.devolucion == "Devolver Inventario")
+            {
+                pagos.Add("01", "01 - Efectivo");
+                pagos.Add("02", "02 - Cheque nominativo");
+                pagos.Add("03", "03 - Transferencia electrónica de fondos");
+                pagos.Add("04", "04 - Tarjeta de crédito");
+                pagos.Add("05", "05 - Devolucion de Producto");
+                pagos.Add("08", "08 - Vales de despensa");
+            }
+            else
+            {
+                pagos.Add("01", "01 - Efectivo");
+                pagos.Add("02", "02 - Cheque nominativo");
+                pagos.Add("03", "03 - Transferencia electrónica de fondos");
+                pagos.Add("04", "04 - Tarjeta de crédito");
+                pagos.Add("08", "08 - Vales de despensa");
+            }
+
             
 
             cbFormaPago.DataSource = pagos.ToArray();
