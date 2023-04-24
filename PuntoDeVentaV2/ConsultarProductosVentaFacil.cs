@@ -51,7 +51,7 @@ namespace PuntoDeVentaV2
 
             CBTipo.SelectedIndex = 0;
             this.Focus();
-            using (DataTable lmao = cn.CargarDatos($"SELECT COUNT(ID) FROM detallegeneral WHERE IDUsuario = {FormPrincipal.userID} AND ChckName = 'ventafacil' AND Mostrar = 1"))
+            using (DataTable lmao = cn.CargarDatos($"SELECT COUNT(ID) FROM detallegeneral WHERE IDUsuario = {FormPrincipal.userID} AND ChckName = 'venta_facil' AND Mostrar = 1"))
             {
                 decimal ayy;
                 ayy = decimal.Parse(lmao.Rows[0][0].ToString());
@@ -67,13 +67,13 @@ namespace PuntoDeVentaV2
                 mosaicos.Columns.Add("Cat4Img", typeof(Image));
                 if (!ayy.Equals(0))
                 {
-                    DataTable cols = cn.CargarDatos($"SELECT Descripcion,ID from detallegeneral WHERE ChckName = 'ventafacil' AND IDUsuario={FormPrincipal.userID} AND Mostrar = 1");
+                    DataTable cols = cn.CargarDatos($"SELECT Descripcion,ID from detallegeneral WHERE ChckName = 'venta_facil' AND IDUsuario={FormPrincipal.userID} AND Mostrar = 1");
 
                     int l = 0;
 
                     while (l < cols.Rows.Count)
                     {
-                            DataRow dr = mosaicos.NewRow();
+                        DataRow dr = mosaicos.NewRow();
 
                         dr["Cat1Img"] = Image.FromFile(getFile("naiden.png"));
                         dr["Cat2Img"] = Image.FromFile(getFile("naiden.png"));
@@ -87,44 +87,44 @@ namespace PuntoDeVentaV2
                             dr["Cat1Img"] = Image.FromFile(getFile("no-image.png"));
                         }
                         l++;
-                            if (l<cols.Rows.Count)
-                            {
-                                dr["Cat2"] = cols.Rows[l][0].ToString();
+                        if (l < cols.Rows.Count)
+                        {
+                            dr["Cat2"] = cols.Rows[l][0].ToString();
                             dr["Cat2Img"] = cn.readImage(($"SELECT ImgNew from detallegeneral WHERE id = {cols.Rows[l][1].ToString()}"));
 
-                            if (cn.readImage(($"SELECT ImgNew from detallegeneral WHERE id = {cols.Rows[l][1].ToString()}"))==null)
+                            if (cn.readImage(($"SELECT ImgNew from detallegeneral WHERE id = {cols.Rows[l][1].ToString()}")) == null)
                             {
                                 dr["Cat2Img"] = Image.FromFile(getFile("no-image.png"));
                             }
                             l++;
-                                if (l < cols.Rows.Count)
-                                {
-                                    dr["Cat3"] = cols.Rows[l][0].ToString();
+                            if (l < cols.Rows.Count)
+                            {
+                                dr["Cat3"] = cols.Rows[l][0].ToString();
                                 dr["Cat3Img"] = cn.readImage(($"SELECT ImgNew from detallegeneral WHERE id = {cols.Rows[l][1].ToString()}"));
                                 if (cn.readImage(($"SELECT ImgNew from detallegeneral WHERE id = {cols.Rows[l][1].ToString()}")) == null)
                                 {
                                     dr["Cat3Img"] = Image.FromFile(getFile("no-image.png"));
                                 }
                                 l++;
-                                    if (l < cols.Rows.Count)
-                                    {
-                                        dr["Cat4"] = cols.Rows[l][0].ToString();
+                                if (l < cols.Rows.Count)
+                                {
+                                    dr["Cat4"] = cols.Rows[l][0].ToString();
                                     dr["Cat4Img"] = cn.readImage(($"SELECT ImgNew from detallegeneral WHERE id = {cols.Rows[l][1].ToString()}"));
                                     if (cn.readImage(($"SELECT ImgNew from detallegeneral WHERE id = {cols.Rows[l][1].ToString()}")) == null)
                                     {
                                         dr["Cat4Img"] = Image.FromFile(getFile("no-image.png"));
                                     }
                                     l++;
-                                    }
-                                }                               
+                                }
                             }
-                            
-                            mosaicos.Rows.Add(dr);
                         }
-                    
+
+                        mosaicos.Rows.Add(dr);
+                    }
+
                     dgvOpciones.DataSource = mosaicos;
-                }                   
-                
+                }
+
             }
         }
 
@@ -134,11 +134,11 @@ namespace PuntoDeVentaV2
             DataTable monosas4 = cn.CargarDatos($"SELECT Productos.ID AS ID, ProdImage, Nombre FROM Productos INNER JOIN detallesproductogenerales ON detallesproductogenerales.IDProducto = Productos.ID INNER JOIN detallegeneral ON (detallesproductogenerales.IDDetalleGral=detallegeneral.id AND detallegeneral.Descripcion='{filtro}') WHERE Productos.IDUsuario = {FormPrincipal.userID} AND STATUS = 1");
             int rows = monosas4.Rows.Count;
             int i = 0;
-            while (i <rows)
+            while (i < rows)
             {
                 DataRow dr = oachango.NewRow();
                 Image img1 = Image.FromFile(getFile("naiden.png"));
-                if (cn.readImage(($"SELECT ImgNew from productos WHERE id = {monosas4.Rows[i][0].ToString()}"))!=null)
+                if (cn.readImage(($"SELECT ImgNew from productos WHERE id = {monosas4.Rows[i][0].ToString()}")) != null)
                 {
                     img1 = cn.readImage(($"SELECT ImgNew from productos WHERE id = {monosas4.Rows[i][0].ToString()}"));
                 }
@@ -151,7 +151,7 @@ namespace PuntoDeVentaV2
                 dr["Col1"] = imageToByteArray(img1);
                 dr["IDC1"] = monosas4.Rows[i][0].ToString();
                 i++;
-                if (i<rows)
+                if (i < rows)
                 {
                     Image img2 = Image.FromFile(getFile("naiden.png"));
                     if (cn.readImage(($"SELECT ImgNew from productos WHERE id = {monosas4.Rows[i][0].ToString()}")) != null)
@@ -220,7 +220,7 @@ namespace PuntoDeVentaV2
                     dr["Col4"] = imageToByteArray(Image.FromFile(getFile("naiden.png")));
                 }
                 oachango.Rows.Add(dr);
-            }                                                                                 
+            }
         }
 
         private string getFile(string v)
@@ -237,7 +237,7 @@ namespace PuntoDeVentaV2
                 pathString = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
             }
 
-            return pathString+v;
+            return pathString + v;
         }
 
         public byte[] imageToByteArray(System.Drawing.Image imageIn)
@@ -304,14 +304,14 @@ namespace PuntoDeVentaV2
             if (btnCerrar.Text == "Atras")
             {
                 dgvOpciones.Visible = true;
-                btnCerrar.Text = "Cancelar"; 
+                btnCerrar.Text = "Cancelar";
             }
             else
             {
                 dgvLista.Rows.Clear();
                 this.Close();
             }
-            
+
         }
 
         private void btnOk_Click(object sender, EventArgs e)
@@ -321,16 +321,16 @@ namespace PuntoDeVentaV2
 
             foreach (DataGridViewRow item in dgvLista.Rows)
             {
-                ayylmao.Rows.Add(item.Cells["ID"].Value.ToString(),decimal.Parse(item.Cells["Cantidad"].Value.ToString()));
+                ayylmao.Rows.Add(item.Cells["ID"].Value.ToString(), decimal.Parse(item.Cells["Cantidad"].Value.ToString()));
             }
             this.Close();
         }
 
         private void dgvOpciones_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (!string.IsNullOrEmpty(dgvOpciones.Rows[e.RowIndex].Cells[e.ColumnIndex-1].Value.ToString()))
+            if (!string.IsNullOrEmpty(dgvOpciones.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString()))
             {
-                cargarDatos(dgvOpciones.Rows[e.RowIndex].Cells[e.ColumnIndex-1].Value.ToString());
+                cargarDatos(dgvOpciones.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString());
                 dgvOpciones.Visible = false;
                 btnCerrar.Text = "Atras";
                 // Disable all controls on the form
@@ -347,22 +347,70 @@ namespace PuntoDeVentaV2
         {
             if (!string.IsNullOrEmpty(dgvFast.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString()))
             {
-                dgvLista.Rows.Add(dgvFast.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString(), "1", dgvFast.Rows[e.RowIndex].Cells[e.ColumnIndex + 1].Value.ToString());
+                bool encontrado = dgvLista.Rows.Cast<DataGridViewRow>()
+                            .Any(row => row.Cells["Producto"].Value != null && row.Cells["Producto"].Value.ToString() == dgvFast.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString());
+                if (encontrado == false)
+                {
+                    dgvLista.Rows.Add(dgvFast.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString(), "1", dgvFast.Rows[e.RowIndex].Cells[e.ColumnIndex + 1].Value.ToString());
+                }
+                else
+                {
+                    foreach (DataGridViewRow item in dgvLista.Rows)
+                    {
+                        if (item.Cells["Producto"].Value.ToString().Equals(dgvFast.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString()))
+                        {
+                            item.Cells["Cantidad"].Value = (Convert.ToDecimal(item.Cells["Cantidad"].Value) + 1).ToString();
+                            break;
+                        }
+                    }
+                }
             }
         }
 
         private void dgvFast_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            dgvLista.Rows.RemoveAt(dgvLista.Rows.Count-1);
+            decimal cantidadPuesta = 1;
             if (!string.IsNullOrEmpty(dgvFast.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString()))
             {
-                canditadPVF cant = new canditadPVF("Cantidad de productos", "Cantidad", "");
+                if (!dgvLista.Rows.Count.Equals(0))
+                {
+                    foreach (DataGridViewRow item in dgvLista.Rows)
+                    {
+                        if (item.Cells["Producto"].Value.ToString().Equals(dgvFast.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString()))
+                        {
+                            if (Convert.ToDecimal(item.Cells["Cantidad"].Value) > 1)
+                            {
+                                cantidadPuesta = Convert.ToDecimal(item.Cells["Cantidad"].Value) - 1;
+                            }
+                            else
+                            {
+                                cantidadPuesta = Convert.ToDecimal(item.Cells["Cantidad"].Value);
+                            }
+
+                        }
+                    }
+                }
+                canditadPVF cant = new canditadPVF("Cantidad de productos", "Cantidad", "", cantidadPuesta);
                 cant.FormClosed += delegate
                 {
                     if (!cant.cantidad.Equals("Cancelar"))
                     {
+                        dgvLista.Rows.RemoveAt(dgvLista.Rows.Count - 1);
                         dgvLista.Rows.Add(dgvFast.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString(), cant.cantidad, dgvFast.Rows[e.RowIndex].Cells[e.ColumnIndex + 1].Value.ToString());
                         btnOk.Focus();
+                    }
+                    else
+                    {
+                        foreach (DataGridViewRow item in dgvLista.Rows)
+                        {
+                            if (item.Cells["Producto"].Value.ToString().Equals(dgvFast.Rows[e.RowIndex].Cells[e.ColumnIndex - 1].Value.ToString()))
+                            {
+                                if (Convert.ToDecimal(item.Cells["Cantidad"].Value) > 1)
+                                {
+                                    item.Cells["Cantidad"].Value = Convert.ToDecimal(item.Cells["Cantidad"].Value) - 1;
+                                }
+                            }
+                        }
                     }
                 };
                 cant.ShowDialog();
