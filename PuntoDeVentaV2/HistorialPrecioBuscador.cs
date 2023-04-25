@@ -383,7 +383,22 @@ namespace PuntoDeVentaV2
 
                     if (cs.validarInformacion(tipoBuscador, datosGet, fechaInicialF, fechaFinalF))
                     {
-                        ejecutarMovimiento();
+                        string consulta = "";
+                        if (procedencia.Equals("Seleccionar Empleado/Producto"))//consulta Normal
+                        {
+
+                            consulta = $"SELECT HP.* ,IF(emp.usuario = '' OR emp.usuario IS NULL,usu.Usuario,emp.usuario) AS 'Nombre' FROM HistorialPrecios AS HP LEFT JOIN empleados AS emp ON (emp.ID = HP.IDEmpleado) LEFT JOIN usuarios AS usu ON (usu.ID = HP.IDUsuario) WHERE HP.IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicialF}' AND '{fechaFinalF}' ORDER BY FechaOperacion DESC";
+                        }
+                        else if (procedencia.Equals("Empleados"))// Consulta segun empleado
+                        {
+                            consulta = $"SELECT HP.*, IF ( emp.usuario = '' OR emp.usuario IS NULL, usu.Usuario, emp.usuario ) AS 'NombreEmpleado', pro.Nombre FROM HistorialPrecios AS HP LEFT JOIN empleados AS emp ON ( emp.ID = HP.IDEmpleado ) LEFT JOIN usuarios AS usu ON ( usu.ID = HP.IDUsuario ) LEFT JOIN productos AS pro ON (pro.ID = HP.IDProducto) WHERE HP.IDUsuario = {FormPrincipal.userID} AND DATE( FechaOperacion ) BETWEEN '{fechaInicialF}' AND '{fechaFinalF}' AND IDEmpleado IN ({datosGet}) ORDER BY FechaOperacion DESC";
+                        }
+                        else if (procedencia.Equals("Productos"))//Consulta por producto
+                        {
+                            consulta = $"SELECT HP.*, IF ( emp.usuario = '' OR emp.usuario IS NULL, usu.Usuario, emp.usuario ) AS 'NombreEmpleado', pro.Nombre FROM HistorialPrecios AS HP LEFT JOIN empleados AS emp ON ( emp.ID = HP.IDEmpleado ) LEFT JOIN usuarios AS usu ON ( usu.ID = HP.IDUsuario ) LEFT JOIN productos AS pro ON (pro.ID = HP.IDProducto) WHERE HP.IDUsuario = {FormPrincipal.userID} AND DATE( FechaOperacion ) BETWEEN '{fechaInicialF}' AND '{fechaFinalF}' AND IDProducto IN ({datosGet}) ORDER BY FechaOperacion DESC";
+                        }
+                        FormReporteHistorialPrecio precio = new FormReporteHistorialPrecio(consulta);
+                        precio.ShowDialog();
                     }
                     else
                     {
@@ -409,7 +424,7 @@ namespace PuntoDeVentaV2
                     formReporte.ShowDialog();
                 }
             }
-
+            this.Close();
         }
         //Validadcion reporte historial producto vendido
         #region

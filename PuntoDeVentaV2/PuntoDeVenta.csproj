@@ -264,6 +264,7 @@
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
@@ -972,6 +973,12 @@
     <Compile Include="FormReporteConceptosRetiro.Designer.cs">
       <DependentUpon>FormReporteConceptosRetiro.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormReporteHistorialPrecio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReporteHistorialPrecio.Designer.cs">
+      <DependentUpon>FormReporteHistorialPrecio.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormReporteHistorialVentasProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1588,6 +1595,15 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>facturaViejaTabla1.xsd</DependentUpon>
+    </Compile>
+    <Content Include="ReportesImpresion\Ticket\HistorialPrecio\DatosHistorialPrecio.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatosHistorialPrecio.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="ReportesImpresion\Ticket\HistorialPrecio\DatosHistorialPrecio.cs">
+      <DependentUpon>DatosHistorialPrecio.xsd</DependentUpon>
     </Compile>
     <Compile Include="ReportesImpresion\Ticket\HistorialVenta\DatosHistorialVenta.cs">
       <DependentUpon>DatosHistorialVenta.xsd</DependentUpon>
@@ -2390,6 +2406,9 @@
     <EmbeddedResource Include="FormReporteConceptosRetiro.resx">
       <DependentUpon>FormReporteConceptosRetiro.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormReporteHistorialPrecio.resx">
+      <DependentUpon>FormReporteHistorialPrecio.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormReporteHistorialVentasProducto.resx">
       <DependentUpon>FormReporteHistorialVentasProducto.cs</DependentUpon>
     </EmbeddedResource>
@@ -2742,6 +2761,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ReportesImpresion\Ticket\FacturasViejas\FactuasViejas.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\HistorialPrecio\ReporteHIstorialPrecio.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="ReportesRetirosConceptosPorMes.resx">
@@ -3123,6 +3145,20 @@
     <None Include="ReportesImpresion\Ticket\FacturasViejas\facturaViejaTabla1.xss">
       <DependentUpon>facturaViejaTabla1.xsd</DependentUpon>
     </None>
+    <Content Include="ReportesImpresion\Ticket\HistorialPrecio\DatosHistorialPrecio.xsc">
+      <DependentUpon>DatosHistorialPrecio.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\HistorialPrecio\DatosHistorialPrecio.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DatosHistorialPrecio.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\HistorialPrecio\DatosHistorialPrecio.xss">
+      <DependentUpon>DatosHistorialPrecio.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="ReportesImpresion\Ticket\ImpimirReporteCaja\DSReporteCaja.xsc">
       <DependentUpon>DSReporteCaja.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
