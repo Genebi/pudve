@@ -496,7 +496,7 @@
             this.btnKeyWordSearch.Name = "btnKeyWordSearch";
             this.btnKeyWordSearch.Size = new System.Drawing.Size(170, 25);
             this.btnKeyWordSearch.TabIndex = 57;
-            this.btnKeyWordSearch.Text = "Buscar Palabras Claves";
+            this.btnKeyWordSearch.Text = "Buscar clave SAT";
             this.btnKeyWordSearch.UseVisualStyleBackColor = false;
             this.btnKeyWordSearch.Click += new System.EventHandler(this.btnKeyWordSearch_Click);
             // 
