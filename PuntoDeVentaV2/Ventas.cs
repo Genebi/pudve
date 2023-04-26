@@ -2747,7 +2747,7 @@ namespace PuntoDeVentaV2
                                 else
                                 {
                                     descuento = descuentoAux;
-                                    mensajeDescuento = $"{descuento.ToString("0.00")} - {(porcentajeGeneral * 100)}%";
+                                    mensajeDescuento = $"{descuento.ToString("0.00")}";
                                 }
                             }
                             else
