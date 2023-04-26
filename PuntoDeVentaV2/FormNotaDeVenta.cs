@@ -215,8 +215,11 @@ namespace PuntoDeVentaV2
             {
                 StatusVenta += " (RENTA)";
             }
+
             reportParameters.Add(new ReportParameter("StatusVenta", StatusVenta));
 
+            string Anticipo = DTNotaDeVentas.Rows[0]["Anticipo"].ToString();
+            reportParameters.Add(new ReportParameter("Anticipo", Anticipo));
             string impuestoTraslado = "";
             string impuestoRetenedio = "";
 

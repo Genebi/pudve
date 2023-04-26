@@ -1071,7 +1071,7 @@
                 </Paragraphs>
                 <rd:DefaultName>mensaje1</rd:DefaultName>
                 <Top>0.07056cm</Top>
-                <Height>2.91632cm</Height>
+                <Height>3.5137cm</Height>
                 <Width>13.61424cm</Width>
                 <Style>
                   <Border>
@@ -1087,7 +1087,7 @@
             <KeepTogether>true</KeepTogether>
             <Top>11.71138cm</Top>
             <Left>1.01036cm</Left>
-            <Height>2.98688cm</Height>
+            <Height>3.58426cm</Height>
             <Width>13.61424cm</Width>
             <ZIndex>12</ZIndex>
             <Style>
@@ -1466,7 +1466,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>14.69826cm</Top>
+            <Top>15.30151cm</Top>
             <Left>14.63892cm</Left>
             <Height>0.60326cm</Height>
             <Width>1.77569cm</Width>
@@ -1500,7 +1500,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>14.69826cm</Top>
+            <Top>15.30151cm</Top>
             <Left>16.40746cm</Left>
             <Height>0.60326cm</Height>
             <Width>3.95129cm</Width>
@@ -1956,7 +1956,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>14.69826cm</Top>
+            <Top>15.30151cm</Top>
             <Left>1.01036cm</Left>
             <Height>0.60326cm</Height>
             <Width>13.61424cm</Width>
@@ -2086,7 +2086,7 @@
             </Style>
           </Textbox>
           <Line Name="Line2">
-            <Top>11.71138cm</Top>
+            <Top>12.31463cm</Top>
             <Left>20.39091cm</Left>
             <Height>3.59014cm</Height>
             <Width>0cm</Width>
@@ -2137,8 +2137,85 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Textbox Name="Textbox41">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Anticipo utilizado</Value>
+                    <Style>
+                      <FontSize>7pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox17</rd:DefaultName>
+            <Top>14.69826cm</Top>
+            <Left>14.63892cm</Left>
+            <Height>0.59738cm</Height>
+            <Width>3.67317cm</Width>
+            <ZIndex>40</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Parameters!Anticipo.Value, "DTNotaVenta").ToString = "0.00", True, False)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox42">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!Anticipo.Value</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox17</rd:DefaultName>
+            <Top>14.69826cm</Top>
+            <Left>18.30492cm</Left>
+            <Height>0.59738cm</Height>
+            <Width>2.08599cm</Width>
+            <ZIndex>41</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Parameters!Anticipo.Value, "DTNotaVenta").ToString = "0.00", True, False)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+              <LeftBorder>
+                <Style>None</Style>
+              </LeftBorder>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>15.4451cm</Height>
+        <Height>17.20652cm</Height>
         <Style />
       </Body>
       <Width>23.00203cm</Width>
@@ -2188,6 +2265,10 @@
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="Anticipo">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
@@ -2228,6 +2309,11 @@
           <ColumnIndex>2</ColumnIndex>
           <RowIndex>1</RowIndex>
           <ParameterName>ImpuestosRetenidos</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>Anticipo</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>
