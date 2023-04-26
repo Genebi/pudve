@@ -135,9 +135,6 @@ namespace PuntoDeVentaV2
 
         private void ListadoVentas_Load(object sender, EventArgs e)
         {
-
-
-
             if (FormPrincipal.id_empleado != 0)
             {
                 DGVListadoVentas.Columns["Ganancia"].Visible = false;
