@@ -1680,7 +1680,7 @@ namespace PuntoDeVentaV2
                 opcion = cbTipoRentas.SelectedValue.ToString();
             }
 
-            
+
 
             if (opcion == "VP") { CargarDatos(1); } // Ventas pagadas
             if (opcion == "VG") { CargarDatos(2); } // Ventas guardadas
@@ -1775,7 +1775,7 @@ namespace PuntoDeVentaV2
 
             clickBoton = 0;
 
-            
+
             if (opcion == "VP") { estado = 1; } //Ventas pagadas
             if (opcion == "VG") { estado = 2; } //Ventas guardadas
             if (opcion == "VC") { estado = 3; } //Ventas canceladas
@@ -1802,7 +1802,7 @@ namespace PuntoDeVentaV2
 
             fechaInicial = $"{fechaInicial} {horaInicial}:00";
 
-                var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd");
+            var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd");
             var horaFinal = dpHoraFinal.Value.ToString("HH:mm");
 
             fechaFinal = $"{fechaFinal} {horaFinal}:59";
@@ -2140,9 +2140,9 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    
 
-                    var ultimaFechaCorte = mb.ObtenerFechaUltimoCorte();        
+
+                    var ultimaFechaCorte = mb.ObtenerFechaUltimoCorte();
                     var fechaVenta = mb.ObtenerFechaVenta(idVenta);
 
                     DateTime validarFechaCorte = Convert.ToDateTime(ultimaFechaCorte);
@@ -2204,11 +2204,13 @@ namespace PuntoDeVentaV2
                                 {
                                     if (tipoDeVenta == "4")
                                     {
-                                        if (abonosEnCaja > totalEfectivonCaja + abonosEfectivoEnCaja)
+                                        if ((Anticipo + abonosEnCaja) > (totalEfectivonCaja + abonosEfectivoEnCaja))
                                         {
                                             MessageBox.Show("No se cuenta con suficiente Efectivo en caja", "Avido del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                             return;
                                         }
+
+
                                     }
                                     else if (!tipoDeVenta.Equals("2"))
                                     {
@@ -3667,7 +3669,7 @@ namespace PuntoDeVentaV2
                             {
                                 if (dtReglasCreditoVenta.Rows.Count.Equals(0))
                                 {
-                                    asignarAbonosSinCredito abono = new asignarAbonosSinCredito(idVenta, total,opcion);
+                                    asignarAbonosSinCredito abono = new asignarAbonosSinCredito(idVenta, total, opcion);
                                     abono.FormClosed += delegate
                                     {
                                         if (opcion.Equals("VCC"))
@@ -3699,7 +3701,7 @@ namespace PuntoDeVentaV2
                                     abono.ShowDialog();
                                 }
                             }
-                            
+
                         }
                         else
                         {
@@ -4034,7 +4036,7 @@ namespace PuntoDeVentaV2
             // Hora inicial y final
             dpHoraInicial.Text = Hora.ToString("HH:mm");
             dpHoraFinal.Text = "23:59";
-            
+
 
         }
 
@@ -4187,7 +4189,7 @@ namespace PuntoDeVentaV2
                             if (r_claves["incluye_impuestos"].ToString() == "" | r_claves["incluye_impuestos"].ToString() == null)
                             {
                                 actualizar_prod_a_cfdi40++;
-                            }                            
+                            }
                         }
 
                         i++;
@@ -4203,7 +4205,7 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            
+
 
             // Antes de abrir ventana se verificará que tenga los archivos digitales agregados.
 
@@ -4229,14 +4231,14 @@ namespace PuntoDeVentaV2
 
             // Valida que los productos a facturar ya esten actualizados a la versión 4.0
 
-            if(actualizar_prod_a_cfdi40 > 0)
+            if (actualizar_prod_a_cfdi40 > 0)
             {
                 MessageBox.Show("Hay productos que no han sido actualizados a la versión de CFDI 4.0. \n Ir al apartado de productos y en editar producto hacer la actualización.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             // Abrir ventana para agregar los datos faltantes para la factura
-            
+
             if (arch_cer != "" & arch_key != "")
             {
                 // Consulta que se halla guardado el número de certificado
@@ -5261,7 +5263,7 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrEmpty(codigosBuscar))
             {
-                OpcionesReporteVentas opcionesReporteVentas = new OpcionesReporteVentas(codigosBuscar,cbTipoVentas.SelectedIndex);
+                OpcionesReporteVentas opcionesReporteVentas = new OpcionesReporteVentas(codigosBuscar, cbTipoVentas.SelectedIndex);
                 opcionesReporteVentas.ShowDialog();
             }
             else
@@ -6093,7 +6095,7 @@ namespace PuntoDeVentaV2
                     CargarDatos(6);
                 }
             }
-          
+
         }
 
         private void cbTipoRentas_SelectedIndexChanged(object sender, EventArgs e)
