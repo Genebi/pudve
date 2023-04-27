@@ -5721,36 +5721,48 @@ namespace PuntoDeVentaV2
 
         private void btnImagenes_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            if (btnImagenes.Text == "Seleccionar Imagen")
             {
-                openFileDialog.Filter = "Image Files (*.bmp;*.jpg;*.jpeg,*.png)|*.BMP;*.JPG;*.JPEG;*.PNG";
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
                 {
-                    using (MemoryStream ms = new MemoryStream())
+                    openFileDialog.Filter = "Image Files (*.bmp;*.jpg;*.jpeg,*.png)|*.BMP;*.JPG;*.JPEG;*.PNG";
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        using (Image image = Image.FromFile(openFileDialog.FileName))
+                        using (MemoryStream ms = new MemoryStream())
                         {
-                            image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                            byte[] imageData = ms.ToArray();
-                            if (idEditarProducto == null)
+                            using (Image image = Image.FromFile(openFileDialog.FileName))
                             {
-                                img = imageData;
-                                pictureBoxProducto.Image = Image.FromStream(ms);
-                            }
-                            else
-                            {
-                                cn.insertImage(cs.guardarImgProducto(idEditarProducto.ToString()), imageData);
-                                if (cn.readImage(($"SELECT ImgNew from productos WHERE id = {idEditarProducto}")) != null)
+                                image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                byte[] imageData = ms.ToArray();
+                                if (idEditarProducto == null)
                                 {
-                                    pictureBoxProducto.Image = cn.readImage(($"SELECT ImgNew from productos WHERE id = {idEditarProducto}"));
+                                    img = imageData;
+                                    pictureBoxProducto.Image = Image.FromStream(ms);
                                 }
+                                else
+                                {
+                                    cn.insertImage(cs.guardarImgProducto(idEditarProducto.ToString()), imageData);
+                                    if (cn.readImage(($"SELECT ImgNew from productos WHERE id = {idEditarProducto}")) != null)
+                                    {
+                                        pictureBoxProducto.Image = cn.readImage(($"SELECT ImgNew from productos WHERE id = {idEditarProducto}"));
+                                    }
+                                }
+
                             }
-                            
                         }
+
                     }
-                    
+                    btnImagenes.Text = "Eliminar Imagen";
                 }
             }
+            else
+            {
+                cn.EjecutarConsulta($"UPDATE productos SET ImgNew = NULL WHERE ID = {idEditarProducto}");
+                pictureBoxProducto.Image = new Bitmap(1, 1);
+                pictureBoxProducto.Refresh();
+                btnImagenes.Text = "Seleccionar Imagen";
+            }
+            
 
             #region legacyCode
             //try
@@ -10004,6 +10016,17 @@ namespace PuntoDeVentaV2
 
         private void AgregarEditarProducto_Load(object sender, EventArgs e)
         {
+            using (var dt = cn.CargarDatos($"SELECT ImgNew FROM productos WHERE ID = {idEditarProducto}"))
+            {
+                if (!string.IsNullOrWhiteSpace(dt.Rows[0][0].ToString()))
+                {
+                    btnImagenes.Text = "Eliminar Imagen";
+                }
+                else
+                {
+                    btnImagenes.Text = "Seleccionar Imagen";
+                }
+            }
             validacionUpdateDescuentos = 0;
             baseProducto = "0";
             ivaProducto = "0";
