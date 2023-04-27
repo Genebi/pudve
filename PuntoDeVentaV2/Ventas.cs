@@ -8846,85 +8846,104 @@ namespace PuntoDeVentaV2
                 };
 
                 cliente.ShowDialog();
-                using (var dt = cn.CargarDatos($"SELECT TipoCliente, DescuentoPorcentaje FROM clientes c INNER JOIN tipoclientes tc ON c.TipoCliente = tc.ID WHERE c.ID = {idCliente} AND C.IDUsuario = {FormPrincipal.userID};"))
+                if (!string.IsNullOrWhiteSpace(idCliente))
                 {
-                    if (!dt.Rows.Count.Equals(0))
+                    using (var dt = cn.CargarDatos($"SELECT TipoCliente, DescuentoPorcentaje,RazonSocial FROM clientes c INNER JOIN tipoclientes tc ON c.TipoCliente = tc.ID WHERE c.ID = {idCliente} AND C.IDUsuario = {FormPrincipal.userID};"))
                     {
-                        if (!dt.Rows[0]["TipoCliente"].Equals(0))
+                        if (!dt.Rows.Count.Equals(0))
                         {
-                            int validarDescuento = 0;
-
-                            foreach (DataGridViewRow row in DGVentas.Rows)
+                            if (!dt.Rows[0]["TipoCliente"].Equals(0))
                             {
-                                string descuento = row.Cells["Descuento"].Value.ToString();
+                                int validarDescuento = 0;
 
-                                if (descuento != "0.00")
+                                foreach (DataGridViewRow row in DGVentas.Rows)
                                 {
-                                    validarDescuento = 1;
-                                }
-                            }
+                                    string descuento = row.Cells["Descuento"].Value.ToString();
 
-                            if (validarDescuento != 0)
-                            {
-                                DialogResult resultado = MessageBox.Show("El cliente seleccionado  cuenta con un tipo de descuento, ¿desea remplazarlos descuentos actuales?", "Advertencia", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                                    if (descuento != "0.00")
+                                    {
+                                        validarDescuento = 1;
+                                    }
+                                }
 
-                                if (resultado == DialogResult.OK)
+                                if (validarDescuento != 0)
                                 {
-                                    DescuentoClienteVentaGuardada = Convert.ToDecimal(dt.Rows[0][1]);
-                                    txtDescuentoGeneral.Focus();
-                                    DatosVenta();
-                                    liststock2.Clear();
-                                    idCliente = string.Empty;
-                                    statusVenta = string.Empty;
-                                    ventaGuardada = false;
-                                    DetalleVenta.idCliente = 0;
-                                    DetalleVenta.cliente = string.Empty;
-                                    DetalleVenta.nameClienteNameVenta = string.Empty;
-                                    DescuentoClienteVentaGuardada = 0;
+                                    DialogResult resultado = MessageBox.Show("El cliente seleccionado  cuenta con un tipo de descuento, ¿desea remplazarlos descuentos actuales?", "Advertencia", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                                    if (resultado == DialogResult.OK)
+                                    {
+                                        DescuentoClienteVentaGuardada = Convert.ToDecimal(dt.Rows[0][1]);
+                                        txtDescuentoGeneral.Focus();
+                                        DatosVenta();
+                                        liststock2.Clear();
+                                        idCliente = string.Empty;
+                                        statusVenta = string.Empty;
+                                        ventaGuardada = false;
+                                        DetalleVenta.idCliente = 0;
+                                        DetalleVenta.cliente = string.Empty;
+                                        DetalleVenta.nameClienteNameVenta = string.Empty;
+                                        DescuentoClienteVentaGuardada = 0;
+                                    }
+                                    else
+                                    {
+                                        DatosVenta();
+                                        liststock2.Clear();
+                                        idCliente = string.Empty;
+                                        statusVenta = string.Empty;
+                                        ventaGuardada = false;
+                                        DetalleVenta.idCliente = 0;
+                                        DetalleVenta.cliente = string.Empty;
+                                        DetalleVenta.nameClienteNameVenta = string.Empty;
+                                    }
                                 }
-                                else
+                                else if (!dt.Rows[0]["TipoCliente"].Equals(0))
                                 {
-                                    DatosVenta();
-                                    liststock2.Clear();
-                                    idCliente = string.Empty;
-                                    statusVenta = string.Empty;
-                                    ventaGuardada = false;
-                                    DetalleVenta.idCliente = 0;
-                                    DetalleVenta.cliente = string.Empty;
-                                    DetalleVenta.nameClienteNameVenta = string.Empty;
+                                    var mensaje = MessageBox.Show($"El cliente {dt.Rows[0]["RazonSocial"]} cuenta con un descuento del {dt.Rows[0]["DescuentoPorcentaje"]}% \n¿Desea aplicar el descuento?", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                                    if (mensaje.Equals(DialogResult.Yes))
+                                    {
+                                        DescuentoClienteVentaGuardada = Convert.ToDecimal(dt.Rows[0][1]);
+                                        txtDescuentoGeneral.Focus();
+                                        DatosVenta();
+                                        liststock2.Clear();
+                                        idCliente = string.Empty;
+                                        statusVenta = string.Empty;
+                                        ventaGuardada = false;
+                                        DetalleVenta.idCliente = 0;
+                                        DetalleVenta.cliente = string.Empty;
+                                        DetalleVenta.nameClienteNameVenta = string.Empty;
+                                        DescuentoClienteVentaGuardada = 0;
+                                    }
+                                    else
+                                    {
+                                        DatosVenta();
+                                        liststock2.Clear();
+                                        idCliente = string.Empty;
+                                        statusVenta = string.Empty;
+                                        ventaGuardada = false;
+                                        DetalleVenta.idCliente = 0;
+                                        DetalleVenta.cliente = string.Empty;
+                                        DetalleVenta.nameClienteNameVenta = string.Empty;
+                                        DescuentoClienteVentaGuardada = 0;
+                                    }
+
                                 }
+
                             }
-                            else if (!dt.Rows[0]["TipoCliente"].Equals(0))
-                            {
-                                DescuentoClienteVentaGuardada = Convert.ToDecimal(dt.Rows[0][1]);
-                                txtDescuentoGeneral.Focus();
-                                DatosVenta();
-                                liststock2.Clear();
-                                idCliente = string.Empty;
-                                statusVenta = string.Empty;
-                                ventaGuardada = false;
-                                DetalleVenta.idCliente = 0;
-                                DetalleVenta.cliente = string.Empty;
-                                DetalleVenta.nameClienteNameVenta = string.Empty;
-                                DescuentoClienteVentaGuardada = 0;
-                            }
-                            
+                        }
+                        else
+                        {
+                            DatosVenta();
+                            liststock2.Clear();
+                            idCliente = string.Empty;
+                            statusVenta = string.Empty;
+                            ventaGuardada = false;
+                            DetalleVenta.idCliente = 0;
+                            DetalleVenta.cliente = string.Empty;
+                            DetalleVenta.nameClienteNameVenta = string.Empty;
                         }
                     }
-                    else
-                    {
-                        DatosVenta();
-                        liststock2.Clear();
-                        idCliente = string.Empty;
-                        statusVenta = string.Empty;
-                        ventaGuardada = false;
-                        DetalleVenta.idCliente = 0;
-                        DetalleVenta.cliente = string.Empty;
-                        DetalleVenta.nameClienteNameVenta = string.Empty;
-                    }
+                    DescuentoClienteVentaGuardada = 0;
                 }
-
-                DescuentoClienteVentaGuardada = 0;
             }
             else
             {
