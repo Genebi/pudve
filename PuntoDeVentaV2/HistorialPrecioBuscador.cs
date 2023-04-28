@@ -154,15 +154,10 @@ namespace PuntoDeVentaV2
 
             var consulta = $"SELECT ID, Nombre, Stock, CodigoBarras, Tipo, Status FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND Status = '{status}'";
 
-            //if (porBusqueda.Equals(false))
-            //{//Aqui va la consulta sin buscadors
-            //    consulta += "LIMIT 20";
-            //}
-            //else
-            //{//Aqui va la consulta con buscador 
-            //    consulta += $"AND Nombre LIKE '%{productoBuscar}%' LIMIT 20";
-            //}
-
+            if (porBusqueda.Equals(true))
+            {
+                consulta += $"AND (Nombre LIKE '%{txtBuscar.Text}%' OR CodigoBarras LIKE '%{txtBuscar.Text}%')";
+            }
             //query = cn.CargarDatos(consulta);
             filtroConSinFiltroAvanzado = consulta;
 
