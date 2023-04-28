@@ -10016,17 +10016,21 @@ namespace PuntoDeVentaV2
 
         private void AgregarEditarProducto_Load(object sender, EventArgs e)
         {
-            using (var dt = cn.CargarDatos($"SELECT ImgNew FROM productos WHERE ID = {idEditarProducto}"))
+            if (!string.IsNullOrWhiteSpace(idEditarProducto))
             {
-                if (!string.IsNullOrWhiteSpace(dt.Rows[0][0].ToString()))
+                using (var dt = cn.CargarDatos($"SELECT ImgNew FROM productos WHERE ID = {idEditarProducto}"))
                 {
-                    btnImagenes.Text = "Eliminar Imagen";
-                }
-                else
-                {
-                    btnImagenes.Text = "Seleccionar Imagen";
+                    if (!string.IsNullOrWhiteSpace(dt.Rows[0][0].ToString()))
+                    {
+                        btnImagenes.Text = "Eliminar Imagen";
+                    }
+                    else
+                    {
+                        btnImagenes.Text = "Seleccionar Imagen";
+                    }
                 }
             }
+        
             validacionUpdateDescuentos = 0;
             baseProducto = "0";
             ivaProducto = "0";
