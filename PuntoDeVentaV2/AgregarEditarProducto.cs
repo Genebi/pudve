@@ -10029,6 +10029,13 @@ namespace PuntoDeVentaV2
                         btnImagenes.Text = "Seleccionar Imagen";
                     }
                 }
+                using (var dt = cn.CargarDatos($"SELECT tipo FROM productos where ID = '{idEditarProducto}'"))
+                {
+                    if (!dt.Rows[0][0].Equals("P"))
+                    {
+                        btnSubdetalle.Enabled = false;
+                    }
+                }
             }
         
             validacionUpdateDescuentos = 0;
