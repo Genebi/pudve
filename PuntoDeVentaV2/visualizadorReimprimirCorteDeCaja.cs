@@ -19,6 +19,10 @@ namespace PuntoDeVentaV2
         public DataTable dtDineroAgregado { get; set; }
         public DataTable dtDineroRetirado { get; set; }
         public DataTable dtTotalCorteDeCaja { get; set; }
+        public DataTable dtDineroAgregado2 { get; set; }
+        public DataTable dtDineroRetirado2 { get; set; }
+        public DataTable dtTotalAgregado { get; set; }
+        public DataTable dtTotalRetirado { get; set; }
 
         public visualizadorReimprimirCorteDeCaja()
         {
@@ -39,12 +43,16 @@ namespace PuntoDeVentaV2
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
             this.reportViewer1.LocalReport.DataSources.Clear();
 
-            ReportDataSource Encabezado = new ReportDataSource("DTEncabezado", dtEncabezado);
+            ReportDataSource Encabezado = new ReportDataSource("DTEncabezado", dtEncabezado); 
             ReportDataSource VentasRealizadas = new ReportDataSource("DTVentasRealizadas", dtVentasRealizadas);
             ReportDataSource AnticiposRecibidos = new ReportDataSource("DTAnticiposRecibidos", dtAnticiposRecibidos);
             ReportDataSource DepositosRecibidos = new ReportDataSource("DTDineroAgregado", dtDineroAgregado);
             ReportDataSource RetirosRealizados = new ReportDataSource("DTDineroRetirado", dtDineroRetirado);
             ReportDataSource TotalDeCaja = new ReportDataSource("DTTotalDeCaja", dtTotalCorteDeCaja);
+            ReportDataSource DepositosRecibidos2 = new ReportDataSource("DTDineroAgregado2", dtDineroAgregado2);
+            ReportDataSource RetirosRealizados2 = new ReportDataSource("DTDineroRetirado2", dtDineroRetirado2);
+            ReportDataSource totalesAgregados = new ReportDataSource("DTTotalesAgregados", dtTotalAgregado);
+            ReportDataSource totalesRetirados = new ReportDataSource("DTTotalesRetirados", dtTotalRetirado);
 
             this.reportViewer1.LocalReport.DataSources.Add(Encabezado);
             this.reportViewer1.LocalReport.DataSources.Add(VentasRealizadas);
@@ -52,6 +60,10 @@ namespace PuntoDeVentaV2
             this.reportViewer1.LocalReport.DataSources.Add(DepositosRecibidos);
             this.reportViewer1.LocalReport.DataSources.Add(RetirosRealizados);
             this.reportViewer1.LocalReport.DataSources.Add(TotalDeCaja);
+            this.reportViewer1.LocalReport.DataSources.Add(DepositosRecibidos2);
+            this.reportViewer1.LocalReport.DataSources.Add(RetirosRealizados2);
+            this.reportViewer1.LocalReport.DataSources.Add(totalesAgregados);
+            this.reportViewer1.LocalReport.DataSources.Add(totalesRetirados);
 
             this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
             this.reportViewer1.RefreshReport();

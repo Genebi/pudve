@@ -543,7 +543,7 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("conceptoTotalDineroRetirado", conceptoTotalDineroRetirado.ToString()));
             #endregion
             #region Restante al corte de caja
-            reportParameters.Add(new ReportParameter("conceptoRestanteCorteCaja", conceptoRestanteCorteCaja.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoRestanteCorteCaja", conceptoRestanteCorteCaja.ToString()));//#37
             #endregion
             #region Nombre de Usuario
             reportParameters.Add(new ReportParameter("nombreUsuario", nombreUsuario.ToString()));
@@ -564,7 +564,14 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("CantidadDSRetiros", retiroDT.Rows.Count.ToString()));
             #endregion
 
-            
+            var datos = cn.CargarDatos($"SELECT IDCorteDeCaja FROM historialcortesdecaja ORDER BY id DESC LIMIT 1;");
+            string idCortCaja = datos.Rows[0]["IDCorteDeCaja"].ToString();
+            var fechaCorte = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            decimal totalDeLasVentas = Convert.ToDecimal(conceptoAnticiposUtilizados.Replace("$", "")) + Convert.ToDecimal(conceptoAbonosDeVentas.Replace("$", "")) + Convert.ToDecimal(conceptoTotalVentas.Replace("$", ""));
+
+            var consulta = $"INSERT INTO reportesCorteCaja ( RazonSocial, Usuario, IDUsuario, IDEmpleado, IDCorteCaja, FechaCorteCaja, EfectivoDeVentas, TarjetaDeVentas, ValeDeVentas, ChequeDeVentas, TransferenciDeVentas, CreditoDeVentas, AbonosDeVentas, AnticiposUtilizados, EfectivoDeAnticipos, TarjetaDeAnticipos, ValeDeAnticipos, ChequeDeAnticipos, TransferenciaDeAnticipos, EfectivoDeDineroAgregado, TarjetaDeDineroAgregado, ValeDeDineroAgregado, ChequeDeDineroAgregado, TransferenciaDeDineroAgregado, EfectivoDeDineroRetirado, TarjetaDeDineroRetirado, ValeDeDineroRetirado, ChequeDeDineroRetirado, TransferenciaDeDineroRetirado, DevolucionDeDineroRetirado, EfectivoDeTotalCaja, TarjetaDeTotalCaja, ValeDeTotalCaja, ChequeDeTotalCaja, TransferenciaDeTotalCaja, CantidadEnCajaAntesDelCorte, CantidadRetiradaAlCorteDeCaja, TotalVentas, TotalAnticipos, TotalDineroAgregado, TotalDineroRetirado, TotalEnCajaDespuesDelCorte ) VALUES ( '{"Razon Social: " + nombreUsuario}', '{"Realizado Por: " + FormPrincipal.userNickName }', { FormPrincipal.userID }, { FormPrincipal.id_empleado }, '{"ID Corte: " + idCortCaja}', '{ "Fecha de Corte: " + fechaCorte }', '{ conceptoEfectivoDeVentas }', '{ conceptoTarjetaDeVentas }', '{ conceptoValeDeVentas }', '{ conceptoChequeDeVentas }', '{ conceptoTransferenciDeVentas }', '{ conceptoCreditoDeVentas }', '{ conceptoAbonosDeVentas }', '{ conceptoAnticiposUtilizados }', '{ conceptoEfectivoDeAnticipos }', '{ conceptoTarjetaDeAnticipos }', '{ conceptoValeDeAnticipos }', '{ conceptoChequeDeAnticipos }', '{ conceptoTransferenciaDeAnticipos }', '{ conceptoEfectivoDeDineroAgregado }', '{ conceptoTarjetaDeDineroAgregado }', '{ conceptoValeDeDineroAgregado }', '{ conceptoChequeDeDineroAgregado }', '{ conceptoTransferenciaDeDineroAgregado }', '{ conceptoEfectivoDeDineroRetirado }', '{ conceptoTarjetaDeDineroRetirado }', '{ conceptoValeDeDineroRetirado }', '{ conceptoChequeDeDineroRetirado }', '{ conceptoTransferenciaDeDineroRetirado }', '{ conceptoDevolucionDeDineroRetirado }', '{ conceptoEfectivoDeTotalCaja }', '{ conceptoTarjetaDeTotalCaja }', '{ conceptoValeDeTotalCaja }', '{ conceptoChequeDeTotalCaja }', '{ conceptoTransferenciaDeTotalCaja }', '{ conceptoCantidadEnCajaAntesDelCorte }', '{ conceptoCantidadRetiradaAlCorteDeCaja }', '{ totalDeLasVentas }', '{ conceptoTotalAnticipos }', '{ conceptoTotalDineroAgregado }', '{ conceptoTotalDineroRetirado }', '{ conceptoRestanteCorteCaja }')";
+              cn.EjecutarConsulta(consulta);
+
             this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.LocalReport.DataSources.Add(depositos);
             this.reportViewer1.LocalReport.DataSources.Add(sumaDepositos);
