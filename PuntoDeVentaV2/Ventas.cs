@@ -5394,6 +5394,7 @@ namespace PuntoDeVentaV2
                 string vales = "0.00";
                 string cheque = "0.00";
                 string transferencia = "0.00";
+                string anticipo = "0.00";
                 decimal total = 0;
 
                 if (decimal.Parse(info[2]) > 0)
@@ -5426,10 +5427,14 @@ namespace PuntoDeVentaV2
                     total += decimal.Parse(transferencia);
                     haylana = true;
                 }
+                if (string.IsNullOrWhiteSpace(pasarTotalAnticipos.ToString()))
+                {
+                    pasarTotalAnticipos = 0;
+                }
                 if (pasarTotalAnticipos > 0)
                 {
-                    efectivo = pasarTotalAnticipos.ToString();
-                    total += decimal.Parse(efectivo);
+                    anticipo = pasarTotalAnticipos.ToString();
+                    total += decimal.Parse(anticipo);
                     haylana = true;
                     pasarTotalAnticipos = 0;
                 }
@@ -5439,14 +5444,14 @@ namespace PuntoDeVentaV2
                     {
                         string[] abono = new string[] {
                 IDVenta, FormPrincipal.userID.ToString(), total.ToString(), efectivo, tarjeta, vales,
-                cheque, transferencia,"Enganche",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"),FormPrincipal.id_empleado.ToString(),"0","0","0","0","0"};
+                cheque, transferencia,"Enganche",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"),FormPrincipal.id_empleado.ToString(),"0","0","0","0","0",anticipo.ToString()};
                         cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(abono));
                     }
                     else
                     {
                         string[] abono = new string[] {
                 IDVenta, FormPrincipal.userID.ToString(), total.ToString(), efectivo, tarjeta, vales,
-                cheque, transferencia,"Enganche",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"),"0","0","0","0","0"};
+                cheque, transferencia,"Enganche",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"),"0","0","0","0","0",anticipo.ToString()};
                         cn.EjecutarConsulta(cs.GuardarAbonos(abono));
                     }
 

@@ -38,6 +38,7 @@
             this.Vales = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cheque = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Trans = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Anticipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.abono = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Interes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -67,6 +68,7 @@
             this.Vales,
             this.Cheque,
             this.Trans,
+            this.Anticipo,
             this.abono,
             this.Interes,
             this.Total,
@@ -87,7 +89,7 @@
             this.DGVAbonos.RowHeadersVisible = false;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.DGVAbonos.RowsDefaultCellStyle = dataGridViewCellStyle3;
-            this.DGVAbonos.Size = new System.Drawing.Size(726, 259);
+            this.DGVAbonos.Size = new System.Drawing.Size(791, 259);
             this.DGVAbonos.TabIndex = 0;
             this.DGVAbonos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVAbonos_CellClick);
             this.DGVAbonos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVAbonos_CellMouseEnter);
@@ -135,6 +137,14 @@
             this.Trans.ReadOnly = true;
             this.Trans.Width = 80;
             // 
+            // Anticipo
+            // 
+            this.Anticipo.FillWeight = 50F;
+            this.Anticipo.HeaderText = "Anticipo";
+            this.Anticipo.Name = "Anticipo";
+            this.Anticipo.ReadOnly = true;
+            this.Anticipo.Width = 60;
+            // 
             // abono
             // 
             this.abono.HeaderText = "Total abono al capital";
@@ -181,7 +191,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(727, 261);
+            this.ClientSize = new System.Drawing.Size(793, 261);
             this.Controls.Add(this.DGVAbonos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -204,6 +214,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Vales;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cheque;
         private System.Windows.Forms.DataGridViewTextBoxColumn Trans;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Anticipo;
         private System.Windows.Forms.DataGridViewTextBoxColumn abono;
         private System.Windows.Forms.DataGridViewTextBoxColumn Interes;
         private System.Windows.Forms.DataGridViewTextBoxColumn Total;

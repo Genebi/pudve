@@ -2490,3 +2490,6 @@ IF
 		TotalDineroRetirado TEXT,  -- Total Dinero Retirado
 		TotalEnCajaDespuesDelCorte TEXT  -- Total En Caja Despues Del Corte
 	);
+
+
+	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS AnticipoAplicado DECIMAL (16,2) DEFAULT 0;
