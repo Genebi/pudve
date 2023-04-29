@@ -5426,6 +5426,13 @@ namespace PuntoDeVentaV2
                     total += decimal.Parse(transferencia);
                     haylana = true;
                 }
+                if (pasarTotalAnticipos > 0)
+                {
+                    efectivo = pasarTotalAnticipos.ToString();
+                    total += decimal.Parse(efectivo);
+                    haylana = true;
+                    pasarTotalAnticipos = 0;
+                }
                 if (haylana)
                 {
                     if (FormPrincipal.userNickName.Contains('@'))
