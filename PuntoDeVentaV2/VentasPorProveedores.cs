@@ -66,7 +66,7 @@ namespace PuntoDeVentaV2
                 }
             }
             IDSVentas = IDSVentas.TrimEnd(',');
-            using (var DTDatos = cn.CargarDatos($"SELECT PV.IDProducto, SUM( PV.Cantidad ) * PV.Precio AS 'PrecioTotal' FROM productosventa AS PV INNER JOIN ventas AS VEN ON (PV.IDVenta = VEN.ID) WHERE VEN.IDUsuario = 10 AND IDVenta IN ({IDSVentas}) GROUP BY IDProducto"))
+            using (var DTDatos = cn.CargarDatos($"SELECT PV.IDProducto, SUM( PV.Cantidad ) * PV.Precio AS 'PrecioTotal' FROM productosventa AS PV INNER JOIN ventas AS VEN ON (PV.IDVenta = VEN.ID) WHERE VEN.IDUsuario = {FormPrincipal.userID} AND IDVenta IN ({IDSVentas}) GROUP BY IDProducto"))
             {
                 int contador = 0;
                 foreach (var item in DTDatos.Rows)
