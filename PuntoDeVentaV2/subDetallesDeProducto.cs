@@ -67,7 +67,7 @@ namespace PuntoDeVentaV2
                 if (Inventario.AumentarDisminuir == 1 || Inventario.desdeRegresarProdcuto == 1)
                 {
                     restando = true;
-                    stockTot *= -1;
+                    //stockTot *= -1;
                 }
             }
         }
@@ -263,7 +263,6 @@ namespace PuntoDeVentaV2
             switch (tipoDato)
             {
                 case "0":
-
                     int columnIndex = dgvDetallesSubdetalle.Columns["Valor"].Index;
                     DataGridViewCalendarCell cell = new DataGridViewCalendarCell();
                     dgvDetallesSubdetalle.Columns[columnIndex].CellTemplate = cell;
@@ -321,7 +320,7 @@ namespace PuntoDeVentaV2
                 btnGuardar.Enabled = true;
                 if (accion != "Nuevo")
                 {
-                    guardarDatos(false);
+                    guardarDatos(false); 
                 }
             }
             else
