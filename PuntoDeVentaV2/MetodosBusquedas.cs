@@ -53,7 +53,7 @@ namespace PuntoDeVentaV2
         {
             List<string> lista = new List<string>();
 
-            DatosConexion($"SELECT * FROM DetallesVenta WHERE IDVenta = {idVenta} AND IDUsuario = {idUsuario}");
+            DatosConexion($"SELECT *,(Credito + Anticipo)as 'Total'  FROM DetallesVenta WHERE IDVenta = {idVenta} AND IDUsuario = {idUsuario}");
 
             MySqlDataReader dr = sql_cmd.ExecuteReader();
 
@@ -62,7 +62,7 @@ namespace PuntoDeVentaV2
                 //ID del cliente, Cliente, Credito
                 lista.Add(dr[10].ToString());
                 lista.Add(dr[11].ToString());
-                lista.Add(dr[8].ToString());
+                lista.Add(dr[14].ToString());
             }
 
             dr.Close();
