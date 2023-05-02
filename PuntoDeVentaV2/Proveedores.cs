@@ -62,11 +62,11 @@ namespace PuntoDeVentaV2
             status = cbStatus.SelectedIndex + 1;
             if (string.IsNullOrWhiteSpace(busqueda))
             {
-                consulta = $"SELECT * FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID} AND Status = {status}";
+                consulta = $"SELECT * FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID} AND Status = {status} ORDER BY ID DESC";
             }
             else
             {
-                var extra = $"AND (Nombre LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%' OR Email LIKE '%{busqueda}%' OR Telefono LIKE '%{busqueda}%')";
+                var extra = $"AND (Nombre LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%' OR Email LIKE '%{busqueda}%' OR Telefono LIKE '%{busqueda}%') ORDER BY ID DESC";
 
                 consulta = $"SELECT * FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID} AND Status = {status} {extra}";
             }
