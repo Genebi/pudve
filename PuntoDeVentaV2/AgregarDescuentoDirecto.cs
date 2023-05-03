@@ -145,11 +145,11 @@ namespace PuntoDeVentaV2
                 {
                     var cantidad = Convert.ToDouble(txtCantidad.Text);
 
-                    if (cantidad == 0)
-                    {
-                        btnEliminar.PerformClick();
-                        return;
-                    }
+                    //if (cantidad == 0)
+                    //{
+                    //    btnEliminar.PerformClick();
+                    //    return;
+                    //}
 
                     if (cantidad < (precioProducto * cantidadProducto))
                     {
