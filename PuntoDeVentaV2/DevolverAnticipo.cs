@@ -155,6 +155,8 @@ namespace PuntoDeVentaV2
             cbFormaPago.DataSource = pagos.ToArray();
             cbFormaPago.DisplayMember = "Value";
             cbFormaPago.ValueMember = "Key";
+
+            Anticipos.Cancelado = false;
         }
 
         private void CargarSaldo()
@@ -286,6 +288,7 @@ namespace PuntoDeVentaV2
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            Anticipos.Cancelado = true;
             this.Dispose();
         }
 

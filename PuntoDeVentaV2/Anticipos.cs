@@ -49,7 +49,8 @@ namespace PuntoDeVentaV2
         int clickBoton = 0;
         string DataMemberDGV = "Anticipos";
         public static bool SeCancelo = false;
-                
+        public static bool Cancelado = false;
+
         IEnumerable<AgregarAnticipo> FormAnticipo = Application.OpenForms.OfType<AgregarAnticipo>();
 
         public Anticipos()
@@ -562,6 +563,7 @@ namespace PuntoDeVentaV2
                 // Devolver anticipo
                 if (e.ColumnIndex == 8)
                 {
+                    Cancelado = false;
                     if (opcion3 == 0)
                     {
                         Utilidades.MensajePermiso();
@@ -580,10 +582,13 @@ namespace PuntoDeVentaV2
                             {
                                 CargarDatos(cbAnticipos.SelectedIndex + 1);
                             };
-
+                            if (Cancelado == true)
+                            {
+                                return;
+                            }
                             da.ShowDialog();
                         }
-                        if (SeCancelo.Equals(true))
+                        if (SeCancelo.Equals(true) && Cancelado != true)
                         {
                             idanticipoVer.idAnticipoViz = idAnticipo;
                             idanticipoVer.anticipoSinHistorial = 1;
