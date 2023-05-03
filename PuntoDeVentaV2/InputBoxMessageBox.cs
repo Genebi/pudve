@@ -32,6 +32,12 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            txtDefaultResponse.Text = txtDefaultResponse.Text.Trim();
+            if (string.IsNullOrWhiteSpace(txtDefaultResponse.Text) || txtDefaultResponse.Text == "Concepto para Agregar al producto.")
+            {
+                MessageBox.Show("Ingreses un nombre para el Detalle","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                return;
+            }
             string  textoDefaultResponse = string.Empty, 
                     auxComparacionAgregar = string.Empty;
 
