@@ -137,22 +137,25 @@ namespace PuntoDeVentaV2
 
                 // Información global
 
-                if(rfc_r == "XAXX010101000" & nombre_r == "PUBLICO EN GENERAL")
+                if(con_complemento_pg == 0)
                 {
-                    periodicidad_ct = r_facturas["r_periodicidad_infog"].ToString();
-                    meses_ct = r_facturas["r_meses_infog"].ToString();
-                    anio_ct = r_facturas["r_anio_infog"].ToString();
-;               }
+                    if (rfc_r == "XAXX010101000" & nombre_r == "PUBLICO EN GENERAL")
+                    {
+                        periodicidad_ct = r_facturas["r_periodicidad_infog"].ToString();
+                        meses_ct = r_facturas["r_meses_infog"].ToString();
+                        anio_ct = r_facturas["r_anio_infog"].ToString();
+                    }
+                }
 
                 // Solo cuando es un complemento de pago
 
                 if (con_complemento_pg == 1)
                 {
-                    var f_pg = r_facturas["fecha_hora_cpago"].ToString();
-                    string[] fech = f_pg.Split(' ');
-                    pg_fecha_pago = Convert.ToDateTime(fech[0]).ToString("yyyy-MM-dd") + "T" + fech[1];
+                    //var f_pg = r_facturas["fecha_hora_cpago"].ToString();
+                    //string[] fech = f_pg.Split(' ');
+                    //pg_fecha_pago = Convert.ToDateTime(fech[0]).ToString("yyyy-MM-dd") + "T" + fech[1];
 
-                    monto_cpago = Convert.ToDecimal(r_facturas["monto_cpago"]);
+                    //monto_cpago = Convert.ToDecimal(r_facturas["monto_cpago"]);
                 }
             }
 
@@ -255,7 +258,7 @@ namespace PuntoDeVentaV2
             // NODO INFORMACIÓN GLOBAL
             //------------------------
 
-            if (rfc_r == "XAXX010101000" & nombre_r == "PUBLICO EN GENERAL")
+            if (rfc_r == "XAXX010101000" & nombre_r == "PUBLICO EN GENERAL" & con_complemento_pg == 0)
             {
                 ComprobanteInformacionGlobal infog = new ComprobanteInformacionGlobal();
 
@@ -1127,11 +1130,447 @@ namespace PuntoDeVentaV2
 
             if (con_complemento_pg == 1)
             {
-                comprobante.xsiSchemaLocation = "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd http://www.sat.gob.mx/Pagos http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos10.xsd";
+                comprobante.xsiSchemaLocation = "http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd http://www.sat.gob.mx/Pagos20 http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos20.xsd";
 
-                // NODO PAGOS, PAGO
+
+                // NODO PAGOS
+                //-----------
+
+                Pagos pagos = new Pagos();
+                pagos.Version = "2.0";
+
+
+
+                // NODO TOTALES
+                //-------------
+
+                PagosTotales pgs_totales = new PagosTotales();
+                PagosPago pgs_pago = new PagosPago();
+
+
+
+                // NODO PAGO, DOCUMENTO RELACIONADO E IMPUESTOS
+                //---------------------------------------------
+
+                List<PagosPago> list_pgs_pago = new List<PagosPago>();
+                List<PagosPagoDoctoRelacionado> list_doc_relacionados = new List<PagosPagoDoctoRelacionado>();
+                List<PagosPagoDoctoRelacionadoImpuestosDRTrasladoDR> list_dr_impuesto_traslado = new List<PagosPagoDoctoRelacionadoImpuestosDRTrasladoDR>();
+                List<PagosPagoDoctoRelacionadoImpuestosDRRetencionDR> list_dr_impuesto_retencion = new List<PagosPagoDoctoRelacionadoImpuestosDRRetencionDR>();
+                List<PagosPagoImpuestosPTrasladoP> list_pg_traslado = new List<PagosPagoImpuestosPTrasladoP>();
+                List<PagosPagoImpuestosPRetencionP> list_pg_retencion = new List<PagosPagoImpuestosPRetencionP>();
+
+                List<string> list_pordr_impuestos_trasladados = new List<string>();
+
+                decimal total_dr_ret_isr = 0;
+                decimal total_dr_ret_iva = 0;
+                decimal total_dr_ret_ieps = 0;
+
+                int decimales_pg = 0;
+                int decimales_dr = 0;
+                int nfilas = 0;
+                int long_traslado = 0;
+
+
+
+                DataTable d_cpago = cn.CargarDatos(cs.obtener_datos_para_gcpago(2, id_factura));
+
+                if (d_cpago.Rows.Count > 0)
+                {
+                    foreach (DataRow r_cpago in d_cpago.Rows)
+                    {
+                        nfilas++;
+
+                        // NODO PAGO
+
+                        if (r_cpago["id_doc_relac"].ToString() == "" & r_cpago["id_dr_impuesto"].ToString() == "")
+                        {
+                            // Obtiene el número de decimales de acuerdo a la moneda
+
+                            decimales_pg = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM catalogo_monedas WHERE clave_moneda='{r_cpago["moneda"]}'", 15));
+
+
+                            pgs_pago.FechaPago = Convert.ToDateTime(r_cpago["fecha"].ToString() + "T" + r_cpago["hora"].ToString());
+                            pgs_pago.FormaDePagoP = r_cpago["forma_pago"].ToString();
+                            pgs_pago.MonedaP = r_cpago["moneda"].ToString();
+                            pgs_pago.TipoCambioP = Convert.ToDecimal(r_cpago["tipo_cambio"].ToString());
+                            pgs_pago.Monto = 2; // Convert.ToDecimal(r_cpago["monto"].ToString());
+
+
+                            var clave_fpg = r_cpago["forma_pago"].ToString();
+
+                            if (clave_fpg == "02" | clave_fpg == "03" | clave_fpg == "04" | clave_fpg == "05" | clave_fpg == "06" | clave_fpg == "28" | clave_fpg == "29")
+                            {
+                                pgs_pago.RfcEmisorCtaOrd = r_cpago["rfc_ordenante"].ToString();
+
+                                if (clave_fpg != "05" | clave_fpg != "06")
+                                {
+                                    pgs_pago.NomBancoOrdExt = r_cpago["banco"].ToString();
+                                }
+
+                                pgs_pago.CtaOrdenante = r_cpago["cta_ordenante"].ToString();
+
+                                if (clave_fpg != "06")
+                                {
+                                    pgs_pago.RfcEmisorCtaBen = r_cpago["rfc_beneficiario"].ToString();
+                                    pgs_pago.CtaBeneficiario = r_cpago["cta_beneficiario"].ToString();
+                                }
+
+                            }
+
+                            list_pgs_pago.Add(pgs_pago);
+
+                        }
+
+
+                        // NODO DOCUMENTO RELACIONADO
+
+                        if (r_cpago["id_doc_relac"].ToString() != "" & r_cpago["id_dr_impuesto"].ToString() == "")
+                        {
+                            PagosPagoDoctoRelacionado pgs_pago_dr = new PagosPagoDoctoRelacionado();
+
+                            // Obtiene el número de decimales de acuerdo a la moneda
+
+                            decimales_dr = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM catalogo_monedas WHERE clave_moneda='{r_cpago["moneda"]}'", 15));
+
+
+                            pgs_pago_dr.IdDocumento = r_cpago["uuid"].ToString();
+                            pgs_pago_dr.Folio = r_cpago["folio_dr"].ToString();
+                            pgs_pago_dr.MonedaDR = r_cpago["moneda"].ToString();
+                            pgs_pago_dr.EquivalenciaDR = Convert.ToDecimal(r_cpago["tipo_cambio"].ToString());
+                            pgs_pago_dr.NumParcialidad = r_cpago["num_parcialidad"].ToString();
+                            pgs_pago_dr.ImpSaldoAnt = decimales(Convert.ToDecimal(r_cpago["saldo_anterior"].ToString()), decimales_dr);
+                            pgs_pago_dr.ImpPagado = decimales(Convert.ToDecimal(r_cpago["importe_pagado"].ToString()), decimales_dr);
+                            pgs_pago_dr.ImpSaldoInsoluto = decimales(Convert.ToDecimal(r_cpago["saldo_insoluto"].ToString()), decimales_dr);
+                            pgs_pago_dr.ObjetoImpDR = r_cpago["incluye_impuestos"].ToString();
+
+
+                            int id_doc_relacionado = Convert.ToInt32(r_cpago["ID"].ToString());
+                            decimal equivalencia_dr = Convert.ToDecimal(r_cpago["tipo_cambio"].ToString());
+
+
+
+                            // Busca impuestos
+
+                            if (r_cpago["incluye_impuestos"].ToString() == "02")
+                            {
+
+                                DataTable d_cpago_impuestos_t = cn.CargarDatos(cs.obtener_datos_para_gcpago(7, id_factura, id_doc_relacionado, "Traslado"));
+
+                                DataTable d_cpago_impuestos_r = cn.CargarDatos(cs.obtener_datos_para_gcpago(7, id_factura, id_doc_relacionado, "Retencion"));
+
+
+                                // Traslado
+
+                                if (d_cpago_impuestos_t.Rows.Count > 0)
+                                {
+                                    foreach (DataRow r_cpago_impuestos_t in d_cpago_impuestos_t.Rows)
+                                    {
+                                        PagosPagoDoctoRelacionadoImpuestosDRTrasladoDR pgs_pago_dr_impuest_t = new PagosPagoDoctoRelacionadoImpuestosDRTrasladoDR();
+
+                                        decimal base_dr = Convert.ToDecimal(r_cpago_impuestos_t["base"].ToString());
+                                        var tipo_factor = r_cpago_impuestos_t["tipo_factor"].ToString();
+                                        var tasa_cuota = r_cpago_impuestos_t["tasa_cuota"].ToString();
+                                        decimal total_impuesto = Convert.ToDecimal(r_cpago_impuestos_t["importe_impuesto"].ToString());
+
+                                        pgs_pago_dr_impuest_t.BaseDR = decimales(base_dr, decimales_dr);
+                                        pgs_pago_dr_impuest_t.ImpuestoDR = r_cpago_impuestos_t["impuesto"].ToString();
+                                        pgs_pago_dr_impuest_t.TipoFactorDR = tipo_factor;
+
+
+                                        if (tipo_factor != "Exento")
+                                        {
+                                            if (tasa_cuota == "")
+                                            {
+                                                tasa_cuota = r_cpago_impuestos_t["definir"].ToString();
+                                            }
+
+                                            if (tipo_factor == "Tasa")
+                                            {
+                                                if (Convert.ToDecimal(tasa_cuota) > 1)
+                                                {
+                                                    decimal tasa_cuota_tmp = Convert.ToDecimal(tasa_cuota) / 100;
+                                                    tasa_cuota = tasa_cuota_tmp.ToString();
+                                                }
+                                            }
+                                        }
+
+                                        pgs_pago_dr_impuest_t.TasaOCuotaDR = seis_decimales(Convert.ToDecimal(tasa_cuota));
+                                        pgs_pago_dr_impuest_t.ImporteDR = decimales(total_impuesto, decimales_dr);
+
+                                        list_dr_impuesto_traslado.Add(pgs_pago_dr_impuest_t);
+
+
+
+                                        // Guarda en la lista el tipo de impuesto
+
+                                        string cadena = r_cpago_impuestos_t["impuesto"].ToString() + "-" + tipo_factor + "-" + tasa_cuota;
+
+                                        // Busca si la cadena existe en la lista
+                                        var indice = list_pordr_impuestos_trasladados.IndexOf(cadena);
+
+                                        // Si la cadena existe aumenta el importe del impuesto, de lo contrario la agrega como nueva
+                                        if (indice >= 0)
+                                        {
+                                            indice = indice + 1;
+                                            decimal monto_actual = Convert.ToDecimal(list_pordr_impuestos_trasladados[indice]);
+                                            decimal monto_nuevo = (monto_actual + decimales(total_impuesto, decimales_dr)) / equivalencia_dr;
+
+                                            decimal base_actual = Convert.ToDecimal(list_pordr_impuestos_trasladados[indice + 1]);
+                                            decimal base_nueva = (base_actual + decimales(base_dr, decimales_dr)) / equivalencia_dr;
+
+
+                                            list_pordr_impuestos_trasladados.RemoveAt(indice);
+                                            list_pordr_impuestos_trasladados.Insert(indice, Convert.ToString(monto_nuevo));
+
+                                            list_pordr_impuestos_trasladados.RemoveAt(indice + 1);
+                                            list_pordr_impuestos_trasladados.Insert(indice + 1, Convert.ToString(base_nueva));
+                                        }
+                                        else
+                                        {
+                                            list_pordr_impuestos_trasladados.Add(cadena);
+                                            list_pordr_impuestos_trasladados.Add((decimales(total_impuesto, decimales_dr) / equivalencia_dr).ToString());
+                                            list_pordr_impuestos_trasladados.Add((decimales(base_dr, decimales_dr) / equivalencia_dr).ToString());
+                                        }
+                                    }
+                                }
+
+                                // Retención
+
+                                if (d_cpago_impuestos_r.Rows.Count > 0)
+                                {
+                                    foreach (DataRow r_cpago_impuestos_r in d_cpago_impuestos_r.Rows)
+                                    {
+                                        PagosPagoDoctoRelacionadoImpuestosDRRetencionDR pgs_pago_dr_impuest_r = new PagosPagoDoctoRelacionadoImpuestosDRRetencionDR();
+
+                                        var tipo_factor = r_cpago_impuestos_r["tipo_factor"].ToString();
+                                        var tasa_cuota = r_cpago_impuestos_r["tasa_cuota"].ToString();
+                                        var impuesto = r_cpago_impuestos_r["impuesto"].ToString();
+                                        decimal total_impuesto = Convert.ToDecimal(r_cpago_impuestos_r["importe_impuesto"].ToString());
+
+                                        pgs_pago_dr_impuest_r.BaseDR = Convert.ToDecimal(r_cpago_impuestos_r["base"].ToString());
+                                        pgs_pago_dr_impuest_r.ImpuestoDR = impuesto;
+                                        pgs_pago_dr_impuest_r.TipoFactorDR = tipo_factor;
+
+
+                                        if (tasa_cuota == "")
+                                        {
+                                            tasa_cuota = r_cpago_impuestos_r["definir"].ToString();
+                                        }
+
+                                        if (tipo_factor == "Tasa")
+                                        {
+                                            if (Convert.ToDecimal(tasa_cuota) > 1)
+                                            {
+                                                decimal tasa_cuota_tmp = Convert.ToDecimal(tasa_cuota) / 100;
+                                                tasa_cuota = tasa_cuota_tmp.ToString();
+                                            }
+                                        }
+
+
+                                        pgs_pago_dr_impuest_r.TasaOCuotaDR = seis_decimales(Convert.ToDecimal(tasa_cuota));
+                                        pgs_pago_dr_impuest_r.ImporteDR = decimales(total_impuesto, decimales_dr);
+
+                                        list_dr_impuesto_retencion.Add(pgs_pago_dr_impuest_r);
+
+
+                                        if (impuesto == "001")
+                                        {
+                                            total_dr_ret_isr += decimales(total_impuesto, decimales_dr) / equivalencia_dr;
+                                        }
+                                        if (impuesto == "002")
+                                        {
+                                            total_dr_ret_iva += decimales(total_impuesto, decimales_dr) / equivalencia_dr;
+                                        }
+                                        if (impuesto == "003")
+                                        {
+                                            total_dr_ret_ieps += decimales(total_impuesto, decimales_dr) / equivalencia_dr;
+                                        }
+                                    }
+
+                                    //pgs_pago_dr.ImpuestosDR.TrasladosDR = lista_dr_impuesto_traslado.ToArray();
+                                }
+
+
+                                pgs_pago_dr.ImpuestosDR = new PagosPagoDoctoRelacionadoImpuestosDR();
+
+                                pgs_pago_dr.ImpuestosDR.TrasladosDR = list_dr_impuesto_traslado.ToArray();
+
+                                if (d_cpago_impuestos_r.Rows.Count > 0)
+                                {
+                                    pgs_pago_dr.ImpuestosDR.RetencionesDR = list_dr_impuesto_retencion.ToArray();
+                                }
+                            }
+
+                            list_doc_relacionados.Add(pgs_pago_dr);
+
+                            pgs_pago.DoctoRelacionado = list_doc_relacionados.ToArray();
+
+                        }
+                        
+
+                        // NODO IMPUESTOS GENERALES
+
+                        if(nfilas == d_cpago.Rows.Count)
+                        {
+                            long_traslado = list_pordr_impuestos_trasladados.Count;
+                            int t = 0;
+
+                            if (long_traslado > 0)
+                            {
+                                while (t < long_traslado)
+                                {
+                                    string[] dato_it = list_pordr_impuestos_trasladados[t].Split('-');
+                                    string tipo_factor = dato_it[1];
+                                    decimal tasa_cuota = Convert.ToDecimal(dato_it[2]);
+
+
+                                    PagosPagoImpuestosPTrasladoP pgs_pg_impuesto_t = new PagosPagoImpuestosPTrasladoP();
+
+                                    pgs_pg_impuesto_t.BaseP = decimales(Convert.ToDecimal(list_pordr_impuestos_trasladados[t + 2]), decimales_pg);
+                                    pgs_pg_impuesto_t.ImpuestoP = dato_it[0];
+                                    pgs_pg_impuesto_t.TipoFactorP = tipo_factor;
+
+                                    if (tipo_factor != "Exento")
+                                    {
+                                        pgs_pg_impuesto_t.TasaOCuotaPSpecified = true;
+                                        pgs_pg_impuesto_t.TasaOCuotaP = seis_decimales(tasa_cuota);
+                                        pgs_pg_impuesto_t.ImportePSpecified = true;
+                                        pgs_pg_impuesto_t.ImporteP = decimales(Convert.ToDecimal(list_pordr_impuestos_trasladados[t + 1]), decimales_pg);
+                                    }
+
+                                    list_pg_traslado.Add(pgs_pg_impuesto_t);
+
+                                    //suma_impuesto_traslado += seis_decimales(Convert.ToDecimal(list_porprod_impuestos_trasladados[c_impt + 1]));
+
+                                    t += 3;
+                                }
+                                
+                            }
+
+
+                            PagosPagoImpuestosP pgs_pago_impuestos = new PagosPagoImpuestosP();
+
+                            if (long_traslado > 0)
+                            {
+                                pgs_pago_impuestos.TrasladosP = list_pg_traslado.ToArray();
+                            }
+                            
+                            pgs_pago.ImpuestosP = pgs_pago_impuestos;
+                        }
+                    }
+                }
+
+
+
+                // NODO TOTALES
+                //-------------
+
+                // Agrega atributos al nodo totales
+
+                if(long_traslado > 0 | total_dr_ret_isr > 0 | total_dr_ret_iva > 0 | total_dr_ret_ieps > 0)
+                {
+                    // Retenciones
+
+                    if (total_dr_ret_isr > 0)
+                    {
+                        pgs_totales.TotalRetencionesISRSpecified = true;
+                        pgs_totales.TotalRetencionesISR = dos_decimales(total_dr_ret_isr);
+                    }
+                    if (total_dr_ret_iva > 0)
+                    {
+                        pgs_totales.TotalRetencionesIVASpecified= true;
+                        pgs_totales.TotalRetencionesIVA = dos_decimales(total_dr_ret_iva);
+                    }                    
+                    if (total_dr_ret_ieps > 0)
+                    {
+                        pgs_totales.TotalRetencionesIEPSSpecified = true;
+                        pgs_totales.TotalRetencionesIEPS = dos_decimales(total_dr_ret_ieps);
+                    }
+
+                    // Traslados
+
+                    if(long_traslado > 0)
+                    {
+                        int t = 0;
+                        string cadena_iva16 = "002-Tasa-0.160000";
+                        string cadena_iva8 = "002-Tasa-0.080000";
+                        string cadena_iva0 = "002-Tasa-0.000000";
+                        string cadena_exento = "002-Exento-";
+
+
+                        while (t < long_traslado)
+                        {
+                            string cadena_list = list_pordr_impuestos_trasladados[t];
+
+
+                            if(cadena_iva16 == cadena_list)
+                            {
+                                pgs_totales.TotalTrasladosBaseIVA16Specified = true;
+                                pgs_totales.TotalTrasladosBaseIVA16 = dos_decimales(Convert.ToDecimal(list_pordr_impuestos_trasladados[t + 2]));
+
+                                pgs_totales.TotalTrasladosImpuestoIVA16Specified = true;
+                                pgs_totales.TotalTrasladosImpuestoIVA16 = dos_decimales(Convert.ToDecimal(list_pordr_impuestos_trasladados[t + 1]));
+                            }
+                            if (cadena_iva8 == cadena_list)
+                            {
+                                pgs_totales.TotalTrasladosBaseIVA8Specified = true;
+                                pgs_totales.TotalTrasladosBaseIVA8 = dos_decimales(Convert.ToDecimal(list_pordr_impuestos_trasladados[t + 2]));
+
+                                pgs_totales.TotalTrasladosImpuestoIVA8Specified = true;
+                                pgs_totales.TotalTrasladosImpuestoIVA8 = dos_decimales(Convert.ToDecimal(list_pordr_impuestos_trasladados[t + 1]));
+                            }
+                            if (cadena_iva0 == cadena_list)
+                            {
+                                pgs_totales.TotalTrasladosBaseIVA0Specified = true;
+                                pgs_totales.TotalTrasladosBaseIVA0 = dos_decimales(Convert.ToDecimal(list_pordr_impuestos_trasladados[t + 2]));
+
+                                pgs_totales.TotalTrasladosImpuestoIVA0Specified = true;
+                                pgs_totales.TotalTrasladosImpuestoIVA0 = dos_decimales(Convert.ToDecimal(list_pordr_impuestos_trasladados[t + 1]));
+                            }
+                            if (cadena_exento == cadena_list)
+                            {
+                                pgs_totales.TotalTrasladosBaseIVAExentoSpecified = true;
+                                pgs_totales.TotalTrasladosBaseIVAExento = dos_decimales(Convert.ToDecimal(list_pordr_impuestos_trasladados[t + 2]));
+                            }
+
+
+                            t += 3;
+                        }
+                    }
+                }
+
+
+
+
+
+
+
+                pagos.Totales = pgs_totales;
+                pagos.Pago = list_pgs_pago.ToArray();
+
+
+
+                comprobante.Complemento = new ComprobanteComplemento[1]; // El 1 se agrega por default porque solo se hará este tipo de complemento. Si fuera a ver más de un complemento se pone la cantidad que habrá.
+                comprobante.Complemento[0] = new ComprobanteComplemento();
+
+
+                // Serializamos antes de asignarselo al comprobante
+
+                XmlDocument c_pago = new XmlDocument();
+                XmlSerializerNamespaces xml_namespaces_pago = new XmlSerializerNamespaces();
+
+
+                using (XmlWriter write_pago = c_pago.CreateNavigator().AppendChild())
+                {
+                    new XmlSerializer(pagos.GetType()).Serialize(write_pago, pagos, xml_namespaces_pago);
+                }
+
+                comprobante.Complemento[0].Any = new XmlElement[1];
+                comprobante.Complemento[0].Any[0] = c_pago.DocumentElement;
+
+
+                // NODO PAGOS
                 //-----------------
-
                 /*Pagos pagos = new Pagos();
                 PagosPago pago = new PagosPago();
                 List<PagosPago> list_pagos_pago = new List<PagosPago>();
@@ -1283,12 +1722,12 @@ namespace PuntoDeVentaV2
             // .    Timbrar CFDI    .
             // ......................
 
-            /*string usuario = "EWE1709045U0.Test";
+            string usuario = "EWE1709045U0.Test";
             string clave_u = "Prueba$1";
-            int id_servicio = 194876591;*/
-            string usuario = "NUSN900420SS5";
+            int id_servicio = 194876591;
+            /*string usuario = "NUSN900420SS5";
             string clave_u = "Acceso$1";
-            int id_servicio = 196789671;
+            int id_servicio = 196789671;*/
             byte[] XML40 = File.ReadAllBytes(rutaXML);
 
 
@@ -1433,7 +1872,7 @@ namespace PuntoDeVentaV2
 
             if(complemento_pg == 1)
             {
-                xmlNameSpaces.Add("pago10", "http://www.sat.gob.mx/Pagos");
+                xmlNameSpaces.Add("pago20", "http://www.sat.gob.mx/Pagos20");
             }
             
 
@@ -1472,6 +1911,13 @@ namespace PuntoDeVentaV2
         {
             //decimal cantidad = Decimal.Round(c, 2);
             decimal cantidad = Math.Round(c, 2, MidpointRounding.AwayFromZero);
+
+            return cantidad;
+        }
+
+        private decimal decimales(decimal c, int digitos)
+        {
+            decimal cantidad = Math.Round(c, digitos, MidpointRounding.AwayFromZero);
 
             return cantidad;
         }

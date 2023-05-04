@@ -179,6 +179,10 @@ namespace PuntoDeVentaV2
                 {
                     respuesta = dr["Total"];
                 }
+                if (tipo == 15)
+                {
+                    respuesta = dr["cant_decimales"];
+                }
             }
 
             if (tipo == 0)

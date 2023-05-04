@@ -874,7 +874,7 @@ namespace PuntoDeVentaV2
             // .    Deserealiza el XML ya timbrado    .
             // ........................................
 
-
+            /*
             Comprobante comprobante;
             string ruta_xml = @"C:\Archivos PUDVE\Facturas\" + nombre_xml + ".xml";
 
@@ -1122,7 +1122,7 @@ namespace PuntoDeVentaV2
                 byte[] result = converter.Convert(document);
 
                 ByteArrayToFile(result, destino_pdf);
-            }
+            }*/
 
             // .    CODIGO DE LA LIBRERIA WKHTMLTOPDF   .
             // ..........................................

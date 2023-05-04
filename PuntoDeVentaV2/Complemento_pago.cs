@@ -582,7 +582,7 @@ namespace PuntoDeVentaV2
                 // ...........................
 
 
-                /* Generar_XML xml_complemento = new Generar_XML();
+                 Generar_XML xml_complemento = new Generar_XML();
                  string respuesta_xml = xml_complemento.obtener_datos_XML(id_factura_pago, 0, 1, arr_idf_principal_pago);
 
                  btn_aceptar.Enabled = true;
@@ -602,7 +602,7 @@ namespace PuntoDeVentaV2
                  else
                  {
                      MessageBox.Show(respuesta_xml, "Error", MessageBoxButtons.OK);
-                 }*/
+                 }
 
                 Complemento_pago_impuestos.dats_en_arr = false;
             }
