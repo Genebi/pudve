@@ -162,13 +162,28 @@
   <metadata name="ID.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="Eliminar.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="Eliminar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
+        dgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAFXSURBVDhPhZI9
+        TgMxEIVHaG1BFyQKKBCiI4SKn4ZjgDgLVwApQJSImoZbJJwCuAC0CIlAA+vFvLd2olmvUSx9ijPz3njG
+        XknXt9i9UsygEvPkxHwR7hljLsray4tYiG9BBfw/ODCiNtrCiuYHJVzEpFEEAZ6ciu6d2LMA9638sDZz
+        Lvxha7PECxiDu1LsBeE+xIpX/M50Dt6e8HJUENhTtLeagzmthfeaBZ51ELxXUpznYE5r8TqPnH+qg+CN
+        o3lZ3voRsw8OvKxsMoZcowCY5go4tLsE4xFaPmHb2B8iViD3m2g/ciN4iDuZAmuprh4BBW7SBNrfbhew
+        O6kO3j6fsYc/+hk9DJhbNmgCXezXSymOtQZgVLvLu+E9jHQSb3+Jk+NHFOCTNTVmUJu5cAI/5YkWLGAM
+        j4n2sGKRIWiMk1Dy5JZZL94J2+UNw/BJuEfsaj7zfIn8AW7rep4sYigYAAAAAElFTkSuQmCC
+</value>
+  </data>
   <metadata name="Cat1.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="Cat1Img.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="dataGridViewCellStyle7.NullValue" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         Qk32AgAAAAAAADYAAAAoAAAADgAAABAAAAABABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA

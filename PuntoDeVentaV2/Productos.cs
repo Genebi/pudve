@@ -4842,7 +4842,7 @@ namespace PuntoDeVentaV2
                         // Con imagen = 1 || sin imagen = 0
                         if (filtro.Value.Item1 == "1" || filtro.Value.Item1 == "0")
                         {
-                            extraProductos += filtro.Value.Item1 == "1" ? "P.ProdImage != '' AND " : "P.ProdImage = '' AND ";
+                            extraProductos += filtro.Value.Item1 == "1" ? "ImgNew IS NOT NULL  AND " : "ImgNew IS NOT NULL  AND ";
                         }
                     }
                     else if (filtro.Key == "Descuento")

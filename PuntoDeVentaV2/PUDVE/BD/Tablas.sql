@@ -2442,3 +2442,54 @@ ALTER TABLE Configuracion  ADD COLUMN IF NOT EXISTS DeshabilitarProdStockPositiv
 ALTER TABLE Productos ADD COLUMN IF NOT EXISTS ImgNew LONGBLOB;
 ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS ImgNew LONGBLOB;
 ALTER TABLE detallegeneral ADD COLUMN IF NOT EXISTS ImgNew LONGBLOB;
+
+CREATE TABLE 
+IF 
+	NOT EXISTS reportesCorteCaja (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+		RazonSocial TEXT, -- Razon Social 
+		Usuario TEXT, -- Usuario Quien Realizo El Corte
+		IDUsuario TEXT, -- ID Del Usuario
+		IDEmpleado TEXT, -- ID Del Empleado
+		IDCorteCaja TEXT, --  ID Del Corte De Caja
+		FechaCorteCaja TEXT, -- Fecha Del Corte De Caja
+		EfectivoDeVentas TEXT,	-- Seccion Ventas
+		TarjetaDeVentas TEXT,
+		ValeDeVentas TEXT,
+		ChequeDeVentas TEXT,
+		TransferenciDeVentas TEXT,
+		CreditoDeVentas TEXT,
+		AbonosDeVentas TEXT,
+		AnticiposUtilizados TEXT,  -- Cierre Seccion Ventas
+		EfectivoDeAnticipos TEXT,  -- Seccion Anticipos
+		TarjetaDeAnticipos TEXT,
+		ValeDeAnticipos TEXT,
+		ChequeDeAnticipos TEXT,
+		TransferenciaDeAnticipos TEXT,	 -- Cierre Seccion Anticipos
+		EfectivoDeDineroAgregado TEXT,  -- Seccion Dinero Agregado
+		TarjetaDeDineroAgregado TEXT,
+		ValeDeDineroAgregado TEXT,
+		ChequeDeDineroAgregado TEXT,
+		TransferenciaDeDineroAgregado TEXT,  -- Cierre Seccion Dinero Agregado
+		EfectivoDeDineroRetirado TEXT,  -- Seccion Dinero Retirado
+		TarjetaDeDineroRetirado TEXT,
+		ValeDeDineroRetirado TEXT,
+		ChequeDeDineroRetirado TEXT,
+		TransferenciaDeDineroRetirado TEXT,
+		DevolucionDeDineroRetirado TEXT,  -- Cierre Seccion Dinero Retirado
+		EfectivoDeTotalCaja TEXT,  -- Seccion Total En Caja
+		TarjetaDeTotalCaja TEXT,
+		ValeDeTotalCaja TEXT,
+		ChequeDeTotalCaja TEXT,
+		TransferenciaDeTotalCaja TEXT,  -- Cierre Seccion Total En Caja
+		CantidadEnCajaAntesDelCorte TEXT,  -- Total Antes Del Corte
+		CantidadRetiradaAlCorteDeCaja TEXT,  -- Cantidad Retirada Al Corte
+		TotalVentas TEXT, -- Total De Ventas
+		TotalAnticipos TEXT, -- Total De Anticipos 
+		TotalDineroAgregado TEXT,  -- Total Dinero Agregado
+		TotalDineroRetirado TEXT,  -- Total Dinero Retirado
+		TotalEnCajaDespuesDelCorte TEXT  -- Total En Caja Despues Del Corte
+	);
+
+
+	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS AnticipoAplicado DECIMAL (16,2) DEFAULT 0;

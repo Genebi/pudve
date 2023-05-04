@@ -157,8 +157,16 @@ namespace PuntoDeVentaV2
                 string Cantidad = string.Empty;
                 string Tipo = string.Empty;
                 DataTable rowsDGV = cn.CargarDatos(cs.buscarProdIntoServComb(idProdEdit));
+                if (idProdEdit == 0)
+                {
+                    rowsDGV.Clear();
+                }
                 using (DataTable dtProdServ = cn.CargarDatos(cs.buscarProdIntoServComb(idProdEdit)))
                 {
+                    if (idProdEdit == 0)
+                    {
+                        dtProdServ.Clear();
+                    }
                     if (!dtProdServ.Rows.Count.Equals(0))
                     {
                         DGVProdServCombo.Rows.Clear();

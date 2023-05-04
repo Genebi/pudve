@@ -154,15 +154,10 @@ namespace PuntoDeVentaV2
 
             var consulta = $"SELECT ID, Nombre, Stock, CodigoBarras, Tipo, Status FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND Status = '{status}'";
 
-            if (porBusqueda.Equals(false))
-            {//Aqui va la consulta sin buscador
-                consulta += "LIMIT 20";
+            if (porBusqueda.Equals(true))
+            {
+                consulta += $"AND (Nombre LIKE '%{txtBuscar.Text}%' OR CodigoBarras LIKE '%{txtBuscar.Text}%')";
             }
-            else
-            {//Aqui va la consulta con buscador 
-                consulta += $"AND Nombre LIKE '%{productoBuscar}%' LIMIT 20";
-            }
-
             //query = cn.CargarDatos(consulta);
             filtroConSinFiltroAvanzado = consulta;
 
@@ -402,7 +397,7 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        MessageBox.Show("No existe infomación para generar el reporte.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("No existe infomación para generar el reporte en el rango de fechas seleccionado", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
                 else

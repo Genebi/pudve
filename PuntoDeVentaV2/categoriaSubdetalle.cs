@@ -95,9 +95,12 @@ namespace PuntoDeVentaV2
 
         private void pboxBorrar_Click(object sender, EventArgs e)
         {
-            cn.EjecutarConsulta($"UPDATE subdetallesdeproducto SET Activo = 0 WHERE ID = {subdetalle}");
-            cambio = true;
-            this.Close();
+            if (!string.IsNullOrWhiteSpace(subdetalle))
+            {
+                cn.EjecutarConsulta($"UPDATE subdetallesdeproducto SET Activo = 0 WHERE ID = {subdetalle}");
+                cambio = true;
+                this.Close();
+            }
         }
 
         private void cbTipoDeDatos_SelectedIndexChanged(object sender, EventArgs e)

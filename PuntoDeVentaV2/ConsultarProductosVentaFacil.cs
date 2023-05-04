@@ -449,6 +449,26 @@ namespace PuntoDeVentaV2
                 e.Handled = true;
             }
         }
+
+        private void dgvLista_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                if (e.ColumnIndex == 3)
+                {
+                    DataGridViewRow row = this.dgvLista.Rows[e.RowIndex];
+                    this.dgvLista.Rows.Remove(row);
+                }
+            }
+        }
+
+        private void ConsultarProductosVentaFacil_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Escape)
+            {
+                Close();
+            }
+        }
     }
 
     public class CategoryCellData

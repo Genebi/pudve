@@ -66,7 +66,7 @@ namespace PuntoDeVentaV2
                 }
             }
             IDSVentas = IDSVentas.TrimEnd(',');
-            using (var DTDatos = cn.CargarDatos($"SELECT PV.IDProducto, SUM( PV.Cantidad ) * PV.Precio AS 'PrecioTotal' FROM productosventa AS PV INNER JOIN ventas AS VEN ON (PV.IDVenta = VEN.ID) WHERE VEN.IDUsuario = 10 AND IDVenta IN ({IDSVentas}) GROUP BY IDProducto"))
+            using (var DTDatos = cn.CargarDatos($"SELECT PV.IDProducto, SUM( PV.Cantidad ) * PV.Precio AS 'PrecioTotal' FROM productosventa AS PV INNER JOIN ventas AS VEN ON (PV.IDVenta = VEN.ID) WHERE VEN.IDUsuario = {FormPrincipal.userID} AND IDVenta IN ({IDSVentas}) GROUP BY IDProducto"))
             {
                 int contador = 0;
                 foreach (var item in DTDatos.Rows)
@@ -81,7 +81,7 @@ namespace PuntoDeVentaV2
                 IDs += item + ",";
             }
             IDs = IDs.TrimEnd(',');
-            using (var DTIDSproducto = cn.CargarDatos($"SELECT PV.IDProducto, SUM(PV.Cantidad) * PV.Precio AS 'PrecioTotal', DP.Proveedor FROM productosventa AS PV INNER JOIN detallesproducto AS DP ON ( PV.IDProducto = DP.IDProducto ) INNER JOIN ventas AS VEN ON (PV.IDVenta = VEN.ID) WHERE VEN.IDUsuario = 10 AND PV.IDProducto IN ( {IDs}) AND PV.IDVenta IN({IDSVentas}) GROUP BY IDProducto ORDER BY IDProveedor"))
+            using (var DTIDSproducto = cn.CargarDatos($"SELECT PV.IDProducto, SUM(PV.Cantidad) * PV.Precio AS 'PrecioTotal', DP.Proveedor FROM productosventa AS PV INNER JOIN detallesproducto AS DP ON ( PV.IDProducto = DP.IDProducto ) INNER JOIN ventas AS VEN ON (PV.IDVenta = VEN.ID) WHERE VEN.IDUsuario = {FormPrincipal.userID} AND PV.IDProducto IN ( {IDs}) AND PV.IDVenta IN({IDSVentas}) GROUP BY IDProducto ORDER BY IDProveedor"))
             {
                 if (!DTIDSproducto.Rows.Count.Equals(0))
                 {
@@ -217,7 +217,7 @@ namespace PuntoDeVentaV2
                 IDs += item + ",";
             }
             IDs = IDs.TrimEnd(',');
-            using (var DTIDSproducto = cn.CargarDatos($"SELECT PV.IDProducto, SUM(PV.Cantidad) * PV.Precio AS 'PrecioTotal', DP.Proveedor FROM productosventa AS PV INNER JOIN detallesproducto AS DP ON ( PV.IDProducto = DP.IDProducto ) INNER JOIN ventas AS VEN ON (PV.IDVenta = VEN.ID) WHERE VEN.IDUsuario = 10 AND PV.IDProducto IN ( {IDs}) AND PV.IDVenta IN({IDSVentas}) GROUP BY IDProducto ORDER BY IDProveedor"))
+            using (var DTIDSproducto = cn.CargarDatos($"SELECT PV.IDProducto, SUM(PV.Cantidad) * PV.Precio AS 'PrecioTotal', DP.Proveedor FROM productosventa AS PV INNER JOIN detallesproducto AS DP ON ( PV.IDProducto = DP.IDProducto ) INNER JOIN ventas AS VEN ON (PV.IDVenta = VEN.ID) WHERE VEN.IDUsuario = = {FormPrincipal.userID} AND PV.IDProducto IN ( {IDs}) AND PV.IDVenta IN({IDSVentas}) GROUP BY IDProducto ORDER BY IDProveedor"))
             {
                 if (!DTIDSproducto.Rows.Count.Equals(0))
                 {
