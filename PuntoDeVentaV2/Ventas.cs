@@ -266,6 +266,10 @@ namespace PuntoDeVentaV2
         bool SiExisteProducto = false;
         public static bool SeHizoAbonoInicial = false;
 
+        public static string DescuentoGeneralCantidad = "";
+        public static string DescuentoGeneralPorcentage = "";
+
+
         public static decimal DescuentoClienteVentaGuardada = 0;
         #region Proceso de Bascula
         // Constructores
@@ -8171,6 +8175,8 @@ namespace PuntoDeVentaV2
             PorcentajeDescuento = "";
             AplicarCantidad = "";
             AplicarPorcentaje = "";
+            DescuentoGeneralCantidad = "";
+            DescuentoGeneralPorcentage = "";
         }
 
         private void ProductoSeleccionado()
