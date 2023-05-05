@@ -163,6 +163,8 @@ namespace PuntoDeVentaV2
                 if (!string.IsNullOrWhiteSpace(txtCantidad.Text))
                 {
                     Cantidad = Convert.ToDecimal(txtCantidad.Text);
+                    Ventas.DescuentoGeneralCantidad = txtCantidad.Text;
+                    Ventas.DescuentoGeneralPorcentage = "";
                 }
                 else
                 {
@@ -171,6 +173,8 @@ namespace PuntoDeVentaV2
                 if (!string.IsNullOrWhiteSpace(txtPorcentaje.Text))
                 {
                     Porcentajev = Convert.ToDecimal(txtPorcentaje.Text);
+                    Ventas.DescuentoGeneralPorcentage = txtPorcentaje.Text;
+                    Ventas.DescuentoGeneralCantidad = "";
                 }
                 else
                 {
@@ -197,6 +201,8 @@ namespace PuntoDeVentaV2
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
+            Ventas.DescuentoGeneralPorcentage = "";
+            Ventas.DescuentoGeneralCantidad = "";
             Ventas.PorcentajeDescuento = "0";
             Ventas.AplicarCantidad = "";
             Ventas.AplicarPorcentaje = ""; 
@@ -287,6 +293,14 @@ namespace PuntoDeVentaV2
             {
                 txtPorcentaje.Text = Ventas.DescuentoClienteVentaGuardada.ToString();
                 btnAceptar.PerformClick();
+            }
+            if (!Ventas.DescuentoGeneralCantidad.Equals(""))
+            {
+                txtCantidad.Text = Ventas.DescuentoGeneralCantidad;
+            }
+            else if (!Ventas.DescuentoGeneralPorcentage.Equals(""))
+            {
+                txtPorcentaje.Text = Ventas.DescuentoGeneralPorcentage;
             }
             //if (!string.IsNullOrWhiteSpace(Ventas.AplicarPorcentaje))
             //{

@@ -267,6 +267,11 @@ namespace PuntoDeVentaV2
         public static bool SeHizoAbonoInicial = false;
 
         public static decimal DescuentoClienteVentaGuardada = 0;
+
+        public static string DescuentoGeneralCantidad = "";
+        public static string DescuentoGeneralPorcentage = "";
+
+
         #region Proceso de Bascula
         // Constructores
         private SerialPort BasculaCom = new SerialPort();       // Puerto conectado a la báscula
@@ -8171,6 +8176,8 @@ namespace PuntoDeVentaV2
             PorcentajeDescuento = "";
             AplicarCantidad = "";
             AplicarPorcentaje = "";
+            DescuentoGeneralCantidad = "";
+            DescuentoGeneralPorcentage = "";
         }
 
         private void ProductoSeleccionado()
