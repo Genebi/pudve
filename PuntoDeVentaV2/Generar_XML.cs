@@ -881,17 +881,48 @@ namespace PuntoDeVentaV2
                 int agregar_nodo_impuestos = 0;
                 int no_agrega_nodo_traslados = 0;
                 int no_agrega_nodo_retenido = 1;
+                int agregar_total_traslado = 1;
 
                 // Traslados
 
                 if (tam_list_imp_t > 0)
+                {
+                    if (indice_bs >= 0) // Existe el impuesto exento
+                    {
+                        agregar_nodo_impuestos = 1;
+
+                        if(tam_list_imp_t == 1)
+                        {
+                            agregar_total_traslado = 0;
+                        }
+
+                        /*if (tam_list_imp_t > 1)
+                        {
+                            agregar_nodo_impuestos = 1;
+                        }
+                        else
+                        {
+                            no_agrega_nodo_traslados = 1;
+                        }*/
+                    }
+                    else
+                    {
+                        agregar_nodo_impuestos = 1;
+                    }
+                }
+                else
+                {
+                    no_agrega_nodo_traslados = 1;
+                }
+
+               /* if (tam_list_imp_t > 0)
                 {
                    agregar_nodo_impuestos = 1;
                 }
                 else
                 {
                     no_agrega_nodo_traslados = 1;
-                }
+                }*/
 
 
                 // Retenciones
@@ -950,7 +981,7 @@ namespace PuntoDeVentaV2
                             ComprobanteImpuestosRetencion impuestos_retenidos = new ComprobanteImpuestosRetencion();
 
                             impuestos_retenidos.Impuesto = "001";
-                            impuestos_retenidos.Importe = total_ISR;
+                            impuestos_retenidos.Importe = dos_decimales(total_ISR);
 
                             list_impuestos_retenido.Add(impuestos_retenidos);
                         }
@@ -959,7 +990,7 @@ namespace PuntoDeVentaV2
                             ComprobanteImpuestosRetencion impuestos_retenidos = new ComprobanteImpuestosRetencion();
 
                             impuestos_retenidos.Impuesto = "002";
-                            impuestos_retenidos.Importe = total_IVA;
+                            impuestos_retenidos.Importe = dos_decimales(total_IVA);
 
                             list_impuestos_retenido.Add(impuestos_retenidos);
                         }
@@ -968,12 +999,12 @@ namespace PuntoDeVentaV2
                             ComprobanteImpuestosRetencion impuestos_retenidos = new ComprobanteImpuestosRetencion();
 
                             impuestos_retenidos.Impuesto = "003";
-                            impuestos_retenidos.Importe = total_IEPS;
+                            impuestos_retenidos.Importe = dos_decimales(total_IEPS);
 
                             list_impuestos_retenido.Add(impuestos_retenidos);
                         }
 
-                        suma_impuesto_retenido = total_ISR + total_IVA + total_IEPS;
+                        suma_impuesto_retenido = seis_decimales(total_ISR) + seis_decimales(total_IVA) + seis_decimales(total_IEPS);
                     }
 
 
@@ -982,8 +1013,11 @@ namespace PuntoDeVentaV2
 
                     if (no_agrega_nodo_traslados == 0) // Nodo impuestos trasladados
                     {
-                        nd_impuestos_g.TotalImpuestosTrasladadosSpecified = true;
-                        nd_impuestos_g.TotalImpuestosTrasladados = dos_decimales(suma_impuesto_traslado);
+                        if(agregar_total_traslado == 1)
+                        {
+                            nd_impuestos_g.TotalImpuestosTrasladadosSpecified = true;
+                            nd_impuestos_g.TotalImpuestosTrasladados = dos_decimales(suma_impuesto_traslado);
+                        }                        
 
                         if(list_impuestos_traslado.Count > 0)
                         {
