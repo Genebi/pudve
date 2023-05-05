@@ -242,7 +242,7 @@ namespace PuntoDeVentaV2
         {
             DataTable db = new DataTable();
             Conectarse();
-            sql_con.Close(); // close the connection before executing the query
+            //sql_con.Close(); // close the connection before executing the query
             sql_con.Open();
             MySqlCommand com = new MySqlCommand(consulta, sql_con);
             MySqlDataAdapter adap = new MySqlDataAdapter(com);

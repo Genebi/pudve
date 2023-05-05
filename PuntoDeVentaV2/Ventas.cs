@@ -6112,6 +6112,9 @@ namespace PuntoDeVentaV2
             //PuertoSerieBascula.Close();
             listProductos.Clear();
             liststock.Clear();
+            idCliente = string.Empty;
+            DetalleVenta.idCliente = 0;
+            DetalleVenta.cliente = string.Empty;
         }
 
         private void GenerarTicket(string[][] productos)
@@ -8745,7 +8748,7 @@ namespace PuntoDeVentaV2
                     var datos = clientes.datosCliente;
                     string cliente = string.Empty;
 
-                    idCliente = datos[19];
+                    idCliente = datos[20];
 
                     var auxPrimero = string.IsNullOrWhiteSpace(datos[0]);
                     var auxSegundo = string.IsNullOrWhiteSpace(datos[1]);

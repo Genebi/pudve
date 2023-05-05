@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace PuntoDeVentaV2
 {
@@ -33,6 +34,7 @@ namespace PuntoDeVentaV2
         private bool calculadoraisOut=false;
         bool SeCierra = false;
         int calcu = 0;
+        string descGuardadado = string.Empty;
 
         private const Keys CopyKeys = Keys.Control | Keys.C;
         private const Keys PasteKeys = Keys.Control | Keys.V;
@@ -151,11 +153,8 @@ namespace PuntoDeVentaV2
                         else
                         {
                             rbMayoreo.Checked = true;
-                        }
-                        
+                        }                    
                     }
-                 
-                   
                 }
             }
             if (AgregarEditarProducto.DatosSourceFinal.Equals(4) && AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
@@ -193,6 +192,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
+                    descGuardadado = porcentaje.Text;
                     AgregarEditarProducto.descuentos.Add(tipoDescuento.ToString());
                     AgregarEditarProducto.descuentos.Add(precio.Text);
                     AgregarEditarProducto.descuentos.Add(porcentaje.Text);
@@ -597,7 +597,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        public void cargarDescuentos()
+        public async Task cargarDescuentosAsync()
         {
             if (tipoDescuento.Equals(1))
             {
@@ -752,6 +752,7 @@ namespace PuntoDeVentaV2
                     tb2.Leave += new EventHandler(borrarTextoMensaje);
                     tb2.KeyPress += new KeyPressEventHandler(soloDecimales);
                     tb2.KeyUp += new KeyEventHandler(calculoDescuento);
+                    
                     tb2.ShortcutsEnabled = false;
 
                     Label lb3 = new Label();
@@ -807,6 +808,19 @@ namespace PuntoDeVentaV2
 
                     panelContenedor.Controls.Add(panelHijo);
                     panelContenedor.FlowDirection = FlowDirection.TopDown;
+                    if (!string.IsNullOrWhiteSpace(descGuardadado))
+                    {
+                        tb2.Focus();
+                        tb2.Text = descGuardadado;
+                        tb2.Focus();
+                        await Task.Delay(50);
+                        for (int i = 0; i < 5; i++)//Esto es para que se recalcule el descuento y no afecte a la venta como antes
+                        {
+                            SendKeys.Send("{TAB}");
+                        }
+
+                        panelContenedor.Refresh();
+                    }
                 }
             }
             if (tipoDescuento.Equals(2))//APARTADO PARA MAYOREO
@@ -1682,7 +1696,7 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        cargarDescuentos();
+                        cargarDescuentosAsync();
                     }
                         
                 }
@@ -1713,7 +1727,7 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        cargarDescuentos();
+                        cargarDescuentosAsync();
                     }
                     
                 }
