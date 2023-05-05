@@ -1405,6 +1405,10 @@ namespace PuntoDeVentaV2
             {
                 cons = $"SELECT * FROM Facturas_complemento_pago WHERE id_factura='{dato}' AND id_dr_impuesto='{id_doc_imp}' AND es_rt='{tipo}' AND timbrada=0";
             }
+            if (opc == 8)
+            {
+                cons = $"SELECT SUM(importe_pagado) AS monto FROM Facturas_complemento_pago WHERE id_factura='{dato}' AND timbrada=0";
+            }
 
             return cons;
         }

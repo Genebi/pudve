@@ -444,14 +444,12 @@ namespace PuntoDeVentaV2
                         // Consulta impuestos trasladados  
 
                         // Se agrega primero uno de los siguientes impuestos; 16, 8, 0 porciento                  
-                        //d_concepto_impuesto_t = cn.CargarDatos(cs.cargar_datos_venta_xml(5, id_producto, 0));
-
+                        
                         decimal importe_base = 0;
                         decimal base_total_xprod = 0;
 
                         if (d_base_i > 0 & d_tasa_c != "" & d_imp_iva >= 0)
                         {
-                            //DataRow r_concepto_impuesto_t = d_concepto_impuesto_t.Rows[0];
                             decimal tasacuota = 0;
                             decimal importe = 0;
                             string tipo_factor = "Tasa";
@@ -888,21 +886,7 @@ namespace PuntoDeVentaV2
 
                 if (tam_list_imp_t > 0)
                 {
-                   /* if (indice_bs >= 0) // Existe el impuesto exento
-                    {
-                        if (tam_list_imp_t > 1)
-                        {
-                            agregar_nodo_impuestos = 1;
-                        }
-                        else
-                        {
-                            no_agrega_nodo_traslados = 1;
-                        }
-                    }
-                    else
-                    {*/
-                        agregar_nodo_impuestos = 1;
-                   // }
+                   agregar_nodo_impuestos = 1;
                 }
                 else
                 {
@@ -1059,7 +1043,7 @@ namespace PuntoDeVentaV2
                     comprobante.FormaPago = forma_pago;
                 }
             }
-            //comprobante.CondicionesDePago = "Vacio"; //EN DUDA SI SE PONDRÁ
+
             comprobante.NoCertificado = numero_certificado;
             // Subtotal
             if (con_complemento_pg == 0)
@@ -1172,6 +1156,16 @@ namespace PuntoDeVentaV2
 
 
 
+                // Obtiene el total del abono general
+
+                DataTable d_cpago_monto = cn.CargarDatos(cs.obtener_datos_para_gcpago(8, id_factura));
+                DataRow r_cpago_monto = d_cpago_monto.Rows[0];
+
+                decimal monto_pago = Convert.ToDecimal(r_cpago_monto["monto"].ToString());
+
+
+                // Consulta el complemento 
+
                 DataTable d_cpago = cn.CargarDatos(cs.obtener_datos_para_gcpago(2, id_factura));
 
                 if (d_cpago.Rows.Count > 0)
@@ -1193,7 +1187,7 @@ namespace PuntoDeVentaV2
                             pgs_pago.FormaDePagoP = r_cpago["forma_pago"].ToString();
                             pgs_pago.MonedaP = r_cpago["moneda"].ToString();
                             pgs_pago.TipoCambioP = Convert.ToDecimal(r_cpago["tipo_cambio"].ToString());
-                            pgs_pago.Monto = 2; // Convert.ToDecimal(r_cpago["monto"].ToString());
+                            pgs_pago.Monto = monto_pago;
 
 
                             var clave_fpg = r_cpago["forma_pago"].ToString();
@@ -1440,8 +1434,6 @@ namespace PuntoDeVentaV2
 
                                     list_pg_traslado.Add(pgs_pg_impuesto_t);
 
-                                    //suma_impuesto_traslado += seis_decimales(Convert.ToDecimal(list_porprod_impuestos_trasladados[c_impt + 1]));
-
                                     t += 3;
                                 }
                                 
@@ -1539,9 +1531,8 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-
-
-
+                // Monto total pagos
+                pgs_totales.MontoTotalPagos = monto_pago;
 
 
 
@@ -1552,6 +1543,7 @@ namespace PuntoDeVentaV2
 
                 comprobante.Complemento = new ComprobanteComplemento[1]; // El 1 se agrega por default porque solo se hará este tipo de complemento. Si fuera a ver más de un complemento se pone la cantidad que habrá.
                 comprobante.Complemento[0] = new ComprobanteComplemento();
+
 
 
                 // Serializamos antes de asignarselo al comprobante
@@ -1572,55 +1564,6 @@ namespace PuntoDeVentaV2
                 // NODO PAGOS
                 //-----------------
                 /*Pagos pagos = new Pagos();
-                PagosPago pago = new PagosPago();
-                List<PagosPago> list_pagos_pago = new List<PagosPago>();
-
-                pago.FechaPago = pg_fecha_pago;
-                pago.FormaDePagoP = forma_pago;
-                pago.MonedaP = moneda;
-                //pago.TipoCambioP = ;
-                pago.Monto = dos_decimales(monto_cpago);
-
-
-
-                // NODO DOCUMENTOS RELACIONADOS
-                //-----------------------------
-
-            
-                DataTable d_cpago = cn.CargarDatos(cs.obtener_datos_para_gcpago(2, id_factura));
-
-                if (d_cpago.Rows.Count > 0)
-                {
-                    List<PagosPagoDoctoRelacionado> list_doc_relacionados = new List<PagosPagoDoctoRelacionado>();
-
-                    foreach (DataRow r_cpago in d_cpago.Rows)
-                    {
-                        PagosPagoDoctoRelacionado doc_relacionados = new PagosPagoDoctoRelacionado();
-
-                        doc_relacionados.IdDocumento = r_cpago["uuid"].ToString();
-                        doc_relacionados.MonedaDR = r_cpago["moneda"].ToString();
-
-                        if(r_cpago["moneda"].ToString() != "")
-                        {
-                            if (r_cpago["moneda"].ToString() != "MXN")
-                            {
-                                doc_relacionados.TipoCambioDR = Convert.ToDecimal(r_cpago["tipo_cambio"]);
-                                doc_relacionados.TipoCambioDRSpecified = true;
-                            }
-                        }
-                        
-                        doc_relacionados.MetodoDePagoDR = r_cpago["metodo_pago"].ToString();
-                        doc_relacionados.NumParcialidad = r_cpago["num_parcialidad"].ToString();
-                        doc_relacionados.ImpSaldoAnt = dos_decimales(Convert.ToDecimal(r_cpago["saldo_anterior"]));
-                        doc_relacionados.ImpPagado = dos_decimales(Convert.ToDecimal(r_cpago["importe_pagado"]));
-                        doc_relacionados.ImpSaldoInsoluto = dos_decimales(Convert.ToDecimal(r_cpago["saldo_insoluto"]));
-
-                        list_doc_relacionados.Add(doc_relacionados);
-                    }
-
-                    pago.DoctoRelacionado = list_doc_relacionados.ToArray();
-                }                
-
 
 
                 list_pagos_pago.Add(pago);
@@ -1722,12 +1665,12 @@ namespace PuntoDeVentaV2
             // .    Timbrar CFDI    .
             // ......................
 
-            string usuario = "EWE1709045U0.Test";
+            /*string usuario = "EWE1709045U0.Test";
             string clave_u = "Prueba$1";
-            int id_servicio = 194876591;
-            /*string usuario = "NUSN900420SS5";
+            int id_servicio = 194876591;*/
+            string usuario = "NUSN900420SS5";
             string clave_u = "Acceso$1";
-            int id_servicio = 196789671;*/
+            int id_servicio = 196789671;
             byte[] XML40 = File.ReadAllBytes(rutaXML);
 
 
@@ -1963,33 +1906,5 @@ namespace PuntoDeVentaV2
             return media;
         }
 
-
-            /*private void error_eliminar_factura(int idf, int complemento)
-            {
-                // Complemento pago
-                if(complemento == 1)
-                {
-                    cn.EjecutarConsulta($"DELETE Facturas_complemento_pago WHERE id_factura='{idf}'");
-                }
-
-                // Impuestos extras
-                DataTable d_product = cn.CargarDatos(cs.cargar_datos_venta_xml(10, idf, 0));
-
-                if(d_product.Rows.Count > 0)
-                {
-                    foreach(DataRow r_product in d_product.Rows)
-                    {
-                        int id_fact_producto = Convert.ToInt32(r_product["ID"].ToString());
-
-                        cn.EjecutarConsulta($"DELETE Facturas_impuestos WHERE id_factura_producto='{id_fact_producto}'");
-                    }
-                }
-
-                //Productos
-                cn.EjecutarConsulta($"DELETE Facturas_productos WHERE id_factura='{idf}'");
-
-                //Factura principal
-                cn.EjecutarConsulta($"DELETE Facturas WHERE ID='{idf}'");
-            }*/
-        }
     }
+}

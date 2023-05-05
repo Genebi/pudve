@@ -434,21 +434,49 @@ namespace PuntoDeVentaV2
 
                 if (forma_pago == "02" | forma_pago == "03" | forma_pago == "04" | forma_pago == "28" | forma_pago == "29") // Cheque y transferencia
                 {
-                    cuenta_or = txt_cuenta.Text;
-                    rfc_or = txt_rfc_ordenante.Text;
-                    banco = txt_banco.Text;
-                    cuenta_be = txt_cuenta_beneficiario.Text;
-                    rfc_be = txt_rfc_beneficiario.Text;
+                    if (txt_cuenta.Text != "(Opcional) No. cuenta ordenante")
+                    {
+                        cuenta_or = txt_cuenta.Text;
+                    }
+                    if (txt_rfc_ordenante.Text != "(Opcional) RFC")
+                    {
+                        rfc_or = txt_rfc_ordenante.Text;
+                    }
+                    if(txt_banco.Text != "(Opcional) Nombre banco")
+                    {
+                        banco = txt_banco.Text;
+                    }
+                    if (txt_cuenta_beneficiario.Text != "(Opcional) No. cuenta beneficiario")
+                    {
+                        cuenta_be = txt_cuenta_beneficiario.Text;
+                    }
+                    if (txt_rfc_beneficiario.Text != "(Opcional) RFC.")
+                    {
+                        rfc_be = txt_rfc_beneficiario.Text;
+                    }
+                        
                 }
                 if (forma_pago == "05" | forma_pago == "06") 
                 {
-                    cuenta_or = txt_cuenta.Text;
-                    rfc_or = txt_rfc_ordenante.Text;
+                    if (txt_cuenta.Text != "(Opcional) No. cuenta ordenante")
+                    {
+                        cuenta_or = txt_cuenta.Text;
+                    }
+                    if (txt_rfc_ordenante.Text != "(Opcional) RFC")
+                    {
+                        rfc_or = txt_rfc_ordenante.Text;
+                    }
 
                     if(forma_pago == "05")
                     {
-                        cuenta_be = txt_cuenta_beneficiario.Text;
-                        rfc_be = txt_rfc_beneficiario.Text;
+                        if (txt_cuenta_beneficiario.Text != "(Opcional) No. cuenta beneficiario")
+                        {
+                            cuenta_be = txt_cuenta_beneficiario.Text;
+                        }
+                        if (txt_rfc_beneficiario.Text != "(Opcional) RFC.")
+                        {
+                            rfc_be = txt_rfc_beneficiario.Text;
+                        }
                     }                    
                 }
 
@@ -873,27 +901,33 @@ namespace PuntoDeVentaV2
             if(clave == "02" | clave == "03" | clave == "04" | clave == "05" | clave == "06" | clave == "28" | clave == "29")
             {
                 // Valida cuenta ordenante
-
-                Regex exp_cuenta_or = new Regex(formato_cnt_or);
-
-                if (exp_cuenta_or.IsMatch(txt_cuenta.Text))
+                
+                if (txt_cuenta.Text != "(Opcional) No. cuenta ordenante")
                 {
-                }
-                else
-                {
-                    mensaje = "El formato de la cuenta ordenante no es valida.";
-                }
+                    Regex exp_cuenta_or = new Regex(formato_cnt_or);
+
+                    if (exp_cuenta_or.IsMatch(txt_cuenta.Text))
+                    {
+                    }
+                    else
+                    {
+                        mensaje = "El formato de la cuenta ordenante no es valida.";
+                    }
+                }                
 
                 // Valida RFC ordenante
 
-                Regex exp_rfc_or = new Regex(formato_rfc_or);
+                if(txt_rfc_ordenante.Text != "(Opcional) RFC")
+                {
+                    Regex exp_rfc_or = new Regex(formato_rfc_or);
 
-                if (exp_rfc_or.IsMatch(txt_rfc_ordenante.Text))
-                {
-                }
-                else
-                {
-                    mensaje = "El formato del RFC ordenante no es valido.";
+                    if (exp_rfc_or.IsMatch(txt_rfc_ordenante.Text))
+                    {
+                    }
+                    else
+                    {
+                        mensaje = "El formato del RFC ordenante no es valido.";
+                    }
                 }
             }
 
@@ -902,26 +936,32 @@ namespace PuntoDeVentaV2
             {
                 // Valida cuenta beneficiario
 
-                Regex exp_cuenta_be = new Regex(formato_cnt_be);
+                if (txt_cuenta_beneficiario.Text != "(Opcional) No. cuenta beneficiario")
+                {
+                    Regex exp_cuenta_be = new Regex(formato_cnt_be);
 
-                if (exp_cuenta_be.IsMatch(txt_cuenta_beneficiario.Text))
-                {
-                }
-                else
-                {
-                    mensaje = "El formato de la cuenta beneficiario no es valida.";
+                    if (exp_cuenta_be.IsMatch(txt_cuenta_beneficiario.Text))
+                    {
+                    }
+                    else
+                    {
+                        mensaje = "El formato de la cuenta beneficiario no es valida.";
+                    }
                 }
 
                 // Valida RFC beneficiario
 
-                Regex exp_rfc_be = new Regex(formato_rfc_be);
+                if(txt_rfc_beneficiario.Text != "(Opcional) RFC.")
+                {
+                    Regex exp_rfc_be = new Regex(formato_rfc_be);
 
-                if (exp_rfc_be.IsMatch(txt_rfc_beneficiario.Text))
-                {
-                }
-                else
-                {
-                    mensaje = "El formato del RFC beneficiario no es valido.";
+                    if (exp_rfc_be.IsMatch(txt_rfc_beneficiario.Text))
+                    {
+                    }
+                    else
+                    {
+                        mensaje = "El formato del RFC beneficiario no es valido.";
+                    }
                 }
             }
 

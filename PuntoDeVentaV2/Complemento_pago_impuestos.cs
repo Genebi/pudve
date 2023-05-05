@@ -792,32 +792,81 @@ namespace PuntoDeVentaV2
             int fila_dr_tmp = fila_dr - 1;
             Complemento_pago.arr_impuestos[fila_dr_tmp] = new string[cant_filas][];
 
+            string cadena = "Traslado=002=Tasa=";
+
+
             // Impuesto de los radio
 
             if (rb_cero.Checked)
             {
                 tipo_imp = "0.000000";
                 rad_imp = true;
+                cadena += "0.000000";
+
+                // Busca si el impuesto esta agregado en la lista. 
+
+                var indice = list_traslad_retencion.IndexOf(cadena);
+
+                if (indice < 0)
+                {
+                    MessageBox.Show("El impuesto seleccionado no pertenece a los impuestos agregados en el XML de esta factura.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             if (rb_ocho.Checked)
             {
                 tipo_imp = "0.080000";
                 rad_imp = true;
+                cadena += "0.080000";
+
+                // Busca si el impuesto esta agregado en la lista. 
+
+                var indice = list_traslad_retencion.IndexOf(cadena);
+
+                if (indice < 0)
+                {
+                    MessageBox.Show("El impuesto seleccionado no pertenece a los impuestos agregados en el XML de esta factura.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             if (rb_dieciseis.Checked)
             {
                 tipo_imp = "0.160000";
                 rad_imp = true;
+                cadena += "0.160000";
+
+                // Busca si el impuesto esta agregado en la lista. 
+
+                var indice = list_traslad_retencion.IndexOf(cadena);
+
+                if (indice < 0)
+                {
+                    MessageBox.Show("El impuesto seleccionado no pertenece a los impuestos agregados en el XML de esta factura.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             if (rb_exento.Checked)
             {
                 tasa_cuota = "Exento";
                 rad_imp = true;
+                cadena += "0.000000";
+
+                // Busca si el impuesto esta agregado en la lista. 
+
+                var indice = list_traslad_retencion.IndexOf(cadena);
+
+                if (indice < 0)
+                {
+                    MessageBox.Show("El impuesto seleccionado no pertenece a los impuestos agregados en el XML de esta factura.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
+
+            
 
             // Valida que exista un impuesto elegido de los radio
 
-            if(rad_imp == false)
+            if (rad_imp == false)
             {
                 MessageBox.Show("Debe elegir un impuesto de al valor agregado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
