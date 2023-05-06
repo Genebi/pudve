@@ -26,6 +26,7 @@ namespace PuntoDeVentaV2
         private decimal precioProducto = 0;
         private decimal precioProductoAux = 0;
         private decimal stockProducto = 0;
+        private decimal stockminimo = 0;
         private decimal stockExistencia = 0;
         private int apartado = 0;
         private float precioAdquision = 0f; // Precio de compra
@@ -135,6 +136,7 @@ namespace PuntoDeVentaV2
             producto = datos[1];
             precioProducto = decimal.Parse(datos[2]);
             stockProducto = decimal.Parse(datos[4]);
+            stockminimo = Convert.ToDecimal(datos[24]);
             stockExistencia = stockProducto;
             precioAdquision = float.Parse(datos[11]);
             ActiveControl = txtCantidadCompra;
@@ -557,19 +559,20 @@ namespace PuntoDeVentaV2
                             {
                                 Correo = dt.Rows[0]["Email"].ToString();
                                 var anterior = Convert.ToDecimal(dt.Rows[0]["StockMinimo"]);
-                                if (anterior >= stockProducto)
+                                if ((anterior + Convert.ToDecimal(txtCantidadCompra.Text)) <= stockminimo)
                                 {
                                     var nombre = "";
                                     nombre = $"{dt.Rows[0]["Nombre"].ToString()} --- CÓDIGO BARRAS: {dt.Rows[0]["CodigoBarras"].ToString()} --- STOCK MINIMO: {dt.Rows[0]["StockMinimo"].ToString()} --- STOCK ACTUAL: {stockProducto.ToString()}";
                                     html1 += $"<li>{nombre}</li>";
-                                }
 
+                                    Thread envio = new Thread(() => Utilidades.EnviarEmail(html1, asunto1, Correo));
+                                    envio.Start();
+                                }
                             }
-                            Thread envio = new Thread(() => Utilidades.EnviarEmail(html1, asunto1, Correo));
-                            envio.Start();
+                            
                         }
                     }
-
+                    stockminimo = 0;
 
                     foreach (string subdetalleUpdate in updatesSubdetalles)
                     {
