@@ -69,7 +69,6 @@ namespace PuntoDeVentaV2
 
         private void AjustarProducto_Load(object sender, EventArgs e)
         {
-
             cbConceptos.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbProveedores.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             string[] datos = cn.BuscarProducto(IDProducto, FormPrincipal.userID);
@@ -281,6 +280,24 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            var precioActual = cn.CargarDatos($"SELECT Precio FROM productos WHERE ID = '{IDProducto}'");
+            decimal precioAct = Convert.ToDecimal(precioActual.Rows[0]["Precio"].ToString());
+            decimal nuevoPrec = Convert.ToDecimal(txtPrecio.Text.Replace("$",""));
+            if (precioAct != nuevoPrec)
+            {
+                DialogResult result = MessageBox.Show("El precio de venta cambio. Esto eliminará todos los descuentos del producto desea continuar?.", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                // Verificar la respuesta del usuario y actuar en consecuencia
+                if (result == DialogResult.Yes)
+                {
+                    cn.EjecutarConsulta($"DELETE FROM descuentocliente WHERE IDProducto = '{IDProducto}'");
+                    cn.EjecutarConsulta($"DELETE FROM descuentomayoreo WHERE IDProducto = '{IDProducto}'");
+                }
+                else
+                {
+                    return;
+                }
+            }
             decimal parser;
             if (txtPrecio.Text.Contains('$'))
             {
@@ -1354,7 +1371,7 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyData == Keys.Enter)
             {
-                var precio = txtPrecio.Text.Trim();
+                var precio = txtPrecio.Text.Trim().Replace("$","");
 
                 if (!string.IsNullOrWhiteSpace(precio) && !Convert.ToDecimal(precio).Equals(0))
                 {
