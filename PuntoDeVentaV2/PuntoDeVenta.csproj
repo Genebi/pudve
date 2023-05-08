@@ -1507,6 +1507,7 @@
     <Content Include="PUDVE\icon\black16\circle-yellow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\xslt\Pagos20.xslt" />
     <Content Include="ReportesImpresion\Ticket\Amortizacion\amortizacion1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
