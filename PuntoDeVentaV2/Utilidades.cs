@@ -1736,12 +1736,6 @@ namespace PuntoDeVentaV2
                                             <th style = 'text-align: center;'>
                                                 <span style='color: blue;'>{MontoValesDeOperacion}</span>
                                             </th>
-                                            <th style = 'text-align: left;'>
-                                                Crédito:
-                                            </th>
-                                            <th style = 'text-align: center;'>
-                                                <span style='color: blue;'>{MontoCreditoDeOperacion}</span>
-                                            </th>
                                         </tr>
                                         <tr>
                                             <th style = 'text-align: center;' colspan = '3'>

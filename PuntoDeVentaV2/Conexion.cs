@@ -367,6 +367,7 @@ namespace PuntoDeVentaV2
                 lista.Add(dr["cp_ctercero"].ToString());        // 21
                 lista.Add(dr["regimen_ctercero"].ToString());   // 22
                 lista.Add(dr["ImgNew"].ToString());             // 23
+                lista.Add(dr["StockMinimo"].ToString());        // StockMinimo 24
             }
 
             dr.Close();

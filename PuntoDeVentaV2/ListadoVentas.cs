@@ -6072,7 +6072,8 @@ namespace PuntoDeVentaV2
                 cbTipoRentas.Visible = false;
                 cbTipoVentas.Visible = true;
                 cbTipoVentas.SelectedIndex = 0;
-
+                cbFormasPago.SelectedIndex = 0;
+                cbFiltroAdminEmpleado.SelectedIndex = 0;
                 CargarDatos();
             }
         }
@@ -6091,7 +6092,8 @@ namespace PuntoDeVentaV2
                     cbTipoVentas.Visible = false;
                     cbTipoRentas.Visible = true;
                     cbTipoRentas.SelectedIndex = 0;
-
+                    cbFormasPago.SelectedIndex = 0;
+                    cbFiltroAdminEmpleado.SelectedIndex = 0;
                     CargarDatos(6);
                 }
             }
