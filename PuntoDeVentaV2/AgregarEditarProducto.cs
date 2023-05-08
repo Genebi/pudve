@@ -5218,6 +5218,20 @@ namespace PuntoDeVentaV2
 
         private void txtPrecioCompra_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (e.KeyChar == '.')
+            {
+                if ((sender as TextBox).Text.Contains("."))
+                {
+                    e.Handled = true;
+                    (sender as TextBox).Text = "0.";
+                }
+                else if ((sender as TextBox).Text.Length == 0)
+                {
+                    (sender as TextBox).Text = "0.";
+                    e.Handled = true;
+                    (sender as TextBox).SelectionStart = (sender as TextBox).Text.Length;
+                }
+            } 
             //if (e.KeyChar == 22)
             //{
             //    e.Handled = true;
@@ -5234,7 +5248,7 @@ namespace PuntoDeVentaV2
             {
                 e.Handled = true;
             }
-
+             
             calculadora(sender, e);
         }
 
