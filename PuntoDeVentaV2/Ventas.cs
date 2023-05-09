@@ -1192,7 +1192,7 @@ namespace PuntoDeVentaV2
                 row.Cells["PrecioMayoreo"].Value = datosProducto[12]; // Este campo no es visible
                 row.Cells["Impuesto"].Value = datosProducto[13]; // Este campo no es visible
                 row.Cells["Cantidad"].Value = datosProducto[6];
-                row.Cells["Precio"].Value = datosProducto[2];
+                row.Cells["Precio"].Value = datosProducto[2]; 
                 row.Cells["Descripcion"].Value = datosProducto[1];
                 row.Cells["Descuento"].Value = datosProducto[3];
                 row.Cells["Importe"].Value = datosProducto[2];
@@ -1257,7 +1257,7 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        row.Cells["Descuento"].Value = datosProducto[24];
+                        row.Cells["Descuento"].Value = datosProducto[25];
                         //row.Cells["Descuento"].Value = "0.00";
                         row.Cells["TipoDescuento"].Value = "0";
                     }

@@ -94,6 +94,7 @@ namespace PuntoDeVentaV2
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(356, 128);
+            this.ControlBox = false;
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.txtCantidad);
@@ -103,7 +104,7 @@ namespace PuntoDeVentaV2
             this.MinimizeBox = false;
             this.Name = "CantidadRegresada";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "CantidadRegresada";
+            this.Text = "Cantidad A Regresar";
             this.Load += new System.EventHandler(this.CantidadRegresada_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

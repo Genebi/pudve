@@ -28,6 +28,15 @@ namespace PuntoDeVentaV2
         private void categoriaSubdetalle_Load(object sender, EventArgs e)
         {
             cbTipoDeDatos.SelectedIndex = 0;
+            CbCategorias.SelectedIndex = 0;
+            using (var dt = cn.CargarDatos($"SELECT Categoria FROM `subdetallesdeproducto` WHERE IDUsuario = {FormPrincipal.userID} GROUP BY Categoria ORDER BY ID"))
+            {
+                foreach (DataRow item in dt.Rows)
+                {
+                    CbCategorias.Items.Add(item["Categoria"]);
+                }
+
+            }
             if (operacion == "Editar")
             {
                 using (DataTable datosEditar = cn.CargarDatos($"SELECT * FROM subdetallesdeproducto WHERE ID = {subdetalle}"))
@@ -56,7 +65,11 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtSubDetalle.Text))
+            if (!CbCategorias.SelectedIndex.Equals(0))
+            {
+                txtSubDetalle.Text = CbCategorias.Text;
+            }
+            if (string.IsNullOrWhiteSpace(txtSubDetalle.Text))
             {
                 MessageBox.Show($"Es necesario nombrar el Sub Detallle", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -69,25 +82,64 @@ namespace PuntoDeVentaV2
             {
                 stockActual = Convert.ToDecimal(datos.Rows[0]["stock"].ToString());
             }
-            var subDetalle = cn.CargarDatos($"SELECT Categoria FROM subdetallesdeproducto WHERE IDProducto = '{Productos.idProductoAgregarSubdetalle}' AND IDUsuario = '{FormPrincipal.userID}' AND Categoria = '{txtSubDetalle.Text}' AND Activo = 1");
-            
+            var subDetalle = cn.CargarDatos($"SELECT * FROM subdetallesdeproducto WHERE IDUsuario = '{FormPrincipal.userID}' AND Categoria = '{txtSubDetalle.Text}' AND Activo = 1 ORDER BY ID DESC LIMIT 1");
+
+            var subDetalle1 = cn.CargarDatos($"SELECT * FROM subdetallesdeproducto WHERE IDUsuario = '{FormPrincipal.userID}' AND Categoria = '{txtSubDetalle.Text}' AND Activo = 1 AND IDProducto = {Productos.idProductoAgregarSubdetalle} ORDER BY ID DESC LIMIT 1");
 
 
-                if (operacion == "Nuevo")
+            if (operacion == "Nuevo")
+            {
+                if (subDetalle1.Rows.Count.Equals(0))
                 {
-                if (!subDetalle.Rows.Count.Equals(0))
-                {
-                    MessageBox.Show("Este producto ya cuenta con esta Categoria");
-                    return;
-                }
-                cn.EjecutarConsulta($"INSERT INTO subdetallesdeproducto (IDProducto, IDUsuario, Categoria, Subdetalle, Stock, TipoDato, esCaducidad) VALUES ('{Productos.idProductoAgregarSubdetalle}', '{FormPrincipal.userID}', '{txtSubDetalle.Text}', '{"NA"}', '{stockActual}', '{cbTipoDeDatos.SelectedIndex}',{caducidad})");
+                    if (!subDetalle.Rows.Count.Equals(0))
+                    {
+                        cn.EjecutarConsulta($"INSERT INTO subdetallesdeproducto (IDProducto, IDUsuario, Categoria, Subdetalle, Stock, TipoDato, esCaducidad) VALUES ('{Productos.idProductoAgregarSubdetalle}', '{FormPrincipal.userID}', '{subDetalle.Rows[0]["Categoria"].ToString()}', '{"NA"}', '{stockActual}', '{subDetalle.Rows[0]["TipoDato"].ToString()}',{subDetalle.Rows[0]["esCaducidad"].ToString()})");
+
+                        string id = string.Empty;
+                        using (var dt = cn.CargarDatos($"SELECT ID FROM subdetallesdeproducto WHERE IDUsuario = {FormPrincipal.userID}  ORDER BY ID DESC LIMIT 1"))
+                        {
+                            id = dt.Rows[0][0].ToString();
+                        }
+
+                        using (var dt = cn.CargarDatos($"SELECT * FROM detallesubdetalle WHERE IDSubDetalle = {subDetalle.Rows[0]["ID"]}"))
+                        {
+                            foreach (DataRow item in dt.Rows)
+                            {
+                                if (!string.IsNullOrWhiteSpace(item["Nombre"].ToString()))
+                                {
+                                    cn.EjecutarConsulta($"INSERT INTO detallesubdetalle(IDSubDetalle,Nombre,Stock,Estado) VALUES ('{id}','{item["Nombre"].ToString()}','0','{item["Estado"].ToString()}')");
+                                }
+                                else if (!string.IsNullOrWhiteSpace(item["Fecha"].ToString()))
+                                {
+                                    DateTime fecha = Convert.ToDateTime(item["Fecha"].ToString());
+                                    string fechafinal = fecha.ToString("yyyy-MM-dd");
+                                    cn.EjecutarConsulta($"INSERT INTO detallesubdetalle(IDSubDetalle,Nombre,Fecha,Stock,Estado) VALUES ('{id}','{item["Nombre"].ToString()}','{fechafinal}','0','{item["Estado"].ToString()}')");
+                                }
+                            }
+                        }
+
+
+                    }
+                    else
+                    {
+                        cn.EjecutarConsulta($"INSERT INTO subdetallesdeproducto (IDProducto, IDUsuario, Categoria, Subdetalle, Stock, TipoDato, esCaducidad) VALUES ('{Productos.idProductoAgregarSubdetalle}', '{FormPrincipal.userID}', '{txtSubDetalle.Text}', '{"NA"}', '{stockActual}', '{cbTipoDeDatos.SelectedIndex}',{caducidad})");
+                        this.Close();
+                    }
                 }
                 else
                 {
-                    cn.EjecutarConsulta($"UPDATE subdetallesdeproducto SET Categoria = '{txtSubDetalle.Text}', esCaducidad = {caducidad} WHERE ID = {subdetalle}");
-                    subdetalle = txtSubDetalle.Text;
-                    cambio = true;
+                    MessageBox.Show("Este producto ya cuenta con esta Categoria", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
+
+
+            }
+            else
+            {
+                cn.EjecutarConsulta($"UPDATE subdetallesdeproducto SET Categoria = '{txtSubDetalle.Text}', esCaducidad = {caducidad} WHERE ID = {subdetalle}");
+                subdetalle = txtSubDetalle.Text;
+                cambio = true;
+            }
 
             cn.EjecutarConsulta($"UPDATE configuracion SET diasCaducidad = {numericUpDown1.Value} WHERE IDUsuario = {FormPrincipal.userID}");
             this.Close();
@@ -133,6 +185,28 @@ namespace PuntoDeVentaV2
             {
                 caducidad = 0;
                 gbCad.Enabled = false;
+            }
+        }
+
+
+
+        private void txtSubDetalle_TextChanged(object sender, EventArgs e)
+        {
+            txtSubDetalle.Text = txtSubDetalle.Text.ToUpper();
+            txtSubDetalle.SelectionStart = txtSubDetalle.Text.Length;
+        }
+
+        private void CbCategorias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!CbCategorias.SelectedIndex.Equals(0))
+            {
+                txtSubDetalle.Text = CbCategorias.Text;
+                txtSubDetalle.Enabled = false;
+            }
+            else
+            {
+                txtSubDetalle.Text = "";
+                txtSubDetalle.Enabled = true;
             }
         }
     }
