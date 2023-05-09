@@ -31,7 +31,9 @@ namespace PuntoDeVentaV2
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(categoriaSubdetalle));
             this.panel3 = new System.Windows.Forms.Panel();
+            this.CbCategorias = new System.Windows.Forms.ComboBox();
             this.pboxBorrar = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.txtSubDetalle = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCancelar = new System.Windows.Forms.Button();
@@ -42,7 +44,6 @@ namespace PuntoDeVentaV2
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.gbCad = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxBorrar)).BeginInit();
             this.panel2.SuspendLayout();
@@ -53,6 +54,7 @@ namespace PuntoDeVentaV2
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel3.Controls.Add(this.CbCategorias);
             this.panel3.Controls.Add(this.pboxBorrar);
             this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.txtSubDetalle);
@@ -60,6 +62,18 @@ namespace PuntoDeVentaV2
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(404, 77);
             this.panel3.TabIndex = 5;
+            // 
+            // CbCategorias
+            // 
+            this.CbCategorias.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CbCategorias.FormattingEnabled = true;
+            this.CbCategorias.Items.AddRange(new object[] {
+            "Seleccione una categoria"});
+            this.CbCategorias.Location = new System.Drawing.Point(172, 10);
+            this.CbCategorias.Name = "CbCategorias";
+            this.CbCategorias.Size = new System.Drawing.Size(194, 21);
+            this.CbCategorias.TabIndex = 9;
+            this.CbCategorias.SelectedIndexChanged += new System.EventHandler(this.CbCategorias_SelectedIndexChanged);
             // 
             // pboxBorrar
             // 
@@ -73,6 +87,16 @@ namespace PuntoDeVentaV2
             this.pboxBorrar.TabStop = false;
             this.pboxBorrar.Click += new System.EventHandler(this.pboxBorrar_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(4, 11);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(162, 15);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Nombre de la categoria:";
+            // 
             // txtSubDetalle
             // 
             this.txtSubDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -80,6 +104,7 @@ namespace PuntoDeVentaV2
             this.txtSubDetalle.Name = "txtSubDetalle";
             this.txtSubDetalle.Size = new System.Drawing.Size(385, 26);
             this.txtSubDetalle.TabIndex = 0;
+            this.txtSubDetalle.TextChanged += new System.EventHandler(this.txtSubDetalle_TextChanged);
             // 
             // panel2
             // 
@@ -128,6 +153,7 @@ namespace PuntoDeVentaV2
             // 
             // cbTipoDeDatos
             // 
+            this.cbTipoDeDatos.BackColor = System.Drawing.Color.White;
             this.cbTipoDeDatos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTipoDeDatos.FormattingEnabled = true;
             this.cbTipoDeDatos.Items.AddRange(new object[] {
@@ -196,16 +222,6 @@ namespace PuntoDeVentaV2
             this.gbCad.TabStop = false;
             this.gbCad.Visible = false;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(4, 11);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(162, 15);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Nombre de la categoria:";
-            // 
             // categoriaSubdetalle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -252,5 +268,6 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.GroupBox gbCad;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox CbCategorias;
     }
 }
