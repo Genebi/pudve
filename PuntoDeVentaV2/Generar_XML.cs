@@ -511,9 +511,9 @@ namespace PuntoDeVentaV2
                                     concepto_traslado.Importe = nuevo_importe;
                                     importe = nuevo_importe;
                                 }
-
-                                base_total_xprod = importe_base * cantidad;
                             }
+
+                            base_total_xprod = importe_base * cantidad;
 
                             list_concepto_impuestos_traslados.Add(concepto_traslado);
 
@@ -874,7 +874,7 @@ namespace PuntoDeVentaV2
 
                 // Verificar si existe algún impuesto exento, si solo hay impuestos exentos no se agrega el nodo impuestos
 
-                string buscar_cadena = "002-Tasa-Exento-0";
+                string buscar_cadena = "002-Exento-0.000000";
                 var indice_bs = list_porprod_impuestos_trasladados.IndexOf(buscar_cadena);
                 int tam_list_imp_t = list_porprod_impuestos_trasladados.Count;
                 //int tam_list_imp_r = 0;
@@ -891,7 +891,7 @@ namespace PuntoDeVentaV2
                     {
                         agregar_nodo_impuestos = 1;
 
-                        if(tam_list_imp_t == 1)
+                        if(tam_list_imp_t == 3)
                         {
                             agregar_total_traslado = 0;
                         }
@@ -1228,19 +1228,35 @@ namespace PuntoDeVentaV2
 
                             if (clave_fpg == "02" | clave_fpg == "03" | clave_fpg == "04" | clave_fpg == "05" | clave_fpg == "06" | clave_fpg == "28" | clave_fpg == "29")
                             {
-                                pgs_pago.RfcEmisorCtaOrd = r_cpago["rfc_ordenante"].ToString();
+                                if(r_cpago["rfc_ordenante"].ToString() != "")
+                                {
+                                    pgs_pago.RfcEmisorCtaOrd = r_cpago["rfc_ordenante"].ToString();
+                                }
+                                
 
                                 if (clave_fpg != "05" | clave_fpg != "06")
                                 {
-                                    pgs_pago.NomBancoOrdExt = r_cpago["banco"].ToString();
+                                    if(r_cpago["banco"].ToString() != "")
+                                    {
+                                        pgs_pago.NomBancoOrdExt = r_cpago["banco"].ToString();
+                                    }                                    
                                 }
 
-                                pgs_pago.CtaOrdenante = r_cpago["cta_ordenante"].ToString();
+                                if(r_cpago["cta_ordenante"].ToString() != "")
+                                {
+                                    pgs_pago.CtaOrdenante = r_cpago["cta_ordenante"].ToString();
+                                }                                
 
                                 if (clave_fpg != "06")
                                 {
-                                    pgs_pago.RfcEmisorCtaBen = r_cpago["rfc_beneficiario"].ToString();
-                                    pgs_pago.CtaBeneficiario = r_cpago["cta_beneficiario"].ToString();
+                                    if(r_cpago["rfc_beneficiario"].ToString() != "")
+                                    {
+                                        pgs_pago.RfcEmisorCtaBen = r_cpago["rfc_beneficiario"].ToString();
+                                    }
+                                    if(r_cpago["cta_beneficiario"].ToString() != "")
+                                    {
+                                        pgs_pago.CtaBeneficiario = r_cpago["cta_beneficiario"].ToString();
+                                    }                                    
                                 }
 
                             }
@@ -1443,6 +1459,37 @@ namespace PuntoDeVentaV2
                             long_traslado = list_pordr_impuestos_trasladados.Count;
                             int t = 0;
 
+                            // Retenciones
+
+                            if(total_dr_ret_isr > 0 | total_dr_ret_iva > 0 | total_dr_ret_ieps > 0)
+                            {
+                                PagosPagoImpuestosPRetencionP pgs_pg_impuesto_r = new PagosPagoImpuestosPRetencionP();
+
+                                if (total_dr_ret_isr > 0)
+                                {
+                                    pgs_pg_impuesto_r.ImpuestoP = "001";
+                                    pgs_pg_impuesto_r.ImporteP = decimales(total_dr_ret_isr, decimales_pg);
+
+                                    list_pg_retencion.Add(pgs_pg_impuesto_r);
+                                }
+                                if (total_dr_ret_iva > 0)
+                                {
+                                    pgs_pg_impuesto_r.ImpuestoP = "002";
+                                    pgs_pg_impuesto_r.ImporteP = decimales(total_dr_ret_iva, decimales_pg);
+
+                                    list_pg_retencion.Add(pgs_pg_impuesto_r);
+                                }
+                                if (total_dr_ret_ieps > 0)
+                                {
+                                    pgs_pg_impuesto_r.ImpuestoP = "003";
+                                    pgs_pg_impuesto_r.ImporteP = decimales(total_dr_ret_ieps, decimales_pg);
+
+                                    list_pg_retencion.Add(pgs_pg_impuesto_r);
+                                }
+                            }
+
+                            // Traslados
+
                             if (long_traslado > 0)
                             {
                                 while (t < long_traslado)
@@ -1476,6 +1523,10 @@ namespace PuntoDeVentaV2
 
                             PagosPagoImpuestosP pgs_pago_impuestos = new PagosPagoImpuestosP();
 
+                            if (total_dr_ret_isr > 0 | total_dr_ret_iva > 0 | total_dr_ret_ieps > 0)
+                            {
+                                pgs_pago_impuestos.RetencionesP = list_pg_retencion.ToArray();
+                            }
                             if (long_traslado > 0)
                             {
                                 pgs_pago_impuestos.TrasladosP = list_pg_traslado.ToArray();
@@ -1850,8 +1901,13 @@ namespace PuntoDeVentaV2
             if(complemento_pg == 1)
             {
                 xmlNameSpaces.Add("pago20", "http://www.sat.gob.mx/Pagos20");
+                //comprobante.xsHnb6iSchemaLocation = "http:///www.sat.gob.mx/cfd/4 " +
+                    //http:///www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd " +
+                    //http:///www.sat.gob.mx/Pagos20
+                    //http:///www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos20.xsd";
+
             }
-            
+
 
             //Generacion del XML
 

@@ -930,7 +930,13 @@ namespace PuntoDeVentaV2
                         }
                         if (panel_ximp.Name.Contains("cmb_bx_impuesto"))
                         {
-                            Complemento_pago.arr_impuestos[fila_dr_tmp][i][3] = panel_ximp.Text;
+                            var t_impuesto = "";
+
+                            if (panel_ximp.Text == "ISR") { t_impuesto = "001"; }
+                            if (panel_ximp.Text == "IVA") { t_impuesto = "002"; }
+                            if (panel_ximp.Text == "IEPS") { t_impuesto = "003"; }
+
+                            Complemento_pago.arr_impuestos[fila_dr_tmp][i][3] = t_impuesto;
                         }
                         if (panel_ximp.Name.Contains("cmb_bx_tfactor"))
                         {

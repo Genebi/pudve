@@ -29,12 +29,7 @@ public partial class Pagos {
     private PagosPago[] pagoField;
     
     private string versionField;
-
-    //public PagosPago cpagos_pago; // Nueva linea de código, auxiliar en la generación del PDF
-    //public PagosPagoDoctoRelacionado cpagos_pago_docrelacionado; // Nueva linea de código, auxiliar en la generación del PDF
-
-
-
+    
     public Pagos() {
         this.versionField = "2.0";
     }
@@ -461,7 +456,6 @@ public partial class PagosPago {
             return this.tipoCambioPField;
         }
         set {
-            tipoCambioPFieldSpecified = true;
             this.tipoCambioPField = value;
         }
     }
@@ -703,7 +697,6 @@ public partial class PagosPagoDoctoRelacionado {
             return this.equivalenciaDRField;
         }
         set {
-            equivalenciaDRFieldSpecified = true;
             this.equivalenciaDRField = value;
         }
     }
@@ -884,7 +877,6 @@ public partial class PagosPagoDoctoRelacionadoImpuestosDRRetencionDR {
     }
 }
 
-
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
 [System.SerializableAttribute()]
@@ -947,7 +939,6 @@ public partial class PagosPagoDoctoRelacionadoImpuestosDRTrasladoDR {
             return this.tasaOCuotaDRField;
         }
         set {
-            tasaOCuotaDRFieldSpecified = true;
             this.tasaOCuotaDRField = value;
         }
     }
@@ -970,7 +961,6 @@ public partial class PagosPagoDoctoRelacionadoImpuestosDRTrasladoDR {
             return this.importeDRField;
         }
         set {
-            importeDRFieldSpecified = true;
             this.importeDRField = value;
         }
     }
@@ -986,7 +976,6 @@ public partial class PagosPagoDoctoRelacionadoImpuestosDRTrasladoDR {
         }
     }
 }
-
 
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
