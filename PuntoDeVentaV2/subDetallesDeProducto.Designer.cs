@@ -29,8 +29,8 @@ namespace PuntoDeVentaV2
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(subDetallesDeProducto));
             this.panel2 = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -160,9 +160,9 @@ namespace PuntoDeVentaV2
             // Stock
             // 
             this.Stock.DataPropertyName = "Stock";
-            dataGridViewCellStyle1.Format = "N2";
-            dataGridViewCellStyle1.NullValue = "0.00";
-            this.Stock.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Format = "N2";
+            dataGridViewCellStyle7.NullValue = "0.00";
+            this.Stock.DefaultCellStyle = dataGridViewCellStyle7;
             this.Stock.HeaderText = "Stock";
             this.Stock.MinimumWidth = 8;
             this.Stock.Name = "Stock";
@@ -171,9 +171,9 @@ namespace PuntoDeVentaV2
             // Cantidad
             // 
             this.Cantidad.DataPropertyName = "0.00";
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.NullValue = "0.00";
-            this.Cantidad.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Format = "N2";
+            dataGridViewCellStyle8.NullValue = "0.00";
+            this.Cantidad.DefaultCellStyle = dataGridViewCellStyle8;
             this.Cantidad.HeaderText = "Cantidad a Vender";
             this.Cantidad.MinimumWidth = 8;
             this.Cantidad.Name = "Cantidad";
@@ -283,7 +283,7 @@ namespace PuntoDeVentaV2
             this.btnAgregarSubDetalle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarSubDetalle.FlatAppearance.BorderSize = 0;
             this.btnAgregarSubDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAgregarSubDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
+            this.btnAgregarSubDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarSubDetalle.ForeColor = System.Drawing.Color.White;
             this.btnAgregarSubDetalle.Image = global::PuntoDeVentaV2.Properties.Resources.list_ul1;
             this.btnAgregarSubDetalle.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -291,7 +291,7 @@ namespace PuntoDeVentaV2
             this.btnAgregarSubDetalle.Name = "btnAgregarSubDetalle";
             this.btnAgregarSubDetalle.Size = new System.Drawing.Size(221, 41);
             this.btnAgregarSubDetalle.TabIndex = 33;
-            this.btnAgregarSubDetalle.Text = "Agregar";
+            this.btnAgregarSubDetalle.Text = "Agregar Subdetalle";
             this.btnAgregarSubDetalle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAgregarSubDetalle.UseVisualStyleBackColor = false;
             this.btnAgregarSubDetalle.Click += new System.EventHandler(this.btnAgregarSubDetalle_Click);
@@ -337,11 +337,11 @@ namespace PuntoDeVentaV2
             // 
             // btnAddDetalle
             // 
-            this.btnAddDetalle.BackColor = System.Drawing.Color.ForestGreen;
+            this.btnAddDetalle.BackColor = System.Drawing.Color.Blue;
             this.btnAddDetalle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddDetalle.FlatAppearance.BorderSize = 0;
             this.btnAddDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
+            this.btnAddDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddDetalle.ForeColor = System.Drawing.Color.White;
             this.btnAddDetalle.Image = global::PuntoDeVentaV2.Properties.Resources.list_ul1;
             this.btnAddDetalle.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -349,7 +349,7 @@ namespace PuntoDeVentaV2
             this.btnAddDetalle.Name = "btnAddDetalle";
             this.btnAddDetalle.Size = new System.Drawing.Size(221, 41);
             this.btnAddDetalle.TabIndex = 33;
-            this.btnAddDetalle.Text = "Agregar";
+            this.btnAddDetalle.Text = "Agregar Categoria";
             this.btnAddDetalle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddDetalle.UseVisualStyleBackColor = false;
             this.btnAddDetalle.Click += new System.EventHandler(this.btnAddDetalle_Click);
