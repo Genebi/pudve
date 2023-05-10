@@ -860,6 +860,7 @@ namespace PuntoDeVentaV2
 
         private void txtCantidadCompra_Keypress(object sender, KeyPressEventArgs e)
         {
+            calculadora(sender, e);
             var textBox = (TextBox)sender;
             // Si el carácter pulsado no es un carácter válido se anula
             e.Handled = !char.IsDigit(e.KeyChar) // No es dígito
@@ -867,6 +868,37 @@ namespace PuntoDeVentaV2
                         && (e.KeyChar != SignoDecimal // No es signo decimal o es la 1ª posición o ya hay un signo decimal
                             || textBox.SelectionStart == 0
                             || textBox.Text.Contains(SignoDecimal));
+        }
+        private void calculadora(object sender, KeyPressEventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            int calcu = 0;
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txt.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+                }
+            }
         }
 
         private void tbMensaje_Leave(object sender, EventArgs e)
@@ -2120,6 +2152,7 @@ namespace PuntoDeVentaV2
 
         private void SoloDecimales(object sender, KeyPressEventArgs e)
         {
+            calculadora(sender, e);
             //permite 0-9, eliminar y decimal
             if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
             {

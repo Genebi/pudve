@@ -937,6 +937,12 @@
     <Compile Include="Facturas.Designer.cs">
       <DependentUpon>Facturas.cs</DependentUpon>
     </Compile>
+    <Compile Include="FechaCaducidad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FechaCaducidad.Designer.cs">
+      <DependentUpon>FechaCaducidad.cs</DependentUpon>
+    </Compile>
     <Compile Include="FechasReportes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2385,6 +2391,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Facturas.resx">
       <DependentUpon>Facturas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FechaCaducidad.resx">
+      <DependentUpon>FechaCaducidad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FechasReportes.resx">
       <DependentUpon>FechasReportes.cs</DependentUpon>

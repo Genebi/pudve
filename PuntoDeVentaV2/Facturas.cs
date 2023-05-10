@@ -163,22 +163,22 @@ namespace PuntoDeVentaV2
                 // Por pagar
                 if (opc_tipo_factura == 0)
                 {
-                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND (metodo_pago='PPD' OR forma_pago='99') AND con_complementos=0 " + condicional_fecha_i_f + condicional_buscarpor + " ORDER BY ID DESC";
+                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + /*condicional_xempleado +*/ " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND (metodo_pago='PPD' OR forma_pago='99') AND con_complementos=0 " + condicional_fecha_i_f + condicional_buscarpor + " ORDER BY ID DESC";
                 }
                 // Abonadas
                 if (opc_tipo_factura == 1)
                 {
-                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND con_complementos=1 AND resta_cpago>0 " + condicional_fecha_i_f + condicional_buscarpor + " ORDER BY ID DESC";
+                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + /*condicional_xempleado +*/ " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND con_complementos=1 AND resta_cpago>0 " + condicional_fecha_i_f + condicional_buscarpor + " ORDER BY ID DESC";
                 }
                 // Pagadas
                 if (opc_tipo_factura == 2)
                 {
-                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND ( (metodo_pago='PUE' AND forma_pago!='99') OR (resta_cpago=0 AND (metodo_pago='PPD' OR forma_pago='99')) ) " + condicional_fecha_i_f + condicional_buscarpor + " ORDER BY ID DESC";
+                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + /*condicional_xempleado +*/ " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND ( (metodo_pago='PUE' AND forma_pago!='99') OR (resta_cpago=0 AND (metodo_pago='PPD' OR forma_pago='99')) ) " + condicional_fecha_i_f + condicional_buscarpor + " ORDER BY ID DESC";
                 }
                 // Canceladas
                 if (opc_tipo_factura == 3)
                 {
-                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND timbrada=1 AND cancelada=1 " + condicional_fecha_i_f + condicional_buscarpor + " ORDER BY ID DESC";
+                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + /*condicional_xempleado +*/ " AND timbrada=1 AND cancelada=1 " + condicional_fecha_i_f + condicional_buscarpor + " ORDER BY ID DESC";
                 }
 
                 FiltroAvanzado = cons;
@@ -391,10 +391,6 @@ namespace PuntoDeVentaV2
                         Utilidades.MensajePermiso();
                         return;
                     }
-
-
-
-
 
                     //Old af legacy code lmaooo https://media.tenor.com/TGghI4NZHrwAAAAC/lmaoo.gif
                     //if (!Utilidades.AdobeReaderInstalado())
