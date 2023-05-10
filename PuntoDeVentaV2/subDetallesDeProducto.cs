@@ -35,6 +35,7 @@ namespace PuntoDeVentaV2
         DateTimePicker dateTimePicker1;
 
         DataTable dtDetallesSubdetalle = new DataTable();
+        public static string FechaCaducidad = "";
         public subDetallesDeProducto(string producto, string operacion = "Nuevo",decimal cantidad=0)
         {
             InitializeComponent();
@@ -215,7 +216,7 @@ namespace PuntoDeVentaV2
                     dgvDetallesSubdetalle.Columns[3].ReadOnly = true;
                     if (!dgvDetallesSubdetalle.Columns[3].Visible)
                     {
-                        cargarsubCategorias(categoria);
+                        //cargarsubCategorias(categoria);
                     }
 
                     dgvDetallesSubdetalle.CurrentCell = dgvDetallesSubdetalle.Rows[0].Cells[7];
@@ -260,24 +261,19 @@ namespace PuntoDeVentaV2
 
             tipoDato = dtDetallesSubdetalle.Rows[0]["TipoDato"].ToString();
             colID = dtDetallesSubdetalle.Rows[0]["SubID"].ToString();
-            switch (tipoDato)
+            if (tipoDato.Equals("0"))
             {
-                case "0":
-                    int columnIndex = dgvDetallesSubdetalle.Columns["Valor"].Index;
-                    DataGridViewCalendarCell cell = new DataGridViewCalendarCell();
-                    dgvDetallesSubdetalle.Columns[columnIndex].CellTemplate = cell;
-
-                    colDato = "Fecha";
-                    break;
-                case "1":
-                    dgvDetallesSubdetalle.Columns[2].DefaultCellStyle.Format = "N2";
-                    colDato = "Valor";
-                    break;
-                default:
-                    dgvDetallesSubdetalle.Columns[2].DefaultCellStyle.Format = "";
-                    colDato = "Nombre";
-                    break;
+                colDato = "Fecha";
             }
+            else if (tipoDato.Equals("1"))
+            {
+                colDato = "Valor";
+            }
+            else
+            {
+                colDato = "Nombre";
+            }
+            
             if (string.IsNullOrEmpty(dtDetallesSubdetalle.Rows[0]["ID"].ToString()))
             {
                 dtDetallesSubdetalle.Rows.RemoveAt(0);
@@ -426,7 +422,7 @@ namespace PuntoDeVentaV2
                             cn.EjecutarConsulta(consulta);
                         }
                     }
-                    cargarsubCategorias(cat);
+                    //cargarsubCategorias(cat);
                     break;
                 case "Venta":
                     foreach (DataRow registroDetalle in dtDetallesSubdetalle.Rows)
@@ -661,6 +657,44 @@ namespace PuntoDeVentaV2
 
         private void dgvDetallesSubdetalle_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.ColumnIndex >= 0)
+            {
+                if (e.ColumnIndex == 3)
+                {
+                    if (colDato == "Fecha")
+                    {
+                        string valorCelda = dgvDetallesSubdetalle.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                        bool exito = DateTime.TryParse(valorCelda, out DateTime fechaConvertida);
+                        if (exito == false)
+                        {
+                            MessageBox.Show("Fecha no valida","Aviso del sistema",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                            dgvDetallesSubdetalle.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "";
+                            return;
+                        }
+                    }
+                    else if (colDato == "Valor")
+                    {
+                        string valorCelda = dgvDetallesSubdetalle.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                        bool sera = Decimal.TryParse(valorCelda, out decimal jala);
+                        if (sera == false)
+                        {
+                            MessageBox.Show("Valor no valido", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            dgvDetallesSubdetalle.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "";
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        string valorCelda = dgvDetallesSubdetalle.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                        if (string.IsNullOrWhiteSpace(valorCelda))
+                        {
+                            MessageBox.Show("Ingrese un Nombre", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            dgvDetallesSubdetalle.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "";
+                            return;
+                        }
+                    }
+                }
+            }
             fLPLateralCategorias.Enabled = true;
             decimal test; celdaCellClick = dgvDetallesSubdetalle.CurrentCell.RowIndex;
 
@@ -786,41 +820,18 @@ namespace PuntoDeVentaV2
             {
                 return;
             }
-            if (e.ColumnIndex == 3 && tipoDato=="0" && accion== "Nuevo")
+            if (e.ColumnIndex == 3)
             {
+                if (colDato == "Fecha")
+                {
+                    FechaCaducidad fecha = new FechaCaducidad();
+                    fecha.ShowDialog();
 
-                ////Creamos el control por código
-                //dateTimePicker1 = new DateTimePicker();
-
-                ////Agregamos el control de fecha dentro del DataGridView 
-                //dgvDetallesSubdetalle.Controls.Add(dateTimePicker1);
-
-                //// Hacemos que el control sea invisible (para que no moleste visualmente)
-                //dateTimePicker1.Visible = false;
-
-                //// Establecemos el formato (depende de tu localización en tu PC)
-                //dateTimePicker1.Format = DateTimePickerFormat.Short;  
-
-                //// Agregamos el evento para cuando seleccionemos una fecha
-                //dateTimePicker1.TextChanged += new EventHandler(dateTimePicker1_OnTextChange);
-
-                //// Lo hacemos visible
-                //dateTimePicker1.Visible = true;
-
-                //// Creamos un rectángulo que representa el área visible de la celda
-                //Rectangle rectangle1 = dgvDetallesSubdetalle.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
-
-                ////Establecemos el tamaño del control DateTimePicker (que sería el tamaño total de la celda)
-                //dateTimePicker1.Size = new Size(rectangle1.Width, rectangle1.Height);
-
-                //// Establecemos la ubicación del control
-                //dateTimePicker1.Location = new Point(rectangle1.X, rectangle1.Y);
-
-                //// Generamos el evento de cierre del control fecha
-                //dateTimePicker1.CloseUp += new EventHandler(dateTimePicker1_CloseUp);
-                //dateTimePicker1.Focus();
-                //// Generamos el evento de cierre del control fecha
-                //dateTimePicker1.LostFocus += new EventHandler(dateTimePicker1_loseFocus);
+                    if (!FechaCaducidad.Equals(""))
+                    {
+                        dgvDetallesSubdetalle.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = FechaCaducidad;
+                    }
+                }
             }
             if (e.ColumnIndex == 1 && accion=="Nuevo")
             {
@@ -931,7 +942,7 @@ namespace PuntoDeVentaV2
                 MessageBox.Show($"No puedes utilizar el mismo valor para dos subdetalles", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 dtDetallesSubdetalle.Rows[e.RowIndex]["Valor"] = "";
                 return;
-            }
+            }   
         }
     }
 }
