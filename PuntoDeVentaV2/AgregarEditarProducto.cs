@@ -1873,6 +1873,13 @@ namespace PuntoDeVentaV2
                 this.Text.Trim().Equals("EDITAR PRODUCTO") ||
                 this.Text.Trim().Equals("COPIAR PRODUCTO"))
             {
+                var datos = cn.CargarDatos($"SELECT * FROM productos WHERE IDUsuario = 20 AND `Status` = '1' AND (Categoria = 'SERVICIOS' OR Categoria = 'COMBOS')");
+                if (datos.Rows.Count.Equals(0))
+                {
+                    MessageBox.Show("No hay ni sevicios y combos para asociar al producto");
+                    return;
+                }
+
                 ListStock.TypeStock = "Combos";
 
                 if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
@@ -1896,6 +1903,13 @@ namespace PuntoDeVentaV2
                     this.Text.Trim().Equals("EDITAR SERVICIOS") ||
                     this.Text.Trim().Equals("COPIAR SERVICIOS"))
             {
+                var datos = cn.CargarDatos($"SELECT * FROM productos WHERE Categoria = 'PRODUCTOS' AND IDUsuario = '{FormPrincipal.userID}'");
+                if (datos.Rows.Count.Equals(0))
+                {
+                    MessageBox.Show("No hay ningun producto para asociar al combo o servicio");
+                    return;
+                }
+
                 ListStock.TypeStock = "Productos";
 
                 if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
