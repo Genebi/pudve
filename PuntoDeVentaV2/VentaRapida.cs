@@ -112,7 +112,7 @@ namespace PuntoDeVentaV2
                 return;
             }
         }
-
+         
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtNombreProd.Text) || string.IsNullOrWhiteSpace(txtPrecioVenta.Text))
@@ -142,7 +142,7 @@ namespace PuntoDeVentaV2
                     nuevoCodBar = ("VR" + ranNum);
                 }
             }
-            cn.EjecutarConsulta($"INSERT INTO productos (Nombre, Stock, Precio, Categoria, ClaveInterna, CodigoBarras, ClaveProducto, UnidadMedida, TipoDescuento, IDUsuario, ProdImage, Tipo, Base, IVA, Impuesto, NombreAlterno1, NombreAlterno2, StockNecesario, StockMinimo, PrecioCompra, PrecioMayoreo) VALUES ('{txtNombreProd.Text}', 900000, {txtPrecioVenta.Text}, 'PVRNUEVO', '', '{nuevoCodBar}', '', '', 0, {FormPrincipal.userID}, '', 'VR', 0, 0, '', '{txtNombreProd.Text}', '', 1, 2, 3, 0)");
+            cn.EjecutarConsulta($"INSERT INTO productos (Nombre, Stock, Precio, Categoria, ClaveInterna, CodigoBarras, ClaveProducto, UnidadMedida, TipoDescuento, IDUsuario, ProdImage, Tipo, Base, IVA, Impuesto, NombreAlterno1, NombreAlterno2, StockNecesario, StockMinimo, PrecioCompra, PrecioMayoreo) VALUES ('{txtNombreProd.Text}', 900000, {txtPrecioVenta.Text}, 'PVRNUEVO', '', '{nuevoCodBar}', '', '', 0, {FormPrincipal.userID}, '', 'VR', 0, 0, '', '{txtNombreProd.Text}', '', 1, 2, 0.00, 0)");
 
             Ventas.codBarProdVentaRapida = nuevoCodBar;
             this.Close();
