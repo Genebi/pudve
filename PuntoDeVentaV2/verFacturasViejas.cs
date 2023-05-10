@@ -196,8 +196,9 @@ namespace PuntoDeVentaV2
 	        JOIN usuarios ON ventas.IDUsuario = usuarios.id 
             WHERE facturas.id = {factura}";
 
-            using (DataTable datos = cn.CargarDatos(segs))
+            using (DataTable datos = cn.CargarDatos(segs)) 
             {
+
                 DataTable datoUsuario = new DataTable();
                 if (datos.Rows[0]["id_empleado"].ToString().Equals("0"))
                 {
@@ -205,7 +206,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    datoUsuario = cn.CargarDatos($"SELECT usuario AS usr FROM usuarios WHERE ID = '{datos.Rows[0]["id_empleado"].ToString()}' AND IDUsuario = '{datos.Rows[0]["id_usuario"].ToString()}' ");
+                    datoUsuario = cn.CargarDatos($"SELECT usuario AS usr FROM empleados WHERE ID = '{datos.Rows[0]["id_empleado"].ToString()}' AND IDUsuario = '{datos.Rows[0]["id_usuario"].ToString()}' ");
                 }
                 
 
