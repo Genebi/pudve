@@ -35,7 +35,7 @@ namespace PuntoDeVentaV2
 
         private void Complemento_pago_impuestos_Load(object sender, EventArgs e)
         {
-            //id_factura = 333;
+            id_factura = 3406;
             //abono = 5850;
             Console.WriteLine("INICIO");
             int x = 0;
@@ -99,6 +99,7 @@ namespace PuntoDeVentaV2
                             ComboBox g_cmb_bx_timpuesto = (ComboBox)this.Controls.Find("cmb_bx_impuesto-" + fila_im_tmp + "_2", true).FirstOrDefault();
                             ComboBox g_cmb_bx_tfactor = (ComboBox)this.Controls.Find("cmb_bx_tfactor-" + fila_im_tmp + "_3", true).FirstOrDefault();
                             ComboBox g_cmb_bx_tasa_cuota = (ComboBox)this.Controls.Find("cmb_bx_tc-" + fila_im_tmp + "_4", true).FirstOrDefault();
+                            TextBox g_txt_definir = (TextBox)this.Controls.Find("txt_definir-" + fila_im_tmp + "_5", true).FirstOrDefault();
                             TextBox g_txt_importe = (TextBox)this.Controls.Find("txt_importe" + fila_im_tmp + "_6", true).FirstOrDefault();
 
 
@@ -107,18 +108,30 @@ namespace PuntoDeVentaV2
 
                             // Es retención o traslado
                             g_cmb_bx_es_rt.SelectedItem = g_es_rt;
+                            select_tipo_deopcion_combobox(g_cmb_bx_es_rt, e);
 
                             // Tipo impuesto
                             g_cmb_bx_timpuesto.SelectedValue = g_impuesto;
+                            select_tipo_deopcion_combobox(g_cmb_bx_timpuesto, e);
 
                             // Tipo factor
                             g_cmb_bx_tfactor.SelectedValue = g_tfactor;
+                            select_tipo_deopcion_combobox(g_cmb_bx_tfactor, e);
 
                             // Tasa cuota
                             g_cmb_bx_tasa_cuota.SelectedValue = g_tasa_cuota;
+                            select_tipo_deopcion_combobox(g_cmb_bx_tasa_cuota, e);
+
+                            // Porcentaje definido
+
+                            if (g_tasa_cuota == "Definir %")
+                            {
+                                g_txt_definir.Text = g_definir;
+                                val_porcentaje(g_txt_definir, e);
+                            }
 
                             // Importe
-                            //g_txt_importe.Text = g_importe;
+                            g_txt_importe.Text = g_importe;
 
 
                             x++;
@@ -171,7 +184,13 @@ namespace PuntoDeVentaV2
                                 var xml_base = nd_tras_ret.Attributes["Base"].Value;
                                 var xml_impuesto = nd_tras_ret.Attributes["Impuesto"].Value;
                                 var xml_tfactor = nd_tras_ret.Attributes["TipoFactor"].Value;
-                                var xml_tcuota = nd_tras_ret.Attributes["TasaOCuota"].Value;
+                                var xml_tcuota = "";
+
+                                if (xml_tfactor != "Exento")
+                                {
+                                    xml_tcuota = nd_tras_ret.Attributes["TasaOCuota"].Value;
+                                }
+                                
 
                                 var cadena = "";
 
@@ -361,12 +380,12 @@ namespace PuntoDeVentaV2
 
         private void select_tipo_deopcion_combobox(object sender, EventArgs e)
         {
-            ComboBox cmb_box = (ComboBox)sender;
+            ComboBox cmb_box = (ComboBox)sender;                                                                
 
             string nombre_cmb_bx = cmb_box.Name;
             var obtener_ids = nombre_cmb_bx.Split('-');
             var obtener_num = obtener_ids[1].Split('_');
-            int fila_im = Convert.ToInt32(obtener_num[0]);
+            int fila_im = Convert.ToInt32(obtener_num[0]);              
             int num_col = Convert.ToInt32(obtener_num[1]);
 
 
@@ -475,7 +494,7 @@ namespace PuntoDeVentaV2
                     if ((opcion_ant == "003" & opcion_act == "Cuota") | 
                         (opcion_ini == "Retención" & opcion_act == "Tasa" & (opcion_ant == "001" | opcion_ant == "002")) )
                     {
-                        cmb_bx_opciones.Add("definir", "Definir %");
+                        cmb_bx_opciones.Add("Definir %", "Definir %");
                     }
                     if (opcion_ant == "003" & opcion_act == "Tasa")
                     {
@@ -524,13 +543,13 @@ namespace PuntoDeVentaV2
                     string opcion_ini = cmb_bx_ini.GetItemText(cmb_bx_ini.SelectedItem);
 
                     
-                    if (opcion_act == "definir")
+                    if (opcion_act == "Definir %")
                     {
                         TextBox txt_definir = (TextBox)this.Controls.Find("txt_definir-" + fila_im + "_5", true).FirstOrDefault();
                         txt_definir.Enabled = true;
                         txt_definir.Focus();
                     }
-                    if (opcion_act != "definir")
+                    if (opcion_act != "Definir %")
                     {
                         calcular_importe_ximpuesto(fila_im, "");
                     }
@@ -707,6 +726,7 @@ namespace PuntoDeVentaV2
                 if (imp_def == "de")
                 {
                     //cadena += "0.160000";
+                    cadena = "Traslado=002=Exento=";
                 }
             }
 
@@ -726,7 +746,7 @@ namespace PuntoDeVentaV2
 
                 cadena = opcion_es_rt + "=" + opcion__timpuesto + "=" + opcion_tfactor + "=";
 
-                if(opcion_tasa_cuota == "definir")
+                if(opcion_tasa_cuota == "Definir %")
                 {
                     TextBox txt_definir = (TextBox)this.Controls.Find("txt_definir-" + nfila + "_5", true).FirstOrDefault();
 
@@ -849,7 +869,7 @@ namespace PuntoDeVentaV2
             {
                 tasa_cuota = "Exento";
                 rad_imp = true;
-                cadena += "0.000000";
+                cadena = "Traslado=002=Exento=";
 
                 // Busca si el impuesto esta agregado en la lista. 
 

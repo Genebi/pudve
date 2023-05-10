@@ -1336,10 +1336,10 @@ namespace PuntoDeVentaV2
                                                     tasa_cuota = tasa_cuota_tmp.ToString();
                                                 }
                                             }
-                                        }
 
-                                        pgs_pago_dr_impuest_t.TasaOCuotaDR = seis_decimales(Convert.ToDecimal(tasa_cuota));
-                                        pgs_pago_dr_impuest_t.ImporteDR = decimales(total_impuesto, decimales_dr);
+                                            pgs_pago_dr_impuest_t.TasaOCuotaDR = seis_decimales(Convert.ToDecimal(tasa_cuota));
+                                            pgs_pago_dr_impuest_t.ImporteDR = decimales(total_impuesto, decimales_dr);
+                                        }
 
                                         list_dr_impuesto_traslado.Add(pgs_pago_dr_impuest_t);
 
@@ -1396,7 +1396,7 @@ namespace PuntoDeVentaV2
                                         pgs_pago_dr_impuest_r.TipoFactorDR = tipo_factor;
 
 
-                                        if (tasa_cuota == "")
+                                        if (tasa_cuota == "Definir %" | tasa_cuota == "")
                                         {
                                             tasa_cuota = r_cpago_impuestos_r["definir"].ToString();
                                         }
@@ -1463,10 +1463,10 @@ namespace PuntoDeVentaV2
 
                             if(total_dr_ret_isr > 0 | total_dr_ret_iva > 0 | total_dr_ret_ieps > 0)
                             {
-                                PagosPagoImpuestosPRetencionP pgs_pg_impuesto_r = new PagosPagoImpuestosPRetencionP();
-
                                 if (total_dr_ret_isr > 0)
                                 {
+                                    PagosPagoImpuestosPRetencionP pgs_pg_impuesto_r = new PagosPagoImpuestosPRetencionP();
+
                                     pgs_pg_impuesto_r.ImpuestoP = "001";
                                     pgs_pg_impuesto_r.ImporteP = decimales(total_dr_ret_isr, decimales_pg);
 
@@ -1474,6 +1474,8 @@ namespace PuntoDeVentaV2
                                 }
                                 if (total_dr_ret_iva > 0)
                                 {
+                                    PagosPagoImpuestosPRetencionP pgs_pg_impuesto_r = new PagosPagoImpuestosPRetencionP();
+
                                     pgs_pg_impuesto_r.ImpuestoP = "002";
                                     pgs_pg_impuesto_r.ImporteP = decimales(total_dr_ret_iva, decimales_pg);
 
@@ -1481,6 +1483,8 @@ namespace PuntoDeVentaV2
                                 }
                                 if (total_dr_ret_ieps > 0)
                                 {
+                                    PagosPagoImpuestosPRetencionP pgs_pg_impuesto_r = new PagosPagoImpuestosPRetencionP();
+
                                     pgs_pg_impuesto_r.ImpuestoP = "003";
                                     pgs_pg_impuesto_r.ImporteP = decimales(total_dr_ret_ieps, decimales_pg);
 
@@ -1496,7 +1500,7 @@ namespace PuntoDeVentaV2
                                 {
                                     string[] dato_it = list_pordr_impuestos_trasladados[t].Split('-');
                                     string tipo_factor = dato_it[1];
-                                    decimal tasa_cuota = Convert.ToDecimal(dato_it[2]);
+                                    decimal tasa_cuota = 0;
 
 
                                     PagosPagoImpuestosPTrasladoP pgs_pg_impuesto_t = new PagosPagoImpuestosPTrasladoP();
@@ -1507,6 +1511,8 @@ namespace PuntoDeVentaV2
 
                                     if (tipo_factor != "Exento")
                                     {
+                                        tasa_cuota = Convert.ToDecimal(dato_it[2]);
+
                                         pgs_pg_impuesto_t.TasaOCuotaPSpecified = true;
                                         pgs_pg_impuesto_t.TasaOCuotaP = seis_decimales(tasa_cuota);
                                         pgs_pg_impuesto_t.ImportePSpecified = true;

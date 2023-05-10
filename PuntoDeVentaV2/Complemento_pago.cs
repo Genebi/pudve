@@ -526,7 +526,7 @@ namespace PuntoDeVentaV2
 
                     // Obtiene el número de la parcialidad anterior
 
-                    int n_parcialidad = Convert.ToInt32(cn.EjecutarSelect($"SELECT COUNT(ID) AS ID FROM Facturas_complemento_pago WHERE id_factura_principal='{arr_totales[r][0]}'", 1));
+                    int n_parcialidad = Convert.ToInt32(cn.EjecutarSelect($"SELECT COUNT(ID) AS ID FROM Facturas_complemento_pago WHERE id_factura_principal='{arr_totales[r][0]}'  AND timbrada=1 AND cancelada=0", 1));
                     n_parcialidad = n_parcialidad + 1;
 
                     decimal saldo_insoluto = Convert.ToDecimal(arr_totales[r][1]) - Convert.ToDecimal(arr_totales[r][2]);
@@ -998,13 +998,31 @@ namespace PuntoDeVentaV2
             ComboBox cmb_box = (ComboBox)sender;
             var nom = cmb_box.Name;
             var nfila = nom.Split('-');
+            int id_fct = 0;
+
 
             Button btn_des_habilita = (Button)this.Controls.Find("btn_agregar_impuestos-" + nfila[1], true).FirstOrDefault();
 
             
             if (cmb_box.SelectedItem.ToString() == "Sí objeto de impuesto.")
-            {                
-                btn_des_habilita.Enabled = true;
+            {
+                // Busca si la factura a pagar incluye impuestos. Si los incluye se habilita el botón 
+
+                Label lb_idf = (Label)this.Controls.Find("lb_idf-" + nfila[1], true).FirstOrDefault();
+                id_fct = Convert.ToInt32(lb_idf.Text);
+
+
+                bool exi = (bool)cn.EjecutarSelect($"SELECT ID FROM Facturas_productos WHERE id_factura='{id_fct}' AND incluye_impuestos='02'", 0);
+
+                if (exi == true)
+                {
+                    btn_des_habilita.Enabled = true;
+                }
+                else
+                {
+                    MessageBox.Show("Los impuestos no son aplicables para este documento. La factura no es '02 - Sí objeto de impuesto'.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }                                
             }
             else
             {
