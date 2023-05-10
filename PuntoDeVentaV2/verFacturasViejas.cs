@@ -19,6 +19,7 @@ namespace PuntoDeVentaV2
         string serie = string.Empty;
         string Folio = string.Empty;
         string usuario_Nombre = string.Empty;
+        string realizadoPor = string.Empty;
 
         string usuario_cp = string.Empty;
         string usuario_fono = string.Empty;
@@ -184,7 +185,9 @@ namespace PuntoDeVentaV2
             e_municipio,
             e_cp,
             e_telefono,
-            e_colonia,r_colonia,
+            e_colonia,r_colonia, 
+            id_usuario,
+            id_empleado,
 	        sello_sat AS selloDigitalSAT
             FROM
 	        facturas
@@ -195,6 +198,17 @@ namespace PuntoDeVentaV2
 
             using (DataTable datos = cn.CargarDatos(segs))
             {
+                DataTable datoUsuario = new DataTable();
+                if (datos.Rows[0]["id_empleado"].ToString().Equals("0"))
+                {
+                    datoUsuario = cn.CargarDatos($"SELECT Usuario AS usr FROM usuarios WHERE ID = '{datos.Rows[0]["id_usuario"].ToString()}'");
+                }
+                else
+                {
+                    datoUsuario = cn.CargarDatos($"SELECT usuario AS usr FROM usuarios WHERE ID = '{datos.Rows[0]["id_empleado"].ToString()}' AND IDUsuario = '{datos.Rows[0]["id_usuario"].ToString()}' ");
+                }
+                
+
                 serie = datos.Rows[0]["serie"].ToString();
                 Folio = datos.Rows[0]["Folio"].ToString();
                 usuario_Nombre = datos.Rows[0]["usuario_Nombre"].ToString();
@@ -225,6 +239,8 @@ namespace PuntoDeVentaV2
                 selloDigitalEmisor = datos.Rows[0]["selloDigitalEmisor"].ToString();
 
                 cadenaDigital = $"||1.1|{cliente_FolioFiscal}|{fechaCertificacion}|{selloDigitalEmisor}|{certificadoSAT}|";
+
+                realizadoPor = datoUsuario.Rows[0]["usr"].ToString();
 
                 if (esNueva)
                 {
@@ -325,6 +341,7 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("tasa", tasa));
 
             reportParameters.Add(new ReportParameter("usuario_Email", "Email: " + Usremail));
+            reportParameters.Add(new ReportParameter("Realizadopor", "Realizado Por: " + realizadoPor));
 
             string qr = QR();
             reportParameters.Add(new ReportParameter("qr", qr));
