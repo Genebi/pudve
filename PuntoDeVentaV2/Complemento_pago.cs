@@ -24,6 +24,7 @@ namespace PuntoDeVentaV2
         static public string clave_moneda = "";
         static public bool ban_moneda = false;
         static public string[][][] arr_impuestos;
+        static public int[] arr_nfilas;
 
 
 
@@ -228,6 +229,7 @@ namespace PuntoDeVentaV2
                 }
 
                 arr_impuestos = new string[tam_arr][][];
+                arr_nfilas = new int[tam_arr];
             }
         }
 
@@ -248,7 +250,7 @@ namespace PuntoDeVentaV2
             // Si se tiene una conexión a internet procede a realizar el complemento.
             if (Conexion.ConectadoInternet())
             {
-                int t = 0, error = 0, error_monto_mayor = 0, erro_mon_tcam = 0;
+                int t = 0, error = 0, error_monto_mayor = 0, erro_mon_tcam = 0, error_inc_impuestos = 0;
                 arr_totales = new string[tam_arr][];
 
 
@@ -332,6 +334,21 @@ namespace PuntoDeVentaV2
                     }
                     if (panel.Name.Contains("cmb_bx_incluye_impuestos"))
                     {
+                        if (panel.Text == "Sí objeto de impuesto.")
+                        {
+                            // Busca si la factura a pagar incluye impuestos. Si los incluye se habilita el botón 
+
+                            int id_fct = Convert.ToInt32(arr_totales[t][0]);
+
+
+                            bool exi = (bool)cn.EjecutarSelect($"SELECT ID FROM Facturas_productos WHERE id_factura='{id_fct}' AND incluye_impuestos='02'", 0);
+
+                            if(exi == false & panel.Text == "Sí objeto de impuesto.")
+                            {
+                                error_inc_impuestos++;
+                            }
+                        }
+
                         arr_totales[t][5] = panel.Text;
 
                         t++;
@@ -351,6 +368,11 @@ namespace PuntoDeVentaV2
                 if (erro_mon_tcam > 0)
                 {
                     MessageBox.Show("Se debe especificar una moneda y tipo de cambio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if(error_inc_impuestos > 0)
+                {
+                    MessageBox.Show("Alguno de los documentos tiene especificado que es objeto de impuesto, sin embargo no todos los documentos seleccionados lo incluye.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 

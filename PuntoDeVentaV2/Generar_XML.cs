@@ -1527,18 +1527,22 @@ namespace PuntoDeVentaV2
                             }
 
 
-                            PagosPagoImpuestosP pgs_pago_impuestos = new PagosPagoImpuestosP();
+                            if (total_dr_ret_isr > 0 | total_dr_ret_iva > 0 | total_dr_ret_ieps > 0 | long_traslado > 0)
+                            {
+                                PagosPagoImpuestosP pgs_pago_impuestos = new PagosPagoImpuestosP();
 
-                            if (total_dr_ret_isr > 0 | total_dr_ret_iva > 0 | total_dr_ret_ieps > 0)
-                            {
-                                pgs_pago_impuestos.RetencionesP = list_pg_retencion.ToArray();
+                                if (total_dr_ret_isr > 0 | total_dr_ret_iva > 0 | total_dr_ret_ieps > 0)
+                                {
+                                    pgs_pago_impuestos.RetencionesP = list_pg_retencion.ToArray();
+                                }
+                                if (long_traslado > 0)
+                                {
+                                    pgs_pago_impuestos.TrasladosP = list_pg_traslado.ToArray();
+                                }
+
+                                pgs_pago.ImpuestosP = pgs_pago_impuestos;
                             }
-                            if (long_traslado > 0)
-                            {
-                                pgs_pago_impuestos.TrasladosP = list_pg_traslado.ToArray();
-                            }
-                            
-                            pgs_pago.ImpuestosP = pgs_pago_impuestos;
+                                
                         }
                     }
                 }
