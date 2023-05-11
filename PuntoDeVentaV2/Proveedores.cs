@@ -307,10 +307,9 @@ namespace PuntoDeVentaV2
                             {
                                 CargarDatos();
                             }
-                            cbStatus.SelectedIndex = 0;
+                            //cbStatus.SelectedIndex = 0;
                         }
                     }
-                   
                 }
                 YaExiste = false;
                 DGVProveedores.ClearSelection();
