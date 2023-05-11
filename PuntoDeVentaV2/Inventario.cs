@@ -1309,7 +1309,7 @@ namespace PuntoDeVentaV2
             if (desdeRegresarProdcuto == 1)
             {
                 foreach (DataGridViewRow item in DGVInventario2.Rows)
-                {
+                { 
                     decimal cantidad = Convert.ToDecimal(item.Cells["DiferenciaUnidades2"].Value);
                     decimal precio = Convert.ToDecimal(item.Cells["Precio2"].Value);
                     decimal total = cantidad * precio;

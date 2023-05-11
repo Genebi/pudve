@@ -366,7 +366,7 @@ namespace PuntoDeVentaV2
                     {
                         if (Inventario.listaConceptosSeleccionados.Contains("Precio Compra"))
                         {
-                            PrecioCompra = Inventario.DTDatos.Rows[RowsDatosInventario]["Precio_Compra"].ToString();
+                            PrecioCompra = DTConssulta.Rows[RowsDatosInventario]["Precio Compra"].ToString();
                             datoscompletos += PrecioCompra + "ඞ";
                         }
                         else
