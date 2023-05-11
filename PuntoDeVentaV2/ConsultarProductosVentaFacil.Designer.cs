@@ -33,35 +33,51 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConsultarProductosVentaFacil));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConsultarProductosVentaFacil));
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.CBTipo = new System.Windows.Forms.ComboBox();
             this.dgvFast = new System.Windows.Forms.DataGridView();
+            this.Name1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.IDC1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Name2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col2 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.IDC2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Name3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col3 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.IDC3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Name4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col4 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.IDC4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Lista = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvLista = new System.Windows.Forms.DataGridView();
+            this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Eliminar = new System.Windows.Forms.DataGridViewImageColumn();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.dgvOpciones = new System.Windows.Forms.DataGridView();
+            this.Cat1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cat1Img = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Cat2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cat2Img = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Cat3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cat3Img = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Cat4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cat4Img = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -78,22 +94,6 @@
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cat1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cat2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cat3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cat4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Name1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IDC1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Name2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IDC2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Name3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IDC3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Name4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IDC4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Eliminar = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFast)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLista)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOpciones)).BeginInit();
@@ -156,11 +156,19 @@
             this.dgvFast.Name = "dgvFast";
             this.dgvFast.ReadOnly = true;
             this.dgvFast.RowHeadersVisible = false;
-            this.dgvFast.Size = new System.Drawing.Size(929, 426);
+            this.dgvFast.Size = new System.Drawing.Size(903, 426);
             this.dgvFast.TabIndex = 40;
             this.dgvFast.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvFast_CellMouseClick);
             this.dgvFast.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvFast_CellMouseDoubleClick);
             this.dgvFast.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvFast_CellPainting);
+            // 
+            // Name1
+            // 
+            this.Name1.DataPropertyName = "Name1";
+            this.Name1.HeaderText = "Name1";
+            this.Name1.Name = "Name1";
+            this.Name1.ReadOnly = true;
+            this.Name1.Visible = false;
             // 
             // Col1
             // 
@@ -177,6 +185,22 @@
             this.Col1.Name = "Col1";
             this.Col1.ReadOnly = true;
             // 
+            // IDC1
+            // 
+            this.IDC1.DataPropertyName = "IDC1";
+            this.IDC1.HeaderText = "IDC1";
+            this.IDC1.Name = "IDC1";
+            this.IDC1.ReadOnly = true;
+            this.IDC1.Visible = false;
+            // 
+            // Name2
+            // 
+            this.Name2.DataPropertyName = "Name2";
+            this.Name2.HeaderText = "Name2";
+            this.Name2.Name = "Name2";
+            this.Name2.ReadOnly = true;
+            this.Name2.Visible = false;
+            // 
             // Col2
             // 
             this.Col2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -191,6 +215,22 @@
             this.Col2.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
             this.Col2.Name = "Col2";
             this.Col2.ReadOnly = true;
+            // 
+            // IDC2
+            // 
+            this.IDC2.DataPropertyName = "IDC2";
+            this.IDC2.HeaderText = "IDC2";
+            this.IDC2.Name = "IDC2";
+            this.IDC2.ReadOnly = true;
+            this.IDC2.Visible = false;
+            // 
+            // Name3
+            // 
+            this.Name3.DataPropertyName = "Name3";
+            this.Name3.HeaderText = "Name3";
+            this.Name3.Name = "Name3";
+            this.Name3.ReadOnly = true;
+            this.Name3.Visible = false;
             // 
             // Col3
             // 
@@ -207,6 +247,22 @@
             this.Col3.Name = "Col3";
             this.Col3.ReadOnly = true;
             // 
+            // IDC3
+            // 
+            this.IDC3.DataPropertyName = "IDC3";
+            this.IDC3.HeaderText = "IDC3";
+            this.IDC3.Name = "IDC3";
+            this.IDC3.ReadOnly = true;
+            this.IDC3.Visible = false;
+            // 
+            // Name4
+            // 
+            this.Name4.DataPropertyName = "Name4";
+            this.Name4.HeaderText = "Name4";
+            this.Name4.Name = "Name4";
+            this.Name4.ReadOnly = true;
+            this.Name4.Visible = false;
+            // 
             // Col4
             // 
             this.Col4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -221,6 +277,14 @@
             this.Col4.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
             this.Col4.Name = "Col4";
             this.Col4.ReadOnly = true;
+            // 
+            // IDC4
+            // 
+            this.IDC4.DataPropertyName = "IDC4";
+            this.IDC4.HeaderText = "IDC4";
+            this.IDC4.Name = "IDC4";
+            this.IDC4.ReadOnly = true;
+            this.IDC4.Visible = false;
             // 
             // Lista
             // 
@@ -259,6 +323,36 @@
             this.dgvLista.Size = new System.Drawing.Size(236, 382);
             this.dgvLista.TabIndex = 41;
             this.dgvLista.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvLista_CellClick);
+            // 
+            // Producto
+            // 
+            this.Producto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Producto.HeaderText = "Producto";
+            this.Producto.Name = "Producto";
+            this.Producto.ReadOnly = true;
+            // 
+            // Cantidad
+            // 
+            this.Cantidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Cantidad.HeaderText = "Cantidad";
+            this.Cantidad.Name = "Cantidad";
+            this.Cantidad.ReadOnly = true;
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Visible = false;
+            // 
+            // Eliminar
+            // 
+            this.Eliminar.FillWeight = 5F;
+            this.Eliminar.HeaderText = "";
+            this.Eliminar.Image = ((System.Drawing.Image)(resources.GetObject("Eliminar.Image")));
+            this.Eliminar.Name = "Eliminar";
+            this.Eliminar.ReadOnly = true;
+            this.Eliminar.Width = 35;
             // 
             // btnOk
             // 
@@ -321,10 +415,24 @@
             this.dgvOpciones.ReadOnly = true;
             this.dgvOpciones.RowHeadersVisible = false;
             this.dgvOpciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvOpciones.Size = new System.Drawing.Size(929, 426);
+            this.dgvOpciones.Size = new System.Drawing.Size(903, 426);
             this.dgvOpciones.TabIndex = 40;
             this.dgvOpciones.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOpciones_CellClick);
             this.dgvOpciones.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvOpciones_CellPainting);
+            // 
+            // Cat1
+            // 
+            this.Cat1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Cat1.DataPropertyName = "Cat1";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Silver;
+            this.Cat1.DefaultCellStyle = dataGridViewCellStyle6;
+            this.Cat1.HeaderText = "Cat1";
+            this.Cat1.Name = "Cat1";
+            this.Cat1.ReadOnly = true;
+            this.Cat1.Visible = false;
             // 
             // Cat1Img
             // 
@@ -341,6 +449,19 @@
             this.Cat1Img.Name = "Cat1Img";
             this.Cat1Img.ReadOnly = true;
             // 
+            // Cat2
+            // 
+            this.Cat2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Cat2.DataPropertyName = "Cat2";
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Cat2.DefaultCellStyle = dataGridViewCellStyle8;
+            this.Cat2.HeaderText = "Cat2";
+            this.Cat2.Name = "Cat2";
+            this.Cat2.ReadOnly = true;
+            this.Cat2.Visible = false;
+            // 
             // Cat2Img
             // 
             this.Cat2Img.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -356,6 +477,19 @@
             this.Cat2Img.Name = "Cat2Img";
             this.Cat2Img.ReadOnly = true;
             // 
+            // Cat3
+            // 
+            this.Cat3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Cat3.DataPropertyName = "Cat3";
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Cat3.DefaultCellStyle = dataGridViewCellStyle10;
+            this.Cat3.HeaderText = "Cat3";
+            this.Cat3.Name = "Cat3";
+            this.Cat3.ReadOnly = true;
+            this.Cat3.Visible = false;
+            // 
             // Cat3Img
             // 
             this.Cat3Img.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -370,6 +504,19 @@
             this.Cat3Img.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
             this.Cat3Img.Name = "Cat3Img";
             this.Cat3Img.ReadOnly = true;
+            // 
+            // Cat4
+            // 
+            this.Cat4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Cat4.DataPropertyName = "Cat4";
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Cat4.DefaultCellStyle = dataGridViewCellStyle12;
+            this.Cat4.HeaderText = "Cat4";
+            this.Cat4.Name = "Cat4";
+            this.Cat4.ReadOnly = true;
+            this.Cat4.Visible = false;
             // 
             // Cat4Img
             // 
@@ -508,153 +655,6 @@
             this.dataGridViewTextBoxColumn15.HeaderText = "ID";
             this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
             this.dataGridViewTextBoxColumn15.Visible = false;
-            // 
-            // Cat1
-            // 
-            this.Cat1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Cat1.DataPropertyName = "Cat1";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Silver;
-            this.Cat1.DefaultCellStyle = dataGridViewCellStyle6;
-            this.Cat1.HeaderText = "Cat1";
-            this.Cat1.Name = "Cat1";
-            this.Cat1.ReadOnly = true;
-            this.Cat1.Visible = false;
-            // 
-            // Cat2
-            // 
-            this.Cat2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Cat2.DataPropertyName = "Cat2";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Cat2.DefaultCellStyle = dataGridViewCellStyle8;
-            this.Cat2.HeaderText = "Cat2";
-            this.Cat2.Name = "Cat2";
-            this.Cat2.ReadOnly = true;
-            this.Cat2.Visible = false;
-            // 
-            // Cat3
-            // 
-            this.Cat3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Cat3.DataPropertyName = "Cat3";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Cat3.DefaultCellStyle = dataGridViewCellStyle10;
-            this.Cat3.HeaderText = "Cat3";
-            this.Cat3.Name = "Cat3";
-            this.Cat3.ReadOnly = true;
-            this.Cat3.Visible = false;
-            // 
-            // Cat4
-            // 
-            this.Cat4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Cat4.DataPropertyName = "Cat4";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Cat4.DefaultCellStyle = dataGridViewCellStyle12;
-            this.Cat4.HeaderText = "Cat4";
-            this.Cat4.Name = "Cat4";
-            this.Cat4.ReadOnly = true;
-            this.Cat4.Visible = false;
-            // 
-            // Name1
-            // 
-            this.Name1.DataPropertyName = "Name1";
-            this.Name1.HeaderText = "Name1";
-            this.Name1.Name = "Name1";
-            this.Name1.ReadOnly = true;
-            this.Name1.Visible = false;
-            // 
-            // IDC1
-            // 
-            this.IDC1.DataPropertyName = "IDC1";
-            this.IDC1.HeaderText = "IDC1";
-            this.IDC1.Name = "IDC1";
-            this.IDC1.ReadOnly = true;
-            this.IDC1.Visible = false;
-            // 
-            // Name2
-            // 
-            this.Name2.DataPropertyName = "Name2";
-            this.Name2.HeaderText = "Name2";
-            this.Name2.Name = "Name2";
-            this.Name2.ReadOnly = true;
-            this.Name2.Visible = false;
-            // 
-            // IDC2
-            // 
-            this.IDC2.DataPropertyName = "IDC2";
-            this.IDC2.HeaderText = "IDC2";
-            this.IDC2.Name = "IDC2";
-            this.IDC2.ReadOnly = true;
-            this.IDC2.Visible = false;
-            // 
-            // Name3
-            // 
-            this.Name3.DataPropertyName = "Name3";
-            this.Name3.HeaderText = "Name3";
-            this.Name3.Name = "Name3";
-            this.Name3.ReadOnly = true;
-            this.Name3.Visible = false;
-            // 
-            // IDC3
-            // 
-            this.IDC3.DataPropertyName = "IDC3";
-            this.IDC3.HeaderText = "IDC3";
-            this.IDC3.Name = "IDC3";
-            this.IDC3.ReadOnly = true;
-            this.IDC3.Visible = false;
-            // 
-            // Name4
-            // 
-            this.Name4.DataPropertyName = "Name4";
-            this.Name4.HeaderText = "Name4";
-            this.Name4.Name = "Name4";
-            this.Name4.ReadOnly = true;
-            this.Name4.Visible = false;
-            // 
-            // IDC4
-            // 
-            this.IDC4.DataPropertyName = "IDC4";
-            this.IDC4.HeaderText = "IDC4";
-            this.IDC4.Name = "IDC4";
-            this.IDC4.ReadOnly = true;
-            this.IDC4.Visible = false;
-            // 
-            // Producto
-            // 
-            this.Producto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Producto.HeaderText = "Producto";
-            this.Producto.Name = "Producto";
-            this.Producto.ReadOnly = true;
-            // 
-            // Cantidad
-            // 
-            this.Cantidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Cantidad.HeaderText = "Cantidad";
-            this.Cantidad.Name = "Cantidad";
-            this.Cantidad.ReadOnly = true;
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Visible = false;
-            // 
-            // Eliminar
-            // 
-            this.Eliminar.FillWeight = 5F;
-            this.Eliminar.HeaderText = "";
-            this.Eliminar.Image = ((System.Drawing.Image)(resources.GetObject("Eliminar.Image")));
-            this.Eliminar.Name = "Eliminar";
-            this.Eliminar.ReadOnly = true;
-            this.Eliminar.Width = 35;
             // 
             // ConsultarProductosVentaFacil
             // 

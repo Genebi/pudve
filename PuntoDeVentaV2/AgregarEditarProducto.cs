@@ -8171,6 +8171,28 @@ namespace PuntoDeVentaV2
                     saveDetailProd[2] = words[2].ToString();
                     saveDetailProd[3] = words[3].ToString();
                     saveDetailProd[4] = words[4].ToString();
+                    using (var dt = cn.CargarDatos($"SELECT IDDetalleGral,StatusDetalleGral FROM `detallesproductogenerales` WHERE IDProducto ={saveDetailProd}"))
+                    {
+                        foreach (DataRow Dato in dt.Rows)
+                        {
+                            if (Dato["IDDetalleGral"].Equals(saveDetailProd[2]) && Dato["StatusDetalleGral"].Equals(saveDetailProd[3]))
+                            {
+                                MessageBox.Show("Este Producto esta registrado a Venta Rapida","Aviso del Sistema", MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                                return;
+                            }
+                        }
+                    }
+                    using (var dt = cn.CargarDatos($"SELECT IDDetalleGral,StatusDetalleGral FROM `detallesproductogenerales` WHERE IDProducto ={saveDetailProd[0]}"))
+                    {
+                        foreach (DataRow Dato in dt.Rows)
+                        {
+                            if (Dato["IDDetalleGral"].ToString().Equals(saveDetailProd[2]) && Dato["StatusDetalleGral"].ToString().Equals(saveDetailProd[3]))
+                            {
+                                MessageBox.Show("Este Producto esta registrado a Venta Rapida", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                return;
+                            }
+                        }
+                    }
                     cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(saveDetailProd));
                 }
             }
