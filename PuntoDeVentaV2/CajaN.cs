@@ -8196,7 +8196,7 @@ namespace PuntoDeVentaV2
                                     cantidadAnticipos = 0,
                                     cantidadTotalVentas = 0;
 
-                            if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
+                            if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()) && item["Credito"].ToString().Equals("0.00"))
                             {
                                 cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
                                 totalEfectivoVentaEnCaja += cantidadEfectivo;
