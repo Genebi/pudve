@@ -18,7 +18,7 @@ namespace PuntoDeVentaV2
         string idProducto;
         int celdaCellClick;
         string tipoDato;
-        string colDato="Nombre";
+        string colDato = "Nombre";
         string colID;
         string cat;
 
@@ -36,7 +36,7 @@ namespace PuntoDeVentaV2
 
         DataTable dtDetallesSubdetalle = new DataTable();
         public static string FechaCaducidad = "";
-        public subDetallesDeProducto(string producto, string operacion = "Nuevo",decimal cantidad=0)
+        public subDetallesDeProducto(string producto, string operacion = "Nuevo", decimal cantidad = 0)
         {
             InitializeComponent();
             idProducto = producto;
@@ -61,8 +61,8 @@ namespace PuntoDeVentaV2
             {
                 lblNombreProducto.Text = dtNombreProducto.Rows[0]["Nombre"].ToString();
             }
-            
-            if (accion=="Venta" || accion == "Inventario")
+
+            if (accion == "Venta" || accion == "Inventario")
             {
                 groupBox1.Visible = false;
                 if (Inventario.AumentarDisminuir == 1 || Inventario.desdeRegresarProdcuto == 1)
@@ -83,8 +83,8 @@ namespace PuntoDeVentaV2
                     break;
                 case "Venta":
                     btnGuardar.Enabled = false;
-                    string ignores=string.Empty;
-                    if (idsADesHabilitar.Count>0)
+                    string ignores = string.Empty;
+                    if (idsADesHabilitar.Count > 0)
                     {
                         foreach (string ID in idsADesHabilitar)
                         {
@@ -118,7 +118,7 @@ namespace PuntoDeVentaV2
                 default:
                     break;
             }
-            
+
 
             foreach (DataRow item in datosCategoria.Rows)
             {
@@ -131,7 +131,7 @@ namespace PuntoDeVentaV2
                 Categoria.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
                 Categoria.BackColor = Color.LightGray;
                 Categoria.TextAlign = ContentAlignment.MiddleCenter;
-                
+
                 Categoria.Font = new Font("Arial", 11);
                 Categoria.Size = new Size(224, 30);
 
@@ -176,7 +176,7 @@ namespace PuntoDeVentaV2
             cat = categoria;
 
             flowLayoutPanel1.Visible = true;
-            
+
             dtDetallesSubdetalle.Clear();
             dgvDetallesSubdetalle.Visible = true;
 
@@ -229,12 +229,12 @@ namespace PuntoDeVentaV2
 
                     dgvDetallesSubdetalle.Columns[0].Visible = false;
                     dgvDetallesSubdetalle.Columns[7].Visible = true;
-                    
+
 
                     if (restando)
                     {
                         dgvDetallesSubdetalle.Columns[7].HeaderText = "Cantidad a disminuir";
-                        
+
                         lblStockRestanteText.Text = "Por disminuir";
                     }
                     else
@@ -256,8 +256,8 @@ namespace PuntoDeVentaV2
 
 
             calcularRestante();
-            
-            
+
+
 
             tipoDato = dtDetallesSubdetalle.Rows[0]["TipoDato"].ToString();
             colID = dtDetallesSubdetalle.Rows[0]["SubID"].ToString();
@@ -273,7 +273,7 @@ namespace PuntoDeVentaV2
             {
                 colDato = "Nombre";
             }
-            
+
             if (string.IsNullOrEmpty(dtDetallesSubdetalle.Rows[0]["ID"].ToString()))
             {
                 dtDetallesSubdetalle.Rows.RemoveAt(0);
@@ -282,27 +282,27 @@ namespace PuntoDeVentaV2
 
         private void calcularRestante()
         {
-            decimal total=0;
-            if (dtDetallesSubdetalle.Rows.Count<1)
+            decimal total = 0;
+            if (dtDetallesSubdetalle.Rows.Count < 1)
             {
                 return;
             }
             switch (accion)
             {
                 case "Nuevo":
-                    total =suma("stock");
+                    total = suma("stock");
                     break;
 
                 case "Inventario":
                 case "Venta":
-                    total =suma("0.00");
+                    total = suma("0.00");
                     break;
                 default:
                     break;
             }
-            if ((stockTot - total)<0)
+            if ((stockTot - total) < 0)
             {
-                lblStockRestanteNum.Text =$"{(stockTot - total)}";
+                lblStockRestanteNum.Text = $"{(stockTot - total)}";
                 lblStockRestanteNum.ForeColor = Color.Red;
             }
             else
@@ -310,13 +310,13 @@ namespace PuntoDeVentaV2
                 lblStockRestanteNum.Text = (stockTot - total).ToString();
                 lblStockRestanteNum.ForeColor = Color.Black;
             }
-            
+
             if (total == stockTot)
             {
                 btnGuardar.Enabled = true;
                 if (accion != "Nuevo")
                 {
-                    guardarDatos(false); 
+                    guardarDatos(false);
                 }
             }
             else
@@ -372,11 +372,11 @@ namespace PuntoDeVentaV2
             {
                 case "Nuevo":
 
-                    
+
 
                     foreach (DataRow registroDetalle in dtDetallesSubdetalle.Rows)
                     {
-                        
+
                         if (!string.IsNullOrEmpty(registroDetalle["Valor"].ToString()) && !string.IsNullOrEmpty(registroDetalle["Stock"].ToString()))
                         {
 
@@ -455,7 +455,7 @@ namespace PuntoDeVentaV2
                             if (string.IsNullOrEmpty(registroDetalle["ID"].ToString()))
                             {
                                 string consulta = $"INSERT INTO detallesubdetalle (IDsubdetalle, {colDato}, Stock)";
-                                
+
 
                                 if (tipoDato == "0")
                                 {
@@ -470,7 +470,7 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                string symbol="+";
+                                string symbol = "+";
                                 if (restando)
                                 {
                                     symbol = "-";
@@ -486,7 +486,7 @@ namespace PuntoDeVentaV2
                                 MessageBox.Show($"No puedes dejar espacios en blanco", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return;
                             }
-                            
+
                         }
                     }
 
@@ -507,18 +507,18 @@ namespace PuntoDeVentaV2
             int counter = 0;
             List<string> fechasuso = new List<string>();
 
-                foreach (DataRow dataRow1 in dtDetallesSubdetalle.Rows)
-                {
+            foreach (DataRow dataRow1 in dtDetallesSubdetalle.Rows)
+            {
                 fechasuso.Add(dataRow1["Valor"].ToString());
-                }
+            }
             foreach (string item in fechasuso)
             {
-                
-                if (validate==item)
+
+                if (validate == item)
                 {
                     counter++;
                 }
-                if (counter>1)
+                if (counter > 1)
                 {
                     buleanomachin = false;
                 }
@@ -650,7 +650,19 @@ namespace PuntoDeVentaV2
 
         private void dgvDetallesSubdetalle_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            MessageBox.Show($"El formato introducido no es valido", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (e.ColumnIndex == 4)
+            {
+
+                MessageBox.Show($"El formato introducido no es valido", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                SendKeys.Send("{ESC}");
+
+            }
+            else
+            {
+                MessageBox.Show($"El formato introducido no es valido", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
         }
 
 
@@ -667,7 +679,7 @@ namespace PuntoDeVentaV2
                         bool exito = DateTime.TryParse(valorCelda, out DateTime fechaConvertida);
                         if (exito == false)
                         {
-                            MessageBox.Show("Fecha no valida","Aviso del sistema",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                            MessageBox.Show("Fecha no valida", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             dgvDetallesSubdetalle.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "";
                             return;
                         }
@@ -698,7 +710,7 @@ namespace PuntoDeVentaV2
             fLPLateralCategorias.Enabled = true;
             decimal test; celdaCellClick = dgvDetallesSubdetalle.CurrentCell.RowIndex;
 
-            if (accion!= "Nuevo")
+            if (accion != "Nuevo")
             {
                 if (decimal.TryParse(dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[7].Value?.ToString(), out test))
                 {
@@ -756,7 +768,7 @@ namespace PuntoDeVentaV2
                         celdaCellClick = dgvDetallesSubdetalle.CurrentCell.RowIndex;
                         if (!DateTime.TryParse(dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[2].Value.ToString(), out DTparser))
                         {
-                            
+
                             dtDetallesSubdetalle.Rows[e.RowIndex]["Valor"] = DateTime.Now.ToString("");
                             return;
                         }
@@ -833,9 +845,9 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            if (e.ColumnIndex == 1 && accion=="Nuevo")
+            if (e.ColumnIndex == 1 && accion == "Nuevo")
             {
-                if (dtDetallesSubdetalle.Rows.Count>0)
+                if (dtDetallesSubdetalle.Rows.Count > 0)
                 {
                     if (!string.IsNullOrEmpty(dtDetallesSubdetalle.Rows[e.RowIndex]["ID"].ToString()))
                     {
@@ -942,7 +954,7 @@ namespace PuntoDeVentaV2
                 MessageBox.Show($"No puedes utilizar el mismo valor para dos subdetalles", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 dtDetallesSubdetalle.Rows[e.RowIndex]["Valor"] = "";
                 return;
-            }   
+            }
         }
     }
 }
