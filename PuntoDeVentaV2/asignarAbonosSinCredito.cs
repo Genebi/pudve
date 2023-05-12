@@ -279,7 +279,6 @@ namespace PuntoDeVentaV2
                             }
                         }
                         this.Dispose();
-                        
                     }
                 }
             }
