@@ -227,16 +227,7 @@ namespace PuntoDeVentaV2
         {
             string pathString = string.Empty;
             var servidor = Properties.Settings.Default.Hosting;
-
-            if (!string.IsNullOrWhiteSpace(servidor))
-            {
-                pathString = $@"\\{servidor}\pudve\Productos\";
-            }
-            else
-            {
-                pathString = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
-            }
-
+            pathString = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
             return pathString + v;
         }
 

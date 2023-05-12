@@ -3023,6 +3023,17 @@ namespace PuntoDeVentaV2
                                                         try
                                                         {
                                                             guardar = infoDetailProdGral.ToArray();
+                                                            using (var dt = cn.CargarDatos($"SELECT IDDetalleGral,StatusDetalleGral FROM `detallesproductogenerales` WHERE IDProducto ={guardar[0]}"))
+                                                            {
+                                                                foreach (DataRow Dato in dt.Rows)
+                                                                {
+                                                                    if (Dato["IDDetalleGral"].ToString().Equals(guardar[2]) && Dato["StatusDetalleGral"].ToString().Equals(guardar[3]))
+                                                                    {
+                                                                        MessageBox.Show("Este Producto esta registrado a Venta Rapida", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                                                        return;
+                                                                    }
+                                                                }
+                                                            }
                                                             cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(guardar));
                                                             infoDetailProdGral.Clear();
                                                         }
@@ -3090,6 +3101,17 @@ namespace PuntoDeVentaV2
                                                             try
                                                             {
                                                                 guardar = infoDetailProdGral.ToArray();
+                                                                using (var dt = cn.CargarDatos($"SELECT IDDetalleGral,StatusDetalleGral FROM `detallesproductogenerales` WHERE IDProducto ={guardar[0]}"))
+                                                                {
+                                                                    foreach (DataRow Dato in dt.Rows)
+                                                                    {
+                                                                        if (Dato["IDDetalleGral"].ToString().Equals(guardar[2])&& Dato["StatusDetalleGral"].ToString().Equals(guardar[3]))
+                                                                        {
+                                                                            MessageBox.Show("Este Producto esta registrado a Venta Rapida", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                                                            return;
+                                                                        }
+                                                                    }
+                                                                }
                                                                 cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(guardar));
                                                                 infoDetailProdGral.Clear();
                                                             }

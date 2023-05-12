@@ -5442,6 +5442,7 @@ namespace PuntoDeVentaV2
                     haylana = true;
                     pasarTotalAnticipos = 0;
                 }
+
                 if (haylana)
                 {
                     if (FormPrincipal.userNickName.Contains('@'))

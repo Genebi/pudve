@@ -169,8 +169,9 @@ namespace PuntoDeVentaV2
                 {
                     if (!FormPrincipal.userNickName.Contains("@"))
                     {
+                        decimal cambiaso = Convert.ToDecimal(lbTotalCambio.Text.Replace("$",""));
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion,"0","0","0","0","0","0.00"
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion,"0",cambiaso.ToString(),"0","0","0","0.00"
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
@@ -240,8 +241,9 @@ namespace PuntoDeVentaV2
                 {
                     if (!FormPrincipal.userNickName.Contains("@"))
                     {
+                        //float efectivoRecibido = txtEfectivo.Text;
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), totalPendiente.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion,"0","0","0","0","0","0.00"
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), totalPendiente.ToString(), (float.Parse(txtEfectivo.Text) - cambio).ToString() ,(float.Parse(txtTarjeta.Text) - cambio).ToString(), (float.Parse(txtVales.Text) - cambio).ToString(), (float.Parse(txtCheque.Text) - cambio).ToString(), (float.Parse(txtTransferencia.Text) - cambio).ToString(), referencia, fechaOperacion,"0","0","0","0","0","0.00"
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
@@ -249,7 +251,7 @@ namespace PuntoDeVentaV2
                     else
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),"0","0","0","0","0","0.00"
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), (float.Parse(txtEfectivo.Text) - cambio).ToString() ,(float.Parse(txtTarjeta.Text) - cambio).ToString(), (float.Parse(txtVales.Text) - cambio).ToString(), (float.Parse(txtCheque.Text) - cambio).ToString(), (float.Parse(txtTransferencia.Text) - cambio).ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),"0","0","0","0","0","0.00"
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(datos));
@@ -277,7 +279,6 @@ namespace PuntoDeVentaV2
                             }
                         }
                         this.Dispose();
-                        
                     }
                 }
             }
