@@ -8834,6 +8834,8 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo4_Click(object sender, EventArgs e)
         {
+            formaDePagoDeVenta = "Presupuesto";
+
             EsGuardarVenta = true;
             ventaGuardadappt = 1;
             if (opcion10 == 0)
