@@ -1172,8 +1172,6 @@ namespace PuntoDeVentaV2
 
                 List<PagosPago> list_pgs_pago = new List<PagosPago>();
                 List<PagosPagoDoctoRelacionado> list_doc_relacionados = new List<PagosPagoDoctoRelacionado>();
-                List<PagosPagoDoctoRelacionadoImpuestosDRTrasladoDR> list_dr_impuesto_traslado = new List<PagosPagoDoctoRelacionadoImpuestosDRTrasladoDR>();
-                List<PagosPagoDoctoRelacionadoImpuestosDRRetencionDR> list_dr_impuesto_retencion = new List<PagosPagoDoctoRelacionadoImpuestosDRRetencionDR>();
                 List<PagosPagoImpuestosPTrasladoP> list_pg_traslado = new List<PagosPagoImpuestosPTrasladoP>();
                 List<PagosPagoImpuestosPRetencionP> list_pg_retencion = new List<PagosPagoImpuestosPRetencionP>();
 
@@ -1187,6 +1185,9 @@ namespace PuntoDeVentaV2
                 int decimales_dr = 0;
                 int nfilas = 0;
                 int long_traslado = 0;
+
+
+                bool nuevo_nd_dr = false;
 
 
 
@@ -1290,6 +1291,7 @@ namespace PuntoDeVentaV2
 
                             int id_doc_relacionado = Convert.ToInt32(r_cpago["ID"].ToString());
                             decimal equivalencia_dr = Convert.ToDecimal(r_cpago["tipo_cambio"].ToString());
+                            nuevo_nd_dr = true;
 
 
 
@@ -1297,6 +1299,9 @@ namespace PuntoDeVentaV2
 
                             if (r_cpago["incluye_impuestos"].ToString() == "02")
                             {
+                                List<PagosPagoDoctoRelacionadoImpuestosDRTrasladoDR> list_dr_impuesto_traslado = new List<PagosPagoDoctoRelacionadoImpuestosDRTrasladoDR>();
+                                List<PagosPagoDoctoRelacionadoImpuestosDRRetencionDR> list_dr_impuesto_retencion = new List<PagosPagoDoctoRelacionadoImpuestosDRRetencionDR>();
+
 
                                 DataTable d_cpago_impuestos_t = cn.CargarDatos(cs.obtener_datos_para_gcpago(7, id_factura, id_doc_relacionado, "Traslado"));
 
@@ -1445,10 +1450,14 @@ namespace PuntoDeVentaV2
                                 }
                             }
 
-                            list_doc_relacionados.Add(pgs_pago_dr);
+                            if (nuevo_nd_dr == true)
+                            {
+                                list_doc_relacionados.Add(pgs_pago_dr);
 
-                            pgs_pago.DoctoRelacionado = list_doc_relacionados.ToArray();
+                                pgs_pago.DoctoRelacionado = list_doc_relacionados.ToArray();
 
+                                nuevo_nd_dr = false;
+                            }
                         }
                         
 
@@ -1645,6 +1654,7 @@ namespace PuntoDeVentaV2
 
                 XmlDocument c_pago = new XmlDocument();
                 XmlSerializerNamespaces xml_namespaces_pago = new XmlSerializerNamespaces();
+                xml_namespaces_pago.Add("pago20", "http://www.sat.gob.mx/Pagos20");
 
 
                 using (XmlWriter write_pago = c_pago.CreateNavigator().AppendChild())
@@ -1655,33 +1665,6 @@ namespace PuntoDeVentaV2
                 comprobante.Complemento[0].Any = new XmlElement[1];
                 comprobante.Complemento[0].Any[0] = c_pago.DocumentElement;
 
-
-                // NODO PAGOS
-                //-----------------
-                /*Pagos pagos = new Pagos();
-
-
-                list_pagos_pago.Add(pago);
-                pagos.Pago = list_pagos_pago.ToArray();
-
-
-                comprobante.Complemento = new ComprobanteComplemento[1]; // El 1 se agrega por default porque solo se hará este tipo de complemento. Si fuera a ver más de un complemento se pone la cantidad que habrá.
-                comprobante.Complemento[0] = new ComprobanteComplemento();
-
-
-                // Serializamos antes de asignarselo al comprobante
-
-                XmlDocument c_pago = new XmlDocument();
-                XmlSerializerNamespaces xml_namespaces_pago = new XmlSerializerNamespaces();
-                //xml_namespaces_pago.Add("pago10", ".http://www.sat.gob.mx/Pagos");
-
-                using (XmlWriter write_pago = c_pago.CreateNavigator().AppendChild())
-                {
-                    new XmlSerializer(pagos.GetType()).Serialize(write_pago, pagos, xml_namespaces_pago);
-                }
-
-                comprobante.Complemento[0].Any = new XmlElement[1];
-                comprobante.Complemento[0].Any[0] = c_pago.DocumentElement;*/
             }
 
 
@@ -1910,12 +1893,7 @@ namespace PuntoDeVentaV2
 
             if(complemento_pg == 1)
             {
-                xmlNameSpaces.Add("pago20", "http://www.sat.gob.mx/Pagos20");
-                //comprobante.xsHnb6iSchemaLocation = "http:///www.sat.gob.mx/cfd/4 " +
-                    //http:///www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd " +
-                    //http:///www.sat.gob.mx/Pagos20
-                    //http:///www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos20.xsd";
-
+                //xmlNameSpaces.Add("pago20", "http:///www.sat.gob.mx/Pagos20");
             }
 
 

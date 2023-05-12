@@ -298,13 +298,14 @@
             // 
             // txt_rfc_ordenante
             // 
+            this.txt_rfc_ordenante.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txt_rfc_ordenante.Enabled = false;
             this.txt_rfc_ordenante.Location = new System.Drawing.Point(507, 95);
             this.txt_rfc_ordenante.MaxLength = 13;
             this.txt_rfc_ordenante.Name = "txt_rfc_ordenante";
             this.txt_rfc_ordenante.Size = new System.Drawing.Size(123, 22);
             this.txt_rfc_ordenante.TabIndex = 17;
-            this.txt_rfc_ordenante.Text = "(Opcional) RFC";
+            this.txt_rfc_ordenante.Text = "(OPCIONAL) RFC";
             // 
             // label12
             // 
@@ -355,13 +356,14 @@
             // 
             // txt_rfc_beneficiario
             // 
+            this.txt_rfc_beneficiario.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txt_rfc_beneficiario.Enabled = false;
             this.txt_rfc_beneficiario.Location = new System.Drawing.Point(507, 123);
             this.txt_rfc_beneficiario.MaxLength = 12;
             this.txt_rfc_beneficiario.Name = "txt_rfc_beneficiario";
             this.txt_rfc_beneficiario.Size = new System.Drawing.Size(123, 22);
             this.txt_rfc_beneficiario.TabIndex = 23;
-            this.txt_rfc_beneficiario.Text = "(Opcional) RFC.";
+            this.txt_rfc_beneficiario.Text = "(OPCIONAL) RFC.";
             // 
             // txt_moneda_pago
             // 
