@@ -175,6 +175,7 @@
             this.numVentasAbiertas.Size = new System.Drawing.Size(82, 22);
             this.numVentasAbiertas.TabIndex = 9;
             this.numVentasAbiertas.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numVentasAbiertas.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numVentasAbiertas_KeyPress);
             // 
             // numTotaldecredito
             // 
@@ -190,6 +191,7 @@
             this.numTotaldecredito.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.numTotaldecredito.Size = new System.Drawing.Size(82, 22);
             this.numTotaldecredito.TabIndex = 11;
+            this.numTotaldecredito.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numTotaldecredito_KeyPress);
             // 
             // combTotalCredito
             // 
@@ -241,6 +243,7 @@
             this.numPagoInicial.Name = "numPagoInicial";
             this.numPagoInicial.Size = new System.Drawing.Size(71, 22);
             this.numPagoInicial.TabIndex = 7;
+            this.numPagoInicial.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numPagoInicial_KeyPress);
             // 
             // label13
             // 
@@ -276,6 +279,7 @@
             this.numInteresDefecto.Name = "numInteresDefecto";
             this.numInteresDefecto.Size = new System.Drawing.Size(71, 22);
             this.numInteresDefecto.TabIndex = 5;
+            this.numInteresDefecto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numInteresDefecto_KeyPress);
             // 
             // combVentasAbiertas
             // 
@@ -454,11 +458,12 @@
             // 
             this.numMoratorio.DecimalPlaces = 2;
             this.numMoratorio.Enabled = false;
-            this.numMoratorio.Location = new System.Drawing.Point(213, 398);
+            this.numMoratorio.Location = new System.Drawing.Point(226, 398);
             this.numMoratorio.Name = "numMoratorio";
             this.numMoratorio.Size = new System.Drawing.Size(85, 20);
             this.numMoratorio.TabIndex = 3;
             this.numMoratorio.Visible = false;
+            this.numMoratorio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numMoratorio_KeyPress);
             // 
             // label12
             // 

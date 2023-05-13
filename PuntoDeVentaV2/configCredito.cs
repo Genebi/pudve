@@ -261,5 +261,61 @@ namespace PuntoDeVentaV2
                 GBControles.Enabled = false;
             }
         }
+
+        private void numVentasAbiertas_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            calculadora(sender, e);
+        }
+        private void calculadora(object sender, KeyPressEventArgs e)
+        {
+            NumericUpDown txt = (NumericUpDown)sender;
+            int calcu = 0;
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txt.Value =Convert.ToDecimal(calculadora.lCalculadora.Text);
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+                }
+            }
+        }
+
+        private void numTotaldecredito_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            calculadora(sender, e);
+        }
+
+        private void numPagoInicial_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            calculadora(sender, e);
+        }
+
+        private void numInteresDefecto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            calculadora(sender, e);
+        }
+
+        private void numMoratorio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            calculadora(sender, e);
+        }
     }
 }
