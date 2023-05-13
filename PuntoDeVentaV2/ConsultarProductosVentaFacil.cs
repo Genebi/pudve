@@ -51,7 +51,7 @@ namespace PuntoDeVentaV2
 
             CBTipo.SelectedIndex = 0;
             this.Focus();
-            using (DataTable lmao = cn.CargarDatos($"SELECT COUNT(ID) FROM detallegeneral WHERE IDUsuario = {FormPrincipal.userID} AND ChckName = 'venta_facil' AND Mostrar = 1"))
+            using (DataTable lmao = cn.CargarDatos($"SELECT COUNT(ID) FROM detallegeneral WHERE IDUsuario = {FormPrincipal.userID} AND ChckName = 'ventafacil' AND Mostrar = 1"))
             {
                 decimal ayy;
                 ayy = decimal.Parse(lmao.Rows[0][0].ToString());
@@ -67,7 +67,7 @@ namespace PuntoDeVentaV2
                 mosaicos.Columns.Add("Cat4Img", typeof(Image));
                 if (!ayy.Equals(0))
                 {
-                    DataTable cols = cn.CargarDatos($"SELECT Descripcion,ID from detallegeneral WHERE ChckName = 'venta_facil' AND IDUsuario={FormPrincipal.userID} AND Mostrar = 1");
+                    DataTable cols = cn.CargarDatos($"SELECT Descripcion,ID from detallegeneral WHERE ChckName = 'ventafacil' AND IDUsuario={FormPrincipal.userID} AND Mostrar = 1");
 
                     int l = 0;
 
