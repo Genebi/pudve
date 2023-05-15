@@ -210,16 +210,29 @@ namespace PuntoDeVentaV2
 
                     if (tipo == 2)
                     {
+                        int id_factura_princ = 0;
+                        decimal importe_pg = 0;
+
                         // Cambiar a cancelada
                         cn.EjecutarConsulta($"UPDATE Facturas SET cancelada=1, id_emp_cancela='{id_empleado}', motivo_canc='{arr_id_cancela[z][3]}', uuid_sust='{arr_id_cancela[z][4]}' WHERE ID='{arr_id_cancela[z][0]}'");
                         cn.EjecutarConsulta($"UPDATE Facturas_complemento_pago SET cancelada=1 WHERE id_factura='{arr_id_cancela[z][0]}'");
 
                         // Obtener el id de la factura principal a la que se le hace el abono
                         DataTable d_datos_cp = cn.CargarDatos(cs.obtener_datos_para_gcpago(4, Convert.ToInt32(arr_id_cancela[z][0])));
-                        DataRow r_datos_cp = d_datos_cp.Rows[0];
+                        //DataRow r_datos_cp = d_datos_cp.Rows[0];
 
-                        int id_factura_princ = Convert.ToInt32(r_datos_cp["id_factura_principal"].ToString());
-                        decimal importe_pg = Convert.ToDecimal(r_datos_cp["importe_pagado"].ToString());
+                        if(d_datos_cp.Rows.Count > 0)
+                        {
+                            foreach(DataRow r_datos_cp in d_datos_cp.Rows)
+                            {
+                                if(r_datos_cp["id_factura_principal"].ToString() != "")
+                                {
+                                    id_factura_princ = Convert.ToInt32(r_datos_cp["id_factura_principal"].ToString());
+                                    importe_pg = Convert.ToDecimal(r_datos_cp["importe_pagado"].ToString());
+                                }
+                            }
+                        }
+                        
 
                         // Verificar el comprobante para ver si no era el único que estaba por cancelar
                         DataTable d_exi_complement = cn.CargarDatos(cs.obtener_datos_para_gcpago(5, id_factura_princ));

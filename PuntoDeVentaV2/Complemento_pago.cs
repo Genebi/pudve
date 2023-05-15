@@ -99,6 +99,11 @@ namespace PuntoDeVentaV2
             string fecha_actual = f_actual.ToShortDateString();
             datetime_fecha_pago.Text = fecha_actual;
 
+            // Moneda y tipo de cambio del pago
+
+            txt_moneda_pago.Text = "MXN";
+            txt_tipo_cambio_pago.Text = "1";
+
 
             // Facturas a pagar/abonar
 
@@ -154,7 +159,7 @@ namespace PuntoDeVentaV2
                         
                         Label lb_c_total = new Label();
                         lb_c_total.Name = "lb_total" + nfila;
-                        lb_c_total.Location = new Point(97, location_y);
+                        lb_c_total.Location = new Point(105, location_y);
                         lb_c_total.Text = total_f;
 
                         TextBox txt_c_total = new TextBox();
@@ -170,7 +175,8 @@ namespace PuntoDeVentaV2
                         txt_c_moneda_dr.Location = new Point(320, location_y);
                         txt_c_moneda_dr.Size = new Size(60, 22);
                         txt_c_moneda_dr.TextAlign = HorizontalAlignment.Center;
-                        txt_c_moneda_dr.ReadOnly = true;
+                        txt_c_moneda_dr.Text = "MXN";
+                        txt_c_moneda_dr.ReadOnly = true;                        
                         txt_c_moneda_dr.Click += new EventHandler(abrir_vnt_moneda);
 
                         TextBox txt_c_tcambio_dr = new TextBox();
@@ -178,6 +184,7 @@ namespace PuntoDeVentaV2
                         txt_c_tcambio_dr.Location = new Point(390, location_y);
                         txt_c_tcambio_dr.Size = new Size(100, 22);
                         txt_c_tcambio_dr.TextAlign = HorizontalAlignment.Center;
+                        txt_c_tcambio_dr.Text = "1";
                         txt_c_tcambio_dr.Enabled = false;
                         txt_c_tcambio_dr.KeyPress += new KeyPressEventHandler(solo_decimales);
 

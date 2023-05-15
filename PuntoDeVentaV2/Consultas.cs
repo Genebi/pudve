@@ -1389,7 +1389,7 @@ namespace PuntoDeVentaV2
             }
             if (opc == 4)
             {
-                cons = $"SELECT id_factura_principal, importe_pagado FROM Facturas_complemento_pago WHERE id_factura='{dato}'";
+                cons = $"SELECT id_factura_principal, importe_pagado FROM Facturas_complemento_pago WHERE id_factura='{dato}' AND uuid!=''";
             }
             if (opc == 5)
             {
