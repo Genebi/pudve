@@ -774,68 +774,61 @@ namespace PuntoDeVentaV2
                 }
 
 
-                /*if (FormPrincipal.userNickName == "MIRI3" | FormPrincipal.userNickName == "SOLRAC")
-                {*/
-                    foreach (DataGridViewRow row in datagv_facturas.Rows)
+                foreach (DataGridViewRow row in datagv_facturas.Rows)
+                {
+                    bool estado = (bool)row.Cells["col_checkbox"].Value;
+                    string tipo_comprobante = row.Cells["col_t_comprobante"].Value.ToString();
+
+                    if (estado == true)
                     {
-                        bool estado = (bool)row.Cells["col_checkbox"].Value;
-                        string tipo_comprobante = row.Cells["col_t_comprobante"].Value.ToString();
+                        cont++;
 
-                        if (estado == true)
+                        if (tipo_comprobante == "P")
                         {
-                            cont++;
-
-                            if (tipo_comprobante == "P")
-                            {
-                                cont_pg++;
-                                mnsj_error = "No debe haber facturas de 'Pago' seleccionadas. Los complementos de pago solo se generan a facturas de 'Ingresos'.";
-                            }
+                            cont_pg++;
+                            mnsj_error = "No debe haber facturas de 'Pago' seleccionadas. Los complementos de pago solo se generan a facturas de 'Ingresos'.";
                         }
-                        else
-                        {
-                            mnsj_error = "No ha seleccionado alguna factura para complemento de pago.";
-                        }
-                    }
-
-
-                    if (cont > 0 & cont_pg == 0)
-                    {
-                        arr_id_facturas = new int[cont];
-                        int p = 0;
-
-                        foreach (DataGridViewRow row in datagv_facturas.Rows)
-                        {
-                            bool estado = (bool)row.Cells["col_checkbox"].Value;
-
-                            if (estado == true)
-                            {
-                                arr_id_facturas[p] = Convert.ToInt32(row.Cells["col_id"].Value);
-
-                                p++;
-                            }
-                        }
-
-                        int tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
-                        Complemento_pago c_pago = new Complemento_pago();
-
-                        c_pago.FormClosed += delegate
-                        {
-                            cargar_lista_facturas(tipo_factura);
-
-                            Complemento_pago_impuestos.dats_en_arr = false;
-                        };
-
-                        c_pago.ShowDialog();
                     }
                     else
                     {
-                        MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        mnsj_error = "No ha seleccionado alguna factura para complemento de pago.";
                     }
-               /* }
+                }
+
+
+                if (cont > 0 & cont_pg == 0)
+                {
+                    arr_id_facturas = new int[cont];
+                    int p = 0;
+
+                    foreach (DataGridViewRow row in datagv_facturas.Rows)
+                    {
+                        bool estado = (bool)row.Cells["col_checkbox"].Value;
+
+                        if (estado == true)
+                        {
+                            arr_id_facturas[p] = Convert.ToInt32(row.Cells["col_id"].Value);
+
+                            p++;
+                        }
+                    }
+
+                    int tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
+                    Complemento_pago c_pago = new Complemento_pago();
+
+                    c_pago.FormClosed += delegate
+                    {
+                        cargar_lista_facturas(tipo_factura);
+
+                        Complemento_pago_impuestos.dats_en_arr = false;
+                    };
+
+                    c_pago.ShowDialog();
+                }
                 else
                 {
-                    MessageBox.Show("Acción no disponible.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }*/
+                    MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
             }
 
