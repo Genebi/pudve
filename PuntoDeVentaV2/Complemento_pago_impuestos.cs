@@ -36,8 +36,6 @@ namespace PuntoDeVentaV2
         private void Complemento_pago_impuestos_Load(object sender, EventArgs e)
         {
             //id_factura = 3406;
-            //abono = 5850;
-            Console.WriteLine("INICIO");
             int x = 0;
             int fila_dr_tmp= fila_dr - 1;
 
@@ -67,7 +65,7 @@ namespace PuntoDeVentaV2
 
                             if (x == 0)
                             {
-                                txt_base0_7.Text = g_base; Console.WriteLine("base inicial=" + txt_base0_7.Text);
+                                txt_base0_7.Text = seis_decimales(Convert.ToDecimal(g_base)).ToString(); 
 
                                 if (g_tfactor == "Exento")
                                 {
@@ -91,7 +89,7 @@ namespace PuntoDeVentaV2
 
                                 //txt_importe0_6.Text = Complemento_pago.arr_impuestos[fila_dr_tmp][i][7];
 
-                                x++; Console.WriteLine("base segunda=" + txt_base0_7.Text);
+                                x++; 
                             }
                             else
                             {
@@ -108,7 +106,7 @@ namespace PuntoDeVentaV2
 
 
                                 // Base
-                                g_txt_base.Text = g_base;
+                                g_txt_base.Text = seis_decimales(Convert.ToDecimal(g_base)).ToString();
 
                                 // Es retención o traslado
                                 g_cmb_bx_es_rt.SelectedItem = g_es_rt;
@@ -135,16 +133,14 @@ namespace PuntoDeVentaV2
                                 }
 
                                 // Importe
-                                g_txt_importe.Text = g_importe;
+                                g_txt_importe.Text = seis_decimales(Convert.ToDecimal(g_importe)).ToString();
 
 
                                 x++;
                             }
-                            Console.WriteLine("base fin=" + txt_base0_7.Text);
                         }
                     }
                 }
-
             }
         }
 
@@ -169,7 +165,6 @@ namespace PuntoDeVentaV2
             decimal xml_total = Convert.ToDecimal(((XmlAttribute)c_total.GetNamedItem("Total")).Value);
 
             decimal porcentaje_abono = (abono * 100) / xml_total;
-            //Console.WriteLine("ab=" + porcentaje_abono);
 
 
             // Obtener datos de los nodos impuestos y calcular base
@@ -227,8 +222,6 @@ namespace PuntoDeVentaV2
 
                                     list_traslad_retencion.RemoveAt(indice + 1);
                                     list_traslad_retencion.Insert(indice + 1, Convert.ToString(base_pcalculos));
-
-                                    Console.WriteLine("base_pcalculos==>" + base_pcalculos);
                                 }
                                 else
                                 {
@@ -237,7 +230,6 @@ namespace PuntoDeVentaV2
                                     list_traslad_retencion.Add(cadena);
                                     list_traslad_retencion.Add(xml_base);
                                     list_traslad_retencion.Add(base_pcalculos.ToString());
-                                    Console.WriteLine("base_pcalculos=" + base_pcalculos);
                                 }
                             }
                         }
@@ -703,7 +695,6 @@ namespace PuntoDeVentaV2
 
         private void calcular_importe_ximpuesto(int nfila, string imp_def)
         {
-            float base_tmp = 0;
             string cadena = "";
             decimal porcent_impuest = 0;
 
@@ -784,7 +775,7 @@ namespace PuntoDeVentaV2
                 TextBox txt_base = (TextBox)this.Controls.Find("txt_base" + nfila + "_7", true).FirstOrDefault();
                 TextBox txt_importe_imp = (TextBox)this.Controls.Find("txt_importe" + nfila + "_6", true).FirstOrDefault();
 
-                txt_base.Text = list_traslad_retencion[indice + 2];
+                txt_base.Text = seis_decimales(Convert.ToDecimal(list_traslad_retencion[indice + 2])).ToString();
                 txt_importe_imp.Text = seis_decimales(importe_impuesto).ToString();
             }
             else
