@@ -156,11 +156,12 @@ namespace PuntoDeVentaV2
                         lb_c_folio_serie.Name = "lb_folio_serie" + nfila;
                         lb_c_folio_serie.Location = new Point(12, location_y);
                         lb_c_folio_serie.Text = r_factura["folio"].ToString() + " " + r_factura["serie"].ToString();
-                        
+
                         Label lb_c_total = new Label();
                         lb_c_total.Name = "lb_total" + nfila;
                         lb_c_total.Location = new Point(105, location_y);
-                        lb_c_total.Text = total_f;
+                        lb_c_total.TextAlign = ContentAlignment.MiddleCenter;
+                        lb_c_total.Text = total_f; 
 
                         TextBox txt_c_total = new TextBox();
                         txt_c_total.Name = "txt_total" + nfila;

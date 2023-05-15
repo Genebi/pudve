@@ -229,31 +229,32 @@ namespace PuntoDeVentaV2
                                 {
                                     id_factura_princ = Convert.ToInt32(r_datos_cp["id_factura_principal"].ToString());
                                     importe_pg = Convert.ToDecimal(r_datos_cp["importe_pagado"].ToString());
+
+
+                                    // Verificar el comprobante para ver si no era el único que estaba por cancelar
+                                    DataTable d_exi_complement = cn.CargarDatos(cs.obtener_datos_para_gcpago(5, id_factura_princ));
+                                    int cant_exi_complement = d_exi_complement.Rows.Count;
+
+
+                                    // Ver si el campo resta_pago se modifica una vez se timbra la factura principal
+                                    if (cant_exi_complement == 0)
+                                    {
+                                        // Obtiene el total de la factura principal 
+                                        DataTable d_imp_fct_p = cn.CargarDatos(cs.obtener_datos_para_gcpago(1, id_factura_princ));
+                                        DataRow r_imp_fct_p = d_imp_fct_p.Rows[0];
+
+                                        decimal importe_fct_principal = Convert.ToDecimal(r_imp_fct_p["total"].ToString());
+
+                                        cn.EjecutarConsulta($"UPDATE Facturas SET con_complementos=0, resta_cpago='{importe_fct_principal}' WHERE ID='{id_factura_princ}'");
+                                    }
+                                    else
+                                    {
+                                        cn.EjecutarConsulta($"UPDATE Facturas SET resta_cpago=resta_cpago+'{importe_pg}' WHERE ID='{id_factura_princ}'");
+                                    }
                                 }
                             }
                         }
                         
-
-                        // Verificar el comprobante para ver si no era el único que estaba por cancelar
-                        DataTable d_exi_complement = cn.CargarDatos(cs.obtener_datos_para_gcpago(5, id_factura_princ));
-                        int cant_exi_complement = d_exi_complement.Rows.Count;
-
-
-                        // Ver si el campo resta_pago se modifica una vez se timbra la factura principal
-                        if (cant_exi_complement == 0)
-                        {
-                            // Obtiene el total de la factura principal 
-                            DataTable d_imp_fct_p = cn.CargarDatos(cs.obtener_datos_para_gcpago(1, id_factura_princ));
-                            DataRow r_imp_fct_p = d_imp_fct_p.Rows[0];
-
-                            decimal importe_fct_principal = Convert.ToDecimal(r_imp_fct_p["total"].ToString());
-
-                            cn.EjecutarConsulta($"UPDATE Facturas SET con_complementos=0, resta_cpago='{importe_fct_principal}' WHERE ID='{id_factura_princ}'");
-                        }
-                        else
-                        {
-                            cn.EjecutarConsulta($"UPDATE Facturas SET resta_cpago=resta_cpago+'{importe_pg}' WHERE ID='{id_factura_princ}'");
-                        }
                     }
                 }
 
