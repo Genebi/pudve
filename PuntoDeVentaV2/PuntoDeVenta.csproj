@@ -625,7 +625,7 @@
     </Compile>
     <Compile Include="CargarDatosCaja.cs" />
     <Compile Include="Carga_logo.cs" />
-    <Compile Include="catCFDI_tdCFDI_catPagos_Pagos10.cs" />
+    <Compile Include="catCFDI_tdCFDI_catPagos_Pagos20.cs" />
     <Compile Include="categoriaSubdetalle.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1513,6 +1513,7 @@
     <Content Include="PUDVE\icon\black16\circle-yellow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\xslt\Pagos20.xslt" />
     <Content Include="ReportesImpresion\Ticket\Amortizacion\amortizacion1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

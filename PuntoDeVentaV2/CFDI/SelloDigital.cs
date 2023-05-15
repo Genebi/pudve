@@ -201,12 +201,12 @@ namespace PuntoDeVentaV2.CFDI
             //Encoding utf8 = Encoding.UTF8;
             //byte[] encodedBytes;
             StringWriter strwriter = new StringWriter();
-            if (File.Exists("cadenaoriginal_3_3.xslt"))
+            if (File.Exists("cadenaoriginal_4_0.xslt"))
             {
                 //cargamos el xslt transformer
                 try
                 {
-                    transformer.Load("cadenaoriginal_3_3.xslt");
+                    transformer.Load("cadenaoriginal_4_0.xslt");
                     //procedemos a realizar la transfomración del archivo xml en base al xslt y lo almacenamos en un string que regresaremos 
                     transformer.Transform(NombreXML, null, strwriter);
                     //convertimos la cadena a utf8 y ya esta lista para ser utilizada en el hash
@@ -219,12 +219,12 @@ namespace PuntoDeVentaV2.CFDI
                 }
             }
 
-            if (File.Exists("cadenaoriginal_3_3.xslt"))
+            if (File.Exists("cadenaoriginal_4_0.xslt"))
             {
                 //cargamos el xslt transformer
                 try
                 {
-                    transformer.Load("cadenaoriginal_3_3.xslt");
+                    transformer.Load("cadenaoriginal_4_0.xslt");
                     //procedemos a realizar la transfomración del archivo xml en base al xslt y lo almacenamos en un string que regresaremos 
                     transformer.Transform(NombreXML, null, strwriter);
                     //convertimos la cadena a utf8 y ya esta lista para ser utilizada en el hash

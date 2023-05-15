@@ -774,8 +774,8 @@ namespace PuntoDeVentaV2
                 }
 
 
-                if (FormPrincipal.userNickName == "MIRI3" | FormPrincipal.userNickName == "SOLRAC")
-                {
+                /*if (FormPrincipal.userNickName == "MIRI3" | FormPrincipal.userNickName == "SOLRAC")
+                {*/
                     foreach (DataGridViewRow row in datagv_facturas.Rows)
                     {
                         bool estado = (bool)row.Cells["col_checkbox"].Value;
@@ -831,11 +831,11 @@ namespace PuntoDeVentaV2
                     {
                         MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                }
+               /* }
                 else
                 {
                     MessageBox.Show("Acción no disponible.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                }*/
 
             }
 
@@ -870,7 +870,7 @@ namespace PuntoDeVentaV2
             // .    Deserealiza el XML ya timbrado    .
             // ........................................
 
-
+            /*
             Comprobante comprobante;
             string ruta_xml = @"C:\Archivos PUDVE\Facturas\" + nombre_xml + ".xml";
 
@@ -1118,7 +1118,7 @@ namespace PuntoDeVentaV2
                 byte[] result = converter.Convert(document);
 
                 ByteArrayToFile(result, destino_pdf);
-            }
+            }*/
 
             // .    CODIGO DE LA LIBRERIA WKHTMLTOPDF   .
             // ..........................................

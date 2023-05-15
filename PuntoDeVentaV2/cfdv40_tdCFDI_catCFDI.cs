@@ -217,8 +217,9 @@ public partial class Comprobante {
             this.impuestosField = value;
         }
     }
-    
+
     /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("Complemento")]
     public ComprobanteComplemento[] Complemento {
         get {
             return this.complementoField;
