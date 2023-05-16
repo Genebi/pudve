@@ -966,7 +966,7 @@ namespace PuntoDeVentaV2
 
                             list_impuestos_traslado.Add(impuestos_traslado);
 
-                            suma_impuesto_traslado += seis_decimales(Convert.ToDecimal(list_porprod_impuestos_trasladados[c_impt + 1]));
+                            suma_impuesto_traslado += dos_decimales(Convert.ToDecimal(list_porprod_impuestos_trasladados[c_impt + 1]));  //seis_decimales(Convert.ToDecimal(list_porprod_impuestos_trasladados[c_impt + 1]));
 
                             c_impt += 3;
                         }
