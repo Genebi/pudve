@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PuntoDeVentaV2
+namespace PuntoDeVentaV2        
 {
     public partial class AgregarDetalleFacturacionProducto : Form
     {
