@@ -101,11 +101,11 @@ namespace PuntoDeVentaV2
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(488, 132);
+            this.label6.Location = new System.Drawing.Point(486, 132);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(46, 17);
+            this.label6.Size = new System.Drawing.Size(58, 17);
             this.label6.TabIndex = 5;
-            this.label6.Text = "Definir";
+            this.label6.Text = "Definir %";
             // 
             // label7
             // 

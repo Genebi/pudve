@@ -1917,13 +1917,13 @@ namespace PuntoDeVentaV2
         {
             decimal cantidad = Decimal.Round(c, 6);
 
-            if(cantidad % 2 == 0)
+            /*if(cantidad % 2 == 0)
             {
             }
             else
-            {
+            {*/
                 cantidad = Convert.ToDecimal(cantidad.ToString(".000000"));
-            }
+           // }
 
             return cantidad;
         }
