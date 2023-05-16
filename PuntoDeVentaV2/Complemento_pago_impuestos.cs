@@ -980,11 +980,13 @@ namespace PuntoDeVentaV2
                         {
                             var tipo_tc = panel_ximp.Text;
 
+                            if (tipo_tc == "0 %") { tipo_tc = "0.000000"; }
                             if (tipo_tc == "3 %") { tipo_tc = "0.030000"; }
                             if (tipo_tc == "6 %") { tipo_tc = "0.060000"; }
                             if (tipo_tc == "7 %") { tipo_tc = "0.080000"; }
                             if (tipo_tc == "8 %") { tipo_tc = "0.080000"; }
                             if (tipo_tc == "9 %") { tipo_tc = "0.090000"; }
+                            if (tipo_tc == "16 %") { tipo_tc = "0.160000"; }
                             if (tipo_tc == "25 %") { tipo_tc = "0.250000"; }
                             if (tipo_tc == "26.5 %") { tipo_tc = "0.265000"; }
                             if (tipo_tc == "30 %") { tipo_tc = "0.300000"; }
