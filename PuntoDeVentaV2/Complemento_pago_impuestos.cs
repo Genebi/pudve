@@ -521,6 +521,17 @@ namespace PuntoDeVentaV2
 
                     cmb_bx_sig.Enabled = true;
 
+
+                    // Cálculo para cuando el tipo de impuesto es exento
+
+                    if (opcion_act == "Exento")
+                    {
+                        calcular_importe_ximpuesto(fila_im, "");
+                    }
+
+                    TextBox txt_importe = (TextBox)this.Controls.Find("txt_importe" + fila_im + "_6", true).FirstOrDefault();
+                    txt_importe.Enabled = false;
+
                 }
 
                 // ComboBox: Tasa / cuota
@@ -759,7 +770,11 @@ namespace PuntoDeVentaV2
                 else
                 {
                     cadena += opcion_tasa_cuota;
-                    porcent_impuest = Convert.ToDecimal(opcion_tasa_cuota);
+                    
+                    if(opcion_tasa_cuota != "" & opcion_tfactor != "Exento")
+                    {
+                        porcent_impuest = Convert.ToDecimal(opcion_tasa_cuota);
+                    }                    
                 }
             }
 
@@ -963,7 +978,23 @@ namespace PuntoDeVentaV2
                         }
                         if (panel_ximp.Name.Contains("cmb_bx_tc"))
                         {
-                            Complemento_pago.arr_impuestos[fila_dr_tmp][i][5] = panel_ximp.Text;
+                            var tipo_tc = panel_ximp.Text;
+
+                            if (tipo_tc == "3 %") { tipo_tc = "0.030000"; }
+                            if (tipo_tc == "6 %") { tipo_tc = "0.060000"; }
+                            if (tipo_tc == "7 %") { tipo_tc = "0.080000"; }
+                            if (tipo_tc == "8 %") { tipo_tc = "0.080000"; }
+                            if (tipo_tc == "9 %") { tipo_tc = "0.090000"; }
+                            if (tipo_tc == "25 %") { tipo_tc = "0.250000"; }
+                            if (tipo_tc == "26.5 %") { tipo_tc = "0.265000"; }
+                            if (tipo_tc == "30 %") { tipo_tc = "0.300000"; }
+                            if (tipo_tc == "30.4 %") { tipo_tc = "0.304000"; }
+                            if (tipo_tc == "50 %") { tipo_tc = "0.500000"; }
+                            if (tipo_tc == "53 %") { tipo_tc = "0.530000"; }
+                            if (tipo_tc == "53 %") { tipo_tc = "1.600000"; }
+
+                            
+                            Complemento_pago.arr_impuestos[fila_dr_tmp][i][5] = tipo_tc;
                         }
                         if (panel_ximp.Name.Contains("txt_definir"))
                         {
