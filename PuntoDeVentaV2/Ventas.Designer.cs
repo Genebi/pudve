@@ -1254,6 +1254,7 @@
             this.btn_cancelar_venta.TextColor = System.Drawing.Color.White;
             this.btn_cancelar_venta.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btn_cancelar_venta.UseVisualStyleBackColor = false;
+            this.btn_cancelar_venta.Visible = false;
             this.btn_cancelar_venta.Click += new System.EventHandler(this.botonRedondo6_Click);
             // 
             // btnBascula
