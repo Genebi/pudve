@@ -8196,7 +8196,7 @@ namespace PuntoDeVentaV2
                                     cantidadAnticipos = 0,
                                     cantidadTotalVentas = 0;
 
-                            if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString())/* && item["Credito"].ToString().Equals("0.00")*/)
+                            if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
                             {
                                 cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
                                 totalEfectivoVentaEnCaja += cantidadEfectivo;
@@ -8264,10 +8264,11 @@ namespace PuntoDeVentaV2
                             lbTCredito.Text = (cantidadCredito /*- AbonosAMisVentasACredito - AbonosAMisVentasACreditoDeOtrosUsuarios*/).ToString("C2");
                             lbTCreditoC.Text = (totalAbonoRealizado).ToString("C2");
                             lbTAnticipos.Text = cantidadAnticipos.ToString("C2");
-                            lbTVentas.Text = (cantidadEfectivo + cantidadTarjeta + cantidadVales + cantidadCheque + cantidadTransferencia + cantidadCredito).ToString("C2"); /*(cantidadCredito - (AbonosAMisVentasACredito + AbonosAMisVentasACreditoDeOtrosUsuarios)) + totalAbonoRealizado).ToString("C2");*/
+                            lbTVentas.Text = (cantidadEfectivo + cantidadTarjeta + cantidadVales + cantidadCheque + cantidadTransferencia + cantidadCredito).ToString("C2"); /*(cantidadCre(AbonosAMisVentasACredito + AbonosAMisVentasACreditoDeOtrosUsuarios)) + totalAbonoRealizado).ToString("C2");*/
                         }
                     }
                 }
+
             }
             else
             {
