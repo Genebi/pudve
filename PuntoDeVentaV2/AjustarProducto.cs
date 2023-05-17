@@ -211,19 +211,19 @@ namespace PuntoDeVentaV2
 
             if (Inventario.desdeRegresarProdcuto == 1)
             {
-                this.Opacity = 0;
-                nombreDePorducto = lbProducto.Text;
-                CantidadRegresada regreso = new CantidadRegresada();
-                regreso.ShowDialog();
-                txtCantidadCompra.Text = cantidadRegresada.ToString();
-                if (string.IsNullOrWhiteSpace(cantidadRegresada.ToString()) || cantidadRegresada == 0)
-                {
-                    this.Close();
-                }
-                else
-                {
-                    btnAceptar.PerformClick();
-                }
+                //this.Opacity = 0;
+                //nombreDePorducto = lbProducto.Text;
+                //CantidadRegresada regreso = new CantidadRegresada();
+                //regreso.ShowDialog();
+                //txtCantidadCompra.Text = cantidadRegresada.ToString();
+                //if (string.IsNullOrWhiteSpace(cantidadRegresada.ToString()) || cantidadRegresada == 0)
+                //{
+                //    this.Close();
+                //}
+                //else
+                //{
+                //    btnAceptar.PerformClick();
+                //}
 
             }
         }

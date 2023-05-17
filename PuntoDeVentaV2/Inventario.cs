@@ -36,6 +36,10 @@ namespace PuntoDeVentaV2
         public static bool aceptarFiltro = false;
         public static int AumentarDisminuir = 0;
 
+        public static string nombreProd;
+        public static string idProducto;
+        public static string totalImporte;
+
         public static decimal totalFinal = 0;
 
         public static int IDProducto;
@@ -4492,6 +4496,12 @@ namespace PuntoDeVentaV2
             cargarDatos2();
             tituloSeccion.Text = "Devolver Inventario";
             devolucion = "Devolver Inventario";
+            DevolverProductoFolio devolverProds = new DevolverProductoFolio();
+            devolverProds.FormClosed += delegate
+            {
+                txtBusqueda.Text = idProducto;
+            };
+            devolverProds.ShowDialog();
         }
 
         public void cargarDatos2()

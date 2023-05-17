@@ -237,7 +237,6 @@
             this.btnMensajeVenta.TextColor = System.Drawing.Color.White;
             this.btnMensajeVenta.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnMensajeVenta.UseVisualStyleBackColor = false;
-            this.btnMensajeVenta.Visible = false;
             this.btnMensajeVenta.Click += new System.EventHandler(this.btnMensajeVenta_Click);
             // 
             // botonRedondo1
