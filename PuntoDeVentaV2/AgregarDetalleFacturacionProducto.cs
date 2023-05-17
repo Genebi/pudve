@@ -544,6 +544,17 @@ namespace PuntoDeVentaV2
                 etiqueta2 = "tbLineaL";
             }
 
+
+            // TextBox: base
+
+            TextBox txt_base = new TextBox();
+            txt_base.Name = etiqueta2 + id + "_3";
+            txt_base.Width = 100;
+            txt_base.Height = 20;
+            txt_base.Margin = new Padding(20, 0, 0, 0);
+            txt_base.ReadOnly = true;
+            txt_base.TextAlign = HorizontalAlignment.Center;
+
             //Primer ComboBox
             ComboBox cb1 = new ComboBox();
             cb1.Name = etiqueta1 + id + "_1";
@@ -565,7 +576,7 @@ namespace PuntoDeVentaV2
             cb1.DropDownStyle = ComboBoxStyle.DropDownList;
             cb1.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
             cb1.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
-            cb1.Width = 100;
+            cb1.Width = 85;
             cb1.Margin = new Padding(15, 0, 0, 0);
 
             //Segundo ComboBox
@@ -574,7 +585,7 @@ namespace PuntoDeVentaV2
             cb2.DropDownStyle = ComboBoxStyle.DropDownList;
             cb2.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
             cb2.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
-            cb2.Width = 100;
+            cb2.Width = 70;
             cb2.Margin = new Padding(20, 0, 0, 0);
             cb2.Enabled = false;
 
@@ -584,7 +595,7 @@ namespace PuntoDeVentaV2
             cb3.DropDownStyle = ComboBoxStyle.DropDownList;
             cb3.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
             cb3.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
-            cb3.Width = 100;
+            cb3.Width = 70;
             cb3.Margin = new Padding(20, 0, 0, 0);
             cb3.Enabled = false;
 
@@ -594,14 +605,14 @@ namespace PuntoDeVentaV2
             cb4.DropDownStyle = ComboBoxStyle.DropDownList;
             cb4.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
             cb4.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
-            cb4.Width = 100;
+            cb4.Width = 70;
             cb4.Margin = new Padding(20, 0, 0, 0);
             cb4.Enabled = false;
 
             //TextBox para el porcentaje
             TextBox tb1 = new TextBox();
             tb1.Name = etiqueta2 + id + "_1"; 
-            tb1.Width = 100;
+            tb1.Width = 85;
             tb1.Height = 20;
             tb1.Margin = new Padding(20, 0, 0, 0);
             tb1.Enabled = false;
@@ -632,6 +643,7 @@ namespace PuntoDeVentaV2
             bt.Margin = new Padding(5, 0, 0, 0);
 
 
+            panelHijo.Controls.Add(txt_base);
             panelHijo.Controls.Add(cb1);
             panelHijo.Controls.Add(cb2);
             panelHijo.Controls.Add(cb3);
@@ -1332,6 +1344,27 @@ namespace PuntoDeVentaV2
              ******************************************************/
             if (numeroCB == 5)
             {
+
+               /* int nfila_actual = 0;
+                string txt_timpuest = nombre.Substring(0, 7);
+                string txt_timpuestLoc = nombre.Substring(0, 8);
+
+                if (txt_timpuestLoc == "tbLineaL" | txt_timpuestLoc == "cbLineaL")
+                {
+                    nfila_actual = Convert.ToInt32(nombre.Substring(8, 1));
+                }
+                else
+                {
+                    if (txt_timpuest == "tbLinea" | txt_timpuest == "cbLinea")
+                    {
+                        nfila_actual = Convert.ToInt32(nombre.Substring(7, 1));
+                    }
+                }
+
+                string nombre_cmb_bx_tmp = "cbLinea" + nfila_actual + "_3";
+                ComboBox cmb_bx_sig = (ComboBox)this.Controls.Find(nombre_cmb_bx_tmp, true).FirstOrDefault();
+                string opcion_ini = cmb_bx_sig.GetItemText(cmb_bx_sig.SelectedItem);*/
+
                 porcentajeSeleccionado = seleccionado;
 
                 nombre = nombre.Replace("cbLinea", "tbLinea");
@@ -1361,8 +1394,47 @@ namespace PuntoDeVentaV2
 
                     if (txtBoxBase.Text != "")
                     {
+
+                        // Se obtiene el número de fila para posterior obtener el dato elegido en el combobox de tipo factor
+
                         double precioProductoTmp = Convert.ToDouble(txtBoxBase.Text);
-                        importe = precioProductoTmp * porcentaje;
+
+                        int nfila_actual = 0;
+                        string txt_timpuest = nombre.Substring(0, 7);
+                        string txt_timpuestLoc = nombre.Substring(0, 8);
+
+                        if (txt_timpuestLoc == "tbLineaL" | txt_timpuestLoc == "cbLineaL")
+                        {
+                            nfila_actual = Convert.ToInt32(nombre.Substring(8, 1));
+                        }
+                        if (txt_timpuest == "tbLinea" | txt_timpuest == "cbLinea")
+                        {
+                            nfila_actual = Convert.ToInt32(nombre.Substring(7, 1));
+                        }
+
+                        string nombre_cmb_bx_tmp = "cbLinea" + nfila_actual + "_3";
+                        ComboBox cmb_bx_tmp = (ComboBox)this.Controls.Find(nombre_cmb_bx_tmp, true).FirstOrDefault();
+                        string opcion_timpuesto = cmb_bx_tmp.GetItemText(cmb_bx_tmp.SelectedItem);
+
+
+                        // Si el tipo de impuesto es un traslado, entonces se re-cálcula la base para el nuevo impuesto,
+                        // y sobre ella se obtiene el importe del impuesto
+
+                        if (tipoImpuesto == "Traslado" & opcion_timpuesto == "Tasa" & tipoPorcentaje == "IEPS")
+                        {
+                            string nom_campo_base = "tbLinea" + nfila_actual + "_3";
+                            double base_xfila = Convert.ToDouble(txtBoxBase.Text) / (porcentaje + 1);
+
+                            importe = base_xfila * porcentaje;
+
+
+                            TextBox txt_nueva_base = (TextBox)this.Controls.Find(nom_campo_base, true).FirstOrDefault();
+                            txt_nueva_base.Text = base_xfila.ToString("0.00");
+                        }
+                        else
+                        {
+                            importe = precioProductoTmp * porcentaje;
+                        }
 
                         TextBox tbTmp = (TextBox)this.Controls.Find(nombre, true).FirstOrDefault();
                         tbTmp.Text = importe.ToString("0.00");
