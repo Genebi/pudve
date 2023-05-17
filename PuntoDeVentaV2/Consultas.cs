@@ -1125,12 +1125,11 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                claveAgregarCleaned = Regex.Replace(claveAgregarNormalized, @"[^a-zA-Z0-9\s]", "").ToLowerInvariant();
+                claveAgregarCleaned = claveAgregarNormalized;
+
             }
             var consulta = "INSERT INTO appSettings (concepto, checkBoxConcepto, textComboBoxConcepto, checkBoxComboBoxConcepto, IDUsuario)";
             consulta += $"VALUES ('{claveAgregarCleaned}', '{claveValor}', 'chk{claveAgregarCleaned}', '{claveValor}', '{idUsuario}')";
-
-
             return consulta;
         }
 
