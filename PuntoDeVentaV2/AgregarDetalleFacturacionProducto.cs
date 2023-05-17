@@ -1344,27 +1344,6 @@ namespace PuntoDeVentaV2
              ******************************************************/
             if (numeroCB == 5)
             {
-
-               /* int nfila_actual = 0;
-                string txt_timpuest = nombre.Substring(0, 7);
-                string txt_timpuestLoc = nombre.Substring(0, 8);
-
-                if (txt_timpuestLoc == "tbLineaL" | txt_timpuestLoc == "cbLineaL")
-                {
-                    nfila_actual = Convert.ToInt32(nombre.Substring(8, 1));
-                }
-                else
-                {
-                    if (txt_timpuest == "tbLinea" | txt_timpuest == "cbLinea")
-                    {
-                        nfila_actual = Convert.ToInt32(nombre.Substring(7, 1));
-                    }
-                }
-
-                string nombre_cmb_bx_tmp = "cbLinea" + nfila_actual + "_3";
-                ComboBox cmb_bx_sig = (ComboBox)this.Controls.Find(nombre_cmb_bx_tmp, true).FirstOrDefault();
-                string opcion_ini = cmb_bx_sig.GetItemText(cmb_bx_sig.SelectedItem);*/
-
                 porcentajeSeleccionado = seleccionado;
 
                 nombre = nombre.Replace("cbLinea", "tbLinea");
@@ -1395,6 +1374,7 @@ namespace PuntoDeVentaV2
                     if (txtBoxBase.Text != "")
                     {
 
+                        // Miri.
                         // Se obtiene el número de fila para posterior obtener el dato elegido en el combobox de tipo factor
 
                         double precioProductoTmp = Convert.ToDouble(txtBoxBase.Text);
@@ -1417,6 +1397,7 @@ namespace PuntoDeVentaV2
                         string opcion_timpuesto = cmb_bx_tmp.GetItemText(cmb_bx_tmp.SelectedItem);
 
 
+                        // Miri.
                         // Si el tipo de impuesto es un traslado, entonces se re-cálcula la base para el nuevo impuesto,
                         // y sobre ella se obtiene el importe del impuesto
 
