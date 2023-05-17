@@ -163,23 +163,203 @@ namespace PuntoDeVentaV2
 
                 string[] datos;
                 int resultado = 0;
-
+                
                 //Validar que se se guarde una cantidad mayor que el total pendiente
                 if (totalPendiente > total)
                 {
                     if (!FormPrincipal.userNickName.Contains("@"))
                     {
-                        decimal cambiaso = Convert.ToDecimal(lbTotalCambio.Text.Replace("$",""));
+                        float efectivoRecibido = 0;
+                        float tarjetaRecibido = 0;
+                        float valesRecibido = 0;
+                        float chequeRecibido = 0;
+                        float transferenciaRecibido = 0;
+
+                        var datosParaAbono = cn.CargarDatos($"SELECT ( SELECT SUM(Total) FROM abonos WHERE IDVenta = '{idVenta}' ) AS totalDeAbonos, Total, (Total - ( SELECT SUM(Total) FROM abonos WHERE IDVenta = '{idVenta}' )) AS restante FROM Ventas WHERE ID = '{idVenta}'");
+                        float restanteAbono = 0;
+
+                        if (!string.IsNullOrWhiteSpace(datosParaAbono.Rows[0]["restante"].ToString()))
+                        {
+                            restanteAbono = float.Parse(datosParaAbono.Rows[0]["restante"].ToString());
+                        }
+                        else
+                        {
+                            restanteAbono = float.Parse(datosParaAbono.Rows[0]["Total"].ToString());
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(txtEfectivo.Text))
+                        {
+                            var efect = float.Parse(txtEfectivo.Text);
+                            if (efect > restanteAbono)
+                            {
+                                efectivoRecibido = float.Parse(restanteAbono.ToString());
+                                cambio = efect - restanteAbono;
+                            }
+                            else
+                            {
+                                efectivoRecibido = float.Parse(txtEfectivo.Text);
+                                restanteAbono = restanteAbono - efect;
+                                cambio = 0;
+                            }
+                        }
+                        if (!string.IsNullOrWhiteSpace(txtTarjeta.Text))
+                        {
+                            if (tarjeta > restanteAbono)
+                            {
+                                tarjetaRecibido = float.Parse(restanteAbono.ToString());
+                                cambio = tarjeta - restanteAbono;
+                            }
+                            else
+                            {
+                                tarjetaRecibido = float.Parse(txtTarjeta.Text);
+                                restanteAbono = restanteAbono - tarjeta;
+                                cambio = 0;
+                            }
+                        }
+                        if (!string.IsNullOrWhiteSpace(txtVales.Text))
+                        {
+                            if (vales > restanteAbono)
+                            {
+                                valesRecibido = float.Parse(restanteAbono.ToString());
+                                cambio = vales - restanteAbono;
+                            }
+                            else
+                            {
+                                valesRecibido = float.Parse(txtVales.Text);
+                                restanteAbono = restanteAbono - vales;
+                                cambio = 0;
+                            }
+                        }
+                        if (!string.IsNullOrWhiteSpace(txtCheque.Text))
+                        {
+                            if (cheque > restanteAbono)
+                            {
+                                chequeRecibido = float.Parse(restanteAbono.ToString());
+                                cambio = cheque - restanteAbono;
+                            }
+                            else
+                            {
+                                chequeRecibido = float.Parse(txtCheque.Text);
+                                restanteAbono = restanteAbono - cheque;
+                                cambio = 0;
+                            }
+                        }
+                        if (!string.IsNullOrWhiteSpace(txtTransferencia.Text))
+                        {
+                            if (transferencia > restanteAbono)
+                            {
+                                transferenciaRecibido = float.Parse(restanteAbono.ToString());
+                                cambio = transferencia - restanteAbono;
+                            }
+                            else
+                            {
+                                transferenciaRecibido = float.Parse(txtTransferencia.Text);
+                                restanteAbono = restanteAbono - transferencia;
+                                cambio = 0;
+                            }
+                        }
+                        total = efectivoRecibido + tarjetaRecibido + valesRecibido + chequeRecibido + transferenciaRecibido;
+
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion,"0",cambiaso.ToString(),"0","0","0","0.00"
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectivoRecibido.ToString(),tarjetaRecibido.ToString(),valesRecibido.ToString(),chequeRecibido.ToString(),transferenciaRecibido.ToString(), referencia, fechaOperacion,"0",cambio.ToString(),"0","0","0","0.00"
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
                     }
                     else
                     {
+                        float efectivoRecibido = 0;
+                        float tarjetaRecibido = 0;
+                        float valesRecibido = 0;
+                        float chequeRecibido = 0;
+                        float transferenciaRecibido = 0;
+
+                        var datosParaAbono = cn.CargarDatos($"SELECT ( SELECT SUM(Total) FROM abonos WHERE IDVenta = '{idVenta}' ) AS totalDeAbonos, Total, (Total - ( SELECT SUM(Total) FROM abonos WHERE IDVenta = '{idVenta}' )) AS restante FROM Ventas WHERE ID = '{idVenta}'");
+                        float restanteAbono = 0;
+
+                        if (!string.IsNullOrWhiteSpace(datosParaAbono.Rows[0]["restante"].ToString()))
+                        {
+                            restanteAbono = float.Parse(datosParaAbono.Rows[0]["restante"].ToString());
+                        }
+                        else
+                        {
+                            restanteAbono = float.Parse(datosParaAbono.Rows[0]["Total"].ToString());
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(txtEfectivo.Text))
+                        {
+                            var efect = float.Parse(txtEfectivo.Text);
+                            if (efect > restanteAbono)
+                            {
+                                efectivoRecibido = float.Parse(restanteAbono.ToString());
+                                cambio = efect - restanteAbono;
+                            }
+                            else
+                            {
+                                efectivoRecibido = float.Parse(txtEfectivo.Text);
+                                restanteAbono = restanteAbono - efect;
+                                cambio = 0;
+                            }
+                        }
+                        if (!string.IsNullOrWhiteSpace(txtTarjeta.Text))
+                        {
+                            if (tarjeta > restanteAbono)
+                            {
+                                tarjetaRecibido = float.Parse(restanteAbono.ToString());
+                                cambio = tarjeta - restanteAbono;
+                            }
+                            else
+                            {
+                                tarjetaRecibido = float.Parse(txtTarjeta.Text);
+                                restanteAbono = restanteAbono - tarjeta;
+                                cambio = 0;
+                            }
+                        }
+                        if (!string.IsNullOrWhiteSpace(txtVales.Text))
+                        {
+                            if (vales > restanteAbono)
+                            {
+                                valesRecibido = float.Parse(restanteAbono.ToString());
+                                cambio = vales - restanteAbono;
+                            }
+                            else
+                            {
+                                valesRecibido = float.Parse(txtVales.Text);
+                                restanteAbono = restanteAbono - vales;
+                                cambio = 0;
+                            }
+                        }
+                        if (!string.IsNullOrWhiteSpace(txtCheque.Text))
+                        {
+                            if (cheque > restanteAbono)
+                            {
+                                chequeRecibido = float.Parse(restanteAbono.ToString());
+                                cambio = cheque - restanteAbono;
+                            }
+                            else
+                            {
+                                chequeRecibido = float.Parse(txtCheque.Text);
+                                restanteAbono = restanteAbono - cheque;
+                                cambio = 0;
+                            }
+                        }
+                        if (!string.IsNullOrWhiteSpace(txtTransferencia.Text))
+                        {
+                            if (transferencia > restanteAbono)
+                            {
+                                transferenciaRecibido = float.Parse(restanteAbono.ToString());
+                                cambio = transferencia - restanteAbono;
+                            }
+                            else
+                            {
+                                transferenciaRecibido = float.Parse(txtTransferencia.Text);
+                                restanteAbono = restanteAbono - transferencia;
+                                cambio = 0;
+                            }
+                        }
+                        total = efectivoRecibido + tarjetaRecibido + valesRecibido + chequeRecibido + transferenciaRecibido;
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),"0","0","0","0","0","0.00"
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectivoRecibido.ToString(), tarjetaRecibido.ToString(), valesRecibido.ToString(), chequeRecibido.ToString(), transferenciaRecibido.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),"0",cambio.ToString(),"0","0","0","0.00"
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(datos));
@@ -188,7 +368,7 @@ namespace PuntoDeVentaV2
                     if (resultado > 0)
                     {
                         var idAbono = cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID} ORDER BY FechaOperacion DESC LIMIT 1", 1).ToString();
-                        var restante = totalPendiente - totalAbonado;
+                        restante = totalPendiente - totalAbonado;
 
                         datos = new string[] { idVenta.ToString(), idAbono, totalOriginal.ToString("0.00"), totalPendiente.ToString("0.00"), totalAbonado.ToString("0.00"), restante.ToString("0.00"), fechaOperacion };
 
@@ -241,17 +421,197 @@ namespace PuntoDeVentaV2
                 {
                     if (!FormPrincipal.userNickName.Contains("@"))
                     {
-                        //float efectivoRecibido = txtEfectivo.Text;
+                        float efectivoRecibido = 0;
+                        float tarjetaRecibido = 0;
+                        float valesRecibido = 0;
+                        float chequeRecibido = 0;
+                        float transferenciaRecibido = 0;
+
+                        var datosParaAbono = cn.CargarDatos($"SELECT ( SELECT SUM(Total) FROM abonos WHERE IDVenta = '{idVenta}' ) AS totalDeAbonos, Total, (Total - ( SELECT SUM(Total) FROM abonos WHERE IDVenta = '{idVenta}' )) AS restante FROM Ventas WHERE ID = '{idVenta}'");
+                        float restanteAbono = 0;
+
+                        if (!string.IsNullOrWhiteSpace(datosParaAbono.Rows[0]["restante"].ToString()))
+                        {
+                            restanteAbono = float.Parse(datosParaAbono.Rows[0]["restante"].ToString());
+                        }
+                        else
+                        {
+                            restanteAbono = float.Parse(datosParaAbono.Rows[0]["Total"].ToString());
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(txtEfectivo.Text))
+                        {
+                            var efect = float.Parse(txtEfectivo.Text);
+                            if (efect > restanteAbono)
+                            {
+                                efectivoRecibido = float.Parse(restanteAbono.ToString());
+                                cambio = efect - restanteAbono;
+                            }
+                            else
+                            {
+                                efectivoRecibido = float.Parse(txtEfectivo.Text);
+                                restanteAbono = restanteAbono - efect;
+                                cambio = 0;
+                            }
+                        }
+                        if (!string.IsNullOrWhiteSpace(txtTarjeta.Text))
+                        {
+                            if (tarjeta > restanteAbono)
+                            {
+                                tarjetaRecibido = float.Parse(restanteAbono.ToString());
+                                cambio = tarjeta - restanteAbono;
+                            }
+                            else
+                            {
+                                tarjetaRecibido = float.Parse(txtTarjeta.Text);
+                                restanteAbono = restanteAbono - tarjeta;
+                                cambio = 0;
+                            }
+                        }
+                        if (!string.IsNullOrWhiteSpace(txtVales.Text))
+                        {
+                            if (vales > restanteAbono)
+                            {
+                                valesRecibido = float.Parse(restanteAbono.ToString());
+                                cambio = vales - restanteAbono;
+                            }
+                            else
+                            {
+                                valesRecibido = float.Parse(txtVales.Text);
+                                restanteAbono = restanteAbono - vales;
+                                cambio = 0;
+                            }
+                        }
+                        if (!string.IsNullOrWhiteSpace(txtCheque.Text))
+                        {
+                            if (cheque > restanteAbono)
+                            {
+                                chequeRecibido = float.Parse(restanteAbono.ToString());
+                                cambio = cheque - restanteAbono;
+                            }
+                            else
+                            {
+                                chequeRecibido = float.Parse(txtCheque.Text);
+                                restanteAbono = restanteAbono - cheque;
+                                cambio = 0;
+                            }
+                        }
+                        if (!string.IsNullOrWhiteSpace(txtTransferencia.Text))
+                        {
+                            if (transferencia > restanteAbono)
+                            {
+                                transferenciaRecibido = float.Parse(restanteAbono.ToString());
+                                cambio = transferencia - restanteAbono;
+                            }
+                            else
+                            {
+                                transferenciaRecibido = float.Parse(txtTransferencia.Text);
+                                restanteAbono = restanteAbono - transferencia;
+                                cambio = 0;
+                            }
+                        }
+                        total = efectivoRecibido + tarjetaRecibido + valesRecibido + chequeRecibido + transferenciaRecibido;
+
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), totalPendiente.ToString(), (float.Parse(txtEfectivo.Text) - cambio).ToString() ,(float.Parse(txtTarjeta.Text) - cambio).ToString(), (float.Parse(txtVales.Text) - cambio).ToString(), (float.Parse(txtCheque.Text) - cambio).ToString(), (float.Parse(txtTransferencia.Text) - cambio).ToString(), referencia, fechaOperacion,"0","0","0","0","0","0.00"
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), totalPendiente.ToString(), efectivoRecibido.ToString(),tarjetaRecibido.ToString(),valesRecibido.ToString(),chequeRecibido.ToString(),transferenciaRecibido.ToString(), referencia, fechaOperacion,"0",cambio.ToString(),"0","0","0","0.00"
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
                     }
                     else
                     {
+                        float efectivoRecibido = 0;
+                        float tarjetaRecibido = 0;
+                        float valesRecibido = 0;
+                        float chequeRecibido = 0;
+                        float transferenciaRecibido = 0;
+
+                        var datosParaAbono = cn.CargarDatos($"SELECT ( SELECT SUM(Total) FROM abonos WHERE IDVenta = '{idVenta}' ) AS totalDeAbonos, Total, (Total - ( SELECT SUM(Total) FROM abonos WHERE IDVenta = '{idVenta}' )) AS restante FROM Ventas WHERE ID = '{idVenta}'");
+                        float restanteAbono = 0;
+
+                        if (!string.IsNullOrWhiteSpace(datosParaAbono.Rows[0]["restante"].ToString()))
+                        {
+                            restanteAbono = float.Parse(datosParaAbono.Rows[0]["restante"].ToString());
+                        }
+                        else
+                        {
+                            restanteAbono = float.Parse(datosParaAbono.Rows[0]["Total"].ToString());
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(txtEfectivo.Text))
+                        {
+                            var efect = float.Parse(txtEfectivo.Text);
+                            if (efect > restanteAbono)
+                            {
+                                efectivoRecibido = float.Parse(restanteAbono.ToString());
+                                cambio = efect - restanteAbono;
+                            }
+                            else
+                            {
+                                efectivoRecibido = float.Parse(txtEfectivo.Text);
+                                restanteAbono = restanteAbono - efect;
+                                cambio = 0;
+                            }
+                        }
+                        if (!string.IsNullOrWhiteSpace(txtTarjeta.Text))
+                        {
+                            if (tarjeta > restanteAbono)
+                            {
+                                tarjetaRecibido = float.Parse(restanteAbono.ToString());
+                                cambio = tarjeta - restanteAbono;
+                            }
+                            else
+                            {
+                                tarjetaRecibido = float.Parse(txtTarjeta.Text);
+                                restanteAbono = restanteAbono - tarjeta;
+                                cambio = 0;
+                            }
+                        }
+                        if (!string.IsNullOrWhiteSpace(txtVales.Text))
+                        {
+                            if (vales > restanteAbono)
+                            {
+                                valesRecibido = float.Parse(restanteAbono.ToString());
+                                cambio = vales - restanteAbono;
+                            }
+                            else
+                            {
+                                valesRecibido = float.Parse(txtVales.Text);
+                                restanteAbono = restanteAbono - vales;
+                                cambio = 0;
+                            }
+                        }
+                        if (!string.IsNullOrWhiteSpace(txtCheque.Text))
+                        {
+                            if (cheque > restanteAbono)
+                            {
+                                chequeRecibido = float.Parse(restanteAbono.ToString());
+                                cambio = chequeRecibido - restanteAbono;
+                            }
+                            else
+                            {
+                                chequeRecibido = float.Parse(txtCheque.Text);
+                                restanteAbono = restanteAbono - cheque;
+                                cambio = 0;
+                            }
+                        }
+                        if (!string.IsNullOrWhiteSpace(txtTransferencia.Text))
+                        {
+                            if (transferencia > restanteAbono)
+                            {
+                                transferenciaRecibido = float.Parse(restanteAbono.ToString());
+                                cambio = transferencia - restanteAbono;
+                            }
+                            else
+                            {
+                                transferenciaRecibido = float.Parse(txtTransferencia.Text);
+                                restanteAbono = restanteAbono - transferencia;
+                                cambio = 0;
+                            }
+                        }
+
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), (float.Parse(txtEfectivo.Text) - cambio).ToString() ,(float.Parse(txtTarjeta.Text) - cambio).ToString(), (float.Parse(txtVales.Text) - cambio).ToString(), (float.Parse(txtCheque.Text) - cambio).ToString(), (float.Parse(txtTransferencia.Text) - cambio).ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),"0","0","0","0","0","0.00"
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectivoRecibido.ToString(), tarjetaRecibido.ToString(), valesRecibido.ToString(), chequeRecibido.ToString(), transferenciaRecibido.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),"0",cambio.ToString(),"0","0","0","0.00"
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(datos));

@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -100,9 +101,53 @@ namespace PuntoDeVentaV2
 
         private void txtDefaultResponse_TextChanged(object sender, EventArgs e)
         {
-            if (txtDefaultResponse.Text.Equals("Venta fácil"))
+            ValidarEntradaDeTexto(sender, e);
+            if (txtDefaultResponse.Text.Equals("Venta facil"))
             {
                 chbVentaFacil.Checked = true;
+            }
+        }
+
+        private void ValidarEntradaDeTexto(object sender, EventArgs e)
+        {
+            var resultado = string.Empty;
+            var txtValidarTexto = (TextBox)sender;
+            resultado = txtValidarTexto.Text;
+
+            if (!string.IsNullOrWhiteSpace(resultado))
+            {
+                Regex patronCorerecto = new Regex(@"^[a-zA-Z0-9ÑñÁáÉéÍíÓóÚú]");
+
+                if (patronCorerecto.IsMatch(resultado))
+                {
+                    resultado = Regex.Replace(resultado, @"[Ñ]", "N");
+                    resultado = Regex.Replace(resultado, @"[ñ]", "n");
+                    resultado = Regex.Replace(resultado, @"[Á]", "A");
+                    resultado = Regex.Replace(resultado, @"[á]", "a");
+                    resultado = Regex.Replace(resultado, @"[É]", "E");
+                    resultado = Regex.Replace(resultado, @"[é]", "e");
+                    resultado = Regex.Replace(resultado, @"[Í]", "I");
+                    resultado = Regex.Replace(resultado, @"[í]", "i");
+                    resultado = Regex.Replace(resultado, @"[Ó]", "O");
+                    resultado = Regex.Replace(resultado, @"[ó]", "o");
+                    resultado = Regex.Replace(resultado, @"[Ú]", "U");
+                    resultado = Regex.Replace(resultado, @"[ú]", "u");
+                    txtValidarTexto.Text = resultado;
+                    txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+                }
+                else
+                {
+                    var resultadoAuxialiar = Regex.Replace(resultado, @"[^a-zA-Z0-9]", string.Empty).Trim();
+                    resultado = resultadoAuxialiar;
+                    txtValidarTexto.Text = resultado;
+                    txtValidarTexto.Focus();
+                    txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+                }
+            }
+            else
+            {
+                txtValidarTexto.Focus();
+                txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
             }
         }
 

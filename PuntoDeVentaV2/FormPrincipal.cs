@@ -531,7 +531,10 @@ namespace PuntoDeVentaV2
 
             var servidor = Properties.Settings.Default.Hosting;
 
-            
+            //quitar despues de la actualzacion del 17 de mayo del 2023
+            cn.EjecutarConsulta($"UPDATE appsettings SET concepto = 'Venta_facil', textComboBoxConcepto = 'chkVenta_facil' WHERE ( concepto = 'venta_facil' OR concepto = 'ventafacil')");
+            //quitar aqui
+
             //if (ApplicationDeployment.IsNetworkDeployed)
             //{
             //    try
