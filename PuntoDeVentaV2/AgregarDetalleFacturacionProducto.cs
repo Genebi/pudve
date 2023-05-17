@@ -529,7 +529,7 @@ namespace PuntoDeVentaV2
             FlowLayoutPanel panelHijo = new FlowLayoutPanel();
             panelHijo.Name = "panelGeneradoR" + id;
             panelHijo.Height = 25;
-            panelHijo.Width = 750;
+            panelHijo.Width = 730;
 
             string etiqueta1, etiqueta2 = null;
 
@@ -543,6 +543,17 @@ namespace PuntoDeVentaV2
                 etiqueta1 = "cbLineaL";
                 etiqueta2 = "tbLineaL";
             }
+
+
+            // TextBox: Base
+            TextBox txt_base = new TextBox();
+            txt_base.Name = etiqueta2 + id + "_3";
+            txt_base.Width = 80;
+            txt_base.Height = 20;
+            txt_base.Margin = new Padding(10, 0, 0, 0);
+            txt_base.Enabled = false;
+            txt_base.TextAlign = HorizontalAlignment.Center;
+
 
             //Primer ComboBox
             ComboBox cb1 = new ComboBox();
@@ -565,8 +576,8 @@ namespace PuntoDeVentaV2
             cb1.DropDownStyle = ComboBoxStyle.DropDownList;
             cb1.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
             cb1.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
-            cb1.Width = 100;
-            cb1.Margin = new Padding(15, 0, 0, 0);
+            cb1.Width = 80;
+            cb1.Margin = new Padding(20, 0, 0, 0);
 
             //Segundo ComboBox
             ComboBox cb2 = new ComboBox();
@@ -574,7 +585,7 @@ namespace PuntoDeVentaV2
             cb2.DropDownStyle = ComboBoxStyle.DropDownList;
             cb2.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
             cb2.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
-            cb2.Width = 100;
+            cb2.Width = 65;
             cb2.Margin = new Padding(20, 0, 0, 0);
             cb2.Enabled = false;
 
@@ -584,7 +595,7 @@ namespace PuntoDeVentaV2
             cb3.DropDownStyle = ComboBoxStyle.DropDownList;
             cb3.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
             cb3.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
-            cb3.Width = 100;
+            cb3.Width = 65;
             cb3.Margin = new Padding(20, 0, 0, 0);
             cb3.Enabled = false;
 
@@ -594,14 +605,14 @@ namespace PuntoDeVentaV2
             cb4.DropDownStyle = ComboBoxStyle.DropDownList;
             cb4.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
             cb4.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
-            cb4.Width = 100;
+            cb4.Width = 65;
             cb4.Margin = new Padding(20, 0, 0, 0);
             cb4.Enabled = false;
 
             //TextBox para el porcentaje
             TextBox tb1 = new TextBox();
             tb1.Name = etiqueta2 + id + "_1"; 
-            tb1.Width = 100;
+            tb1.Width = 80;
             tb1.Height = 20;
             tb1.Margin = new Padding(20, 0, 0, 0);
             tb1.Enabled = false;
@@ -632,6 +643,7 @@ namespace PuntoDeVentaV2
             bt.Margin = new Padding(5, 0, 0, 0);
 
 
+            panelHijo.Controls.Add(txt_base);
             panelHijo.Controls.Add(cb1);
             panelHijo.Controls.Add(cb2);
             panelHijo.Controls.Add(cb3);
@@ -1362,7 +1374,16 @@ namespace PuntoDeVentaV2
                     if (txtBoxBase.Text != "")
                     {
                         double precioProductoTmp = Convert.ToDouble(txtBoxBase.Text);
-                        importe = precioProductoTmp * porcentaje;
+
+                        if (tipoImpuesto == "Traslado" & tipoPorcentaje == "IEPS")
+                        {
+                            double base_xfila = Convert.ToDouble(txtBoxBase.Text) / (porcentaje + 1);
+                            importe = precioProductoTmp * porcentaje;
+                        }
+                        else
+                        {
+                            importe = precioProductoTmp * porcentaje;                            
+                        }
 
                         TextBox tbTmp = (TextBox)this.Controls.Find(nombre, true).FirstOrDefault();
                         tbTmp.Text = importe.ToString("0.00");
