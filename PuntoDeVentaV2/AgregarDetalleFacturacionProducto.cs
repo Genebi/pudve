@@ -1406,11 +1406,14 @@ namespace PuntoDeVentaV2
                             string nom_campo_base = "tbLinea" + nfila_actual + "_3";
                             double base_xfila = Convert.ToDouble(txtBoxBase.Text) / (porcentaje + 1);
 
+                            TextBox txt_nueva_base = (TextBox)this.Controls.Find(nom_campo_base, true).FirstOrDefault();
+
+
                             importe = base_xfila * porcentaje;
 
-
-                            TextBox txt_nueva_base = (TextBox)this.Controls.Find(nom_campo_base, true).FirstOrDefault();
                             txt_nueva_base.Text = base_xfila.ToString("0.00");
+
+                            //recalcular_precio_unitario();
                         }
                         else
                         {
@@ -1419,11 +1422,18 @@ namespace PuntoDeVentaV2
 
                         TextBox tbTmp = (TextBox)this.Controls.Find(nombre, true).FirstOrDefault();
                         tbTmp.Text = importe.ToString("0.00");
+
+
+                        if (tipoImpuesto == "Traslado" & opcion_timpuesto == "Tasa" & tipoPorcentaje == "IEPS")
+                        {
+
+                            recalcular_precio_unitario();
+                        }
                     }
                     
 
                     //Para sumar o restar la cantidad del impuesto al total final
-                    if (tipoImpuesto == "Traslado" || tipoImpuesto == "Loc. Traslado")
+                    /*if (tipoImpuesto == "Traslado" || tipoImpuesto == "Loc. Traslado")
                     {
                         var cantidad = float.Parse(txtTotal.Text) + importe;
                         txtTotal.Text = cantidad.ToString("0.00");
@@ -1433,11 +1443,12 @@ namespace PuntoDeVentaV2
                     {
                         var cantidad = float.Parse(txtTotal.Text) - importe;
                         txtTotal.Text = cantidad.ToString("0.00");
-                    }
+                    }*/
+
                 }
             }
 
-            RecalcularTotal();
+            //RecalcularTotal();
         }
         #endregion
 
@@ -2793,6 +2804,61 @@ namespace PuntoDeVentaV2
             cmb_bx_regimen_cterceros.DisplayMember = "value";
             cmb_bx_regimen_cterceros.ValueMember = "key";
 
+        }
+
+        public void recalcular_precio_unitario()
+        {
+            double nuevo_precio_unitario = Convert.ToDouble(AgregarEditarProducto.precioProducto) - Convert.ToDouble(txtIVA.Text);
+            double base_xfila = 0;
+            int fila = 1;
+            string cadena = "";
+
+
+            //Leer todos los datos de los ComboBox y TextBox que se hayan agregado para el producto
+            if (panelContenedor.Controls.Count > 0)
+            {
+                foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+                {
+                    foreach (Control item in panel.Controls.OfType<Control>())
+                    {
+                        if (item.Name.Equals("tbLinea" + fila + "_3"))
+                        {
+                            base_xfila = Convert.ToDouble(item.Text);
+                        }
+                        if (item.Name.Equals("cbLinea" + fila + "_1"))
+                        {
+                            cadena = item.Text;
+                        }
+                        if (item.Name.Equals("cbLinea" + fila + "_2"))
+                        {
+                            cadena += "-" + item.Text;
+                        }
+                        if (item.Name.Equals("cbLinea" + fila + "_3"))
+                        {
+                            cadena += "-" + item.Text;
+                        }
+                        if (item.Name.Equals("tbLinea" + fila + "_2"))
+                        {
+                            if (cadena == "Traslado-IEPS-Tasa")
+                            {
+                                if(item.Text != "")
+                                {
+                                    nuevo_precio_unitario = nuevo_precio_unitario - Convert.ToDouble(item.Text);
+                                    cadena = string.Empty;
+                                    base_xfila = 0;
+                                }
+                            }
+                        }
+
+                    }
+                   
+                }
+            }
+
+            // Precio unitario
+
+            txt_precio_unitario.Text = nuevo_precio_unitario.ToString("0.00");
+            Console.WriteLine("PU="+ txt_precio_unitario.Text);
         }
     }
 }
