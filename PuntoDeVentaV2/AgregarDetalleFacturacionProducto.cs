@@ -121,7 +121,7 @@ namespace PuntoDeVentaV2
 
         public void limpiarCampos()
         {
-            txtBoxBase.Text = "0.0";
+            txt_precio_unitario.Text = "0.0";
             txtIVA.Text = "0.0";
         }
 
@@ -191,7 +191,7 @@ namespace PuntoDeVentaV2
                 var cantidadBase = precioProducto - float.Parse(txtIVA.Text);
                 var cantidadTotal = cantidadBase + float.Parse(txtIVA.Text);
 
-                txtBoxBase.Text = cantidadBase.ToString("0.00");
+                txt_precio_unitario.Text = cantidadBase.ToString("0.00");
                 txtTotal.Text = cantidadTotal.ToString("0.00");
 
 
@@ -314,7 +314,7 @@ namespace PuntoDeVentaV2
             tasaL.Add("5 %");
             tasaL.Add("Definir %");
 
-            txtBoxBase.Text = precioProducto.ToString("N2");
+            txt_precio_unitario.Text = precioProducto.ToString("N2");
 
             // Miri
             // Incluye impuestos
@@ -872,16 +872,16 @@ namespace PuntoDeVentaV2
             AgregarEditarProducto.datosImpuestos = cadenaImpuestos;
             AgregarEditarProducto.claveProducto = txtClaveProducto.Text;
             AgregarEditarProducto.claveUnidadMedida = txtClaveUnidad.Text;
-            AgregarEditarProducto.baseProducto = txtBoxBase.Text;
+            AgregarEditarProducto.baseProducto = txt_precio_unitario.Text;
             AgregarEditarProducto.ivaProducto = txtIVA.Text;
             AgregarEditarProducto.impuestoProducto = impuesto;
 
             // Miri.
             // Agregado para que al momento de editar el producto también se guarde el impuesto que se cambio de los radio.
             
-            if(txtBoxBase.Text != "")
+            if(txt_precio_unitario.Text != "")
             {
-                tmp_edit_base = Convert.ToDouble(txtBoxBase.Text);
+                tmp_edit_base = Convert.ToDouble(txt_precio_unitario.Text);
                 tmp_edit_IVA = Convert.ToDouble(txtIVA.Text);
             }
             
@@ -1392,12 +1392,12 @@ namespace PuntoDeVentaV2
                     double porcentaje = convertir_porcentaje(Convert.ToDouble(cantidadTmp[0]), tipoPorcentaje);
                     double importe = 0;
 
-                    if (txtBoxBase.Text != "")
+                    if (txt_precio_unitario.Text != "")
                     {
 
                         // Se obtiene el número de fila para posterior obtener el dato elegido en el combobox de tipo factor
 
-                        double precioProductoTmp = Convert.ToDouble(txtBoxBase.Text);
+                        double precioProductoTmp = Convert.ToDouble(txt_precio_unitario.Text);
 
                         int nfila_actual = 0;
                         string txt_timpuest = nombre.Substring(0, 7);
@@ -1423,7 +1423,7 @@ namespace PuntoDeVentaV2
                         if (tipoImpuesto == "Traslado" & opcion_timpuesto == "Tasa" & tipoPorcentaje == "IEPS")
                         {
                             string nom_campo_base = "tbLinea" + nfila_actual + "_3";
-                            double base_xfila = Convert.ToDouble(txtBoxBase.Text) / (porcentaje + 1);
+                            double base_xfila = Convert.ToDouble(txt_precio_unitario.Text) / (porcentaje + 1);
 
                             importe = base_xfila * porcentaje;
 
@@ -1725,7 +1725,7 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            double precioProductoTmp = Convert.ToDouble(txtBoxBase.Text);
+            double precioProductoTmp = Convert.ToDouble(txt_precio_unitario.Text);
             double importe = precioProductoTmp * porcentaje;
             //double importe = precioProducto * porcentaje;
 
@@ -1921,7 +1921,7 @@ namespace PuntoDeVentaV2
 
                                         if (dato[2] == "Tasa")
                                         {
-                                            importe = Convert.ToDouble(dato[4]) * Convert.ToDouble(txtBoxBase.Text);
+                                            importe = Convert.ToDouble(dato[4]) * Convert.ToDouble(txt_precio_unitario.Text);
 
                                             if (Convert.ToDecimal(dato[4]) > 1)
                                             {
@@ -2061,9 +2061,9 @@ namespace PuntoDeVentaV2
 
             double total_nuevo = 0;
 
-            if (txtIVA.Text != "" & txtBoxBase.Text != "")
+            if (txtIVA.Text != "" & txt_precio_unitario.Text != "")
             {
-                total_nuevo = Convert.ToDouble(txtIVA.Text) + Convert.ToDouble(txtBoxBase.Text);
+                total_nuevo = Convert.ToDouble(txtIVA.Text) + Convert.ToDouble(txt_precio_unitario.Text);
             }
 
             //double total_nuevo = Convert.ToDouble(txtIVA.Text) + Convert.ToDouble(txtBoxBase.Text);
@@ -2075,7 +2075,7 @@ namespace PuntoDeVentaV2
         #region Metodo para recalcular los impuestos al cambiar de porcentaje de IVA
         private void RecalcularCambioPorcentaje()
         {
-            float cantidadBase = float.Parse(txtBoxBase.Text);
+            float cantidadBase = float.Parse(txt_precio_unitario.Text);
 
 
             //Dinamicos
@@ -2610,7 +2610,7 @@ namespace PuntoDeVentaV2
 
                         if (dato[2] == "Tasa")
                         {
-                            importe = Convert.ToDouble(dato[3]) * Convert.ToDouble(txtBoxBase.Text);
+                            importe = Convert.ToDouble(dato[3]) * Convert.ToDouble(txt_precio_unitario.Text);
 
                             if (Convert.ToDecimal(dato[3]) > 1)
                             {
@@ -2712,7 +2712,7 @@ namespace PuntoDeVentaV2
                 gbx_impuestos_radios.Enabled = false;
                 panelContenedor.Controls.Clear();
                 txtIVA.Text = string.Empty;
-                txtBoxBase.Text = string.Empty;
+                txt_precio_unitario.Text = string.Empty;
                 txtTotal.Text = string.Empty;
                 txtTotal.Enabled = false;
 

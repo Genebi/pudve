@@ -2126,7 +2126,7 @@ namespace PuntoDeVentaV2
                 if (FormDetalle != null)
                 {
                     //FormDetalle.id_producto_edit = Convert.ToInt32(idEditarProducto);
-                    FormDetalle.txtBoxBase.Text = Convert.ToDouble(precioProducto).ToString("N2");
+                    FormDetalle.txt_precio_unitario.Text = Convert.ToDouble(precioProducto).ToString("N2");
                     AgregarDetalleFacturacionProducto.ejecutarMetodos = true;
                     FormDetalle.typeOriginData = 2;
                     FormDetalle.UnidadMedida = claveUnidadMedida;
@@ -5721,7 +5721,7 @@ namespace PuntoDeVentaV2
                 if (FormDetalle != null)
                 {
                     //FormDetalle.id_producto_edit = Convert.ToInt32(idEditarProducto);
-                    FormDetalle.txtBoxBase.Text = Convert.ToDouble(precioProducto).ToString("N2");
+                    FormDetalle.txt_precio_unitario.Text = Convert.ToDouble(precioProducto).ToString("N2");
                     AgregarDetalleFacturacionProducto.ejecutarMetodos = true;
                     FormDetalle.typeOriginData = 2;
                     FormDetalle.UnidadMedida = claveUnidadMedida;
