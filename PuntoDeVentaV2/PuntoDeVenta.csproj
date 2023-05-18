@@ -2776,6 +2776,7 @@
     <Content Include="ReportesImpresion\Ticket\HistorialPrecio\ReporteHIstorialPrecio.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="ReportesImpresion\Ticket\ReporteComplementoDePago\ComplementoDePago.rdlc" />
     <EmbeddedResource Include="ReportesRetirosConceptosPorMes.resx">
       <DependentUpon>ReportesRetirosConceptosPorMes.cs</DependentUpon>
     </EmbeddedResource>
