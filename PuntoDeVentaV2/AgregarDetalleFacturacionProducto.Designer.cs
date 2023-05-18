@@ -54,7 +54,7 @@
             this.txtClaveProducto = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.txtBoxBase = new System.Windows.Forms.TextBox();
+            this.txt_precio_unitario = new System.Windows.Forms.TextBox();
             this.gbx_impuestos_radios = new System.Windows.Forms.GroupBox();
             this.rbExcento = new System.Windows.Forms.RadioButton();
             this.rb16porCiento = new System.Windows.Forms.RadioButton();
@@ -77,7 +77,7 @@
             this.txt_rfc_cterceros = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.txt_nombre_cterceros = new System.Windows.Forms.TextBox();
-            this.txt_precio_unitario = new System.Windows.Forms.TextBox();
+            this.txtBoxBase = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.gbx_impuestos_radios.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -362,17 +362,17 @@
             this.label11.TabIndex = 50;
             this.label11.Text = "Precio \r\nUnitario\r\n";
             // 
-            // txtBoxBase
+            // txt_precio_unitario
             // 
-            this.txtBoxBase.Enabled = false;
-            this.txtBoxBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxBase.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtBoxBase.Location = new System.Drawing.Point(514, 26);
-            this.txtBoxBase.Margin = new System.Windows.Forms.Padding(2);
-            this.txtBoxBase.Name = "txtBoxBase";
-            this.txtBoxBase.Size = new System.Drawing.Size(120, 26);
-            this.txtBoxBase.TabIndex = 51;
-            this.txtBoxBase.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txt_precio_unitario.Enabled = false;
+            this.txt_precio_unitario.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_precio_unitario.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.txt_precio_unitario.Location = new System.Drawing.Point(514, 26);
+            this.txt_precio_unitario.Margin = new System.Windows.Forms.Padding(2);
+            this.txt_precio_unitario.Name = "txt_precio_unitario";
+            this.txt_precio_unitario.Size = new System.Drawing.Size(120, 26);
+            this.txt_precio_unitario.TabIndex = 51;
+            this.txt_precio_unitario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // gbx_impuestos_radios
             // 
@@ -637,12 +637,13 @@
             this.txt_nombre_cterceros.Size = new System.Drawing.Size(550, 21);
             this.txt_nombre_cterceros.TabIndex = 61;
             // 
-            // txt_precio_unitario
+            // txtBoxBase
             // 
-            this.txt_precio_unitario.Location = new System.Drawing.Point(9, 109);
-            this.txt_precio_unitario.Name = "txt_precio_unitario";
-            this.txt_precio_unitario.Size = new System.Drawing.Size(90, 20);
-            this.txt_precio_unitario.TabIndex = 62;
+            this.txtBoxBase.Location = new System.Drawing.Point(9, 109);
+            this.txtBoxBase.Name = "txtBoxBase";
+            this.txtBoxBase.ReadOnly = true;
+            this.txtBoxBase.Size = new System.Drawing.Size(90, 20);
+            this.txtBoxBase.TabIndex = 62;
             // 
             // label19
             // 
@@ -660,7 +661,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(952, 637);
             this.Controls.Add(this.label19);
-            this.Controls.Add(this.txt_precio_unitario);
+            this.Controls.Add(this.txtBoxBase);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.cmb_bx_incluye_impuestos);
@@ -670,7 +671,7 @@
             this.Controls.Add(this.label12);
             this.Controls.Add(this.txtIVA);
             this.Controls.Add(this.gbx_impuestos_radios);
-            this.Controls.Add(this.txtBoxBase);
+            this.Controls.Add(this.txt_precio_unitario);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.txtClaveProducto);
@@ -751,7 +752,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtTotal;
-        public System.Windows.Forms.TextBox txtBoxBase;
+        public System.Windows.Forms.TextBox txt_precio_unitario;
         public System.Windows.Forms.TextBox txtIVA;
         private System.Windows.Forms.Button btnKeyWordSearch;
         private System.Windows.Forms.ComboBox cmb_bx_incluye_impuestos;
@@ -766,7 +767,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox txt_nombre_cterceros;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox txt_precio_unitario;
+        private System.Windows.Forms.TextBox txtBoxBase;
         private System.Windows.Forms.Label label19;
     }
 }
