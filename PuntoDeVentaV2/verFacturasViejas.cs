@@ -368,7 +368,6 @@ namespace PuntoDeVentaV2
             this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.RefreshReport();
 
-
             if (descarga)
             {
                 //Este pinche codigo asi de sencillo asi de bonito neta no salia, gpt no lo pudo hacer, no estaba en ningun lugar de google tampoco. Me lo tuve que pepenar de lo mas recondito de un foro indio jajajaj https://media.tenor.com/ThX4z7W4s6IAAAAd/fr-fr-ong.gif
@@ -382,8 +381,6 @@ namespace PuntoDeVentaV2
                 }
                 this.Close();
             }
-
-
         }
 
         public string QR()
