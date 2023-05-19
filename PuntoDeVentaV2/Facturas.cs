@@ -433,6 +433,8 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
+                        VizualizadorComplementoDePago complementoDePago = new VizualizadorComplementoDePago(ruta_archivo);
+                        complementoDePago.ShowDialog();
                         verFacturasViejas verfacNueva = new verFacturasViejas(id_factura, ReadXmlFile(ruta_archivo, "NoCertificadoSAT"), true);
                         verfacNueva.ShowDialog();
                     }

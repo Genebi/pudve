@@ -174,14 +174,18 @@ namespace PuntoDeVentaV2
                     }
 
                     // Ver PDF de factura
-                    Visualizar_factura ver_fct = new Visualizar_factura(nombre_xml);
+                    ruta_archivo = ruta_archivo.Replace("pdf", "xml");
+                    VizualizadorComplementoDePago dePago = new VizualizadorComplementoDePago(ruta_archivo);
 
-                    ver_fct.FormClosed += delegate
-                    {
-                        ver_fct.Dispose();
-                    };
+                    dePago.ShowDialog();
+                    //Visualizar_factura ver_fct = new Visualizar_factura(nombre_xml);
 
-                    ver_fct.ShowDialog();
+                    //ver_fct.FormClosed += delegate
+                    //{
+                    //    ver_fct.Dispose();
+                    //};
+
+                    //ver_fct.ShowDialog();
                 }
 
                 // Descargar factura
