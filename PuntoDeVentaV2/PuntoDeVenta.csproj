@@ -853,6 +853,12 @@
     <Compile Include="DevolverAnticipo.Designer.cs">
       <DependentUpon>DevolverAnticipo.cs</DependentUpon>
     </Compile>
+    <Compile Include="DevolverProductoFolio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DevolverProductoFolio.Designer.cs">
+      <DependentUpon>DevolverProductoFolio.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditarConceptoDinamico.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1192,6 +1198,12 @@
     </Compile>
     <Compile Include="ListaClientes.Designer.cs">
       <DependentUpon>ListaClientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListaDeProductosDevolverProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListaDeProductosDevolverProducto.Designer.cs">
+      <DependentUpon>ListaDeProductosDevolverProducto.cs</DependentUpon>
     </Compile>
     <Compile Include="ListadoAnticipos.cs">
       <SubType>Form</SubType>
@@ -2365,6 +2377,9 @@
     <EmbeddedResource Include="DevolverAnticipo.resx">
       <DependentUpon>DevolverAnticipo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DevolverProductoFolio.resx">
+      <DependentUpon>DevolverProductoFolio.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditarConceptoDinamico.resx">
       <DependentUpon>EditarConceptoDinamico.cs</DependentUpon>
     </EmbeddedResource>
@@ -2532,6 +2547,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ListaClientes.resx">
       <DependentUpon>ListaClientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListaDeProductosDevolverProducto.resx">
+      <DependentUpon>ListaDeProductosDevolverProducto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListadoAnticipos.resx">
       <DependentUpon>ListadoAnticipos.cs</DependentUpon>
