@@ -4924,7 +4924,7 @@ namespace PuntoDeVentaV2
             {
                 arr_id_env = new string[cont][];
                 c = 0;
-
+                string IDs = "";
                 foreach (DataGridViewRow row in DGVListadoVentas.Rows)
                 {
                     if (c < t)
@@ -4936,17 +4936,16 @@ namespace PuntoDeVentaV2
                             arr_id_env[en] = new string[2];
 
                             arr_id_env[en][0] = Convert.ToString(row.Cells["ID"].Value);
+                            IDs += $"{row.Cells["ID"].Value.ToString()},";
                             arr_id_env[en][1] = "";
                             en++;
                         }
                         c++;
                     }
                 }
-
-                // Formulario envío de correo
-
-                Enviar_correo correo = new Enviar_correo(arr_id_env, "nota de venta", 4);
-                correo.ShowDialog();
+                IDs = IDs.TrimEnd(',');
+                EnvioDeNotaDeVentaCorreo ventaCorreo = new EnvioDeNotaDeVentaCorreo(IDs);
+                ventaCorreo.ShowDialog();
             }
             else
             {

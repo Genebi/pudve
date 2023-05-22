@@ -209,6 +209,12 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PdfSharp, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.Charting.dll</HintPath>
+    </Reference>
     <Reference Include="RazorEngine, Version=3.10.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
       <HintPath>..\packages\RazorEngine.3.10.0\lib\net45\RazorEngine.dll</HintPath>
       <Private>True</Private>
@@ -925,6 +931,12 @@
     <Compile Include="EnvioDeCorreo.Designer.cs">
       <DependentUpon>EnvioDeCorreo.cs</DependentUpon>
     </Compile>
+    <Compile Include="EnvioDeNotaDeVentaCorreo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EnvioDeNotaDeVentaCorreo.Designer.cs">
+      <DependentUpon>EnvioDeNotaDeVentaCorreo.cs</DependentUpon>
+    </Compile>
     <Compile Include="EscogerTipoRespaldo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1320,6 +1332,12 @@
       <DependentUpon>OpcionesReporteVentas.cs</DependentUpon>
     </Compile>
     <Compile Include="Paginar.cs" />
+    <Compile Include="ParaMandarRDLCCorreo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ParaMandarRDLCCorreo.Designer.cs">
+      <DependentUpon>ParaMandarRDLCCorreo.cs</DependentUpon>
+    </Compile>
     <Compile Include="PedidoPorProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2386,6 +2404,9 @@
     <EmbeddedResource Include="EnvioDeCorreo.resx">
       <DependentUpon>EnvioDeCorreo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EnvioDeNotaDeVentaCorreo.resx">
+      <DependentUpon>EnvioDeNotaDeVentaCorreo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EscogerTipoRespaldo.resx">
       <DependentUpon>EscogerTipoRespaldo.cs</DependentUpon>
     </EmbeddedResource>
@@ -2577,6 +2598,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OpcionesReporteVentas.resx">
       <DependentUpon>OpcionesReporteVentas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ParaMandarRDLCCorreo.resx">
+      <DependentUpon>ParaMandarRDLCCorreo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PedidoPorProducto.resx">
       <DependentUpon>PedidoPorProducto.cs</DependentUpon>

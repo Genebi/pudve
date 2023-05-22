@@ -188,7 +188,7 @@
             this.btnHistorialPrecios.Name = "btnHistorialPrecios";
             this.btnHistorialPrecios.Size = new System.Drawing.Size(156, 99);
             this.btnHistorialPrecios.TabIndex = 110;
-            this.btnHistorialPrecios.Text = "Historial de Precios";
+            this.btnHistorialPrecios.Text = "Historial de Precios Venta";
             this.btnHistorialPrecios.TextColor = System.Drawing.Color.White;
             this.btnHistorialPrecios.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnHistorialPrecios.UseVisualStyleBackColor = false;
