@@ -383,7 +383,7 @@
             this.listaProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listaProductos.FormattingEnabled = true;
             this.listaProductos.ItemHeight = 16;
-            this.listaProductos.Location = new System.Drawing.Point(0, 45);
+            this.listaProductos.Location = new System.Drawing.Point(0, 44);
             this.listaProductos.Name = "listaProductos";
             this.listaProductos.Size = new System.Drawing.Size(583, 116);
             this.listaProductos.TabIndex = 12;

@@ -211,6 +211,9 @@ namespace PuntoDeVentaV2
 
             if (Inventario.desdeRegresarProdcuto == 1)
             {
+                txtCantidadCompra.Text = Inventario.cantidadComprada;
+                txtPrecio.Text = Inventario.totalImporte;
+                SendKeys.Send("{ENTER}");
                 //this.Opacity = 0;
                 //nombreDePorducto = lbProducto.Text;
                 //CantidadRegresada regreso = new CantidadRegresada();
@@ -283,7 +286,7 @@ namespace PuntoDeVentaV2
             var precioActual = cn.CargarDatos($"SELECT Precio FROM productos WHERE ID = '{IDProducto}'");
             decimal precioAct = Convert.ToDecimal(precioActual.Rows[0]["Precio"].ToString());
             decimal nuevoPrec = Convert.ToDecimal(txtPrecio.Text.Replace("$",""));
-            if (precioAct != nuevoPrec)
+            if (precioAct != nuevoPrec && Inventario.desdeRegresarProdcuto == 0)
             {
                 DialogResult result = MessageBox.Show("El precio de venta cambio. Esto eliminará todos los descuentos del producto desea continuar?.", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -441,8 +444,10 @@ namespace PuntoDeVentaV2
                 // Actualizamos el precio de la tabla Productos
                 precioProducto = precioAux;
 
-
-                cn.EjecutarConsulta($"UPDATE Productos SET Precio = '{precioProducto}' WHERE ID = {IDProducto} AND IDUsuario = {FormPrincipal.userID}");
+                if (Inventario.desdeRegresarProdcuto != 1)
+                {
+                    cn.EjecutarConsulta($"UPDATE Productos SET Precio = '{precioProducto}' WHERE ID = {IDProducto} AND IDUsuario = {FormPrincipal.userID}");
+                }
 
             }
 

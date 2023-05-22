@@ -39,6 +39,11 @@ namespace PuntoDeVentaV2
         public static string nombreProd;
         public static string idProducto;
         public static string totalImporte;
+        public static string cantidadComprada;
+        int devolucionDeCombo = 0;
+        decimal nuevaDifStock = 0;
+        public static bool cancelarPresionado = false;
+
 
         public static decimal totalFinal = 0;
 
@@ -742,24 +747,39 @@ namespace PuntoDeVentaV2
                                 }
                                 else if (datosCombo.Count() > 1)
                                 {
-                                    List<string> nombresProductos = new List<string>();
-                                    string[] str;
-
-                                    idProducto = 0;
-
-                                    foreach (var item in datosCombo)
+                                    if (desdeRegresarProdcuto == 1)
                                     {
-                                        str = item.Split('|');
-                                        nombresProductos.Add(str[2].ToString() + "\n");
+                                        devolucionDeCombo = 1;
+                                        foreach (string dato in datosCombo)
+                                        {
+                                            string[] datosProdSeparados = dato.Split('|');
+                                            var cbProductos = cn.CargarDatos($"SELECT CodigoBarras FROM productos WHERE ID = {datosProdSeparados[1]}");
+                                            txtBusqueda.Text = cbProductos.Rows[0]["CodigoBarras"].ToString();
+                                            nuevaDifStock = Convert.ToDecimal(datosProdSeparados[3]);
+                                            SendKeys.SendWait("{ENTER}");
+                                        }
                                     }
+                                    else
+                                    {
+                                        List<string> nombresProductos = new List<string>();
+                                        string[] str;
 
-                                    var message = string.Join(Environment.NewLine, nombresProductos);
+                                        idProducto = 0;
 
-                                    nombresProductos.Clear();
+                                        foreach (var item in datosCombo)
+                                        {
+                                            str = item.Split('|');
+                                            nombresProductos.Add(str[2].ToString() + "\n");
+                                        }
 
-                                    MessageBox.Show("Resultado del Código o Clave buscada pertenece a un Paquete;\nel cual contiene más de un Producto por favor debe de realizar\nla actualización de cada uno de ellos:\n\n" + message,
-                                                    "Aviso de Actualziación", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    return;
+                                        var message = string.Join(Environment.NewLine, nombresProductos);
+
+                                        nombresProductos.Clear();
+
+                                        MessageBox.Show("Resultado del Código o Clave buscada pertenece a un Paquete;\nel cual contiene más de un Producto por favor debe de realizar\nla actualización de cada uno de ellos:\n\n" + message,
+                                                        "Aviso de Actualziación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        return;
+                                    }
                                 }
                             }
                         }
@@ -818,7 +838,14 @@ namespace PuntoDeVentaV2
                             suma = getSuma;
                             resta = getResta;
                             stockAnterior = getStockAnterior;
-                            AgregarProductoDGV(producto);
+                            if (producto[5].Equals("P"))
+                            {
+                                AgregarProductoDGV(producto);
+                            }
+                            else
+                            {
+                                cn.EjecutarConsulta($"UPDATE productos SET Stock = 0 WHERE ID = {idProducto}");
+                            }
                             botonAceptar = false;
                             idProductoDelCombo.Clear();
                         }
@@ -826,7 +853,6 @@ namespace PuntoDeVentaV2
                         {
                             cargarDatos2();
                         }
-                       
                     };
 
                     if (idProductoDelCombo.Count > 1)
@@ -853,7 +879,8 @@ namespace PuntoDeVentaV2
                     }
                     if (desdeRegresarProdcuto == 1)
                     {
-                       cargarDatos2();
+                       
+                        cargarDatos2();
                     }
                     ap.ShowDialog();
                 }
@@ -1014,6 +1041,7 @@ namespace PuntoDeVentaV2
 
         private void CargarDatosProducto()
         {
+            devolucionDeCombo = 0;
             ocultarResultados();
             txtBusqueda.Text = "";
             txtBusqueda.Focus();
@@ -1143,11 +1171,20 @@ namespace PuntoDeVentaV2
 
                 string[] datosAumentarInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario, FormPrincipal.userID.ToString(), idEmplado, empleadoFinal };
                 int dev = 0;
+
                 if (Inventario.desdeRegresarProdcuto == 1)
                 {
                     dev = 1;
+                    datosAumentarInventario[5] = totalImporte;
                     datosAumentarInventario[10] = "2";
                 }
+                if (Inventario.desdeRegresarProdcuto == 1 && devolucionDeCombo == 1)
+                {
+                    datosAumentarInventario[3] = (nuevaDifStock * Convert.ToDecimal(cantidadComprada)).ToString(); //Aqui se calcula la cantidad de prodcuto asociado al combo que se va devolver 
+                    datosAumentarInventario[4] = (Convert.ToDecimal(stockActual) + (nuevaDifStock * Convert.ToDecimal(cantidadComprada))).ToString(); //Recalcula la cantidad que va tener el Stock.
+                    datosAumentarInventario[5] = (Convert.ToDecimal(precio) / Convert.ToDecimal(cantidadComprada)).ToString(); //Calcula el precio de venta del producto por Unidad
+                }
+                var tipoDeProd = cn.CargarDatos($"SELECT ");
                 var insertAumentarInventario = cs.InsertIntoAumentarInventario(datosAumentarInventario, dev);
                 cn.EjecutarConsulta(insertAumentarInventario);
 
@@ -1171,14 +1208,6 @@ namespace PuntoDeVentaV2
                             row.Cells["DiferenciaUnidades"].Style.Font = new System.Drawing.Font(DGVInventario.Font, FontStyle.Bold);
                             row.Cells["NuevoStock"].Value = dr["NuevoStock"].ToString();
                             row.Cells["IDTabla"].Value = dr["ID"].ToString();
-                            //if (!dr["ValorUnitario"].ToString().Equals("0.00"))
-                            //{
-                            //    row.Cells["Precio"].Value = dr["ValorUnitario"].ToString();
-                            //}
-                            //else if (dr["ValorUnitario"].ToString().Equals("0.00"))
-                            //{
-                            //    row.Cells["Precio"].Value = dr["Precio"].ToString();
-                            //}
                             row.Cells["Precio"].Value = dr["Precio"].ToString();
                             row.Cells["Clave"].Value = dr["Clave"].ToString();
                             row.Cells["Codigo"].Value = dr["Codigo"].ToString();
@@ -4499,7 +4528,12 @@ namespace PuntoDeVentaV2
             DevolverProductoFolio devolverProds = new DevolverProductoFolio();
             devolverProds.FormClosed += delegate
             {
-                txtBusqueda.Text = idProducto;
+                if (!cancelarPresionado)
+                {
+                    var cbProductos = cn.CargarDatos($"SELECT CodigoBarras FROM productos WHERE ID = {idProducto}");
+                    txtBusqueda.Text = cbProductos.Rows[0]["CodigoBarras"].ToString();
+                    SendKeys.Send("{ENTER}");
+                }
             };
             devolverProds.ShowDialog();
         }
