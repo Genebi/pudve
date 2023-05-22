@@ -121,8 +121,9 @@ namespace PuntoDeVentaV2
 
         public void limpiarCampos()
         {
-            txt_precio_unitario.Text = "0.0";
+            txtBoxBase.Text = "0.0";            
             txtIVA.Text = "0.0";
+            txt_precio_unitario.Text = "0.0";
         }
 
         public void checarRadioButtons()
@@ -152,12 +153,16 @@ namespace PuntoDeVentaV2
 
             double porcentajeTmp = 0;
             double precioTmp = 0;
+            double nva_base = 0;
 
             if (rb0porCiento.Checked == true)
             {
                 porcentaje = 0;
                 totalProcentaje = precioProducto * porcentaje;
+                nva_base = precioProducto - totalProcentaje;
+
                 txtIVA.Text = totalProcentaje.ToString("N2");
+                txtBoxBase.Text = nva_base.ToString();
             }
             else if (rb8porCiento.Checked == true)
             {
@@ -166,8 +171,10 @@ namespace PuntoDeVentaV2
 
                 precioTmp = precioProducto / porcentajeTmp;
                 totalProcentaje = precioTmp * porcentaje;
+                nva_base = precioProducto - totalProcentaje;
 
                 txtIVA.Text = totalProcentaje.ToString("N2");
+                txtBoxBase.Text = nva_base.ToString();
             }
             else if (rb16porCiento.Checked == true)
             {
@@ -176,14 +183,19 @@ namespace PuntoDeVentaV2
 
                 precioTmp = precioProducto / porcentajeTmp;
                 totalProcentaje = precioTmp * porcentaje;
+                nva_base = precioProducto - totalProcentaje;
 
                 txtIVA.Text = totalProcentaje.ToString("N2");
+                txtBoxBase.Text = nva_base.ToString();
             }
             else if (rbExcento.Checked == true)
             {
                 porcentaje = 0;
                 totalProcentaje = precioProducto * porcentaje;
+                nva_base = precioProducto - totalProcentaje;
+
                 txtIVA.Text = totalProcentaje.ToString("N2");
+                txtBoxBase.Text = nva_base.ToString();
             }
 
             if (!string.IsNullOrEmpty(txtIVA.Text))
@@ -192,6 +204,7 @@ namespace PuntoDeVentaV2
                 var cantidadTotal = cantidadBase + float.Parse(txtIVA.Text);
 
                 txt_precio_unitario.Text = cantidadBase.ToString("0.00");
+                txtBoxBase.Text = cantidadBase.ToString("0.00");
                 txtTotal.Text = cantidadTotal.ToString("0.00");
 
 
@@ -314,6 +327,7 @@ namespace PuntoDeVentaV2
             tasaL.Add("5 %");
             tasaL.Add("Definir %");
 
+            //txtBoxBase.Text = precioProducto.ToString("N2");
             txt_precio_unitario.Text = precioProducto.ToString("N2");
 
             // Miri
@@ -678,6 +692,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            recalcular_precio_unitario();
             RecalcularTotal();
         }
 
@@ -1378,7 +1393,7 @@ namespace PuntoDeVentaV2
                         // Se obtiene el número de fila para posterior obtener el dato elegido en el combobox de tipo factor
 
                         double precioProductoTmp = Convert.ToDouble(txt_precio_unitario.Text);
-
+                        double base_xfila = 0;
                         int nfila_actual = 0;
                         string txt_timpuest = nombre.Substring(0, 7);
                         string txt_timpuestLoc = nombre.Substring(0, 8);
@@ -1396,6 +1411,8 @@ namespace PuntoDeVentaV2
                         ComboBox cmb_bx_tmp = (ComboBox)this.Controls.Find(nombre_cmb_bx_tmp, true).FirstOrDefault();
                         string opcion_timpuesto = cmb_bx_tmp.GetItemText(cmb_bx_tmp.SelectedItem);
 
+                        
+
 
                         // Miri.
                         // Si el tipo de impuesto es un traslado, entonces se re-cálcula la base para el nuevo impuesto,
@@ -1403,22 +1420,64 @@ namespace PuntoDeVentaV2
 
                         if (tipoImpuesto == "Traslado" & opcion_timpuesto == "Tasa" & tipoPorcentaje == "IEPS")
                         {
-                            string nom_campo_base = "tbLinea" + nfila_actual + "_3";
-                            double base_xfila = Convert.ToDouble(txt_precio_unitario.Text) / (porcentaje + 1);
-
-                            TextBox txt_nueva_base = (TextBox)this.Controls.Find(nom_campo_base, true).FirstOrDefault();
-
-
-                            importe = base_xfila * porcentaje;
-
-                            txt_nueva_base.Text = base_xfila.ToString("0.00");
-
-                            //recalcular_precio_unitario();
+                            base_xfila = Convert.ToDouble(txt_precio_unitario.Text) / (porcentaje + 1);
                         }
-                        else
+
+                        // Miri.
+                        // Si el tipo de impuesto es una retención, entonces se toma la base de los traslados, y sobre esa se obtiene el importe del impuesto
+
+                        /*if (tipoImpuesto == "Retención" & opcion_timpuesto == "Tasa" & tipoPorcentaje == "IEPS")
                         {
-                            importe = precioProductoTmp * porcentaje;
-                        }
+                            // Busca el ultimo IEPS agregado para tomar la base como ca
+                            if (panelContenedor.Controls.Count > 0)
+                            {
+                                foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+                                {
+                                    foreach (Control item in panel.Controls.OfType<Control>())
+                                    {
+                                        if (item.Name.Equals("tbLinea" + fila + "_3"))
+                                        {
+                                            base_xfila = Convert.ToDouble(item.Text);
+                                        }
+                                        if (item.Name.Equals("cbLinea" + fila + "_1"))
+                                        {
+                                            cadena = item.Text;
+                                        }
+                                        if (item.Name.Equals("cbLinea" + fila + "_2"))
+                                        {
+                                            cadena += "-" + item.Text;
+                                        }
+                                        if (item.Name.Equals("cbLinea" + fila + "_3"))
+                                        {
+                                            cadena += "-" + item.Text;
+                                        }
+                                        if (item.Name.Equals("tbLinea" + fila + "_2"))
+                                        {
+                                            if (cadena == "Traslado-IEPS-Tasa")
+                                            {
+                                                if (item.Text != "")
+                                                {
+                                                    nuevo_precio_unitario = nuevo_precio_unitario - Convert.ToDouble(item.Text);
+                                                    cadena = string.Empty;
+                                                    base_xfila = 0;
+                                                }
+                                            }
+                                        }
+
+                                    }
+
+                                }
+                            }
+                            base_xfila = Convert.ToDouble(txtBoxBase.Text) / (porcentaje + 1);
+
+                        }*/
+
+                        importe = base_xfila * porcentaje;
+
+                        string nom_campo_base = "tbLinea" + nfila_actual + "_3";
+                        TextBox txt_nueva_base = (TextBox)this.Controls.Find(nom_campo_base, true).FirstOrDefault();
+                        txt_nueva_base.Text = base_xfila.ToString("0.00");
+
 
                         TextBox tbTmp = (TextBox)this.Controls.Find(nombre, true).FirstOrDefault();
                         tbTmp.Text = importe.ToString("0.00");
@@ -1448,7 +1507,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            //RecalcularTotal();
+            RecalcularTotal();
         }
         #endregion
 
@@ -1526,45 +1585,7 @@ namespace PuntoDeVentaV2
 
         /*private float CantidadPorcentaje(string sCantidad)
         {
-            int longitud = sCantidad.Length;
-
-            float resultado = 0;
-
-            //Si la cantidad por defecto es una cifra de dos digitos o mas
-            if (longitud > 1)
-            {
-                //Si contiene punto la convertimos en array
-                if (sCantidad.Contains('.'))
-                {
-                    string[] valorTmp = sCantidad.Split('.');
-
-                    //Si es la cantidad de 1.600000 entrara aqui
-                    if (valorTmp[0] == "1")
-                    {
-                        resultado = float.Parse(sCantidad);
-
-                    }
-                    else
-                    {
-                        sCantidad = sCantidad.Replace(".", "");
-                        sCantidad = "0." + sCantidad;
-
-                        resultado = float.Parse(sCantidad);
-                    }
-                }
-                else
-                {
-                    sCantidad = "0." + sCantidad;
-                    resultado = float.Parse(sCantidad);
-                }
-            }
-            else
-            {
-                sCantidad = "0.0" + sCantidad;
-                resultado = float.Parse(sCantidad);
-            }
-            
-            return resultado;
+           
         }
 */         
 
@@ -2707,6 +2728,7 @@ namespace PuntoDeVentaV2
                 txt_precio_unitario.Text = string.Empty;
                 txtTotal.Text = string.Empty;
                 txtTotal.Enabled = false;
+                txtBoxBase.Text = string.Empty;
 
                 rb0porCiento.Checked = false;
                 rb8porCiento.Checked = false;
@@ -2809,7 +2831,6 @@ namespace PuntoDeVentaV2
         public void recalcular_precio_unitario()
         {
             double nuevo_precio_unitario = Convert.ToDouble(AgregarEditarProducto.precioProducto) - Convert.ToDouble(txtIVA.Text);
-            double base_xfila = 0;
             int fila = 1;
             string cadena = "";
 
@@ -2821,13 +2842,10 @@ namespace PuntoDeVentaV2
                 {
                     foreach (Control item in panel.Controls.OfType<Control>())
                     {
-                        if (item.Name.Equals("tbLinea" + fila + "_3"))
-                        {
-                            base_xfila = Convert.ToDouble(item.Text);
-                        }
                         if (item.Name.Equals("cbLinea" + fila + "_1"))
                         {
                             cadena = item.Text;
+                            fila = Convert.ToInt32(item.Name.Substring(7, 1));
                         }
                         if (item.Name.Equals("cbLinea" + fila + "_2"))
                         {
@@ -2845,7 +2863,6 @@ namespace PuntoDeVentaV2
                                 {
                                     nuevo_precio_unitario = nuevo_precio_unitario - Convert.ToDouble(item.Text);
                                     cadena = string.Empty;
-                                    base_xfila = 0;
                                 }
                             }
                         }
